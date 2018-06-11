@@ -1,0 +1,25 @@
+/*  Dropdown down arrow css
+    -------------------------------------------------------------------------------------------*/
+
+.dropdown-toggle::after {
+    font-family: 'themify';
+    content: "\e64b";
+    border: none;
+    position: relative;
+    top: 1px;
+    right: 0;
+    padding: 0 2px 0 6px;
+    margin: 0 0.3em 0 0;
+    vertical-align: 0;
+    font-size: 0.6rem;
+    font-weight: 700;
+}
+.main-menu{
+    .dropdown-item{
+        &.active{
+            background: none;
+            padding-left: 20px !important;
+            transition: all .5s ease;
+        }
+    }
+}

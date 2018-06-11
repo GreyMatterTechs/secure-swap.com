@@ -1,0 +1,761 @@
+/*	Template level css needed for all counter pages
+* 	----------------------------------------------------------------------------------------------*/
+
+p{
+	color: $grey-accent3;	
+	&.content-desc{
+		color: $grey-accent2;
+	}
+}
+.bg-color {
+	background-color: $section-bg;
+}
+
+// Vertical Social bar
+.vertical-social {
+	.midnightHeader {
+		&.default {
+			background: #A34FFE;
+			ul{
+				li{
+					a{
+						color: #fff;
+						opacity: 1;
+						&:hover{
+							opacity: 0.75;
+						}
+					}
+				}
+			}
+		}
+		&.white {
+			background: #fff;
+			ul{
+				li{
+					a{
+						color: #000;
+					}
+				}
+			}
+		}
+	}
+}
+// Main Navigation Area
+#navigation{
+  // Sliding Underline
+  #slide-line{
+    background-color: $btn-gradient-orange-1;
+
+  }
+}
+// Problem & solution bg image
+.problem-solution {
+	position: relative;
+	&:before {
+		content: "";
+		background: url("../../theme-assets/images/solutions-shape-2.png") no-repeat;
+		height: 243px;
+		width: 297px;
+		position: absolute;
+		left: 0;
+		top: 63%;
+	}
+	&:after {
+		content: "";
+		background: url("../../theme-assets/images/solutions-shape-1.png") no-repeat top right;
+		height: 277px;
+		width: 370px;
+		position: absolute;
+		top: 8%;
+		right:0;
+	}
+}
+
+// Contact bg image
+.contact {
+	&:before {
+		content: "";
+		background: url("../../theme-assets/images/contact-shape-2.png") no-repeat;
+		height: 324px;
+		width: 395px;
+		position: absolute;
+		left: 0;
+		top: 63%;
+		z-index: 0;
+	}
+	&:after {
+		content: "";
+		background: url("../../theme-assets/images/contact-shape-1.png") no-repeat top right;
+		height: 595px;
+		width: 568px;
+		position: absolute;
+		top: 8%;
+		right: 0;
+		z-index: 0;
+	}
+}
+
+.ico-modal{
+	.close {
+		position:absolute;
+		right:0;
+		top:-30px;
+		z-index:999;
+		font-size:2rem;
+		font-weight: normal;
+		color:#fff;
+		opacity:1;
+	}
+}
+
+
+// Large devices (desktops, less than 1500px)
+@media (min-width: 1200px) and (max-width: 1499.98px) {
+	.head-area {
+		.logo-wrapper{
+			margin-left: -2.5rem !important;
+		}
+		.head-content{
+			&::after{
+				background-size: 70%;
+			}
+			.banner-content{
+				h1{
+					font-size: 2.25rem;
+				}
+				h3{
+					padding-top: 2rem !important;
+				}
+			}
+		}
+	}
+}
+
+// Large devices (desktops, 992px and up)
+// (min-width: 992px) and (max-width: 1199.98px)
+@include media-breakpoint-only(lg) {
+	.head-area {
+		.logo-wrapper{
+			margin: 1rem auto 0 auto !important;
+			width: 18.35rem;
+			height: 18.35rem;
+			border-radius: 10rem;
+			.crypto-logo {
+				width: 16.87rem;
+				height: 16.87rem;
+				border-radius: 10rem;
+				top: 0.75rem;
+				left: -2.25rem;
+
+				.crypto-logo-img{
+					width: 120px;
+				}
+			}
+		}
+		.head-content{
+			&::after{
+				background-size: 60%;
+			}
+			.banner-content{
+				padding-top: 5rem !important;
+				h1, h3{
+					font-size: 2rem;
+				}	
+				h3{
+					padding-top: 2rem !important; 
+				}
+			}
+		}
+	}
+	.about {
+		.content-area {
+			.what-is-crypto-img {
+				img {
+					width: 450px;
+				}
+			}
+			.play-video {
+				left: 54%;
+			}
+		}
+	}
+	.blog {
+		.border-dash {
+			height: 42%;
+			.card-body{
+				.blog-content {
+					width: 50%;
+				}
+			}
+		}
+	}
+}
+
+// Responsive navbar for medium and small screen
+@include media-breakpoint-down(md) {	
+	.main-menu.navbar {
+		&.navbar-absolute.open {
+			background: darken($header-gradient2, 1%);		   	
+		}
+		.dropdown-menu {			
+			background: lighten($header-gradient2, 5%);
+			box-shadow: none;
+			
+			a{
+				color: $white;
+			}
+		}		
+	}
+	.faq .nav.nav-underline a{
+		font-size: 1rem;
+	}
+}
+
+// Medium devices (tablets, 768px and up)
+// (min-width: 768px) and (max-width: 991.98px)
+@include media-breakpoint-only(md) {
+	.banner-content{
+		padding-top: 1.5rem !important;
+		text-align:center;
+		h1, h3{
+			font-size: 1.5rem;
+		}
+		h3{
+			padding-top: 1rem !important; 
+		}
+		.btn{
+			font-size: 0.8rem;
+			padding: 0.8rem;
+		}
+	}
+	.head-area {
+		.head-content{
+			&:after{
+				content: none;
+			}
+			.logo-wrapper{
+				margin: 1rem auto 0 auto !important;
+				width: 15.35rem;
+				height: 15.35rem;
+				border-radius: 10rem;
+				.crypto-logo {
+					width: 13.87rem;
+					height: 13.87rem;
+					border-radius: 10rem;
+					top: 0.75rem;
+					left: -2.25rem;
+
+					.crypto-logo-img{
+						width: 100px;
+					}
+				}
+			}
+			.loading-bar{
+				margin: 0 auto !important;
+			}
+			.progress{
+				height: 1.5rem;
+				.progress-bar-custom{
+					height: 1rem;
+				}
+			}
+			.progress-bottom{
+				bottom: 0.3rem;
+				.progress-info{
+					font-size: 1rem;
+				}
+			}
+			.clock-counter{
+				display: inline-block;
+			}
+		}
+	}
+	.about {
+		.content-area {
+			.what-is-crypto-img {
+				text-align: center;
+			}
+			.play-video {
+				left: 52%;
+			}
+		}
+	}
+	.problem-solution {
+		&:before,
+		&:after {
+			background: none;
+			width: 0 !important;
+		}
+	}
+	.move-first {
+		order: -1;
+	}
+	.whitepaper-img {
+		text-align: center;
+		margin-bottom: 3rem;
+	}
+	.token-distribution {
+		.token-img {
+			text-align: center;
+			margin-bottom: 3rem;
+		}
+	}
+	.contact {
+		&:before,
+		&:after {
+			background: none;
+			width: 0 !important;
+		}
+	}
+}
+
+// Small devices (landscape phones, 576px and up)
+// (min-width: 576px) and (max-width: 767.98px)
+@include media-breakpoint-only(sm) {
+	.head-area {
+		.head-content{
+			&:after{
+				content: none !important;
+			}
+			.banner-content{
+				padding-top: 1.5rem !important;
+				text-align:center;
+				h1, h3{
+					font-size: 1.5rem;
+				}
+				h3{
+					padding-top: 0.5rem !important; 
+				}
+			}
+			.logo-wrapper{
+				margin: 1rem auto 0 auto !important;
+				width: 15.35rem;
+				height: 15.35rem;
+				border-radius: 10rem;
+				.crypto-logo {
+					width: 13.87rem;
+					height: 13.87rem;
+					border-radius: 10rem;
+					top: 0.75rem;
+					left: -2.25rem;
+
+					.crypto-logo-img{
+						width: 100px;
+					}
+				}
+			}
+			.loading-bar{
+				margin: 0 auto !important;
+			}
+			.progress{
+				height: 1.5rem;
+				.progress-bar-custom{
+					height: 1rem;
+				}
+			}
+			.progress-bottom{
+				bottom: 0.3rem;
+				.progress-info{
+					font-size: 1rem;
+				}
+			}
+			.clock-counter{
+				display: inline-block;
+				.flip-clock-wrapper {
+					.flip{
+						width: 40px;
+						margin: 2px;
+						height: 24px;
+						padding: 23px 1px;
+						li{
+							top: 6px;
+							a {
+								.up{
+									.inn {
+										font-size:1.5rem;
+										top: -16px;
+									}
+								}
+								.down{
+									.inn {
+										font-size:1.5rem;
+										bottom: 16px;
+									}
+								}
+							}
+						}
+					}
+					.flip-clock-dot{
+						width: 4px;
+						height: 4px;
+						left: 2px;
+						&.top{
+							top: 16px;
+						}
+						&.bottom{
+							bottom: -40px;
+						}
+					}
+				}
+				.flip-clock-divider{
+					height: 1px;
+					width: 10px;
+					&.days{
+						.flip-clock-label{
+							left: -20px;
+						}
+					}
+					&.hours{
+						.flip-clock-label{
+							left: -8px;
+						}
+					}
+					&.minutes{
+						.flip-clock-label{
+							left: -7px;
+						}
+					}
+					&.seconds{
+						.flip-clock-label{
+							left: 0px;
+						}
+					}
+				}
+			}
+			.purchase-token-btn{
+				text-align: center;
+				margin-top: 1rem;
+			}
+			.crypto-links{
+				display: none;
+			}
+		}
+	}
+	.about{
+		.content-area{
+			.what-is-crypto-img{
+				text-align:center;
+			}
+			.play-video{
+				left: 52%;
+			}
+		}
+	}
+	.problem-solution{
+		&:before, &:after{
+			background:none;
+			width: 0 !important;
+		}
+	}
+	.move-first{
+		order: -1;
+	}
+	.whitepaper-img{
+		text-align:center;
+		margin-bottom: 3rem;
+	}
+	.token-distribution{
+		.token-img{
+			margin-bottom: 3rem;
+		}
+	}
+	.team{
+		.team-member{
+			justify-content: center
+		}
+	}
+	.blog{
+		.border-dash{
+			height: 47%;
+		}
+		.blog-content{
+			width: 50% !important;
+		}
+	} 
+	.roadmap {
+		.timestamp {
+			&.active{
+				span{
+					&:after{
+						left: 44.6%;
+					}
+				}
+			}
+			span{
+				&:after{
+					left: 44.6%;
+				}
+			}
+		}
+	}
+	.contact {
+		.contact-info{
+			display: block;
+			li{
+				margin: 1rem 0;
+			}
+		}
+		&:before, &:after{
+			background:none;
+			width: 0 !important;
+		}
+	}
+	
+
+}
+
+// Extra small devices (portrait phones, less than 576px)
+// (max-width: 575.98px)
+@include media-breakpoint-only(xs) {
+
+	.head-area {
+		.head-content{
+			height: 105vh !important;
+			&:after{
+				content: none !important;
+			}
+			.banner-content{
+				padding-top: 1rem !important;
+				h1, h3{
+					font-size: 1.1rem;
+				}
+				h3{
+					padding-top: 0.5rem !important; 
+				}
+				.btn{
+					font-size: 0.8rem;
+					padding: 0.8rem;
+				}
+			}
+			.logo-wrapper{
+				margin: 1rem auto 0 auto !important;
+				width: 12.35rem;
+				height: 12.35rem;
+				border-radius: 10rem;
+				.crypto-logo {
+					width: 10.87rem;
+					height: 10.87rem;
+					border-radius: 10rem;
+					top: 0.75rem;
+					left: -2.25rem;
+
+					.crypto-logo-img{
+						width: 80px;
+						left: 18%;
+						top: 29%;
+					}
+				}
+			}
+			.loading-bar{
+				margin: 0 auto !important;
+			}
+			.progress{
+				height: 1.3rem;
+				.progress-bar-custom{
+					height: 0.8rem;
+				}
+			}
+			.progress-bottom{
+				bottom: 0.3rem;
+				.progress-info{
+					font-size: 0.8rem;
+				}
+			}
+			.clock-counter{
+				.flip-clock-wrapper {
+					.flip{
+						width: 28px;
+						margin: 2px;
+						height: 24px;
+						padding: 23px 1px;
+						li{
+							top: 6px;
+							a {
+								.up{
+									.inn {
+										font-size:1.5rem;
+										top: -16px;
+									}
+								}
+								.down{
+									.inn {
+										font-size:1.5rem;
+										bottom: 16px;
+									}
+								}
+							}
+						}
+					}
+					.flip-clock-dot{
+						width: 4px;
+						height: 4px;
+						left: 2px;
+						&.top{
+							top: 16px;
+						}
+						&.bottom{
+							bottom: -40px;
+						}
+					}
+				}
+				.flip-clock-divider{
+					height: 1px;
+					width: 5px;
+					&.days{
+						.flip-clock-label{
+							left: -20px;
+						}
+					}
+					&.hours{
+						.flip-clock-label{
+							left: -8px;
+						}
+					}
+					&.minutes{
+						.flip-clock-label{
+							left: -7px;
+						}
+					}
+					&.seconds{
+						.flip-clock-label{
+							left: 0px;
+						}
+					}
+				}
+			}
+			.purchase-token-btn{
+				text-align: center;
+				margin-top: 1rem;
+			}
+			.crypto-links{
+				display: none;
+			}
+		}
+	}
+	.dark-bg-heading .title, .heading .title{
+		font-size: 1.5rem !important;
+	}
+	.about{
+		.content-area{
+			.what-is-crypto-img{
+				text-align:center;
+				img{
+					width:100%;
+				}
+			}
+			.play-video{
+				top: 75%;
+				left: 53%;
+				.play{
+					padding: 0.75rem;
+					height: 50px;
+					width: 50px;
+					i{
+						font-size: 1.5rem;
+					}
+				}				
+			}
+		}
+	}
+	.problem-solution{
+		&:before, &:after{
+			background:none;
+			width: 0 !important;
+		}
+		.problems-img, .solutions-img{
+			width: 250px;
+		}
+	}
+	.whitepaper-img{
+		text-align:center;
+		margin-bottom: 3rem;
+		img{
+			width:100%;
+		}
+	}	
+	.token-distribution{
+		.token-img{
+			text-align:center;
+			margin-bottom: 3rem;
+			img{
+				width:100%;
+			}
+		}
+	}
+	.roadmap {
+		.timestamp {
+			&.active{
+				span{
+					&:after{
+						left: 44.1%;
+					}
+				}
+			}
+			span{
+				&:after{
+					left: 44.1%;
+				}
+			}
+		}
+	}
+	.blog{
+		.border-dash{
+			// height: 47%;
+			.card-body{
+				.blog-img{
+					text-align: center;
+					&.overlap{
+						box-shadow:none !important;
+					}
+				}
+				.blog-content{
+					width: auto;
+				}
+			}
+			.card-footer{
+				text-align: center !important;
+			}
+		}
+	} 
+	.roadmap {
+		.timestamp {
+			&.active{
+				span{
+					&:after{
+						left: 44.1%;
+					}
+				}
+			}
+			span{
+				&:after{
+					left: 44.1%;
+				}
+			}
+		}
+		.next-slide{
+			right: -14px;
+		}
+		.prev-slide{
+			left: -14px;
+		}
+	}
+	.contact {
+		.contact-info{
+			display: block;
+			li{
+				margin: 1rem 0;
+				i{
+					font-size: 1.12rem;
+					line-height: 1.5rem;
+				}
+			}
+		}
+		&:before, &:after{
+			background:none;
+			width: 0 !important;
+		}
+	}
+	.move-first{
+		order: -1;
+	}
+}

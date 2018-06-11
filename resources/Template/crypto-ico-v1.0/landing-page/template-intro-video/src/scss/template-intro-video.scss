@@ -1,0 +1,68 @@
+/* 	----------------------------------------------------------------------------------------------
+*	File Name: template-intro-video.scss
+* 	Description: Intro Video Template Specific CSS
+* 	----------------------------------------------------------------------------------------------
+* 	Item Name: Crypto ICO - Cryptocurrency Website Landing Page HTML + Dashboard Template
+* 	Version: 1.0
+* 	Author: PIXINVENT
+* 	Author URL: http://www.themeforest.net/user/pixinvent
+* 	----------------------------------------------------------------------------------------------*/
+
+// Core variables and mixins
+@import "bootstrap/functions";
+@import "bootstrap/mixins";
+
+// Load bootstrap overrides
+@import "../../assets/scss/variables/variables";   // Load assets custome variable
+@import "variables/variables";                               // Load theme custome variable
+@import "bootstrap/variables";
+
+// Load common variables
+@import "variables/theme-variables";
+@import "../../assets/scss/variables/theme-variables";
+
+// Load theme overrides
+@import "variables/template-intro-video-variables";
+@import "../../assets/scss/variables/template-intro-video-variables";
+
+// Custom Mixins
+@import "components/mixins/buttons";
+@import "components/mixins/parallax";
+
+// Extended Bootstrap
+@import "components/reboot";
+@import "components/type";
+@import "components/preloader";
+@import "components/buttons";
+@import "components/forms";
+@import "components/progress";
+@import "components/dropdowns";
+@import "components/utilities";
+
+// Custom Components
+@import "components/bg-particles";
+@import "components/bg-ripple";
+@import "components/token-sales";
+
+// Extended vendors
+@import "components/flipclock";
+@import "components/sales-notification";
+@import "components/vertical-social";
+
+// Page sections
+@import "sections/navbar";
+@import "sections/header-intro-video";
+@import "sections/about";
+@import "sections/exchange-listing";
+@import "sections/section-heading-type1";
+@import "sections/whitepaper";
+@import "sections/roadmap";
+@import "sections/team";
+@import "sections/faq";
+@import "sections/token-sale";
+@import "sections/blog-type2";
+@import "sections/contact-type2";
+@import "sections/footer-intro-video";
+
+// Video template css for all pages
+@import "templates/template-intro-video";
