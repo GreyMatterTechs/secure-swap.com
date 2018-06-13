@@ -9,11 +9,12 @@
 	<meta name="keywords" content="crypto, ico, cryptocurrency, eutherum, dex, decentralised, secure, smart contract, token, SWP">
 	<meta name="author" content="GreyMatterTechs">
 	<title>SecureSwap</title>
-	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-	<link rel="manifest" href="/site.webmanifest">
-	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="icon" type="image/x-icon" href="favicon.ico" />
+	<link rel="manifest" href="site.webmanifest">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 	<meta name="msapplication-TileColor" content="#da532c">
 	<meta name="theme-color" content="#ffffff">
 	<!--Google Fonts-->
@@ -39,7 +40,22 @@
 
 </head>
 
-<body class=" 1-column undefined  page-animated svg-wrapper" data-menu-open="hover" data-menu="">
+<body class=" 1-column undefined  page-animated svg-wrapper nojs loaded" data-menu-open="hover" data-menu="">
+	
+	<noscript>
+		<input type="checkbox" class="noscript-closing-trick" >
+		<div class="noscript-overlay" style="display: block;"></div>
+		<div class="noscript-message">
+			<div class="noscript-title">This Website doesn't work without JavaScript.</div>
+			<p>We're all for progressive enhancement, but SecureSwap is a bit unique in that it's all about writing and showing front end code, including JavaScript. It's required to use most of the features of this website.</p>
+			<p>Need to know how to enable it? <a href="http://enable-javascript.com/" target="_blank" rel="noopener">Go here.</a></p>
+		</div>
+	</noscript>
+	<script type="text/javascript">
+		document.body.classList.remove("nojs");
+		document.body.classList.remove('loaded');
+	</script>
+	
 	<!-- Preloader | Comment below code if you don't want preloader-->
 	<div id="loader-wrapper">
 		<svg viewbox=" 0 0 512 512" id="loader">
@@ -64,7 +80,7 @@
 			<!-- Change the preloader logo here -->
 			<defs>
 				<pattern id="loaderImage" height="100%" width="100%" patternContentUnits="objectBoundingBox">
-					<image href="theme-assets/images/loader-logo.png" preserveAspectRatio="none" width="1" height="1"></image>
+					<image href="assets/images/loader-logo.png" preserveAspectRatio="none" width="1" height="1"></image>
 				</pattern>
 			</defs>
 		</svg>
@@ -75,26 +91,12 @@
 	<!--/ Preloader -->
 	<nav class="vertical-social">
 		<ul>
-			<li>
-				<a href="#">
-					<i class="fa fa-telegram" aria-hidden="true"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class="fa fa-medium" aria-hidden="true"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class="fa fa-twitter" aria-hidden="true"></i>
-				</a>
-			</li>
-			<li>
-				<a href="#">
-					<i class="fa fa-github" aria-hidden="true"></i>
-				</a>
-			</li>
+			<li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-telegram" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-medium" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-github" aria-hidden="true"></i></a></li>
 		</ul>
 	</nav>
 	<!-- /////////////////////////////////// HEADER /////////////////////////////////////-->
@@ -105,9 +107,9 @@
 		<nav class="main-menu static-top navbar-dark navbar navbar-expand-lg fixed-top mb-1">
 			<div class="container">
 				<a class="navbar-brand animated" data-animation="fadeInDown" data-animation-delay="1s" href="#head-area">
-					<img src="theme-assets/images/logo.png" alt="Crypto Logo" />
+					<img src="assets/images/logo.png" alt="SecureSwap Logo" />
 					<span class="brand-text">
-						<span class="font-weight-bold">Crypto</span> ICO</span>
+						<span class="font-weight-bold">Secure </span> Swap</span>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
 				 aria-expanded="false" aria-label="Toggle navigation">
@@ -117,7 +119,7 @@
 					<div id="navigation" class="navbar-nav ml-auto">
 						<ul class="navbar-nav mt-1">
 							<li class="nav-item animated" data-animation="fadeInDown" data-animation-delay="1.1s">
-								<a class="nav-link" href="#about">What is ICO</a>
+								<a class="nav-link" href="#about">What is SecureSwap</a>
 							</li>
 							<li class="nav-item animated" data-animation="fadeInDown" data-animation-delay="1.2s">
 								<a class="nav-link" href="#problem-solution">Solutions</a>
@@ -140,16 +142,17 @@
 									<a class="dropdown-item" href="#contact">Contact</a>
 								</div>
 							</li>
-							<li class="dropdown show mr-4 animated" data-animation="fadeInDown" data-animation-delay="1.7s">
-								<a class="dropdown-toggle" href="#" role="button" id="language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<li id="i18n" class="dropdown show mr-4 animated" data-animation="fadeInDown" data-animation-delay="1.7s">
+								<a id="i18n-select" class="dropdown-toggle" href="#" role="button" id="language" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									<span class="flag-icon flag-icon-us"></span> EN</a>
-								<div class="dropdown-menu" aria-labelledby="language">
-									<a class="dropdown-item" href="#">
-										<span class="flag-icon flag-icon-de"></span> GN</a>
-									<a class="dropdown-item" href="#">
-										<span class="flag-icon flag-icon-es"></span> SP</a>
-									<a class="dropdown-item" href="#">
-										<span class="flag-icon flag-icon-mq"></span> FR</a>
+								<div id="i18n-menu" class="dropdown-menu" aria-labelledby="language">
+									<a class="dropdown-item" href="#" data-i18n-locale="en_us"></a>
+									<a class="dropdown-item" href="#" data-i18n-locale="en_gb"></a>
+									<a class="dropdown-item" href="#" data-i18n-locale="de"></a>
+									<a class="dropdown-item" href="#" data-i18n-locale="es"></a>
+									<a class="dropdown-item" href="#" data-i18n-locale="fr"></a>
+									<a class="dropdown-item" href="#" data-i18n-locale="fr_fr"></a>
+									<a class="dropdown-item" href="#" data-i18n-locale="fr_ca"></a>
 								</div>
 							</li>
 						</ul>
@@ -179,7 +182,7 @@
 								<div class="row align-items-center">
 									<div class="col-lg-6 col-md-12">
 										<div class="banner-content pt-5">
-											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s">Crypto ICO is modern, clean and
+											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s">Secure Swap is modern, clean and
 												<br class="d-none d-xl-block">gradient ui ico most trending
 												<br class="d-none d-xl-block">template of 2018</h1>
 											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="1.6s">First decentralized marketing platform that allows
@@ -2455,14 +2458,25 @@
 	<script src="theme-assets/vendors/particles.min.js"></script>
 	<script src="theme-assets/vendors/waypoints/jquery.waypoints.min.js"></script>
 	<!-- END PAGE VENDOR JS-->
+	<!-- BEGIN I18N JS-->
+	<script src="assets/js/jquery-i18n/CLDRPluralRuleParser.js"></script>
+	<script src="assets/js/jquery-i18n/jquery.i18n.js"></script>
+	<script src="assets/js/jquery-i18n/jquery.i18n.messagestore.js"></script>
+	<script src="assets/js/jquery-i18n/jquery.i18n.fallbacks.js"></script>
+	<script src="assets/js/jquery-i18n/jquery.i18n.parser.js"></script>
+	<script src="assets/js/jquery-i18n/jquery.i18n.emitter.js"></script>
+	<script src="assets/js/jquery-i18n/jquery.i18n.language.js"></script>
+	<script src="assets/js/jquery-i18n/languages/uk.js"></script>
+	<!-- END I18N JS-->
 	<!-- BEGIN THEME JS-->
 	<script src="theme-assets/js/theme.js"></script>
-	<!-- END CRYPTO JS-->
+	<!-- END THEME JS-->
 	<!-- BEGIN PAGE LEVEL JS-->
 	<script src="theme-assets/js/scripts/particles-type1.js"></script>
 	<!-- END PAGE LEVEL JS-->
 	<!-- BEGIN Custom JS-->
 	<script src="assets/js/scripts.js"></script>
+	<script src="assets/js/i18n.js"></script>
 	<!-- END Custom JS-->
 </body>
 

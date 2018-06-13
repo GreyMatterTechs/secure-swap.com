@@ -9,5 +9,51 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
-.vertical-social {
-  width: 44px; }
+/* -- noscript -------------------------------------- */
+input.noscript-closing-trick:checked ~ div {
+  display: none !important; }
+
+input.noscript-closing-trick {
+  position: absolute;
+  top: -9999px;
+  left: -9999px; }
+
+.noscript-overlay {
+  position: fixed;
+  /*display: none;*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300; }
+
+.noscript-title {
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  color: #ffffff; }
+
+.noscript p a {
+  color: #76daff; }
+
+.noscript p {
+  color: #999;
+  margin: 0 0 25px 0;
+  color: #f0f0f0; }
+
+.noscript-message {
+  border: 10px solid #ff3c41;
+  position: fixed;
+  width: 600px;
+  min-width: 380px;
+  left: 50%;
+  top: 50px;
+  margin-left: -300px;
+  padding: 20px;
+  background: black;
+  z-index: 301; }
+
+.nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
+  visibility: hidden; }
