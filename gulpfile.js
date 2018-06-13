@@ -4,7 +4,7 @@ var gutil            = require('gulp-util');
 var gulpSequence     = require('gulp-sequence');
 var gulpRequireTasks = require('gulp-require-tasks');
 var minimist         = require('minimist');
-var config           = require('./config.json');
+var config           = require('./gulpconfig.json');
 
 var options          = minimist(process.argv.slice(2));
 
