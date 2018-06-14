@@ -44,7 +44,7 @@ $(window).on('load', function() {
     setTimeout(function() {
         var time = "2 minutes ago";
         $.notify({
-            icon: '../../../theme-assets/images-counter/user-1.png',
+            icon: 'theme-assets/images/user-1.png',
             title: 'Byron Morgan From Australia',
             message: 'Recently purchased <span class="blue">2500 CIC</span> tokens'
         },{
@@ -75,7 +75,7 @@ $(window).on('load', function() {
     setTimeout(function() {
         var time = "20 seconds ago";
         $.notify({
-            icon: '../../../theme-assets/images-counter/user-11.png',
+            icon: 'theme-assets/images/user-11.png',
             title: 'Peter Lee From Canada',
             message: 'Recently purchased <span class="blue">1850 CIC</span> tokens'
         },{

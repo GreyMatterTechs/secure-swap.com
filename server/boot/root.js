@@ -40,7 +40,7 @@ module.exports = function(server) {
 		if (geo) {
 			console.log(config.appName + ' received request: ' + shorten(req.url, 64)+' from : '+ip+' ('+geo.city+' '+geo.zip+' '+geo.region+' '+geo.country+')' );
 		} else {
-			console.log(config.appName + ' received request: ' + shorten(req.url, 64)+' from : '+ip+' (serveur local)' );
+			console.log(config.appName + ' received request: ' + shorten(req.url, 64)+' from : '+ip+' (machine locale)' );
 		}
 		if (req.url.indexOf('assets/images') >= 0 || req.url.indexOf('assets/css/') >= 0) {
 			res.setHeader('Cache-Control', 'public, max-age=2592000');

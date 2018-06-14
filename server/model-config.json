@@ -35,7 +35,7 @@
     "dataSource": "db",
     "public": false
   },
-  "Message": {
+  "I18n": {
     "dataSource": null
   },
   "Note": {
