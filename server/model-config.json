@@ -40,5 +40,8 @@
   },
   "Note": {
     "dataSource": "db"
+  },
+  "Admin": {
+    "dataSource": "db"
   }
 }

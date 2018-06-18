@@ -5,10 +5,6 @@
 	Author URL: http://www.themeforest.net/user/pixinvent
 ================================================================================
 
-NOTE:
-------
-PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
-WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 /* -- noscript -------------------------------------- */
 input.noscript-closing-trick:checked ~ div {
   display: none !important; }
@@ -57,3 +53,10 @@ input.noscript-closing-trick {
 
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
   visibility: hidden; }
+
+
+/* -- login page -------------------------------------------- */
+
+#contact .messages {
+	margin-top: 3rem;
+}

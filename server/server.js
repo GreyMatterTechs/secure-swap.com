@@ -4,7 +4,20 @@ var loopback	= require('loopback');
 var boot		= require('loopback-boot');
 var path		= require('path');
 var helmet		= require('helmet');
+var bodyParser	= require('body-parser');
 var config		= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV) ) + '.json'));
+
+
+// $$$ TODO : etudier tous ces liens pour le login :
+
+// feb 2016  http://blog.digitopia.com/tokens-sessions-users/
+// mar 2016  https://github.com/strongloop/loopback/issues/2142
+// sep 2017  https://stackoverflow.com/questions/35969364/setting-access-token-cookie-in-loopback
+
+// https://blog.codinghorror.com/protecting-your-cookies-httponly/
+// https://loopback.io/doc/en/lb3/Making-authenticated-requests.html
+// https://github.com/expressjs/cookie-parser
+
 
 
 var app = module.exports = loopback();
@@ -16,6 +29,8 @@ app.set('views', path.join(__dirname, 'views'));
 // Setting up loopback
 app.use(loopback.static(path.resolve(__dirname, '../client')));
 app.use(loopback.token());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // a bit of security
 app.use(helmet());

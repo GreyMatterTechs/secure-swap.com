@@ -25,10 +25,12 @@ function shorten(str, len) {
 
 module.exports = function(server) {
 
-	server.locals.env = process.env.NODE_ENV;
-	server.locals.db = server.dataSources.db.settings.host ? server.dataSources.db.settings.host : server.dataSources.db.settings.file;
+	server.locals.env	= process.env.NODE_ENV;
+	server.locals.db	= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : server.dataSources.db.settings.file;
 
-	var router = server.loopback.Router();
+	var Admin			= server.models.Admin;	
+	var router			= server.loopback.Router();
+
 
 	// ------------------------------------------------
 	// Add Expires header to /images and /stylesheets directories
@@ -61,9 +63,122 @@ module.exports = function(server) {
 	//index page
 	router.get('/', function (req, res) {
 		res.render('index', {
-			appName: config.appName
+			appName: config.appName,
+			err: null
 		});
 	});
+
+
+	//login page
+	router.get('/login', function (req, res) {
+		res.render('login', {
+			appName: config.appName,
+			err: null
+		});
+	});
+	router.post('/login', function (req, res) {
+		console.log(config.appName + ' post login');
+		if (!req.body) 
+			return res.sendStatus(400);
+		if (!req.accessToken) {
+			Admin.login({
+				username: req.body.username,
+				password: req.body.password
+			}, 'user', function (err, token) {
+				if (err) {
+					// err.code = "LOGIN_FAILED_EMAIL_NOT_VERIFIED"
+					return res.send({ 
+						appName: config.appName,
+						err: err.statusCode
+						/*err.message	401 "échec de la connexion"
+										400 "username ou email est obligatoire"
+						*/
+					});
+				}
+				Admin.findById(token.userId, function (err, user) {
+					if (err) {
+						// $$$ TODO: Trouver les types d'erreurs possibles ici, pour traite le statusCode dans le switch() de login.js
+						debug('An error is reported from login: %j', err);
+						Admin.setOnlineStatus(token, 'offline');
+						Admin.logout(token.id);
+						return res.send({ 
+							appName: config.appName,
+							err: err.statusCode
+						});
+					} else {
+						if (user) {
+							if (!user.active) {
+								Admin.setOnlineStatus(token, 'offline');
+								Admin.logout(token.id);
+								res.send({ 
+									appName: config.appName,
+									err: 401	// Account is not active, mais on ne l'affiche pas au client
+								});
+							} else {
+								Admin.setOnlineStatus(token, 'online');
+								return res.render( 'dashboard', { 
+									appName: config.appName,
+									err: null,
+									accessToken: token.id
+								});
+							/*	// login succeed, now collect data for views, and go to dashboard
+								Admin.getDashboard(token, function(err, templateName, params) {
+									if (err) {
+										debug('An error is reported from getDashboard: %j', err);
+										User.setOnlineStatus(token, 'offline');
+										User.logout(token.id);
+										return res.send({ 
+											appName: config.appName,
+											err: err.message
+										});
+									} else {
+										params.appName= config.appName;
+										res.render(templateName, params);
+									}
+								});
+							*/
+							}
+						} else {
+							res.send({ 
+								appName: config.appName,
+								err: 401
+							});
+						}
+					}
+				});
+			});
+		} else {
+			Admin.setOnlineStatus(req.accessToken, "online");
+			return res.send({ 
+				appName: config.appName,
+				err: null
+			});
+		/*	User.getDashboard(req.accessToken, function(err, templateName, params) {
+				if (err) {
+					debug('An error is reported from getDashboard: %j', err);
+					User.setOnlineStatus(req.accessToken, 'offline');
+					User.logout(req.accessToken.id);
+					return res.send({ 
+						appName: config.appName,
+						err: err.message
+					});
+				} else {
+					params.appName= config.appName;
+					res.render(templateName, params);
+				}
+			});
+		*/
+		}
+	});
+
+	//dashboard page
+	router.post('/dashboard', function (req, res) {
+		res.render('login', {
+			appName: config.appName,
+			err: null
+		});
+	});
+	
 
 	server.use(router);
 };
