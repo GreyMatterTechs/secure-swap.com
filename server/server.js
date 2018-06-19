@@ -20,7 +20,7 @@ var config		= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === 
 // https://github.com/strongloop/loopback/issues/2142
 // http://loopback.io/doc/en/lb3/Making-authenticated-requests.html
 // https://github.com/strongloop/loopback-example-user-management
-
+// test
 
 
 var app = module.exports = loopback();
