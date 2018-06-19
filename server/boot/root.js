@@ -3,6 +3,7 @@
 var requestIp	= require('request-ip');
 var geoip		= require('geoip-lite');
 var path		= require('path');
+var bodyParser	= require('body-parser');
 var config		= require(path.join(__dirname, '../config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
 
@@ -30,8 +31,9 @@ module.exports = function(server) {
 
 	var Admin			= server.models.Admin;	
 	var router			= server.loopback.Router();
-
-
+	var jsonParser		= bodyParser.json();	// parse application/json
+	var urlencodedParser= bodyParser.urlencoded({ extended: true });	// parse application/x-www-form-urlencoded
+	
 	// ------------------------------------------------
 	// Add Expires header to /images and /stylesheets directories
 	// ------------------------------------------------
@@ -76,10 +78,13 @@ module.exports = function(server) {
 			err: null
 		});
 	});
-	router.post('/login', function (req, res) {
+	router.post('/login', urlencodedParser, function (req, res) {
 		console.log(config.appName + ' post login');
 		if (!req.body) 
-			return res.sendStatus(400);
+			return res.sendStatus(400).send({ 
+				appName: config.appName,
+				err: 400
+			});
 		if (!req.accessToken) {
 			Admin.login({
 				username: req.body.username,
@@ -87,7 +92,7 @@ module.exports = function(server) {
 			}, 'user', function (err, token) {
 				if (err) {
 					// err.code = "LOGIN_FAILED_EMAIL_NOT_VERIFIED"
-					return res.send({ 
+					return res.sendStatus(err.statusCode).send({ 
 						appName: config.appName,
 						err: err.statusCode
 						/*err.message	401 "échec de la connexion"
@@ -101,7 +106,7 @@ module.exports = function(server) {
 						debug('An error is reported from login: %j', err);
 						Admin.setOnlineStatus(token, 'offline');
 						Admin.logout(token.id);
-						return res.send({ 
+						return res.sendStatus(err.statusCode).send({ 
 							appName: config.appName,
 							err: err.statusCode
 						});
@@ -110,7 +115,7 @@ module.exports = function(server) {
 							if (!user.active) {
 								Admin.setOnlineStatus(token, 'offline');
 								Admin.logout(token.id);
-								res.send({ 
+								res.res.sendStatus(401).send({ 
 									appName: config.appName,
 									err: 401	// Account is not active, mais on ne l'affiche pas au client
 								});
@@ -139,7 +144,7 @@ module.exports = function(server) {
 							*/
 							}
 						} else {
-							res.send({ 
+							res.sendStatus(401).send({ 
 								appName: config.appName,
 								err: 401
 							});
@@ -148,6 +153,9 @@ module.exports = function(server) {
 				});
 			});
 		} else {
+			
+			// $$$ TODO: check if accessToken is legit.
+
 			Admin.setOnlineStatus(req.accessToken, "online");
 			return res.send({ 
 				appName: config.appName,
@@ -172,8 +180,22 @@ module.exports = function(server) {
 	});
 
 	//dashboard page
-	router.post('/dashboard', function (req, res) {
-		res.render('login', {
+	router.post('/dashboard', urlencodedParser, function (req, res) {
+		console.log(config.appName + ' post dashboard');
+		if (!req.body) 
+			return res.sendStatus(400).send({ 
+				appName: config.appName,
+				err: 400
+			});
+		if (!req.accessToken)
+			return res.sendStatus(400).send({ 
+				appName: config.appName,
+				err: 400
+			});
+		
+		// $$$ TODO: check if accessToken is legit.
+
+		return res.render('dashboard', {
 			appName: config.appName,
 			err: null
 		});

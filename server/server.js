@@ -4,7 +4,6 @@ var loopback	= require('loopback');
 var boot		= require('loopback-boot');
 var path		= require('path');
 var helmet		= require('helmet');
-var bodyParser	= require('body-parser');
 var config		= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV) ) + '.json'));
 
 
@@ -29,8 +28,6 @@ app.set('views', path.join(__dirname, 'views'));
 // Setting up loopback
 app.use(loopback.static(path.resolve(__dirname, '../client')));
 app.use(loopback.token());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
 
 // a bit of security
 app.use(helmet());

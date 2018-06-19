@@ -73,7 +73,10 @@
 						if (data.err) {
 							var message = 'Unknown error';
 							switch (data.err) {
-								case 401: message = 'Login failed.'; // intentional unclear message to final user
+								case 400:
+								case 401: 
+								case 403:
+								case 404: message = 'Login failed.'; // intentional unclear message to final user
 							}
 							$('#error-txt').text(message);
 							$('#error').show();
