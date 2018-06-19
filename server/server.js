@@ -14,8 +14,12 @@ var config		= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === 
 // sep 2017  https://stackoverflow.com/questions/35969364/setting-access-token-cookie-in-loopback
 
 // https://blog.codinghorror.com/protecting-your-cookies-httponly/
-// https://loopback.io/doc/en/lb3/Making-authenticated-requests.html
 // https://github.com/expressjs/cookie-parser
+
+// http://apidocs.strongloop.com/loopback/#loopback-token
+// https://github.com/strongloop/loopback/issues/2142
+// http://loopback.io/doc/en/lb3/Making-authenticated-requests.html
+// https://github.com/strongloop/loopback-example-user-management
 
 
 
