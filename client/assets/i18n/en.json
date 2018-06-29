@@ -42,5 +42,18 @@
 	"about-area.content.row7": "Creators of digital currencies are often independent of the DCEs that trade the currency.[6] In one type of system, digital currency providers (DCP), are businesses that keep and administer accounts.",
 	"about-area.content.video.subtitle": "How it works",
 
+
+	"-------------- SECTION TOKENS SALE --------------": "",
+	"tokensale-area.flipclock.years": "Years",
+	"tokensale-area.flipclock.months": "Months",
+	"tokensale-area.flipclock.days": "Days",
+	"tokensale-area.flipclock.hours": "Hours",
+	"tokensale-area.flipclock.minutes": "Minutes",
+	"tokensale-area.flipclock.seconds": "Seconds",
+	"tokensale-area.info.softcap": "Soft Cap",
+	"tokensale-area.info.hardcap": "Hard Cap",
+	"tokensale-area.info.percent": "$1 % target raised",
+
+
 	"last": ""
 }

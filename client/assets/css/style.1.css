@@ -9,6 +9,7 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
 /* -- noscript -------------------------------------- */
 input.noscript-closing-trick:checked ~ div {
   display: none !important; }
@@ -57,3 +58,20 @@ input.noscript-closing-trick {
 
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
   visibility: hidden; }
+
+
+/* -- flip clock ------------------------------------------------------------------- */
+
+.clock-counter .flip-clock-divider.hours .flip-clock-label {
+    right: -56px;
+} 
+.clock-counter .flip-clock-divider.minutes .flip-clock-label {
+    right: -64px;
+} 
+.clock-counter .flip-clock-divider.seconds .flip-clock-label {
+    right: -64px;
+}
+.flip-clock-small-wrapper ul li a div.up div.inn,
+.flip-clock-small-wrapper ul li a div.down div.inn {
+	padding-top: 2px;
+}

@@ -1,0 +1,101 @@
+{
+  "name": "Purchase",
+  "plural": "Purchases",
+  "base": "Model",
+  "idInjection": true,
+  "properties": {
+	  "softCap": {
+		"type": "number",
+		"required": true
+	  },
+	  "hardCap": {
+		"type": "number",
+		"required": true
+	  },
+	  "tokensTotal": {
+		"type": "number",
+		"required": true
+	  },
+	  "tokensSold": {
+		"type": "number",
+		"required": true
+	  },
+	  "start": {
+        "type": "Date",
+        "required": true
+      }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+	{
+		"principalType": "ROLE",
+		"principalId": "$everyone",  
+		"permission": "DENY",        
+		"property": "SetStartDateTime"
+	},{
+		"accessType": "EXECUTE",
+		"principalType": "ROLE",
+		"principalId": "admin",
+		"permission": "ALLOW",
+		"property": "SetStartDateTime"  
+	},
+	{
+		"principalType": "ROLE",
+		"principalId": "$everyone",
+		"permission": "DENY",
+		"property": "SetTokensSold"
+	}
+  ],
+  "methods": {
+	"GetPurchaseData": {
+		"accepts": [],
+		"returns": { "arg": "data", "type": "Object", "root": true },
+		"http": { "verb": "get" }
+	},
+	
+    "SetStartDateTime": {
+      "accepts": { "arg": "datetime", "type": "Date", "root": true, "required": true },
+      "returns": [],
+      "http": { "verb": "post" }
+    },
+	"GetStartDateTime": {
+      "accepts": [],
+      "returns": { "arg": "datetime", "type": "Date", "root": true },
+      "http": { "verb": "get" }
+	},
+	
+	"SetTokensSold": {
+      "accepts": { "arg": "count", "type": "number", "root": true, "required": true },
+      "returns": [],
+      "http": { "verb": "post" }
+    },
+	"GetTokensSold": {
+      "accepts": [],
+      "returns": { "arg": "count", "type": "number", "root": true },
+      "http": { "verb": "get" }
+	},
+	
+	"SetHardCap": {
+		"accepts": { "arg": "hardCap", "type": "number", "root": true, "required": true },
+		"returns": [],
+		"http": { "verb": "post" }
+	},
+	"GetHardCap": {
+		"accepts": [],
+		"returns": { "arg": "hardCap", "type": "number", "root": true },
+		"http": { "verb": "get" }
+	},
+
+	"SetSoftCap": {
+		"accepts": { "arg": "softCap", "type": "number", "root": true, "required": true },
+		"returns": [],
+		"http": { "verb": "post" }
+	},
+	"GetSoftCap": {
+		"accepts": [],
+		"returns": { "arg": "softCap", "type": "number", "root": true },
+		"http": { "verb": "get" }
+	}
+  }
+}

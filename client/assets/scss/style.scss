@@ -14,13 +14,13 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 
 input.noscript-closing-trick:checked ~ div {
 	display: none !important;
-  }
-  input.noscript-closing-trick {
+}
+input.noscript-closing-trick {
 	  position: absolute;
 	  top: -9999px;
 	  left: -9999px;
-  }
-  .noscript-overlay {
+}
+.noscript-overlay {
 	  position: fixed;
 	  /*display: none;*/
 	  top: 0;
@@ -29,22 +29,24 @@ input.noscript-closing-trick:checked ~ div {
 	  bottom: 0;
 	  background: rgba(0,0,0,0.5);
 	  z-index: 300;
-  }
-  .noscript-title {
+}
+.noscript-title {
 	  font-weight: 700;
 	  font-size: 32px;
 	  margin: 0 0 10px 0;
 	  line-height: 1.2;
 	  color: #ffffff;
-  }
-  .noscript p a {
-	  color: #76daff;
-  }
-  .noscript p {
-	  color: #999;
-	  margin: 0 0 25px 0;
-	  color: #f0f0f0;
-  }
+}
+.noscript {
+	p {
+		color: #999;
+		margin: 0 0 25px 0;
+		color: #f0f0f0;
+		a {
+			color: #76daff;
+		}
+	}
+}
   .noscript-message {
 	  border: 10px solid #ff3c41;
 	  position: fixed;
@@ -61,3 +63,24 @@ input.noscript-closing-trick:checked ~ div {
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
 	visibility: hidden;
 }
+
+/* -- flip clock ------------------------------------------------------------------- */
+
+.clock-counter {
+	.flip-clock-divider.hours .flip-clock-label {
+    	right: -56px;
+	} 
+	.flip-clock-divider.minutes .flip-clock-label {
+    	right: -64px;
+	} 
+	.flip-clock-divider.seconds .flip-clock-label {
+    	right: -64px;
+	}
+}
+.flip-clock-small-wrapper ul li a {
+	div.up div.inn,
+	div.down div.inn {
+		padding-top: 2px;
+	}
+}
+

@@ -30,13 +30,17 @@
 	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/flipclock/flipclock.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/swiper/css/swiper.min.css">
 	<!-- END VENDOR CSS-->
-	<!-- END CRYPTO CSS-->
 	<!-- BEGIN Page Level CSS-->
 	<link rel="stylesheet" type="text/css" href="theme-assets/css/template-3d-animation.css">
 	<!-- END Page Level CSS-->
 	<!-- BEGIN Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<!-- END Custom CSS-->
+	<!--style type="text/css" id="flipClockCustomCSS">
+		.clock ul li a div div.inn { color: #CCCCCC; background-color: #333333; } 
+		.clock-dot { background: #323434; } 
+		.clock .flip-clock-meridium a { color: #323434; }
+	</style-->
 
 </head>
 
@@ -616,7 +620,7 @@
 										<div class="token-details text-center">
 											<!-- ICO Counter -->
 											<div class="clock-counter mb-4">
-												<div class="clock ml-0 mt-5 d-flex justify-content-center"></div>
+												<div class="clock ml-0 mt-5 mb-5 d-flex justify-content-center"></div>
 												<div class="message"></div>
 											</div>
 											<!-- ICO Counter -->
@@ -626,16 +630,16 @@
 													<ul class="progress-top">
 														<li></li>
 														<li class="pre-sale">Pre-Sale</li>
-														<li>Soft Cap</li>
+														<li class="soft-cap">Soft Cap</li>
 														<li class="bonus">Bonus</li>
-														<li></li>
+														<li class="hard-cap">Hard Cap</li>
 													</ul>
 													<ul class="progress-bars">
 														<li></li>
 														<li>|</li>
 														<li>|</li>
 														<li>|</li>
-														<li></li>
+														<li>|</li>|
 													</ul>
 													<div class="progress">
 														<div class="progress-bar progress-bar-custom" role="progressbar" style="width: 65%;" aria-valuenow="100" aria-valuemin="0"
@@ -2446,7 +2450,8 @@
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN PAGE VENDOR JS-->
-	<script src="theme-assets/vendors/flipclock/flipclock.min.js"></script>
+	<script src="theme-assets/vendors/flipclock/flipclock.js"></script>
+	<script src="theme-assets/vendors/flipclock/jquery.countdown.min.js"></script>
 	<script src="theme-assets/vendors/swiper/js/swiper.min.js"></script>
 	<script src="theme-assets/vendors/particles.min.js"></script>
 	<script src="theme-assets/vendors/waypoints/jquery.waypoints.min.js"></script>
@@ -2468,6 +2473,8 @@
 	<script src="theme-assets/js/scripts/particles-type1.js"></script>
 	<!-- END PAGE LEVEL JS-->
 	<!-- BEGIN Custom JS-->
+	<script src="assets/js/tools.js"></script>
+	<script src="assets/js/i18n.js"></script>
 	<script src="assets/js/scripts.js"></script>
 	<script src="assets/js/i18n.js"></script>
 	<!-- END Custom JS-->
