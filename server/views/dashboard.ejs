@@ -38,7 +38,7 @@
 
 <body class=" 1-column undefined  page-animated svg-wrapper nojs loaded" >
 	
-	<noscript>
+	<noscript> <!-- since there is no js, i18n will not work. Then let's leave this text in English. -->
 		<input type="checkbox" class="noscript-closing-trick" >
 		<div class="noscript-overlay" style="display: block;"></div>
 		<div class="noscript-message">
@@ -63,7 +63,30 @@
 						<div class="heading text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
 								<h6 class="sub-title">DASHBOARD</h6>
-								<h2 class="title">dashboard</h2>
+								<h2 class="title">Sign in</h2>
+							</div>
+							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">Please insert your username and password to access admin dashboard.</p>
+						</div>
+						<div class="row">
+							<div class="col-xl-8 col-md-12 mx-auto">
+								<form action="/dashboard" method="post" accept-charset="utf-8" class="text-center">
+									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" name="username"
+									 placeholder="Your User Name">
+									<input type="password" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" name="password"
+									 placeholder="Your Password">
+									<button id="login" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s">Login</button>
+								</form>
+							</div>
+						</div>
+
+						<div class="row messages">
+							<div class="col-xl-8 col-md-12 mx-auto">
+								<div id="error" class="alert alert-danger" role="alert">
+									<span id="error-txt"></span>
+								</div>
+								<div id="success" class="alert alert-success" role="alert">
+									<span id="success-txt"></span>
+								</div>
 							</div>
 						</div>
 
@@ -78,20 +101,16 @@
 	<!-- BEGIN VENDOR JS-->
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
-	<!-- BEGIN I18N JS-->
-	<script src="assets/js/jquery-i18n/CLDRPluralRuleParser.js"></script>
-	<script src="assets/js/jquery-i18n/jquery.i18n.js"></script>
-	<script src="assets/js/jquery-i18n/jquery.i18n.messagestore.js"></script>
-	<script src="assets/js/jquery-i18n/jquery.i18n.fallbacks.js"></script>
-	<script src="assets/js/jquery-i18n/jquery.i18n.parser.js"></script>
-	<script src="assets/js/jquery-i18n/jquery.i18n.emitter.js"></script>
-	<script src="assets/js/jquery-i18n/jquery.i18n.language.js"></script>
-	<script src="assets/js/jquery-i18n/languages/uk.js"></script>
-	<!-- END I18N JS-->
+	<!-- BEGIN THEME JS-->
+	<!--script src="theme-assets/js/theme.js"></script-->
+	<!-- END THEME JS-->
 	<!-- BEGIN Custom JS-->
 	<script src="assets/js/tools.js"></script>
-	<script src="assets/js/i18n.js"></script>
-	<script src="assets/js/dashboard.js"></script>
+	<script src="assets/js/login.js"></script>
+	<!-- END Custom JS-->
+	<script type="text/javascript">
+   		window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.Login.getInstance().init('<%- JSON.stringify(err) %>'), false );
+	</script>
 	<!-- END Custom JS-->
 </body>
 

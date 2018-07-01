@@ -18,7 +18,6 @@
 	window.ss_ico = window.ss_ico || {};	// NameSpace
 
 	if ( window.ss_ico.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
-	if ( window.ss_ico.I18n === undefined ) { throw new Error( 'Please load I18n.js' ); }
 
 	// ---------- class Login
 
@@ -47,72 +46,63 @@
 
 		// --- private members
 
-		var i18n			= null;
-
 		// --- private methods
+
+		var message = function(errCode) {
+			var message = 'Unknown error';
+			switch (errCode) {
+				case 400:
+				case 401: 
+				case 403:
+				case 404: message = 'Login failed.'; // intentional unclear message to final user
+			}
+			$('#error-txt').text(message);
+			$('#error').show();
+		};
+
 
 		// --- public methods
 
 		return {
 
 			init : function(jerr) {
-				
+
 				$('#error').hide();
 				$('#success').hide();
-				
-				i18n = window.ss_ico.I18n.getInstance();
-				
+
 				setTimeout(function() {
 					$('body').addClass('loaded');
 				}, 200);
-							
+
 				$('#login').click(function(e){
                     e.preventDefault();
-					$.post( "/login", $('form').serialize()
+					$.post( "/dashboard", $('form').serialize()
 					).done(function(data) {
 						if (data.err) {
-							var message = 'Unknown error';
-							switch (data.err) {
-								case 400:
-								case 401: 
-								case 403:
-								case 404: message = 'Login failed.'; // intentional unclear message to final user
-							}
-							$('#error-txt').text(message);
-							$('#error').show();
+							message(data.err);
 						} else {
-							data.token
-							//https://github.com/mgalante/jquery.redirect
-							$('form').submit();
+							$('.content-wrapper').html(data);
 						}
 					})
 					.fail(function(err) {
 						/*
 						Can't send mail - all recipients were rejected: 550 5.1.2 <totokjjkjk@jjj.jh>: Recipient address rejected: Domain not found
 						*/
-						$('#error-txt').text(err.statusText /*JSON.parse(err.responseText).error.message*/ );
-						$('#error').show();
+						message(err.status);
 					});
 				});
 				$(document).on('click blur keydown', '.form-control', function (e) {
 					$('#error').hide();
 				});
 
-				
+
 				if (jerr) {
 					var err = JSON.parse(jerr);
 					if (typeof err === 'string' && err !=='' ) {
 						$('#error-txt').text(err);
 						$('#error').show();
 					}
-				}
-
-
-				//--------------------------------------------------------------------------------------------------------------
-                // Starts i18n, and run all scripts that requires localisation
-                //--------------------------------------------------------------------------------------------------------------
-
-				i18n.init();				
+				}	
 
 			}, // end of init:function
 
