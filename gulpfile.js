@@ -81,10 +81,17 @@ gulp.task('default', ['dist']);
 
 // Monitor changes for both pug and sass files.
 // Watch all scss and pug files change and compile it accordingly. In this command you need to pass the Layout, LayoutName & TextDirection.
-gulp.task('theme-assets-monitor', gulpSequence('sass:theme-assets-watch'));
-gulp.task(      'assets-monitor', gulpSequence('sass:assets-watch'));
+gulp.task('monitor', gulpSequence('watch:theme-assets-css', 'watch:theme-assets-js', 'watch:assets-css', 'watch:assets-js'));
+//gulp.task(      'assets-monitor', gulpSequence('sass:assets-watch-css',       'sass:assets-watch-js'));
+
+gulp.task('monitor', function() {
+	gulp.watch(config.assets_source.sass+'/**/*.scss', ['sass:assets-style']);
+	gulp.watch(config.assets_source.js+'/**/*.js', ['copy:assets-js']);
+  });
+
+
 
 // Full Monitoring Task.
 // Monitor changes for both pug and sass files from assets and theme-assets folders.
-gulp.task('monitor', ['theme-assets-monitor', 'assets-monitor']);
+//gulp.task('monitor', 'theme-assets-monitor', 'assets-monitor']);
 

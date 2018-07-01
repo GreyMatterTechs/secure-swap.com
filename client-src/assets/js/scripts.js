@@ -150,8 +150,9 @@
 					$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
 				};
 
-				i18n.init(i18nInitCallback, i18nUpdateCallback);
-      
+				i18n.init();
+				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback);
+
 			}, // end of init:function
 
 			dispose: function() {

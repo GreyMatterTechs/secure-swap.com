@@ -72,17 +72,7 @@
                 // Starts i18n, and run all scripts that requires localisation
                 //--------------------------------------------------------------------------------------------------------------
 
-				var i18nInitCallback = function() {
-					// once the locale file is loaded , we can start other inits that needs i18n ready
-					 $('input[placeholder]').i18n();
-				};
-
-				var i18nUpdateCallback = function() {
-					// once the locale is changed, we can update each moduel that needs i18n strings
-					$('input[placeholder]').i18n();
-				};
-
-				i18n.init(i18nInitCallback, i18nUpdateCallback);				
+				i18n.init();				
 
 			}, // end of init:function
 

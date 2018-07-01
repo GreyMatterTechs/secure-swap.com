@@ -8,8 +8,7 @@
 	},
 
 	"-------------- NAV BAR --------------": "",
-	"navbar.brand.ico": "ICO",
-	"navbar.item.about": "What is ICO",
+	"navbar.item.about": "What is SecureSwap",
 	"navbar.item.problem": "Solutions",
 	"navbar.item.whitepaper": "Whitepaper",
 	"navbar.item.token": "Token Sale",

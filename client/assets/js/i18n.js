@@ -574,7 +574,7 @@
 
 		return {
 
-			init : function(initCallback, updateCallback) {
+			init : function() {
 
 				tools = window.ss_ico.Tools.getInstance();
 				
@@ -592,6 +592,10 @@
 				$.i18n.fallbacks.fr_MC = ['fr'];
 				$.i18n.fallbacks.fr_CH = ['fr'];
 
+
+			}, // end of init:function
+
+			buildGUI: function(initCallback, updateCallback) {
 				// get supported languages
 				$.get( '/api/I18ns/getSupportedLanguages').done( function(data) { 
 					// Build language menu
@@ -630,8 +634,8 @@
 				})
 				.fail( function(err) {
 					selectLanguage('en', initCallback);
+					$('#i18n').html('');
 				});
-				
 
 				// user select new language
 				$('#i18n-menu').off('click.lang').on('click.lang', 'a', function (e) {
@@ -640,8 +644,8 @@
 					return false;
 				});
 
-			}, // end of init:function
-
+			},
+			
 			dispose: function() {
 			} // end of dispose
 
@@ -653,6 +657,6 @@
 
 }(window));
 
-window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.I18n.getInstance().init(), false );
+//window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.I18n.getInstance().init(), false );
 
 // EOF
