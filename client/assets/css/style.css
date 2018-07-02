@@ -9,7 +9,10 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 214226ab0b538006fe68cd01446352a7a4c25221
 /* -- noscript -------------------------------------- */
 input.noscript-closing-trick:checked ~ div {
   display: none !important; }
@@ -36,13 +39,12 @@ input.noscript-closing-trick {
   line-height: 1.2;
   color: #ffffff; }
 
-.noscript p a {
-  color: #76daff; }
-
 .noscript p {
   color: #999;
   margin: 0 0 25px 0;
   color: #f0f0f0; }
+  .noscript p a {
+    color: #76daff; }
 
 .noscript-message {
   border: 10px solid #ff3c41;
@@ -59,7 +61,17 @@ input.noscript-closing-trick {
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
   visibility: hidden; }
 
+/* -- flip clock ------------------------------------------------------------------- */
+.clock-counter .flip-clock-divider.hours .flip-clock-label {
+  right: -56px; }
 
+.clock-counter .flip-clock-divider.minutes .flip-clock-label {
+  right: -64px; }
+
+.clock-counter .flip-clock-divider.seconds .flip-clock-label {
+  right: -64px; }
+
+<<<<<<< HEAD
 /* -- flip clock ------------------------------------------------------------------- */
 
 .clock-counter .flip-clock-divider.hours .flip-clock-label {
@@ -75,3 +87,12 @@ input.noscript-closing-trick {
 .flip-clock-small-wrapper ul li a div.down div.inn {
 	padding-top: 2px;
 }
+=======
+.flip-clock-small-wrapper ul li a div.up div.inn,
+.flip-clock-small-wrapper ul li a div.down div.inn {
+  padding-top: 2px; }
+
+/* -- page login ------------------------------------------------------------------- */
+#contact .err-mess {
+  margin-top: 6rem; }
+>>>>>>> 214226ab0b538006fe68cd01446352a7a4c25221

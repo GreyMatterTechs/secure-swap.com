@@ -37,6 +37,7 @@
   },
   "validations": [],
   "relations": {},
+<<<<<<< HEAD
   "acls": [
     {
       "accessType": "*",
@@ -52,5 +53,53 @@
     }
 	
   ],
+=======
+  "acls": [{
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "DENY"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "DENY",
+	"property": "create"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$owner",
+	"permission": "DENY",
+	"property": "deleteById"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "ALLOW",
+	"property": "login"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "ALLOW",
+	"property": "logout"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$owner",
+	"permission": "ALLOW",
+	"property": "findById"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$owner",
+	"permission": "ALLOW",
+	"property": "updateAttributes"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "DENY",
+	"property": "confirm"
+  }, {
+	"principalType": "ROLE",
+	"principalId": "$everyone",
+	"permission": "DENY",
+	"property": "resetPassword",
+	"accessType": "EXECUTE"
+  }],
+>>>>>>> 214226ab0b538006fe68cd01446352a7a4c25221
   "methods": {}
 }

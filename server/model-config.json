@@ -18,7 +18,14 @@
   },
   "AccessToken": {
     "dataSource": "db",
-    "public": false
+    "public": false,
+    "relations": {
+      "Admin": {
+        "type": "belongsTo",
+        "model": "Admin",
+        "foreignKey": "userId"
+	  }
+	}
   },
   "ACL": {
     "dataSource": "db",
@@ -42,6 +49,13 @@
     "dataSource": "db"
   },
   "Admin": {
+    "dataSource": "db",
+    "public": false,
+    "options": {
+      "emailVerificationRequired": true
+    }
+  },
+  "Purchase": {
     "dataSource": "db"
   },
   "Purchase": {

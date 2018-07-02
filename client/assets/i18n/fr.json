@@ -7,7 +7,6 @@
 	},
 
 	"-------------- NAV BAR --------------": "",
-	"navbar.brand.ico": "ICO",
 	"navbar.item.about": "Présentation",
 	"navbar.item.problem": "Solutions",
 	"navbar.item.whitepaper": "Whitepaper",
@@ -49,6 +48,11 @@
 	"tokensale-area.flipclock.hours": "Heures",
 	"tokensale-area.flipclock.minutes": "Minutes",
 	"tokensale-area.flipclock.seconds": "Secondes",
+<<<<<<< HEAD
+=======
+	"tokensale-area.info.softcap": "Soft Cap",
+	"tokensale-area.info.hardcap": "Hard Cap",
+>>>>>>> 214226ab0b538006fe68cd01446352a7a4c25221
 	"tokensale-area.info.percent": "Capitalisation en cours : $1 %",
 
 	"last": ""

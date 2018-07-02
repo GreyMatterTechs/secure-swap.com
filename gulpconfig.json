@@ -1,17 +1,26 @@
 {
   "html": "html",
-  "assets": "client/assets",
-  "theme_assets": "client/theme-assets",
-  "assets_path": "../../../assets",
-  "theme_assets_path": "../../../theme-assets",
-  "destination": {
-    "js": "client/theme-assets/js",
-    "css": "client/theme-assets/css"
+        "assets": "client/assets",
+        "theme_assets": "client/theme-assets",
+        "assets_path": "../../../assets",
+        "theme_assets_path": "../../../theme-assets",
+  "assets_source": {
+    "path": "client-src/assets",
+	"js":   "client-src/assets/js",
+	"sass": "client-src/assets/scss"
   },
-  "source": {
-    "path": "client/src",
-    "js": "client/src/js",
-    "sass": "client/src/scss"
+  "assets_dest": {
+    "css": "client/assets/css",
+    "js":  "client/assets/js"
+  },
+  "theme_assets_source": {
+    "path": "client-src/theme-assets",
+    "js":   "client-src/theme-assets/js",
+    "sass": "client-src/theme-assets/scss"
+  },
+  "theme_assets_dest": {
+    "css": "client/theme-assets/css",
+    "js":  "client/theme-assets/js"
   },
   "autoprefixerBrowsers": [
     "Android 2.3",

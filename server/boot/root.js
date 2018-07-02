@@ -70,134 +70,118 @@ module.exports = function(server) {
 		});
 	});
 
-
-	//login page
-	router.get('/login', function (req, res) {
-		res.render('login', {
-			appName: config.appName,
-			err: null
-		});
-	});
-	router.post('/login', urlencodedParser, function (req, res) {
+	var ONE_HOUR = 60*60;
+	router.get('/dashboard', urlencodedParser, function (req, res) {
 		console.log(config.appName + ' post login');
 		if (!req.body) 
-			return res.sendStatus(400).send({ 
+			return res.send({ 
 				appName: config.appName,
 				err: 400
 			});
 		if (!req.accessToken) {
-			Admin.login({
-				username: req.body.username,
-				password: req.body.password
-			}, 'user', function (err, token) {
-				if (err) {
-					// err.code = "LOGIN_FAILED_EMAIL_NOT_VERIFIED"
-					return res.sendStatus(err.statusCode).send({ 
+			if (!req.body.username &&
+				!req.body.password) {
+					return res.render('dashboard', { 
 						appName: config.appName,
-						err: err.statusCode
-						/*err.message	401 "échec de la connexion"
-										400 "username ou email est obligatoire"
-						*/
+						err: null
 					});
-				}
-				Admin.findById(token.userId, function (err, user) {
+			} else {
+			}
+		}
+	});
+
+	router.post('/dashboard', urlencodedParser, function (req, res) {
+		console.log(config.appName + ' post login');
+		if (!req.body) 
+			return res.send({ 
+				appName: config.appName,
+				err: 400
+			});
+		if (!req.accessToken) {
+			if (!req.body.username &&
+				!req.body.password) {
+					return res.send({ 
+						appName: config.appName,
+						err: 401
+					});
+			} else {
+				Admin.login({
+					username: req.body.username,
+					password: req.body.password,
+					ttl: ONE_HOUR
+				}, 'user', function (err, token) {
 					if (err) {
-						// $$$ TODO: Trouver les types d'erreurs possibles ici, pour traite le statusCode dans le switch() de login.js
-						debug('An error is reported from login: %j', err);
-						Admin.setOnlineStatus(token, 'offline');
-						Admin.logout(token.id);
-						return res.sendStatus(err.statusCode).send({ 
+						// err.code = "LOGIN_FAILED_EMAIL_NOT_VERIFIED"
+						return res.send({ 
 							appName: config.appName,
 							err: err.statusCode
 						});
-					} else {
-						if (user) {
-							if (!user.active) {
-								Admin.setOnlineStatus(token, 'offline');
-								Admin.logout(token.id);
-								res.res.sendStatus(401).send({ 
-									appName: config.appName,
-									err: 401	// Account is not active, mais on ne l'affiche pas au client
-								});
-							} else {
-								Admin.setOnlineStatus(token, 'online');
-								return res.render( 'dashboard', { 
-									appName: config.appName,
-									err: null,
-									accessToken: token.id
-								});
-							/*	// login succeed, now collect data for views, and go to dashboard
-								Admin.getDashboard(token, function(err, templateName, params) {
-									if (err) {
-										debug('An error is reported from getDashboard: %j', err);
-										User.setOnlineStatus(token, 'offline');
-										User.logout(token.id);
-										return res.send({ 
-											appName: config.appName,
-											err: err.message
-										});
-									} else {
-										params.appName= config.appName;
-										res.render(templateName, params);
-									}
-								});
-							*/
-							}
-						} else {
-							res.sendStatus(401).send({ 
-								appName: config.appName,
-								err: 401
-							});
-						}
 					}
+					Admin.findById(token.userId, function (err, user) {
+						if (err) {
+							// $$$ TODO: Trouver les types d'erreurs possibles ici, pour traite le statusCode dans le switch() de login.js
+							debug('An error is reported from login: %j', err);
+							Admin.setOnlineStatus(token, 'offline');
+							Admin.logout(token.id);
+							return res.send({ 
+								appName: config.appName,
+								err: err.statusCode
+							});
+						} else {
+							if (user) {
+								if (!user.active) {
+									Admin.setOnlineStatus(token, 'offline');
+									Admin.logout(token.id);
+									res.res.send({ 
+										appName: config.appName,
+										err: 401	// Account is not active, mais on ne l'affiche pas au client
+									});
+								} else {
+									Admin.setOnlineStatus(token, 'online');
+									return res.render('partials/dashboard', { 
+										appName: config.appName,
+										err: null,
+										accessToken: token.id
+									});
+								}
+							} else {
+								res.send({ 
+									appName: config.appName,
+									err: 401
+								});
+							}
+						}
+					});
 				});
-			});
+			}
 		} else {
 			
 			// $$$ TODO: check if accessToken is legit.
 
 			Admin.setOnlineStatus(req.accessToken, "online");
-			return res.send({ 
+			return res.render('partials/dashboard', { 
 				appName: config.appName,
-				err: null
+				err: null,
+				accessToken: token.id
 			});
-		/*	User.getDashboard(req.accessToken, function(err, templateName, params) {
-				if (err) {
-					debug('An error is reported from getDashboard: %j', err);
-					User.setOnlineStatus(req.accessToken, 'offline');
-					User.logout(req.accessToken.id);
-					return res.send({ 
-						appName: config.appName,
-						err: err.message
-					});
-				} else {
-					params.appName= config.appName;
-					res.render(templateName, params);
-				}
-			});
-		*/
 		}
 	});
 
-	//dashboard page
-	router.post('/dashboard', urlencodedParser, function (req, res) {
-		console.log(config.appName + ' post dashboard');
+	//log a user out
+	router.get('/logout', urlencodedParser, function(req, res, next) {
 		if (!req.body) 
-			return res.sendStatus(400).send({ 
+			return res.send({ 
 				appName: config.appName,
 				err: 400
 			});
 		if (!req.accessToken)
-			return res.sendStatus(400).send({ 
+			return res.send({ 
 				appName: config.appName,
-				err: 400
+				err: 401	//return 401:unauthorized if accessToken is not present
 			});
-		
-		// $$$ TODO: check if accessToken is legit.
-
-		return res.render('dashboard', {
-			appName: config.appName,
-			err: null
+		Admin.logout(req.accessToken.id, function(err) {
+			if (err) return next(err);
+			res.redirect('/'); //on successful logout, redirect
 		});
 	});
 	
