@@ -18,10 +18,18 @@
             2,
             "always"
 		],
-		"no-multiple-empty-lines": [
-			"error", 
-			{ "max": 2, "maxEOF": 1 }
-		]
+		"no-multiple-empty-lines": ["error", { 
+			"max": 2, 
+			"maxEOF": 1 
+		}],
+		"comma-dangle": ["error", {
+			"arrays": "never",
+			"objects": "never",
+			"imports": "never",
+			"exports": "never",
+			"functions": "ignore"
+		}],
+		"max-len": 0
 	},
 	"extends": "loopback",
 	"env": {
