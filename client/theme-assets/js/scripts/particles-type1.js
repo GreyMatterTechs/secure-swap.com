@@ -10,8 +10,8 @@
 	var $body = $('body');
 
 	// Particle JS
-	// https://vincentgarreau.com/particles.js
 	particlesJS('particles-js',
+
 		{
 			"particles": {
 				"number": {

@@ -1,6 +1,10 @@
 'use strict';
 
-var fs			= require('fs');
+var path	= require('path');
+var fs		= require('fs');
+var debug	= require('debug')('ss_ico:i18n');
+var config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+
 
 module.exports = function(I18n) {
 	

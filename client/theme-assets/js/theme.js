@@ -40,6 +40,7 @@ $(window).on('load', function() {
         }
     });
 
+	/*
     // Notification 1
     setTimeout(function() {
         var time = "2 minutes ago";
@@ -101,7 +102,8 @@ $(window).on('load', function() {
             '</div>'
         });
     }, 15000);
-
+	*/
+	
     if($('.page-animated').length > 0){
         InitWaypointAnimations();
     }
@@ -177,21 +179,6 @@ $(window).on('load', function() {
             }
         }
     });
-
-    /* FlipClock Counter */
-    var clock;
-    clock = $('.clock').FlipClock({
-        clockFace: 'DailyCounter',
-        autoStart: false,
-        callbacks: {
-            stop: function() {
-                $('.message').html('The clock has stopped!')
-            }
-        }
-    });
-    clock.setTime(8100000);
-    clock.setCountdown(true);
-    clock.start();
 
     /* Video Modal Open / Close */
 

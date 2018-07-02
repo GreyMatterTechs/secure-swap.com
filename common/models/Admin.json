@@ -36,23 +36,7 @@
     }
   },
   "validations": [],
-  "relations": {
-    "robots": {
-      "type": "hasMany",
-      "model": "Robot",
-      "foreignKey": "userId"
-    },
-    "clients": {
-      "type": "hasMany",
-      "model": "Client",
-      "foreignKey": "clientId"
-    },
-    "chats": {
-      "type": "hasMany",
-      "model": "Chat",
-      "foreignKey": "userId"
-    }
-  },
+  "relations": {},
   "acls": [
     {
       "accessType": "*",
@@ -65,61 +49,7 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "setlocale"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "getlocale"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "setActive"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "getOnlineStatuses"
-	},
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "setSettings"
-	},
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "getSettings"
-	},
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "removeStrategy"
-	},
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "sendEmailLicence"
-	},
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "ALLOW",
-      "property": "deleteUser"
-	}
+    }
 	
   ],
   "methods": {}

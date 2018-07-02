@@ -37,6 +37,11 @@
 	<!-- BEGIN Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<!-- END Custom CSS-->
+	<!--style type="text/css" id="flipClockCustomCSS">
+		.clock ul li a div div.inn { color: #CCCCCC; background-color: #333333; } 
+		.clock-dot { background: #323434; } 
+		.clock .flip-clock-meridium a { color: #323434; }
+	</style-->
 
 </head>
 
@@ -616,7 +621,7 @@
 										<div class="token-details text-center">
 											<!-- ICO Counter -->
 											<div class="clock-counter mb-4">
-												<div class="clock ml-0 mt-5 d-flex justify-content-center"></div>
+												<div class="clock ml-0 mt-5 mb-5 d-flex justify-content-center"></div>
 												<div class="message"></div>
 											</div>
 											<!-- ICO Counter -->
@@ -2446,7 +2451,8 @@
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN PAGE VENDOR JS-->
-	<script src="theme-assets/vendors/flipclock/flipclock.min.js"></script>
+	<script src="theme-assets/vendors/flipclock/flipclock.js"></script>
+	<script src="theme-assets/vendors/flipclock/jquery.countdown.min.js"></script>
 	<script src="theme-assets/vendors/swiper/js/swiper.min.js"></script>
 	<script src="theme-assets/vendors/particles.min.js"></script>
 	<script src="theme-assets/vendors/waypoints/jquery.waypoints.min.js"></script>
@@ -2468,6 +2474,8 @@
 	<script src="theme-assets/js/scripts/particles-type1.js"></script>
 	<!-- END PAGE LEVEL JS-->
 	<!-- BEGIN Custom JS-->
+	<script src="assets/js/tools.js"></script>
+	<script src="assets/js/i18n.js"></script>
 	<script src="assets/js/scripts.js"></script>
 	<script src="assets/js/i18n.js"></script>
 	<!-- END Custom JS-->
