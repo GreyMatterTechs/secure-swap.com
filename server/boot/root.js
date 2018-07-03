@@ -6,6 +6,8 @@ var path		= require('path');
 var bodyParser	= require('body-parser');
 var config		= require(path.join(__dirname, '../config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
+var ONE_HOUR = 60 * 60;
+var ONE_MINUTE = 60;
 
 function isString(val) {
 	return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
@@ -29,6 +31,7 @@ module.exports = function(server) {
 	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : server.dataSources.db.settings.file;
 
 	var Admin				= server.models.Admin;
+	var ICO					= server.models.ICO;
 	var router				= server.loopback.Router();
 	var jsonParser			= bodyParser.json();	// parse application/json
 	var urlencodedParser	= bodyParser.urlencoded({extended: true});	// parse application/x-www-form-urlencoded
@@ -69,7 +72,7 @@ module.exports = function(server) {
 		});
 	});
 
-	var ONE_HOUR = 60 * 60;
+
 	router.get('/dashboard', urlencodedParser, function(req, res) {
 		console.log(config.appName + ' post login');
 		if (!req.body)
@@ -131,7 +134,7 @@ module.exports = function(server) {
 								if (!user.active) {
 									Admin.setOnlineStatus(token, 'offline');
 									Admin.logout(token.id);
-									res.res.send({
+									return res.res.send({
 										appName: config.appName,
 										err: 401	// Account is not active, mais on ne l'affiche pas au client
 									});
@@ -144,7 +147,7 @@ module.exports = function(server) {
 									});
 								}
 							} else {
-								res.send({
+								return res.send({
 									appName: config.appName,
 									err: 401
 								});
@@ -179,10 +182,129 @@ module.exports = function(server) {
 			});
 		Admin.logout(req.accessToken.id, function(err) {
 			if (err) return next(err);
-			res.redirect('/'); // on successful logout, redirect
+			return res.redirect('/'); // on successful logout, redirect
 		});
 	});
 
+
+	// -----------------------------
+	// API 
+	// -----------------------------
+
+
+	router.post('paramsICO', urlencodedParser, function(req, res) {
+		if (!req.body)
+			return res.send({ err: 400 });
+		if (!req.body.username && !req.body.password) 
+			return res.send({ err: 401 });
+		Admin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
+			if (err) 
+				return res.send({ err: err.statusCode });
+			Admin.findById(token.userId, function(err, user) {
+				if (err) {
+					Admin.logout(token.id);
+					return res.send({ err: err.statusCode });
+				} else {
+					if (user) {
+						if (!user.active) {
+							Admin.logout(token.id);
+							return res.send({ err: 401 });
+						} else {
+							mICO.findById(1, function(err, ico) {
+								if (err) return res.send({ err: 401 });
+								if (inst === nulll) return res.send({ err: 401 });
+								ico.update({
+									wallet: 		req.body.wallet,
+									tokenName:		req.body.tokenName,
+									tokenPriceUSD: 	req.body.tokenPriceUSD,
+									tokenPriceETH:	req.body.tokenPriceETH,
+									softCap: 		req.body.softCap,
+									hardCap:		req.body.hardCap,
+									tokensTotal: 	req.body.tokensTotal,
+									ethReceived: 	req.body.ethReceived, 
+									tokensSold: 	req.body.tokensSold,
+									dateStart: 		req.body.dateStart,
+									dateEnd:		req.body.dateEnd
+								}, function(err, ico) {
+									if (err) return res.send({ err: 401 });
+									return res.send('ok');
+								});
+							});
+						}
+					} else {
+						return res.send({ err: 401 });
+					}
+				}
+			});
+		});
+	});
+
+	router.post('receivedEth', urlencodedParser, function(req, res) {
+		if (!req.body)
+			return res.send({ err: 400 });
+		if (!req.body.username && !req.body.password) 
+			return res.send({ err: 401 });
+		Admin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
+			if (err) 
+				return res.send({ err: err.statusCode });
+			Admin.findById(token.userId, function(err, user) {
+				if (err) {
+					Admin.logout(token.id);
+					return res.send({ err: err.statusCode });
+				} else {
+					if (user) {
+						if (!user.active) {
+							Admin.logout(token.id);
+							return res.send({ err: 401 });
+						} else {							
+							// update popup message
+							{
+								-        Nombre d’ethereum total reçu
+								-        Nombre de Token total vendu														
+							}
+							return res.send('ok');
+						}
+					} else {
+						return res.send({ err: 401 });
+					}
+				}
+			});
+		});
+	});
+
+	router.post('hardCapReached', urlencodedParser, function(req, res) {
+		if (!req.body)
+			return res.send({ err: 400 });
+		if (!req.body.username && !req.body.password) 
+			return res.send({ err: 401 });
+		Admin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
+			if (err) 
+				return res.send({ err: err.statusCode });
+			Admin.findById(token.userId, function(err, user) {
+				if (err) {
+					Admin.logout(token.id);
+					return res.send({ err: err.statusCode });
+				} else {
+					if (user) {
+						if (!user.active) {
+							Admin.logout(token.id);
+							return res.send({ err: 401 });
+						} else {							
+							// annoncer la fin de l'ICO
+							{
+								-        Nombre total d’ethereum reçu
+								-        Nombre total de token vendus (On ne doit plus afficher l’information du wallet d’envois et on doit signaler que l’ICO est terminée).													
+							}
+							return res.send('ok');
+						}
+					} else {
+						return res.send({ err: 401 });
+					}
+				}
+			});
+		});
+	});
+	
 
 	server.use(router);
 };

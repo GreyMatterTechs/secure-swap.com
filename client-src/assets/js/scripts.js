@@ -58,11 +58,11 @@
     	// --- private methods
 
 		function updateSales() {
-			$.get( '/api/Purchases/GetPurchaseData')
-			.done( function(purchase) { 
+			$.get( '/api/ICOs/GetICOData')
+			.done( function(ico) { 
 				clockInterval = clockIntervalDefault;
-				if (purchase) {
-					var date = new Date(purchase.start);
+				if (ico) {
+					var date = new Date(ico.start);
 					var now = new Date();
 					var dif = (date.getTime() - now.getTime()) / 1000;
 					dif = Math.max(1, dif);
@@ -71,8 +71,8 @@
 						clock.setTime(dif);
 						clock.start();
 					}
-					var total = purchase.tokensTotal;
-					var sold = purchase.tokensSold;
+					var total = ico.tokensTotal;
+					var sold = ico.tokensSold;
 					var purchaseSoldPercent = sold*100/total;
 					$('div.progress > div').css('width', purchaseSoldPercent+'%');
 					$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));

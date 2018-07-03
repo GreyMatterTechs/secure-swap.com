@@ -55,10 +55,7 @@
       "emailVerificationRequired": true
     }
   },
-  "Purchase": {
-    "dataSource": "db"
-  },
-  "Purchase": {
+  "ICO": {
     "dataSource": "db"
   }
 }
