@@ -9,6 +9,10 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+<<<<<<< HEAD
+
+=======
+>>>>>>> 214226ab0b538006fe68cd01446352a7a4c25221
 /* -- noscript -------------------------------------- */
 input.noscript-closing-trick:checked ~ div {
   display: none !important; }
@@ -67,6 +71,23 @@ input.noscript-closing-trick {
 .clock-counter .flip-clock-divider.seconds .flip-clock-label {
   right: -64px; }
 
+<<<<<<< HEAD
+/* -- flip clock ------------------------------------------------------------------- */
+
+.clock-counter .flip-clock-divider.hours .flip-clock-label {
+    right: -56px;
+} 
+.clock-counter .flip-clock-divider.minutes .flip-clock-label {
+    right: -64px;
+} 
+.clock-counter .flip-clock-divider.seconds .flip-clock-label {
+    right: -64px;
+}
+.flip-clock-small-wrapper ul li a div.up div.inn,
+.flip-clock-small-wrapper ul li a div.down div.inn {
+	padding-top: 2px;
+}
+=======
 .flip-clock-small-wrapper ul li a div.up div.inn,
 .flip-clock-small-wrapper ul li a div.down div.inn {
   padding-top: 2px; }
@@ -74,3 +95,4 @@ input.noscript-closing-trick {
 /* -- page login ------------------------------------------------------------------- */
 #contact .err-mess {
   margin-top: 6rem; }
+>>>>>>> 214226ab0b538006fe68cd01446352a7a4c25221

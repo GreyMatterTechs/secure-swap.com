@@ -5,7 +5,7 @@ var async		= require('async');
 var db;
 var dbName;
 var mAdmin;
-var mPurchase;
+var mICO;
 var mRole;
 var mRoleMapping;
 
@@ -31,20 +31,26 @@ function updateRole(cb) {
 	});
 }
 
-function updatePurchases(cb) {
+function updateICO(cb) {
 
-	mPurchase.findById(1, function(err, inst) {
+	mICO.findById(1, function(err, inst) {
 		if (err) return cb(err);
 		if (inst) return cb(null, inst);
-		mPurchase.create({
+		mICO.create({
+			wallet: 'dujfdmhbgpqsdhbÖUHG4',
+			tokenName: 'SSWP',
+			tokenPriceUSD: 2545.0,
+			tokenPriceETH: 0.15414,
 			softCap:  5000000,
 			hardCap: 30000000,
 			tokensTotal: 1000000,
+			ethReceived: 314358,
 			tokensSold: 314358,
-			start: new Date(2019,1,0).getTime()
-		}, function(err, purchase) {
+			dateStart: new Date(2018,9,0).getTime(),
+			dateEnd: new Date(2019,1,0).getTime()
+		}, function(err, ico) {
 			if (err) return cb(err);
-			return cb(null, purchase);
+			return cb(null, ico);
 		});
 	});
 
@@ -101,7 +107,7 @@ function updateAdmins(cb) {
 		for (var d = 0; d < accounts.length; d++) {
 			var account = accounts[d];
 			account.userdata.dateCreated = account.userdata.dateLastUpdated = account.userdata.dateLastVisit = now;
-			account.userdata.updatedBy = 'Philippe';
+			account.userdata.updatedBy = 'installer';
 		}	
 		var promises = [];
 		for (var i = 0; i < accounts.length; i++) {
@@ -119,7 +125,7 @@ function updateAdmins(cb) {
 			userdata: {
 				username: 'Aubessard',
 				password: 'p',				
-				email: 'philippe@aubessard.net',
+				email: 'philippe@greymattertechs.com',
 				active: true,
 				accessVerified: true,		
 				verificationToken: null,	
@@ -130,12 +136,22 @@ function updateAdmins(cb) {
 			userdata: {
 				username: 'Saffray',
 				password: 'a',				
-				email: 'alain@saffray.com',	
+				email: 'alain@greymattertechs.com',	
 				active: true,
 				accessVerified: true,		
 				verificationToken: null,	
 				emailVerified: true,
 				onlineStatus: 'offline'
+			}
+		}, {
+			userdata: {
+				username: 'sswp',
+				password: 's',				
+				email: 'sswp@greymattertechs.com',	
+				active: true,
+				accessVerified: true,
+				verificationToken: null,
+				emailVerified: true
 			}
 		}
 	]);
@@ -154,7 +170,7 @@ function update(db, lbUpdateTables) {
 		console.log('Loopback tables [' + lbUpdateTables + '] created in "' + dbName + '" database');
 		//create all models
 
-		async.series([updateRole, updatePurchases, updateAdmins],
+		async.series([updateRole, updateICO, updateAdmins],
 			function(err, result) {
 				if (err) throw err;
 				console.log('> tables updated sucessfully');
@@ -168,7 +184,7 @@ module.exports = function (app) {
 	db = app.dataSources.db;
 	dbName = db.settings.host ? db.settings.host : db.settings.file;
 	mAdmin = app.models.Admin;
-	mPurchase = app.models.Purchase;
+	mICO = app.models.ICO;
 	mRole = app.models.Role;
 	mRoleMapping = app.models.RoleMapping;
 
@@ -179,7 +195,7 @@ module.exports = function (app) {
 		// on touche à rien
 	} else {
 		lbMigrateTables = ['User', 'ACL', 'RoleMapping'];
-		lbUpdateTables = ['AccessToken', 'Role', 'Admin', 'Purchase'];
+		lbUpdateTables = ['AccessToken', 'Role', 'Admin', 'ICO'];
 		create(db, lbMigrateTables);
 		update(db, lbUpdateTables);
 	}

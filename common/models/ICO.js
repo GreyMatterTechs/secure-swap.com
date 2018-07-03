@@ -3,15 +3,15 @@
 var path	= require('path');
 var async	= require('async');
 //var moment	= require('moment');
-var debug	= require('debug')('ss_ico:purchase');
+var debug	= require('debug')('ss_ico:ico');
 var config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
 
-module.exports = function(Purchase) {
+module.exports = function(ICO) {
 	
 	//var mUser = Purchase.app.models.User;
 
-	Purchase.SetStartDateTime = function(date, cb) {
+	ICO.SetStartDateTime = function(date, cb) {
 		
 		
 		process.nextTick(function() {
@@ -19,16 +19,16 @@ module.exports = function(Purchase) {
 		});		
 	};
 	
-	Purchase.GetStartDateTime = function(cb) {
+	ICO.GetStartDateTime = function(cb) {
 		
 		//var date = moment.utc();
 		//get startdate from database
-		Purchase.findById(1, function(err, purchase) {
+		ICO.findById(1, function(err, ico) {
 			var date = null;
 			if (err) {
-				debug('An error is reported from Purchase.findOne: %j', err);
+				debug('An error is reported from ICO.findById: %j', err);
 			} else {
-				date = purchase.start;
+				date = ico.start;
 			}
 			process.nextTick(function() {
 				cb(err, date);	// in seconds from now
@@ -37,13 +37,13 @@ module.exports = function(Purchase) {
 	};
 	
 
-	Purchase.GetPurchaseData = function(cb) {
-		Purchase.findById(1, function(err, purchase) {
+	ICO.GetICOData = function(cb) {
+		ICO.findById(1, function(err, ico) {
 			if (err) {
-				debug('An error is reported from Purchase.findOne: %j', err);
+				debug('An error is reported from ICO.findById: %j', err);
 			}
 			process.nextTick(function() {
-				cb(err, purchase);	
+				cb(err, ico);	
 			});	
 		});	
 	};

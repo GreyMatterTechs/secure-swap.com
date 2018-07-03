@@ -51,28 +51,62 @@
 
 		// --- private methods
 
+		
+		var message = function(errCode) {
+			var message = 'Unknown error';
+			switch (errCode) {
+				case 400:
+				case 401: 
+				case 403:
+				case 404: message = 'Login failed.'; // intentional unclear message to final user
+			}
+			$('#error-txt').text(message);
+			$('#error').show();
+		};
+
+
 		// --- public methods
 
 		return {
 
 			init : function(jerr) {
-				
-				i18n = window.ss_ico.I18n.getInstance();
-				
+
+				$('#error').hide();
+				$('#success').hide();
+
 				setTimeout(function() {
 					$('body').addClass('loaded');
 				}, 200);
-							
+
+				$('#login').click(function(e){
+                    e.preventDefault();
+					$.post( "/dashboard", $('form').serialize()
+					).done(function(data) {
+						if (data.err) {
+							message(data.err);
+						} else {
+							$('.content-wrapper').html(data);
+						}
+					})
+					.fail(function(err) {
+						/*
+						Can't send mail - all recipients were rejected: 550 5.1.2 <totokjjkjk@jjj.jh>: Recipient address rejected: Domain not found
+						*/
+						message(err.status);
+					});
+				});
+				$(document).on('click blur keydown', '.form-control', function (e) {
+					$('#error').hide();
+				});
 
 
-				
-
-				
-				//--------------------------------------------------------------------------------------------------------------
-                // Starts i18n, and run all scripts that requires localisation
-                //--------------------------------------------------------------------------------------------------------------
-
-				i18n.init();				
+				if (jerr) {
+					var err = JSON.parse(jerr);
+					if (typeof err === 'string' && err !=='' ) {
+						$('#error-txt').text(err);
+						$('#error').show();
+					}
+				}	
 
 			}, // end of init:function
 

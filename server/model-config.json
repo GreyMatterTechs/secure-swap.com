@@ -55,7 +55,7 @@
       "emailVerificationRequired": true
     }
   },
-  "Purchase": {
+  "ICO": {
     "dataSource": "db"
   }
 }
