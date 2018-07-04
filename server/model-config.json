@@ -13,14 +13,11 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "db"
-  },
   "AccessToken": {
     "dataSource": "db",
     "public": false,
     "relations": {
-      "Admin": {
+      "user": {
         "type": "belongsTo",
         "model": "Admin",
         "foreignKey": "userId"
@@ -43,10 +40,8 @@
     "public": false
   },
   "I18n": {
-    "dataSource": null
-  },
-  "Note": {
-    "dataSource": "db"
+    "dataSource": null,
+    "public": true
   },
   "Admin": {
     "dataSource": "db",
@@ -56,6 +51,7 @@
     }
   },
   "ICO": {
-    "dataSource": "db"
+    "dataSource": "db",
+    "public": true
   }
 }

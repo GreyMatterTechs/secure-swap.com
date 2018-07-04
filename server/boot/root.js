@@ -9,6 +9,10 @@ var config		= require(path.join(__dirname, '../config' + (process.env.NODE_ENV =
 var ONE_HOUR = 60 * 60;
 var ONE_MINUTE = 60;
 
+var mAdmin;
+var mICO;
+
+
 function isString(val) {
 	return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
 }
@@ -26,15 +30,52 @@ function shorten(str, len) {
 	}
 }
 
+
+function login(req, cb) {
+	if (!req.body) {
+		return cb(403, null);
+	}
+	if (!req.body.username && !req.body.password){
+		return cb(403, null);
+	}
+	mAdmin.login({
+		username: req.body.username,
+		password: req.body.password,
+		ttl: ONE_MINUTE
+	}, 'user', function(err, token) {
+		if (err) {
+			return cb(err.statusCode, token.id);
+		}
+		if (token.user) {
+			token.user(function(err, user) {
+				if (err) {
+					return cb(err.statusCode, token.id);
+				}
+				if (!user.active) {
+					mAdmin.logout(token.id);
+					return cb(err.statusCode, token.id);
+				} else {			
+					return cb(null, token.id);
+				}
+			});
+		} else {
+			return cb(403, token.id);
+		}
+	});
+}
+
+
 module.exports = function(server) {
 	server.locals.env		= process.env.NODE_ENV;
 	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : server.dataSources.db.settings.file;
 
-	var Admin				= server.models.Admin;
-	var ICO					= server.models.ICO;
 	var router				= server.loopback.Router();
 	var jsonParser			= bodyParser.json();	// parse application/json
 	var urlencodedParser	= bodyParser.urlencoded({extended: true});	// parse application/x-www-form-urlencoded
+
+	mAdmin					= server.models.Admin;
+	mICO					= server.models.ICO;
+
 
 	// ------------------------------------------------
 	// Add Expires header to /images and /stylesheets directories
@@ -74,237 +115,72 @@ module.exports = function(server) {
 
 
 	router.get('/dashboard', urlencodedParser, function(req, res) {
-		console.log(config.appName + ' post login');
-		if (!req.body)
-			return res.send({
-				appName: config.appName,
-				err: 400
+		if (!req.query.access_token && !req.accessToken) {
+			return res.render('dashboard', {	// render the login form
+				err: null,
+				login: true
 			});
-		if (!req.accessToken) {
-			if (!req.body.username &&
-				!req.body.password) {
-				return res.render('dashboard', {
-					appName: config.appName,
-					err: null
-				});
-			} else {
-			}
+		} else {
+			// $$$ TODO: check if accessToken is legit.
+			return res.render('dashboard', {	// render the login form
+				err: null,
+				accessToken: req.accessToken.token.id,
+				login: false
+			});
 		}
 	});
 
-	router.post('/dashboard', urlencodedParser, function(req, res) {
-		console.log(config.appName + ' post login');
-		if (!req.body)
-			return res.send({
-				appName: config.appName,
-				err: 400
-			});
-		if (!req.accessToken) {
-			if (!req.body.username &&
-				!req.body.password) {
-				return res.send({
-					appName: config.appName,
-					err: 401
-				});
-			} else {
-				Admin.login({
-					username: req.body.username,
-					password: req.body.password,
-					ttl: ONE_HOUR
-				}, 'user', function(err, token) {
-					if (err) {
-						// err.code = "LOGIN_FAILED_EMAIL_NOT_VERIFIED"
-						return res.send({
-							appName: config.appName,
-							err: err.statusCode
-						});
-					}
-					Admin.findById(token.userId, function(err, user) {
-						if (err) {
-							// $$$ TODO: Trouver les types d'erreurs possibles ici, pour traite le statusCode dans le switch() de login.js
-							// debug('An error is reported from login: %j', err);
-							Admin.setOnlineStatus(token, 'offline');
-							Admin.logout(token.id);
-							return res.send({
-								appName: config.appName,
-								err: err.statusCode
-							});
-						} else {
-							if (user) {
-								if (!user.active) {
-									Admin.setOnlineStatus(token, 'offline');
-									Admin.logout(token.id);
-									return res.res.send({
-										appName: config.appName,
-										err: 401	// Account is not active, mais on ne l'affiche pas au client
-									});
-								} else {
-									Admin.setOnlineStatus(token, 'online');
-									return res.render('partials/dashboard', {
-										appName: config.appName,
-										err: null,
-										accessToken: token.id
-									});
-								}
-							} else {
-								return res.send({
-									appName: config.appName,
-									err: 401
-								});
-							}
-						}
-					});
-				});
-			}
-		} else {
-			// $$$ TODO: check if accessToken is legit.
 
-			Admin.setOnlineStatus(req.accessToken, 'online');
-			return res.render('partials/dashboard', {
+	router.post('/login', urlencodedParser, function(req, res) {
+		login(req, (err, tokenId) => {
+			if (err) {
+				res.sendStatus(err);
+			} else {
+				res.send({accessToken: tokenId});
+			}
+		});
+	});
+
+	router.post('/dashboard', urlencodedParser, function(req, res) {
+		if (!req.body)
+			return res.sendStatus(403);
+		if (req.body.access_token) {
+			// $$$ TODO: check if accessToken is legit.
+			mAdmin.setOnlineStatus(req.body.access_token, 'online');
+			return res.render('dashboard', {
 				appName: config.appName,
 				err: null,
-				accessToken: req.accessToken.token.id
+				accessToken: req.body.access_token,
+				login: false
 			});
 		}
+		login(req, (err, tokenId) => {
+			if (err) {
+				mAdmin.setOnlineStatusByTokenId(tokenId, 'offline');
+				return res.sendStatus(err);
+			} else {
+				mAdmin.setOnlineStatusByTokenId(tokenId, 'online');
+				return res.send({
+					appName: config.appName,
+					err: null,
+					accessToken: tokenId,
+					login: false
+				});
+			}
+		});
 	});
 
 	// log a user out
 	router.get('/logout', urlencodedParser, function(req, res, next) {
 		if (!req.body)
-			return res.send({
-				appName: config.appName,
-				err: 400
-			});
+			return res.sendStatus(403);
 		if (!req.accessToken)
-			return res.send({
-				appName: config.appName,
-				err: 401	// return 401:unauthorized if accessToken is not present
-			});
-		Admin.logout(req.accessToken.id, function(err) {
-			if (err) return next(err);
-			return res.redirect('/'); // on successful logout, redirect
+			return res.sendStatus(403);
+		mAdmin.logout(req.accessToken.id, function(err) {
+			if (err) return res.sendStatus(403);
+			return res.redirect('/'); // on successful logout, redirect to home
 		});
 	});
-
-
-	// -----------------------------
-	// API 
-	// -----------------------------
-
-
-	router.post('paramsICO', urlencodedParser, function(req, res) {
-		if (!req.body)
-			return res.send({ err: 400 });
-		if (!req.body.username && !req.body.password) 
-			return res.send({ err: 401 });
-		Admin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
-			if (err) 
-				return res.send({ err: err.statusCode });
-			Admin.findById(token.userId, function(err, user) {
-				if (err) {
-					Admin.logout(token.id);
-					return res.send({ err: err.statusCode });
-				} else {
-					if (user) {
-						if (!user.active) {
-							Admin.logout(token.id);
-							return res.send({ err: 401 });
-						} else {
-							mICO.findById(1, function(err, ico) {
-								if (err) return res.send({ err: 401 });
-								if (inst === nulll) return res.send({ err: 401 });
-								ico.update({
-									wallet: 		req.body.wallet,
-									tokenName:		req.body.tokenName,
-									tokenPriceUSD: 	req.body.tokenPriceUSD,
-									tokenPriceETH:	req.body.tokenPriceETH,
-									softCap: 		req.body.softCap,
-									hardCap:		req.body.hardCap,
-									tokensTotal: 	req.body.tokensTotal,
-									ethReceived: 	req.body.ethReceived, 
-									tokensSold: 	req.body.tokensSold,
-									dateStart: 		req.body.dateStart,
-									dateEnd:		req.body.dateEnd
-								}, function(err, ico) {
-									if (err) return res.send({ err: 401 });
-									return res.send('ok');
-								});
-							});
-						}
-					} else {
-						return res.send({ err: 401 });
-					}
-				}
-			});
-		});
-	});
-
-	router.post('receivedEth', urlencodedParser, function(req, res) {
-		if (!req.body)
-			return res.send({ err: 400 });
-		if (!req.body.username && !req.body.password) 
-			return res.send({ err: 401 });
-		Admin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
-			if (err) 
-				return res.send({ err: err.statusCode });
-			Admin.findById(token.userId, function(err, user) {
-				if (err) {
-					Admin.logout(token.id);
-					return res.send({ err: err.statusCode });
-				} else {
-					if (user) {
-						if (!user.active) {
-							Admin.logout(token.id);
-							return res.send({ err: 401 });
-						} else {							
-							// update popup message
-							{
-								-        Nombre d’ethereum total reçu
-								-        Nombre de Token total vendu														
-							}
-							return res.send('ok');
-						}
-					} else {
-						return res.send({ err: 401 });
-					}
-				}
-			});
-		});
-	});
-
-	router.post('hardCapReached', urlencodedParser, function(req, res) {
-		if (!req.body)
-			return res.send({ err: 400 });
-		if (!req.body.username && !req.body.password) 
-			return res.send({ err: 401 });
-		Admin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
-			if (err) 
-				return res.send({ err: err.statusCode });
-			Admin.findById(token.userId, function(err, user) {
-				if (err) {
-					Admin.logout(token.id);
-					return res.send({ err: err.statusCode });
-				} else {
-					if (user) {
-						if (!user.active) {
-							Admin.logout(token.id);
-							return res.send({ err: 401 });
-						} else {							
-							// annoncer la fin de l'ICO
-							{
-								-        Nombre total d’ethereum reçu
-								-        Nombre total de token vendus (On ne doit plus afficher l’information du wallet d’envois et on doit signaler que l’ICO est terminée).													
-							}
-							return res.send('ok');
-						}
-					} else {
-						return res.send({ err: 401 });
-					}
-				}
-			});
-		});
-	});
-	
 
 	server.use(router);
 };

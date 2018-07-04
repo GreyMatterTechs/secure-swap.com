@@ -2,7 +2,7 @@
  * dashboard.js
  * App for SecureSwap ICO website.
  * 
- * Includes all of the following: Tools.js, I18n.js
+ * Includes all of the following: Tools.js
  *
  * @version:	1.0.0
  * @author:		Philippe Aubessard, philippe@aubessard.net
@@ -18,7 +18,7 @@
 	window.ss_ico = window.ss_ico || {};	// NameSpace
 
 	if ( window.ss_ico.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
-	if ( window.ss_ico.I18n === undefined ) { throw new Error( 'Please load I18n.js' ); }
+
 
 	// ---------- class Dashboard
 
@@ -78,26 +78,11 @@
 					$('body').addClass('loaded');
 				}, 200);
 
-				$('#login').click(function(e){
-                    e.preventDefault();
-					$.post( "/dashboard", $('form').serialize()
-					).done(function(data) {
-						if (data.err) {
-							message(data.err);
-						} else {
-							$('.content-wrapper').html(data);
-						}
-					})
-					.fail(function(err) {
-						/*
-						Can't send mail - all recipients were rejected: 550 5.1.2 <totokjjkjk@jjj.jh>: Recipient address rejected: Domain not found
-						*/
-						message(err.status);
-					});
-				});
-				$(document).on('click blur keydown', '.form-control', function (e) {
-					$('#error').hide();
-				});
+				
+				
+
+
+
 
 
 				if (jerr) {

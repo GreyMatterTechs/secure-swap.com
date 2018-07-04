@@ -71,7 +71,7 @@
     }
   ],
   "methods": {
-    "GetPurchaseData": {
+    "GetICOData": {
       "accepts": [],
       "returns": {
         "arg": "data",

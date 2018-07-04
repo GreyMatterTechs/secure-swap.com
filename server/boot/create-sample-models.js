@@ -33,25 +33,33 @@ function updateRole(cb) {
 
 function updateICO(cb) {
 
+	var icoData = {
+		wallet: 'dujfdmhbgpqsdhbÖUHG4',
+		tokenName: 'SSWP',
+		tokenPriceUSD: 2545.0,
+		tokenPriceETH: 0.15414,
+		softCap:  5000000,
+		hardCap: 30000000,
+		tokensTotal: 1000000,
+		ethReceived: 314358,
+		tokensSold: 314358,
+		dateStart: new Date(2018,10,10).getTime(),
+		dateEnd: new Date(2019,1,0).getTime()
+	};
+
 	mICO.findById(1, function(err, inst) {
 		if (err) return cb(err);
-		if (inst) return cb(null, inst);
-		mICO.create({
-			wallet: 'dujfdmhbgpqsdhbÖUHG4',
-			tokenName: 'SSWP',
-			tokenPriceUSD: 2545.0,
-			tokenPriceETH: 0.15414,
-			softCap:  5000000,
-			hardCap: 30000000,
-			tokensTotal: 1000000,
-			ethReceived: 314358,
-			tokensSold: 314358,
-			dateStart: new Date(2018,9,0).getTime(),
-			dateEnd: new Date(2019,1,0).getTime()
-		}, function(err, ico) {
-			if (err) return cb(err);
-			return cb(null, ico);
-		});
+		if (inst) {
+			inst.updateAttributes(icoData, function(err, ico) {
+				if (err) return cb(err);
+				return cb(null, ico);
+			});
+		} else {
+			mICO.create(icoData, function(err, ico) {
+				if (err) return cb(err);
+				return cb(null, ico);
+			});
+		}
 	});
 
 }
@@ -124,30 +132,30 @@ function updateAdmins(cb) {
 	addUsers([{
 			userdata: {
 				username: 'Aubessard',
-				password: 'p',				
+				password: 'p',
 				email: 'philippe@greymattertechs.com',
 				active: true,
-				accessVerified: true,		
-				verificationToken: null,	
+				accessVerified: true,
+				verificationToken: null,
 				emailVerified: true,
 				onlineStatus: 'offline'
 			}
 		}, {
 			userdata: {
 				username: 'Saffray',
-				password: 'a',				
+				password: 'a',
 				email: 'alain@greymattertechs.com',	
 				active: true,
-				accessVerified: true,		
-				verificationToken: null,	
+				accessVerified: true,
+				verificationToken: null,
 				emailVerified: true,
 				onlineStatus: 'offline'
 			}
 		}, {
 			userdata: {
 				username: 'sswp',
-				password: 's',				
-				email: 'sswp@greymattertechs.com',	
+				password: 's',
+				email: 'sswp@greymattertechs.com',
 				active: true,
 				accessVerified: true,
 				verificationToken: null,
@@ -194,7 +202,7 @@ module.exports = function (app) {
 	if (process.env.NODE_ENV==='production') {
 		// on touche à rien
 	} else {
-		lbMigrateTables = ['User', 'ACL', 'RoleMapping'];
+		lbMigrateTables = ['ACL', 'RoleMapping'];
 		lbUpdateTables = ['AccessToken', 'Role', 'Admin', 'ICO'];
 		create(db, lbMigrateTables);
 		update(db, lbUpdateTables);

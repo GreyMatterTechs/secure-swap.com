@@ -65,7 +65,7 @@
 
 		return {
 
-			init : function(jerr) {
+			init: function(jerr) {
 
 				$('#error').hide();
 				$('#success').hide();
@@ -81,7 +81,9 @@
 						if (data.err) {
 							message(data.err);
 						} else {
-							$('.content-wrapper').html(data);
+							//	$('.content-wrapper').html(data);
+							$('input[name="access_token"]').val(data.accessToken);
+							$('form').submit();
 						}
 					})
 					.fail(function(err) {

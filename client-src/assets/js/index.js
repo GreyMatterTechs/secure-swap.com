@@ -12,26 +12,26 @@
  *
  */
 
-( function( window, undefined ) {
-  'use strict';
-	
-  window.ss_ico = window.ss_ico || {};	// NameSpace
+(function(window, undefined) {
+	'use strict';
 
-	if ( window.ss_ico.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
-	if ( window.ss_ico.I18n === undefined ) { throw new Error( 'Please load I18n.js' ); }
+	window.ss_ico = window.ss_ico || {};	// NameSpace
+
+	if (window.ss_ico.Tools === undefined) { throw new Error('Please load Tools.js'); }
+	if (window.ss_ico.I18n === undefined) { throw new Error('Please load I18n.js'); }
 
 	// ---------- class Landpage
 
 	// --- public static
-  
-  // constructeur public static
+
+	// constructeur public static
 	window.ss_ico.Landpage = function() {
-		throw new Error( 'Please use getInstance' );
+		throw new Error('Please use getInstance');
 	};
 
 	// singleton factory public static
 	window.ss_ico.Landpage.getInstance = function() {
-		if ( instance ) { return instance; }
+		if (instance) { return instance; }
 		instance = new Landpage();
 		return instance;
 	};
@@ -39,7 +39,7 @@
 	// --- private static
 
 	// membres private static
-	
+
 	var instance = null;
 
 	// Constructeur private static
@@ -47,45 +47,45 @@
 
 		// --- private members
 
-		var i18n					= null;
-		var clock					= null;
-		var clockIntervalDefault	= 60000;
-		var clockInterval			= clockIntervalDefault;
-		var clockIntervalId			= null;
-		var purchaseSoldPercent		= null;
+		var i18n = null;
+		var clock = null;
+		var clockIntervalDefault = 60000;
+		var clockInterval = clockIntervalDefault;
+		var clockIntervalId = null;
+		var purchaseSoldPercent = null;
 
-		
-    	// --- private methods
 
-		function updateSales() {
-			$.get( '/api/Purchases/GetPurchaseData')
-			.done( function(purchase) { 
-				clockInterval = clockIntervalDefault;
-				if (purchase) {
-					var date = new Date(purchase.start);
-					var now = new Date();
-					var dif = (date.getTime() - now.getTime()) / 1000;
-					dif = Math.max(1, dif);
-					if (clock) {
-						clock.stop();
-						clock.setTime(dif);
-						clock.start();
+		// --- private methods
+
+		function updateICO() {
+			$.get('/api/ICOs/GetICOData')
+				.done(function(ico) {
+					clockInterval = clockIntervalDefault;
+					if (ico) {
+						var date = new Date(ico.dateStart);
+						var now = new Date();
+						var dif = (date.getTime() - now.getTime()) / 1000;
+						dif = Math.max(1, dif);
+						if (clock) {
+							clock.stop();
+							clock.setTime(dif);
+							clock.start();
+						}
+						var total = ico.tokensTotal;
+						var sold = ico.tokensSold;
+						var purchaseSoldPercent = sold * 100 / total;
+						$('div.progress > div').css('width', purchaseSoldPercent + '%');
+						$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
 					}
-					var total = purchase.tokensTotal;
-					var sold = purchase.tokensSold;
-					var purchaseSoldPercent = sold*100/total;
-					$('div.progress > div').css('width', purchaseSoldPercent+'%');
-					$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
-				}
-			})
-			.fail( function(err) {
-				if (clockInterval<clockIntervalDefault*100) clockInterval *= 2;
-			});
+				})
+				.fail(function(err) {
+					if (clockInterval < clockIntervalDefault * 100) clockInterval *= 2;
+				});
 		}
-		function updateSalesTimer() {
+		function updateICOTimer() {
 			if (clockIntervalId) clearInterval(clockIntervalId);
-			updateSales();
-			clockIntervalId = setInterval(updateSalesTimer, clockInterval);
+			updateICO();
+			clockIntervalId = setInterval(updateICOTimer, clockInterval);
 		}
 
 
@@ -93,21 +93,21 @@
 
 		return {
 
-			init : function() {
+			init: function() {
 
 				i18n = window.ss_ico.I18n.getInstance();
-                
-        
-		
+
+
+
 				/* FlipClock Counter */
 				//http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
 				FlipClock.Lang.Custom = {
-					'years'   : '<span data-i18n="tokensale-area.flipclock.years"></span>',
-					'months'  : '<span data-i18n="tokensale-area.flipclock.months"></span>',
-					'days'    : '<span data-i18n="tokensale-area.flipclock.days"></span>',
-					'hours'   : '<span data-i18n="tokensale-area.flipclock.hours"></span>',
-					'minutes' : '<span data-i18n="tokensale-area.flipclock.minutes"></span>',
-					'seconds' : '<span data-i18n="tokensale-area.flipclock.seconds"></span>',
+					'years': '<span data-i18n="tokensale-area.flipclock.years"></span>',
+					'months': '<span data-i18n="tokensale-area.flipclock.months"></span>',
+					'days': '<span data-i18n="tokensale-area.flipclock.days"></span>',
+					'hours': '<span data-i18n="tokensale-area.flipclock.hours"></span>',
+					'minutes': '<span data-i18n="tokensale-area.flipclock.minutes"></span>',
+					'seconds': '<span data-i18n="tokensale-area.flipclock.seconds"></span>',
 				};
 				var countdown = 100 * 24 * 60 * 60;
 				clock = $('.clock').FlipClock(countdown, {
@@ -125,9 +125,9 @@
 						wrapper: 'flip-clock-small-wrapper'
 					}
 				});
-				
-				updateSalesTimer();
-				
+
+				updateICOTimer();
+
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Starts i18n, and run all scripts that requires localisation
@@ -166,6 +166,6 @@
 
 }(window));
 
-window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.Landpage.getInstance().init(), false );
+window.ss_ico.Tools.getInstance().addEventHandler(document, "DOMContentLoaded", window.ss_ico.Landpage.getInstance().init(), false);
 
 // EOF

@@ -170,7 +170,7 @@ module.exports = function (Admin) {
 	};
 
 	Admin.setOnlineStatusByTokenId = function (tokenId, status, cb) {
-		var mAccessToken = User.app.models.AccessToken;
+		var mAccessToken = Admin.app.models.AccessToken;
 		mAccessToken.findById(tokenId, function(err, accessToken) {
 			if (err) {
 				cb(err, null);

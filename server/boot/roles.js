@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 function determineAdminStatus(cb) {
@@ -12,3 +13,4 @@ Roles.registerResolver('admin', function(role, context, cb) {
 		cb(null, isAuthorized);
 	});
 });
+*/
