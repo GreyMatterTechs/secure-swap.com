@@ -35,16 +35,16 @@ function updateICO(cb) {
 
 	var icoData = {
 		wallet: 'dujfdmhbgpqsdhbÖUHG4',
-		tokenName: 'SSWP',
-		tokenPriceUSD: 2545.0,
+		tokenName: 'SSWT',
+		tokenPriceUSD: 0.45,
 		tokenPriceETH: 0.15414,
-		softCap:  5000000,
-		hardCap: 30000000,
-		tokensTotal: 1000000,
-		ethReceived: 314358,
-		tokensSold: 314358,
-		dateStart: new Date(2018,10,10).getTime(),
-		dateEnd: new Date(2019,1,0).getTime()
+		softCap: 10000000,
+		hardCap: 80000000,
+		tokensTotal: 100000000,
+		ethReceived: 0,
+		tokensSold: 0,
+		dateStart: new Date(2018,8,2).getTime(),
+		dateEnd: new Date(2018,11,31).getTime()
 	};
 
 	mICO.findById(1, function(err, inst) {
