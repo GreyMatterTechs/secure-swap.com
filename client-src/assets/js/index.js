@@ -52,8 +52,7 @@
 		var clockIntervalDefault = 60000;
 		var clockInterval = clockIntervalDefault;
 		var clockIntervalId = null;
-		var purchaseSoldPercent = null;
-
+		
 
 		// --- private methods
 
@@ -66,6 +65,7 @@
 						var now = new Date();
 						var dif = (date.getTime() - now.getTime()) / 1000;
 						dif = Math.max(1, dif);
+						if (dif < 0) dif = 0;
 						if (clock) {
 							clock.stop();
 							clock.setTime(dif);
@@ -73,7 +73,7 @@
 						}
 						var total = ico.tokensTotal;
 						var sold = ico.tokensSold;
-						var purchaseSoldPercent = sold * 100 / total;
+						var purchaseSoldPercent = parseInt(sold * 100 / total);
 						$('div.progress > div').css('width', purchaseSoldPercent + '%');
 						$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
 					}
@@ -126,7 +126,6 @@
 					}
 				});
 
-				updateICOTimer();
 
 
 				//--------------------------------------------------------------------------------------------------------------
@@ -147,11 +146,13 @@
 					$('tokensale-area.flipclock.hours').i18n();
 					$('tokensale-area.flipclock.minutes').i18n();
 					$('tokensale-area.flipclock.seconds').i18n();
-					$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
+			//		$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
 				};
 
 				i18n.init();
 				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback);
+				
+				updateICOTimer();
 
 			}, // end of init:function
 
