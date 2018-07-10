@@ -5,12 +5,42 @@ var async	= require('async');
 //var moment	= require('moment');
 var debug	= require('debug')('ss_ico:ico');
 var config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+var g		= require('../../node_modules/loopback/lib/globalize');
+var app		= require('../../server/server');
+
+function checkToken(tokenId, cb) {
+	var mAdmin = app.models.Admin;
+	var mAccessToken = app.models.AccessToken;
+	mAccessToken.findById(tokenId, function(err, accessToken) {
+		if (err) {
+			cb(err, null);
+		} else if (accessToken) {
+			mAdmin.findById(accessToken.userId, function(err, user) {
+				if (err) return cb(err, null);
+				if (user) {
+					if (!user.active) {
+						err = new Error(g.f('User not active. userId {{userId}}'));
+						err.status = 404;
+						return cb(err, null);
+					}
+					return cb(null, user);
+				} else {
+					err = new Error(g.f('Could not find userId {{userId}}'));
+					err.status = 404;
+					return cb(err, null);
+				}
+			});
+		} else {
+			err = new Error(g.f('identification failed'));
+			err.status = 401;
+			cb(err, null);
+		}
+	});
+}
 
 
 module.exports = function(ICO) {
 	
-	//var mUser = Purchase.app.models.User;
-
 	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
 	ICO.disableRemoteMethodByName('upsert');                               // disables PATCH /ICOs
 	ICO.disableRemoteMethodByName('find');                                 // disables GET /ICOs
@@ -36,158 +66,98 @@ module.exports = function(ICO) {
 	ICO.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /I18ns/upsertWithWhere
 
 
-	ICO.SetStartDateTime = function(date, cb) {
-		
-		
-		process.nextTick(function() {
-			cb(err, null);
-		});		
-	};
-	
-	ICO.GetStartDateTime = function(cb) {
-		
-		//var date = moment.utc();
-		//get startdate from database
+	ICO.getICOData = function(cb) {
 		ICO.findById(1, function(err, ico) {
-			var date = null;
-			if (err) {
-				debug('An error is reported from ICO.findById: %j', err);
+			if (err) return cb(err, null);
+			if (ico === null) {
+				err = new Error(g.f('Can\'t find ICO'));
+				err.status = 404;
+				return cb(err, null);
+			}
+			process.nextTick(function() {
+				cb(null, ico);
+			});
+		});
+	};
+
+	ICO.setParams = function(tokenId, params, cb) {
+		checkToken(tokenId, function(err, user) {
+			if (err) return cb(err, null);
+			ICO.findById(1, function(err, ico) {
+				if (err) return cb(err, null);
+				if (ico === null) {
+					err = new Error(g.f('Can\'t find ICO'));
+					err.status = 404;
+					return cb(err, null);
+				}
+				ico.updateAttributes({
+					wallet: 		params.wallet,
+					tokenName:		params.tokenName,
+					tokenPriceUSD: 	params.tokenPriceUSD,
+					tokenPriceETH:	params.tokenPriceETH,
+					softCap: 		params.softCap,
+					hardCap:		params.hardCap,
+					tokensTotal: 	params.tokensTotal,
+					ethTotal: 		params.ethTotal, 
+					tokensSold: 	params.tokensSold,
+					dateStart: 		params.dateStart,
+					dateEnd:		params.dateEnd
+				}, function(err) {
+					if (err) return cb(err, null);
+					return cb(null, 'ok');
+				});
+			});
+		});
+	};
+
+	ICO.setReceivedEth = function(tokenId, params, cb) {
+		checkToken(tokenId, function(err, user) {
+			if (err) return cb(err, null);
+
+			// update popup message
+			//
+			//	-        Nombre d’ethereum total reçu
+			//	-        Nombre de Token total vendu														
+			//
+			ICO.findById(1, function(err, ico) {
+				if (err) return cb(err, null);
+				if (ico === null) {
+					err = new Error(g.f('Can\'t find ICO'));
+					err.status = 404;
+					return cb(err, null);
+				}
+				ico.updateAttributes({
+					ethReceived: 	params.ethReceived, 
+					ethTotal:	 	params.ethTotal, 
+					tokensSold: 	params.tokensSold
+				}, function(err) {
+					if (err) return cb(err, null);
+					return cb(null, 'ok');
+				});
+			});
+		});
+	};
+
+	ICO.getPurchase = function(cb) {
+		ICO.findById(1, function(err, ico) {
+			if (err) return cb(err, null);
+			if (ico === null) {
+				err = new Error(g.f('Can\'t find ICO'));
+				err.status = 404;
+				return cb(err, null);
+			}
+			var received = ico.ethReceived;
+			if (received > 0) {
+				ico.updateAttributes({
+					ethReceived: 0
+				}, function(err) {
+					if (err) return cb(err, null);
+					return cb(null, received);
+				});
 			} else {
-				date = ico.start;
+				return cb(null, null);
 			}
-			process.nextTick(function() {
-				cb(err, date);	// in seconds from now
-			});	
-		});	
+		});
 	};
-	
-
-	ICO.GetICOData = function(cb) {
-		ICO.findById(1, function(err, ico) {
-			if (err) {
-				debug('An error is reported from ICO.findById: %j', err);
-			}
-			process.nextTick(function() {
-				cb(err, ico);	
-			});	
-		});	
-	};
-
-/*
-	ICO.setParams = function(cb) {
-		if (!req.body)
-			return res.send({ err: 400 });
-		if (!req.body.username && !req.body.password) 
-			return res.send({ err: 401 });
-		mAdmin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
-			if (err) 
-				return res.send({ err: err.statusCode });
-			mAdmin.findById(token.userId, function(err, user) {
-				if (err) {
-					mAdmin.logout(token.id);
-					return res.send({ err: err.statusCode });
-				} else {
-					if (user) {
-						if (!user.active) {
-							mAdmin.logout(token.id);
-							return res.send({ err: 401 });
-						} else {
-							mICO.findById(1, function(err, ico) {
-								if (err) return res.send({ err: 401 });
-								if (ico === null) return res.send({ err: 401 });
-								ico.update({
-									wallet: 		req.body.wallet,
-									tokenName:		req.body.tokenName,
-									tokenPriceUSD: 	req.body.tokenPriceUSD,
-									tokenPriceETH:	req.body.tokenPriceETH,
-									softCap: 		req.body.softCap,
-									hardCap:		req.body.hardCap,
-									tokensTotal: 	req.body.tokensTotal,
-									ethReceived: 	req.body.ethReceived, 
-									tokensSold: 	req.body.tokensSold,
-									dateStart: 		req.body.dateStart,
-									dateEnd:		req.body.dateEnd
-								}, function(err, ico) {
-									if (err) return res.send({ err: 401 });
-									return res.send('ok');
-								});
-							});
-						}
-					} else {
-						return res.send({ err: 401 });
-					}
-				}
-			});
-		});
-	});
-
-	router.post('receivedEth', urlencodedParser, function(req, res) {
-		if (!req.body)
-			return res.send({ err: 400 });
-		if (!req.body.username && !req.body.password) 
-			return res.send({ err: 401 });
-		mAdmin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
-			if (err) 
-				return res.send({ err: err.statusCode });
-			mAdmin.findById(token.userId, function(err, user) {
-				if (err) {
-					mAdmin.logout(token.id);
-					return res.send({ err: err.statusCode });
-				} else {
-					if (user) {
-						if (!user.active) {
-							mAdmin.logout(token.id);
-							return res.send({ err: 401 });
-						} else {							
-							// update popup message
-							//
-							//	-        Nombre d’ethereum total reçu
-							//	-        Nombre de Token total vendu														
-							//
-							return res.send('ok');
-						}
-					} else {
-						return res.send({ err: 401 });
-					}
-				}
-			});
-		});
-	});
-
-	router.post('hardCapReached', urlencodedParser, function(req, res) {
-		if (!req.body)
-			return res.send({ err: 400 });
-		if (!req.body.username && !req.body.password) 
-			return res.send({ err: 401 });
-		mAdmin.login({ username: req.body.username, password: req.body.password, ttl: ONE_MINUTE }, 'user', function(err, token) {
-			if (err) 
-				return res.send({ err: err.statusCode });
-			mAdmin.findById(token.userId, function(err, user) {
-				if (err) {
-					mAdmin.logout(token.id);
-					return res.send({ err: err.statusCode });
-				} else {
-					if (user) {
-						if (!user.active) {
-							mAdmin.logout(token.id);
-							return res.send({ err: 401 });
-						} else {							
-							// annoncer la fin de l'ICO
-							//
-							//	-        Nombre total d’ethereum reçu
-							//	-        Nombre total de token vendus (On ne doit plus afficher l’information du wallet d’envois et on doit signaler que l’ICO est terminée).													
-							//
-							return res.send('ok');
-						}
-					} else {
-						return res.send({ err: 401 });
-					}
-				}
-			});
-		});
-	});
-	*/
-
-
 
 };

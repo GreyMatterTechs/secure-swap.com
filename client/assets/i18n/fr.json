@@ -51,6 +51,7 @@
 	"tokensale-area.info.softcap": "Soft Cap",
 	"tokensale-area.info.hardcap": "Hard Cap",
 	"tokensale-area.info.percent": "Capitalisation en cours : $1 %",
+	"tokensale-area.info.eth": "1 SSWT = $1$ = $2€ = $3ETH",
 
 	"last": ""
 }

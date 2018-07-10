@@ -530,15 +530,16 @@
 
 		// $$$ TODO  stocker le choix de langue courant dans le browser storage
 		
-		var tools			= null;
-		var $i18n			= null;					// In case locale option is not given, 
-		//	$.i18n.debug = true;					// jquery.i18n plugin will use the language attribute given for the html tag.
-													// If that lang attribute is also missing, 
-													// it will try to use the locale specified by the browser.
-		var browserLang		= navigator.languages && navigator.languages[0] ||	// Chrome / Firefox
-							  navigator.language ||								// All browsers
-							  navigator.userLanguage;							// IE <= 10
-		var browserLangLc	= browserLang.replace(/-/g , '_').toLowerCase();
+		var tools				= null;
+		var $i18n				= null;					// In case locale option is not given, 
+		//	$.i18n.debug	 = true;					// jquery.i18n plugin will use the language attribute given for the html tag.
+														// If that lang attribute is also missing, 
+														// it will try to use the locale specified by the browser.
+		var browserLang			= navigator.languages && navigator.languages[0] ||	// Chrome / Firefox
+								  navigator.language ||								// All browsers
+								  navigator.userLanguage;							// IE <= 10
+		var browserLangLc		= browserLang.replace(/-/g , '_').toLowerCase();
+		var mailchimpLanguage	= "";
 
 
 		// --- private methods
@@ -564,6 +565,7 @@
 					$('html').attr('lang', code);
 					// $$$ TODO: $('html').attr('data-textdirection', 'ltr');
 					setLocale(code, callback);
+					mailchimpLanguage = locales[l].mailchimp;
 					break;
 				}
 			}
@@ -646,6 +648,10 @@
 
 			},
 			
+			getMailChimpLanguage: function() {
+				return mailchimpLanguage;
+			}, // end of getMailChimpLanguage
+
 			dispose: function() {
 			} // end of dispose
 

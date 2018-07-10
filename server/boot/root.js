@@ -11,7 +11,7 @@ var ONE_MINUTE = 60;
 
 var mAdmin;
 var mICO;
-
+var mContact;
 
 function isString(val) {
 	return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
@@ -75,6 +75,7 @@ module.exports = function(server) {
 
 	mAdmin					= server.models.Admin;
 	mICO					= server.models.ICO;
+	mContact				= server.models.Contact;
 
 
 	// ------------------------------------------------
@@ -179,6 +180,15 @@ module.exports = function(server) {
 		mAdmin.logout(req.accessToken.id, function(err) {
 			if (err) return res.sendStatus(403);
 			return res.redirect('/'); // on successful logout, redirect to home
+		});
+	});
+
+	router.get('/contact', urlencodedParser, function(req, res, next) {
+		mContact.contact(req, function(err, response) {
+			if (err) {
+				return res.sendStatus(err);
+			}
+			return res.send(response);
 		});
 	});
 

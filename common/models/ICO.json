@@ -37,10 +37,14 @@
       "required": true
     },
     "ethReceived": {
-      "type": "number",
-      "required": true
-    },
-    "dateStart": {
+		"type": "number",
+		"required": true
+	  },
+	"ethTotal": {
+		"type": "number",
+		"required": true
+	},
+	"dateStart": {
       "type": "Date",
       "required": true
     },
@@ -51,27 +55,9 @@
   },
   "validations": [],
   "relations": {},
-  "acls": [{
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY",
-      "property": "SetStartDateTime"
-    }, {
-      "accessType": "EXECUTE",
-      "principalType": "ROLE",
-      "principalId": "admin",
-      "permission": "ALLOW",
-      "property": "SetStartDateTime"
-    },
-    {
-      "principalType": "ROLE",
-      "principalId": "$everyone",
-      "permission": "DENY",
-      "property": "SetTokensSold"
-    }
-  ],
+  "acls": [],
   "methods": {
-    "GetICOData": {
+    "getICOData": {
       "accepts": [],
       "returns": {
         "arg": "data",
@@ -81,102 +67,46 @@
       "http": {
         "verb": "get"
       }
-    },
-
-    "SetStartDateTime": {
-      "accepts": {
-        "arg": "datetime",
-        "type": "Date",
-        "root": true,
-        "required": true
-      },
-      "returns": [],
-      "http": {
-        "verb": "post"
-      }
-    },
-    "GetStartDateTime": {
-      "accepts": [],
-      "returns": {
-        "arg": "datetime",
-        "type": "Date",
-        "root": true
-      },
-      "http": {
-        "verb": "get"
-      }
-    },
-
-    "SetTokensSold": {
-      "accepts": {
-        "arg": "count",
-        "type": "number",
-        "root": true,
-        "required": true
-      },
-      "returns": [],
-      "http": {
-        "verb": "post"
-      }
-    },
-    "GetTokensSold": {
-      "accepts": [],
-      "returns": {
-        "arg": "count",
-        "type": "number",
-        "root": true
-      },
-      "http": {
-        "verb": "get"
-      }
-    },
-
-    "SetHardCap": {
-      "accepts": {
-        "arg": "hardCap",
-        "type": "number",
-        "root": true,
-        "required": true
-      },
-      "returns": [],
-      "http": {
-        "verb": "post"
-      }
-    },
-    "GetHardCap": {
-      "accepts": [],
-      "returns": {
-        "arg": "hardCap",
-        "type": "number",
-        "root": true
-      },
-      "http": {
-        "verb": "get"
-      }
-    },
-
-    "SetSoftCap": {
-      "accepts": {
-        "arg": "softCap",
-        "type": "number",
-        "root": true,
-        "required": true
-      },
-      "returns": [],
-      "http": {
-        "verb": "post"
-      }
-    },
-    "GetSoftCap": {
-      "accepts": [],
-      "returns": {
-        "arg": "softCap",
-        "type": "number",
-        "root": true
-      },
-      "http": {
-        "verb": "get"
-      }
-    }
+	},
+	"setParams": {
+		"accepts": [{
+			"arg": "tokenId",
+			"type": "String",
+			"root": true
+		}, {
+			"arg": "params",
+			"type": "Object",
+			"root": true
+		}],
+		"http": {
+		  "verb": "post"
+		}
+	},
+	"setReceivedEth": {
+		"accepts": [{
+			"arg": "tokenId",
+			"type": "String",
+			"root": true
+		}, {
+			"arg": "params",
+			"type": "Object",
+			"root": true
+		}],
+		"returns": [],
+		"http": {
+		  "verb": "post"
+		}
+	},
+	"getPurchase": {
+		"accepts": [],
+		"returns": {
+		  "arg": "purchase",
+		  "type": "Number",
+		  "root": true
+		},
+		"http": {
+		  "verb": "get"
+		}
+	}
   }
 }

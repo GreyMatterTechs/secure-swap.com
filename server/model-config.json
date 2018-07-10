@@ -43,6 +43,10 @@
     "dataSource": null,
     "public": true
   },
+  "Contact": {
+    "dataSource": null,
+    "public": true
+  },
   "Admin": {
     "dataSource": "db",
     "public": false,

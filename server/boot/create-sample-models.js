@@ -42,6 +42,7 @@ function updateICO(cb) {
 		hardCap: 80000000,
 		tokensTotal: 100000000,
 		ethReceived: 0,
+		ethTotal: 13653,
 		tokensSold: 60000000,
 		dateStart: new Date(2018,8,2).getTime(),
 		dateEnd: new Date(2018,11,31).getTime()

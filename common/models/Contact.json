@@ -1,0 +1,13 @@
+{
+  "name": "Contact",
+  "base": "Model",
+  "idInjection": true,
+  "properties": {},
+  "methods": {
+    "contact": {
+      "accepts": { "arg": "req", "type": "object" },
+      "returns": { "arg": "languages", "type": "array" },
+      "http": { "verb": "post" }
+    }
+  }
+}

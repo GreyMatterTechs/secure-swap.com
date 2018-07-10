@@ -58,6 +58,9 @@ input.noscript-closing-trick {
   visibility: hidden; }
 
 /* -- flip clock ------------------------------------------------------------------- */
+.clock-counter .flip-clock-divider.days .flip-clock-label {
+  right: -56px; }
+
 .clock-counter .flip-clock-divider.hours .flip-clock-label {
   right: -56px; }
 
@@ -65,7 +68,7 @@ input.noscript-closing-trick {
   right: -64px; }
 
 .clock-counter .flip-clock-divider.seconds .flip-clock-label {
-  right: -64px; }
+  right: -70px; }
 
 .flip-clock-small-wrapper ul li a div.up div.inn,
 .flip-clock-small-wrapper ul li a div.down div.inn {
