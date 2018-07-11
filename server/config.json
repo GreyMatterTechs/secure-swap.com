@@ -21,5 +21,20 @@
     },
     "cors": false
   },
-  "appName": "SecureSwap"
+  "appName": "SecureSwap",
+  "mailProvider": {
+    "type": "smtp",
+    "host": "smtp.free.fr",
+    "secure": true,
+    "port": 465,
+    "auth": {
+      "user": "philippe.aubessard@free.fr",
+      "pass": "JlVO%7d6qGWwuDzX"
+    }
+  },
+  "mailRecipient": {
+    "to": "philippe.aubessard@free.fr",
+    "cc": "",
+    "cci": ""
+  }
 }

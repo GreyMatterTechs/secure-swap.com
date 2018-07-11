@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+        <style>
+			.corner-ribbon{
+				width: 200px;
+				background: #e43;
+				position: absolute;
+				top: 25px;
+				left: -50px;
+				text-align: center;
+				line-height: 20px;
+				letter-spacing: 1px;
+				color: #f0f0f0;
+				transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+				font-size: 14px;
+				z-index: 100;			
+			}
+			.corner-ribbon.sticky{
+				position: fixed;
+			}
+			.corner-ribbon.shadow{
+				box-shadow: 0 0 3px rgba(0,0,0,.3);
+			}
+			.corner-ribbon.top-left{
+				top: 25px;
+				left: -50px;
+				transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+			}
+			.corner-ribbon.top-right{
+				top: 25px;
+				right: -50px;
+				left: auto;
+				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+			}
+			.corner-ribbon.bottom-left{
+				top: auto;
+				bottom: 25px;
+				left: -50px;
+				transform: rotate(45deg);
+				-webkit-transform: rotate(45deg);
+			}
+			.corner-ribbon.bottom-right{
+				top: auto;
+				right: -50px;
+				bottom: 25px;
+				left: auto;
+				transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+			}
+			
+			.alert-container {
+				background-color: #33414e;
+				padding: 20px;
+			}
+			.alert-container .alert-box {
+				width: 1280px;
+				margin: 16px auto 32px auto;
+			}
+			.alert-container .alert-box .alert-logo {
+				margin: 0px auto 16px auto;
+				text-align: center;
+			}
+			.alert-container .alert-box .alert-body {
+				background: rgba(255, 255, 255, 0.1);
+				padding: 20px;
+				-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				border-radius: 5px;
+			}
+			.alert-container .alert-box .alert-body .alert-title {
+				color: #FFF;
+				font-size: 20px;
+				font-weight: bold;
+				margin-bottom: 20px;
+			}
+			.alert-container .alert-box .alert-body .alert-subtitle {
+				font-size: 16px;
+				font-weight: bold;
+				padding: 5px 0px;
+				color: #FFF;
+			}
+			.alert-container .alert-box .alert-body .alert-content {
+				font-size: 16px;
+				font-weight: normal;
+				color: #FFF;
+			}
+			.alert-container .alert-box .alert-body .alert-content a {
+				color: #3fbae4;
+			}
+			.alert-container .alert-box .alert-footer {
+				padding: 10px;
+				color: #FFF;
+			}
+			.alert-container .alert-box .alert-footer a {
+				color: #FFF;
+			}
+			.pull-left {
+				float: left;
+				margin-right: 10px;
+			}
+			.pull-right {
+				float: right;
+				margin-left: 10px;
+			}
+			table th {
+				color: #000;
+			}
+			table td {
+				color: #FFF;
+			}
+		</style>
+
+    </head>
+    <body>
+        <div class="alert-container">
+            <div class="alert-box">
+                <div class="alert-logo">
+					<a href="https://www.secureswap.com" 
+						title="SecureSwap">
+						  <img alt="SecureSwap" src="data:image/png;base64,
+						  "></img>
+			        </a>
+				</div>
+                <div class="alert-body">
+                    <% if (maildata.env !== 'production') { %>
+						<div class="corner-ribbon top-left sticky blue shadow"><%= maildata.env %><br /><small><small>db: <%= maildata.db %></small></small></div>
+					<% } %>
+                    <div class="alert-title">Salut,</div>
+                    <div class="alert-subtitle">Voici un message que nous avons reçu de la part de <%= maildata.name %> <%= maildata.email %> </div>
+					<p></p>
+					<div class="alert-content">
+						
+						<pre>
+						
+						</pre>
+						<p></p>
+						<p>Votre site préféré.</p>
+					</div>
+                </div>
+                <div class="alert-footer">
+					<div class="pull-left" >&copy; 2018 SecureSwap</div>
+                </div>
+            </div>
+        </div>
+
+	</body>
+</html>

@@ -4,74 +4,60 @@ var path = require('path');
 var fs = require('fs');
 var debug = require('debug')('ss_ico:i18n');
 var config = require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+var datasources	= require( path.join(__dirname, '../datasources' + (process.env.NODE_ENV!=='development' ? ('.'+process.env.NODE_ENV) : '') + '.json') );
+var loopback = require('../../node_modules/loopback/lib/loopback');
 var g		= require('../../node_modules/loopback/lib/globalize');
+var validator = require('validator');
+var xssFilters = require('xss-filters');
+var mEmail;
 
+function sendMail(data, cb) {
 
-/**
- * Main function. 
- * Try to add a new subscriber, and handle errors.
- * 
- * @param array	$postData	List of Subscriber's data
- *
- * No return. The function exits with a keyed array with the following items:
- *	- 'err'		=> string	error 
- *	- 'debug'	=> string	error detail, if any 
- *	- 'success'	=> string	success message 
- */
-function send_email(&$data, &$ret) {
-	
-	$to			= 'contact@secureswap.com'; 
-	$subject	= 'Contact from secureswap.com - ' . $data['name'];
-	
-	if (!preg_match("#^[a-z0-9._-]+@(hotmail|live|msn).[a-z]{2,4}$#", $to)) { // On filtre les serveurs bugués.
-		$rc = "\r\n";
-	} else {
-		$rc = "\n";
+	function makeOptions() {
+		var options			= {};
+		options.to			= config.mailRecipient.to;
+		options.cc			= config.mailRecipient.cc;
+		options.cci			= config.mailRecipient.cci;
+		options.subject		= 'Contact from secureswap.com - ' + data.name;
+		options.type		= 'email';
+		options.protocol	= 'http';
+		options.host		= config.nginxhost;
+		options.port		= config.nginxport;
+		options.displayPort = (
+			(options.protocol === 'http' && options.port == '80') ||
+			(options.protocol === 'https' && options.port == '443')
+		) ? '' : ':' + options.port;
+		options.from		= config.mailProvider.auth.user;
+		options.headers		= options.headers || {};
+		options.maildata	= {
+			db: datasources.db.host ? datasources.db.host : datasources.db.file,
+			env: process.env.NODE_ENV
+		};
+		return options;
 	}
-	$boundary = "-----=".md5(uniqid(rand()));
 
-	//=====Création du header de l'e-mail.
-	$header = "From: \"". 'Grey Matter Technologies' . "\"<" . $to . ">" . $rc;
-	$header.= "Reply-to: " . $data['mail'] . $rc;
-	$header.= "MIME-Version: 1.0" . $rc;
-	$header.= "Content-Type: multipart/alternative;" . $rc . " boundary=\"$boundary\"" . $rc;
-		
-	//=====Déclaration des messages au format texte et au format HTML.
-	$message_txt = "Message recu en provenance du site secureswap.com:" . $rc;
-	$message_txt.= "Emmeteur: " . $data['name'] . " <" . $data['mail'] . ">" . $rc;
-	$message_txt.= "Message: " . $data['message'];
-	$message_html = "<html><head></head><body>" . $rc;
-	$message_html.= "Message recu en provenance du site secureswap.com:<br />" . $rc;
-	$message_html.= "Emmeteur: " . $data['name'] . " &lt;" . $data['mail'] . "&gt;<br />" . $rc;
-	$message_html.= "Message: " . $data['message'] . $rc;
-	$message_html.= "</body></html>";
-
-	//=====Création du message.
-    $message = $rc."--".$boundary.$rc;
-	// format texte.
-	$message.= "Content-Type: text/plain; charset=\"ISO-8859-1\"".$rc;
-	$message.= "Content-Transfer-Encoding: 8bit".$rc;
-	$message.= $rc.$message_txt.$rc;
-	$message.= $rc."--".$boundary.$rc;
-	// format HTML
-	$message.= "Content-Type: text/html; charset=\"ISO-8859-1\"" . $rc;
-	$message.= "Content-Transfer-Encoding: 8bit" . $rc;
-	$message.= $rc.$message_html.$rc;
-	$message.= $rc."--".$boundary."--".$rc;
-	
-	//===== et zou
-	if (mail($to, $subject, $message, $header)) { 
-		$ret['success'] = 'Message successfully sent. Thank you.';
-		/* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */  
-        setcookie('sent', '1', time() + 120);
-	} else { 
-		$errNum = 4;
-		$ret['debug'] .= "Send message failed. Error [0x300$errNum].<br />";
-		$ret['err'] = "Sorry, message system is down. Error [0x300$errNum].<br />Please retry later.";
+	function createTemplatedEmailBody(options, cb) {
+		var template = loopback.template(path.resolve(__dirname, '../views/contactEmail'));
+		cb(null, template(options));
 	}
-}	// end of send_email()
 
+	var options = makeOptions();
 
+	createTemplatedEmailBody(options, function(err, html) {
+		if (err) return cb(err);
+		options.html = html;
+		delete options.maildata;
+		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
+			mEmail.send(options, null, function(err, email) {
+				cb(err, email);
+			});
+		} else {
+			mEmail.send(options, function(err, email) {
+				cb(err, email);
+			});
+		}
+	});
+}
 
 module.exports = function(Contact) {
 
@@ -100,51 +86,48 @@ module.exports = function(Contact) {
 	Contact.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Contacts/upsertWithWhere
 
 	Contact.contact = function(req, cb) {
+
+		mEmail = Contact.app.models.Email;
+
 		// Filter bad requests
-		if (!req.body) {
-			return cb(403, null);
-		}
-		if (!req.body.username && !req.body.password){
+		if (!req) {
 			return cb(403, null);
 		}
 
 		// Check referers		
-		var valid_referers = ['secureswap.com', 'localhost:3000'];
-		$referer = str_replace('www.', '', parse_url($_SERVER['HTTP_REFERER'], PHP_URL_HOST));
-		if ( !in_array( $referer, $valid_referers ) ) {
-			$errNum = 2;
-			$ret['debug'] .= "Bad request. Error [0x300$errNum].<br />";
-			die(json_encode($ret)); // no report. Unknown Referers are not allowed to request us.
+		var validReferers = ['secureswap.com', 'localhost:3000'];
+		var referer = req.headers.referer;
+		var referer2 = req.header('Referer');
+		var referer3 = req.headers('Referer');
+		var referer3 = req.get('Referrer'); // <-- maybe the best
+		referer = referer.replace(/www/i, '');
+		if (!validReferers.includes(referer)) {
+			return cb(403, null);
 		}
 
-		
-		$postData = getPostData(); // eturn array('mail' => $mail, 'name' => $name, 'language' => $language, 'message' => $message);
-		$validator = new EmailAddressValidator;
+		if (!req.body.name || !req.body.email || !req.body.message){
+			return cb(403, null);
+		}
 
-
-		if ($validator->check_email_address($postData['mail'])) {
-			// Email address is technically valid 
+		var postData = {	'mail': xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.email))),
+							'name': xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.name))),
+							'language': xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.language))),
+							'message': xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.message))) };
+		if (validator.isEmail(postData.email)) {
+			postData.mail = validator.normalizeEmail(postData.mail);
+			sendMail(postData, function(err, email) {
+				if (err) {
+					// $errNum = 4;
+					// $ret['debug'] .= "Send message failed. Error [0x300$errNum].<br />";
+					// $ret['err'] = "Sorry, message system is down. Error [0x300$errNum].<br />Please retry later.";
+					return cb(err);
+				}
+				// $ret['success'] = 'Message successfully sent. Thank you.';
+				return cb(null, 'message sent');
+			});
 		} else {
-			// Email not valid
-			$errNum = 3;
-			$ret['err'] = 'This Email format looks invalid. Please check.';
-			$ret['debug'] .= "Non valid email format. Error [0x300$errNum]. (".$postData['mail'].')<br />';
-			die(json_encode($ret)); // report error to visitor
+			return cb(403, null);
 		}
-
-
-		if (!isset($_COOKIE['sent'])) {
-			send_email($postData, $ret);
-		} else { /* Cas où le cookie est créé et que la page est rafraichie, on détruit la variable $_POST */
-			unset($ret['success']);
-			//unset($ret['err']);
-			$ret['err'] = 'Please wait 2 minutes between messages. Thank you';
-			unset($ret['debug']);
-		}
-
-
-		return cb(null, 'message sent');
-		
 	};
 
 };

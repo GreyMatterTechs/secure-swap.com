@@ -184,12 +184,19 @@ module.exports = function(server) {
 	});
 
 	router.get('/contact', urlencodedParser, function(req, res, next) {
-		mContact.contact(req, function(err, response) {
-			if (err) {
-				return res.sendStatus(err);
-			}
-			return res.send(response);
-		});
+		if (!req.cookies['sent']) {
+			mContact.contact(req, function(err, response) {
+				if (err) {
+					return res.sendStatus(err);
+				}
+				/* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */  
+				res.cookie('sent', '', {maxAge: 120, expires: new Date(Date.now() + 120), httpOnly: false});
+				return res.send(response);
+			});
+		} else {
+			return res.send('Message already sent');
+			// don't clear cookie --- res.clearCookie('sent');
+		}
 	});
 
 	server.use(router);
