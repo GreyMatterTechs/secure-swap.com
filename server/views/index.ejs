@@ -5,10 +5,10 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-	<meta name="description" content="SecureSwap ICO.">
+	<meta name="description" content="<%= appName %> ICO.">
 	<meta name="keywords" content="crypto, ico, cryptocurrency, eutherum, dex, decentralised, secure, smart contract, token, SWP">
 	<meta name="author" content="GreyMatterTechs">
-	<title>SecureSwap</title>
+	<title><%= appName %></title>
 	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
@@ -51,7 +51,7 @@
 		<div class="noscript-overlay" style="display: block;"></div>
 		<div class="noscript-message">
 			<div class="noscript-title">This Website doesn't work without JavaScript.</div>
-			<p>We're all for progressive enhancement, but SecureSwap is a bit unique in that it's all about writing and showing front end code, including JavaScript. It's required to use most of the features of this website.</p>
+			<p>We're all for progressive enhancement, but <%= appName %> is a bit unique in that it's all about writing and showing front end code, including JavaScript. It's required to use most of the features of this website.</p>
 			<p>Need to know how to enable it? <a href="http://enable-javascript.com/" target="_blank" rel="noopener">Go here.</a></p>
 		</div>
 	</noscript>
@@ -111,9 +111,10 @@
 		<nav class="main-menu static-top navbar-dark navbar navbar-expand-lg fixed-top mb-1">
 			<div class="container">
 				<a class="navbar-brand animated" data-animation="fadeInDown" data-animation-delay="1s" href="#head-area">
-					<img src="assets/images/logo.png" alt="SecureSwap Logo" />
+					<img src="assets/images/logo.png" alt="<%= appName %> Logo" />
 					<span class="brand-text">
-						<span class="font-weight-bold">Secure </span> Swap</span>
+						<span class="font-weight-bold"><%= appName %></span>
+					</span>
 				</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
 				 aria-expanded="false" aria-label="Toggle navigation">
@@ -123,7 +124,7 @@
 					<div id="navigation" class="navbar-nav ml-auto">
 						<ul class="navbar-nav mt-1">
 							<li class="nav-item animated" data-animation="fadeInDown" data-animation-delay="1.1s">
-								<a class="nav-link" href="#about" data-i18n="navbar.item.about" >What is SecureSwap</a>
+								<a class="nav-link" href="#about" data-i18n="navbar.item.about, <%= appName %>" >What is <%= appName %></a>
 							</li>
 							<li class="nav-item animated" data-animation="fadeInDown" data-animation-delay="1.2s">
 								<a class="nav-link" href="#problem-solution" data-i18n="navbar.item.problem" >Solutions</a>
@@ -180,7 +181,7 @@
 								<div class="row align-items-center">
 									<div class="col-lg-6 col-md-12">
 										<div class="banner-content pt-5">
-											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s">Secure Swap is modern, clean and
+											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s"><%= appName %> is modern, clean and
 												<br class="d-none d-xl-block">gradient ui ico most trending
 												<br class="d-none d-xl-block">template of 2018</h1>
 											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="1.6s">First decentralized marketing platform that allows
@@ -446,9 +447,9 @@
 						<div class="heading text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
 								<h6 class="sub-title">About</h6>
-								<h2 class="title">What is SecureSwap</h2>
+								<h2 class="title">What is <%= appName %></h2>
 							</div>
-							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">SecureSwap aims to disrupt the cryptotrading industry by lowering the barrier
+							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s"><%= appName %> aims to disrupt the cryptotrading industry by lowering the barrier
 								<br class="d-none d-xl-block">to creating algorithmic trading models.</p>
 						</div>
 						<div class="content-area">
@@ -1567,10 +1568,10 @@
 					<div class="container">
 						<div class="heading text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-								<h6 class="sub-title">JOIN US</h6>
-								<h2 class="title">Contact</h2>
+								<h6 class="sub-title" data-i18n="contact-area.subtitle" >JOIN US</h6>
+								<h2 class="title" data-i18n="contact-area.title">Contact</h2>
 							</div>
-							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">Have questions? We’re happy to help.</p>
+							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" data-i18n="contact-area.desc">Have questions? We’re happy to help.</p>
 						</div>
 						<div class="row">
 							<div class="col-xl-8 col-md-12 mx-auto">
@@ -1585,14 +1586,14 @@
 									</li>
 									<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s">
 										<i class="ti-comment-alt"></i>
-										<span class="ml-1">Join us on Telegram</span>
+										<span class="ml-1" data-i18n="contact-area.joinSNS">Join us on Telegram</span>
 									</li>
 								</ul>
 								<form id="contact-form" name="contact" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" class="text-center">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" id="name" name="name" placeholder="Your Name">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" id="mail" name="mail" placeholder="Your Mail">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" id="message" name="message" placeholder="Your Message">
-									<button id="contact-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s">Send Message</button>
+									<button id="contact-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s" data-i18n="contact-area.joinSNS" >Send Message</button>
 								</form>
 								<div id="contact-success-alert"></div>
 								<div id="contact-error-alert"></div>
@@ -2387,10 +2388,10 @@
 						<div class="about">
 							<div class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s">
 								<img src="assets/images/logo.png" alt="Logo">
-								<span class="logo-text">SecureSwap ICO</span>
+								<span class="logo-text"><%= appName %> ICO</span>
 							</div>
 							<div class="about-text animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-								<p class="grey-accent2">SecureSwap Ico is a distributed and decentralized platform that allows users to trade crypto-currencies, in a very secure ecosystem.</p>
+								<p class="grey-accent2"><%= appName %> is a distributed and decentralized platform that allows users to trade crypto-currencies, in a very secure ecosystem.</p>
 							</div>
 							<ul class="social-buttons list-unstyled mb-5">
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
@@ -2452,7 +2453,7 @@
 						<div class="feed">
 							<h5 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s">Twitter Feed</h5>
 							<div class="tweets">
-								<span class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s">More about our SecureSwap project : https://t.co/JHBAS345</span>
+								<span class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s">More about our <%= appName %> project : https://t.co/JHBAS345</span>
 								<span class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.2s">More information about SSWT Token : https://t.co/JHSD34JHB</span>
 							</div>
 						</div>

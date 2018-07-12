@@ -251,7 +251,7 @@
 					//		ser += '&language=' + mailchimpLanguage;
 					//	}
 						$('#contact-debug-alert').hide();
-						$('#contact-submit').text('Sending...');
+						$('#contact-submit').text($.i18n('contact-area.button.sending'));
 						$.ajax({
 							type: 'POST',
 							url: '/contact',
@@ -259,23 +259,23 @@
 							success: function(result) {
 								// var res = JSON.parse(result);
 								if (result.err) {
-									$('#contact-error-alert').html(result.err);
+									$('#contact-error-alert').html($.i18n(result.err));
 									$('#contact-error-alert').fadeIn('slow');
 									$('#contact-error-alert').delay(5000).fadeOut('slow');
 								} else if (result.success) {
 									$('#contact-form input[type=text]').val('');
 									// $('#message').val('');
-									$('#contact-success-alert').html(result.success);
+									$('#contact-success-alert').html($.i18n(result.success));
 									$('#contact-success-alert').fadeIn('slow');
 									$('#contact-success-alert').delay(5000).fadeOut('slow');
 								}
-								$('#contact-submit').text('Send Message');
+								$('#contact-submit').text($.i18n('contact-area.button.submit'));
 							},
 							error: function() {
-								$('#contact-error-alert').html('Sorry, messaging system sounds down. Error [0x4001].<br />Please retry later.');
+								$('#contact-error-alert').html($.i18n('contact-area.error.message2'));
 								$('#contact-error-alert').fadeIn('slow');
 								$('#contact-error-alert').delay(5000).fadeOut('slow');
-								$('#contact-submit').text('Send Message');
+								$('#contact-submit').text($.i18n('contact-area.button.submit'));
 							}
 						});
 					}

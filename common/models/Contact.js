@@ -1,12 +1,10 @@
 'use strict';
 
 var path		= require('path');
-var fs			= require('fs');
 var debug		= require('debug')('ss_ico:contact');
 var config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 var datasources	= require(path.join(__dirname, '../../server/datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 var loopback	= require('../../node_modules/loopback/lib/loopback');
-var g			= require('../../node_modules/loopback/lib/globalize');
 var validator	= require('validator');
 var xssFilters	= require('xss-filters');
 var app			= require('../../server/server');
@@ -53,18 +51,16 @@ function sendMail(data, mEmail, cb) {
 		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
 			mEmail.send(options, null, function(err, email) {
 				if (err) {
-					var errNum = 4;
-					return cb({err: 'Sorry, message system is down. Error [0x300' + errNum + '].<br />Please retry later.'}, null);
+					return cb({err: 'contact-area.error.message5'}, null);
 				}
-				return cb(null, {success: 'Message successfully sent. Thank you.'});
+				return cb(null, {success: 'contact-area.success.message'});
 			});
 		} else {
 			mEmail.send(options, function(err, email) {
 				if (err) {
-					var errNum = 5;
-					return cb({err: 'Sorry, message system is down. Error [0x300' + errNum + '].<br />Please retry later.'}, null);
+					return cb({err: 'contact-area.error.message6'}, null);
 				}
-				return cb(null, {success: 'Message successfully sent. Thank you.'});
+				return cb(null, {success: 'contact-area.success.message'});
 			});
 		}
 	});
@@ -111,21 +107,21 @@ module.exports = function(Contact) {
 	Contact.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Contacts/upsertWithWhere
 
 	Contact.contact = function(req, cb) {
-		
+
 		// Filter bad requests
 		if (!req) {
-			return cb({err: 'bad request.'}, null);
+			return cb({err: 'contact-area.error.message3'}, null);
 		}
 		// Check referers
 		var validReferers = ['secureswap.com', 'http://localhost:3000/'];
 		var referer = req.get('Referrer');
 		referer = referer.replace(/www/i, '');
 		if (!validReferers.includes(referer)) {
-			return cb({err: 'bad request.'}, null);
+			return cb({err: 'contact-area.error.message3'}, null);
 		}
 		// check form data
 		if (!req.body.name || !req.body.mail || !req.body.message) {
-			return cb({err: 'bad request.'}, null);
+			return cb({err: 'contact-area.error.message3'}, null);
 		}
 		var postData = {
 			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.mail))),
@@ -142,7 +138,7 @@ module.exports = function(Contact) {
 				return cb(null, successMessage);
 			});
 		} else {
-			return cb({err: 'This Email format looks invalid. Please check.'}, null);
+			return cb({err: 'contact-area.error.message4'}, null);
 		}
 	};
 

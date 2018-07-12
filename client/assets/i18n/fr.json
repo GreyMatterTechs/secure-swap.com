@@ -53,5 +53,20 @@
 	"tokensale-area.info.percent": "Capitalisation en cours : $1 %",
 	"tokensale-area.info.eth": "1 SSWT = $1$ = $2€ = $3ETH",
 
+	"-------------- SECTION CONTACT --------------": "",
+	"contact-area.subtitle": "CONTACTEZ NOUS",
+	"contact-area.title": "Contact",
+	"contact-area.desc": "Vous avez une question? Nous serions heureux de pouvoir vous aider.",
+	"contact-area.joinSNS": "Rejoignez-nous sur Telegram",
+	"contact-area.button.submit": "Envoyer",
+	"contact-area.button.sending": "Envoi en cours...",
+	"contact-area.success.message": "Message envoyé avec succès. Merci.",
+	"contact-area.error.message1": "Veuillez patienter 2 minutes entre chaque message. Merci",
+	"contact-area.error.message2": "Désolé, il semble que le système de messagerie est hors service. Erreur [0x4001].<br />Merci de bien vouloir réessayer plus tard.",
+	"contact-area.error.message3": "bad request.",
+	"contact-area.error.message4": "Le format de cette adresse eMail semble invalide. Merci de vérifier.",
+	"contact-area.error.message5": "Désolé, il semble que le système de messagerie est hors service. Erreur [0x3004].<br />Merci de bien vouloir réessayer plus tard.",
+	"contact-area.error.message6": "Désolé, il semble que le système de messagerie est hors service. Erreur [0x3005].<br />Merci de bien vouloir réessayer plus tard.",
+
 	"last": ""
 }

@@ -8,7 +8,7 @@
 	},
 
 	"-------------- NAV BAR --------------": "",
-	"navbar.item.about": "What is SecureSwap",
+	"navbar.item.about": "What is $1",
 	"navbar.item.problem": "Solutions",
 	"navbar.item.whitepaper": "Whitepaper",
 	"navbar.item.token": "Token Sale",
@@ -41,7 +41,6 @@
 	"about-area.content.row7": "Creators of digital currencies are often independent of the DCEs that trade the currency.[6] In one type of system, digital currency providers (DCP), are businesses that keep and administer accounts.",
 	"about-area.content.video.subtitle": "How it works",
 
-
 	"-------------- SECTION TOKENS SALE --------------": "",
 	"tokensale-area.flipclock.years": "Years",
 	"tokensale-area.flipclock.months": "Months",
@@ -54,6 +53,20 @@
 	"tokensale-area.info.percent": "$1 % target raised",
 	"tokensale-area.info.eth": "1 SSWT = $1$ = $2€ = $3ETH",
 
+	"-------------- SECTION CONTACT --------------": "",
+	"contact-area.subtitle": "JOIN US",
+	"contact-area.title": "Contact",
+	"contact-area.desc": "Have questions? We’re happy to help.",
+	"contact-area.joinSNS": "Join us on Telegram",
+	"contact-area.button.submit": "Send Message",
+	"contact-area.button.sending": "Sending...",
+	"contact-area.success.message": "Message successfully sent. Thank you.",
+	"contact-area.error.message1": "Please wait 2 minutes between messages. Thank you.",
+	"contact-area.error.message2": "Sorry, messaging system sounds down. Error [0x4001].<br />Please retry later.",
+	"contact-area.error.message3": "bad request.",
+	"contact-area.error.message4": "This Email format looks invalid. Please check.",
+	"contact-area.error.message5": "Sorry, message system is down. Error [0x3004].<br />Please retry later.",
+	"contact-area.error.message6": "Sorry, message system is down. Error [0x3005].<br />Please retry later.",
 
 	"last": ""
 }

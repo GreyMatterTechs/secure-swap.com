@@ -118,12 +118,14 @@ module.exports = function(server) {
 	router.get('/dashboard', urlencodedParser, function(req, res) {
 		if (!req.query.access_token && !req.accessToken) {
 			return res.render('dashboard', {	// render the login form
+				appName: config.appName,
 				err: null,
 				login: true
 			});
 		} else {
 			// $$$ TODO: check if accessToken is legit.
 			return res.render('dashboard', {	// render the login form
+				appName: config.appName,
 				err: null,
 				accessToken: req.accessToken.token.id,
 				login: false
@@ -184,7 +186,7 @@ module.exports = function(server) {
 	});
 
 	router.post('/contact', urlencodedParser, function(req, res, next) {
-		if (!req.cookies['sent']) {
+		if (!req.cookies.sent) {
 			mContact.contact(req, function(err, result) {
 				if (err) {
 					return res.send(err);
@@ -194,7 +196,7 @@ module.exports = function(server) {
 				return res.send(result);
 			});
 		} else {
-			return res.send('Please wait 2 minutes between messages. Thank you');
+			return res.send({err: 'contact-area.error.message1'});
 			// don't clear cookie --- res.clearCookie('sent');
 		}
 	});
