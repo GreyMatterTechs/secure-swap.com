@@ -553,7 +553,7 @@
 					return $.i18n.apply(null, args);
 				});
 				if (typeof callback === 'function') {
-					callback(locale);
+					callback(locale, mailchimpLanguage);
 				}
 			});
 		};
@@ -564,8 +564,8 @@
 					$('#i18n-select').html('<span class="flag-icon flag-icon-' + locales[l].flag + '"></span> ' + code.toUpperCase());
 					$('html').attr('lang', code);
 					// $$$ TODO: $('html').attr('data-textdirection', 'ltr');
-					setLocale(code, callback);
 					mailchimpLanguage = locales[l].mailchimp;
+					setLocale(code, callback);
 					break;
 				}
 			}

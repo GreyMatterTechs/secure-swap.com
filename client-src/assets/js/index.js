@@ -75,7 +75,8 @@
 						dif = Math.max(1, dif);
 						if (dif <= 0) {
 							dif = 0;
-							$('#btn-purchase').removeClass('disabled');
+							$('#btn-purchase-sale').removeClass('disabled');
+							$('#btn-purchase-head').show();
 						}
 						if (clock) {
 							clock.stop();
@@ -126,8 +127,9 @@
 					purchaseInterval = purchaseIntervalDefault;
 					if (purchase) {
 						var time = 'A minute ago';
+						var icon = Math.floor(Math.random() * 16) + 1;
 						$.notify({
-							icon: 'assets/images/unknown_users/1.png',
+							icon: 'assets/images/unknown_users/' + icon + '.png',
 							title: 'Thank you',
 							message: 'New purchase: <span class="blue">' + purchase + ' SSWT</span> tokens.'
 						}, {
@@ -141,16 +143,16 @@
 								exit: 'animated fadeOutLeftBig'
 							},
 							icon_type: 'image',
-							template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
-								'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-								'<div id="image">' +
-								'<img data-notify="icon" class="rounded-circle float-left">' +
-								'</div><div id="text">' +
-								'<span data-notify="title">{1}</span>' +
-								'<span data-notify="message">{2}</span>' +
-								'<span data-notify="time">' + time + '</span>' +
-								'</div>' +
-							'</div>'
+							template:	'<div data-notify="container" class="alert alert-{0}" role="alert">' +
+											'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+											'<div id="image">' +
+											'<img data-notify="icon" class="rounded-circle float-left">' +
+											'</div><div id="text">' +
+											'<span data-notify="title">{1}</span>' +
+											'<span data-notify="message">{2}</span>' +
+											'<span data-notify="time">' + time + '</span>' +
+											'</div>' +
+										'</div>'
 						});
 					}
 				})
@@ -204,7 +206,8 @@
 
 				i18n = window.ss_ico.I18n.getInstance();
 
-				$('#btn-purchase').addClass('disabled');
+				$('#btn-purchase-sale').addClass('disabled');
+				$('#btn-purchase-head').hide();
 
 				/* FlipClock Counter */
 				// http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
@@ -244,45 +247,49 @@
 					var valid = CFValidate();
 					if (valid) {
 						var ser = $('#contact-form').serialize();
-						if (mailchimpLanguage !== '') {
-							ser += '&language=' + mailchimpLanguage;
-						}
+					//	if (mailchimpLanguage !== '') {
+					//		ser += '&language=' + mailchimpLanguage;
+					//	}
 						$('#contact-debug-alert').hide();
-						$('#contact-submit').val('Sending...');
+						$('#contact-submit').text('Sending...');
 						$.ajax({
 							type: 'POST',
-							url: '/api/Contacts/contact',
+							url: '/contact',
 							data: ser,
 							success: function(result) {
-								var res = JSON.parse(result);
-								if (res.err) {
-									$('#contact-error-alert').html(res.err);
+								// var res = JSON.parse(result);
+								if (result.err) {
+									$('#contact-error-alert').html(result.err);
 									$('#contact-error-alert').fadeIn('slow');
 									$('#contact-error-alert').delay(5000).fadeOut('slow');
-								} else if (res.success) {
+								} else if (result.success) {
 									$('#contact-form input[type=text]').val('');
 									// $('#message').val('');
-									$('#contact-success-alert').html(res.success);
+									$('#contact-success-alert').html(result.success);
 									$('#contact-success-alert').fadeIn('slow');
 									$('#contact-success-alert').delay(5000).fadeOut('slow');
 								}
-								$('#contact-submit').val('Send Message');
+								$('#contact-submit').text('Send Message');
 							},
 							error: function() {
 								$('#contact-error-alert').html('Sorry, messaging system sounds down. Error [0x4001].<br />Please retry later.');
 								$('#contact-error-alert').fadeIn('slow');
 								$('#contact-error-alert').delay(5000).fadeOut('slow');
-								$('#contact-submit').val('Send Message');
+								$('#contact-submit').text('Send Message');
 							}
 						});
 					}
+				});
+				$('#name, #mail, #message').on('input change', function(e) {
+					$(this).removeClass('required-error');
 				});
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Starts i18n, and run all scripts that requires localisation
 				//--------------------------------------------------------------------------------------------------------------
 
-				var i18nInitCallback = function() {
+				var i18nInitCallback = function(_locale, _mailchimpLanguage) {
+					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale file is loaded , we can start other inits that needs i18n ready
 					$('input[placeholder]').i18n();
 				};
@@ -301,7 +308,6 @@
 
 				i18n.init();
 				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback);
-				mailchimpLanguage = i18n.getMailChimpLanguage();
 
 				setTimeout(function() {
 					updateICOTimer();
@@ -309,10 +315,7 @@
 					updatePurchaseTimer();
 				}, 200);
 
-			}, // end of init:function
-
-			dispose: function() {
-			} // end of dispose
+			} // end of init:function
 
 		}; // end of return
 

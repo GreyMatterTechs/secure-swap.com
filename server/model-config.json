@@ -39,6 +39,9 @@
     "dataSource": "db",
     "public": false
   },
+  "Email": {
+    "dataSource": "emailDS"
+  },
   "I18n": {
     "dataSource": null,
     "public": true

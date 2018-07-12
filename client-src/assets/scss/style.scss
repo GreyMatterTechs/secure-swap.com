@@ -116,6 +116,51 @@ input.noscript-closing-trick {
 
 /* -- page login ------------------------------------------------------------------- */
 
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    background: none !important;
+}
+
+
 #contact .err-mess  {
 	margin-top: 6rem;
+}
+
+.required-error { border-bottom: 2px solid rgba(190,46,27,1)!important; }
+
+#contact-success-alert {
+	text-align: center; 
+	background-color: #57cc65; 
+	border: 2px solid #57cc65; 
+	color: #fff;  
+	padding: 15px 0; 
+	margin-top: 1rem;
+	display: none;
+	font-size: 11px; 
+	letter-spacing: 1px; 
+	text-transform: uppercase; 
+}
+
+#contact-error-alert {
+	text-align: center; 
+	background-color: #cc5757; 
+	border: 2px solid #cc5757; 
+	color: #fff;  
+	padding: 15px 0; 
+	margin-top: 1rem;
+	display: none;
+	font-size: 11px; 
+	letter-spacing: 1px; 
+	text-transform: uppercase; 
+}
+
+#contact-debug-alert {
+	text-align: center; 
+	background-color: #cc5757; 
+	border: 2px solid #cc5757; 
+	color: #fff;  
+	padding: 15px 0; 
+	margin-top: 1rem;
+	display: none;
+	font-size: 11px; 
+	letter-spacing: 1px; 
 }

@@ -35,7 +35,7 @@ function login(req, cb) {
 	if (!req.body) {
 		return cb(403, null);
 	}
-	if (!req.body.username && !req.body.password){
+	if (!req.body.username && !req.body.password) {
 		return cb(403, null);
 	}
 	mAdmin.login({
@@ -54,7 +54,7 @@ function login(req, cb) {
 				if (!user.active) {
 					mAdmin.logout(token.id);
 					return cb(err.statusCode, token.id);
-				} else {			
+				} else {
 					return cb(null, token.id);
 				}
 			});
@@ -183,18 +183,18 @@ module.exports = function(server) {
 		});
 	});
 
-	router.get('/contact', urlencodedParser, function(req, res, next) {
+	router.post('/contact', urlencodedParser, function(req, res, next) {
 		if (!req.cookies['sent']) {
-			mContact.contact(req, function(err, response) {
+			mContact.contact(req, function(err, result) {
 				if (err) {
-					return res.sendStatus(err);
+					return res.send(err);
 				}
-				/* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */  
+				/* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */
 				res.cookie('sent', '', {maxAge: 120, expires: new Date(Date.now() + 120), httpOnly: false});
-				return res.send(response);
+				return res.send(result);
 			});
 		} else {
-			return res.send('Message already sent');
+			return res.send('Please wait 2 minutes between messages. Thank you');
 			// don't clear cookie --- res.clearCookie('sent');
 		}
 	});
