@@ -50,8 +50,8 @@
 		<input type="checkbox" class="noscript-closing-trick" >
 		<div class="noscript-overlay" style="display: block;"></div>
 		<div class="noscript-message">
-			<div class="noscript-title">This Website doesn't work without JavaScript.</div>
-			<p>We're all for progressive enhancement, but <%= appName %> is a bit unique in that it's all about writing and showing front end code, including JavaScript. It's required to use most of the features of this website.</p>
+			<div class="noscript-title">Javascript required.</div>
+			<p>We are sorry, but <%= appName %> doesn't work properly without Javascript enabled.</p>
 			<p>Need to know how to enable it? <a href="http://enable-javascript.com/" target="_blank" rel="noopener">Go here.</a></p>
 		</div>
 	</noscript>
@@ -181,100 +181,106 @@
 								<div class="row align-items-center">
 									<div class="col-lg-6 col-md-12">
 										<div class="banner-content pt-5">
-											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s"><%= appName %> is modern, clean and
-												<br class="d-none d-xl-block">gradient ui ico most trending
-												<br class="d-none d-xl-block">template of 2018</h1>
-											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="1.6s">First decentralized marketing platform that allows
-												<br class="d-none d-xl-block">merchants and affiliates.</h3>
+											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s" data-i18n="head-area.title.row1, <%= appName %>" ><%= appName %> - Welcome to the future of trading.
+												<br class="d-none d-xl-block" />
+												<span data-i18n="head-area.title.row2" >Trade in peace your crypto-currencies and fiat</span>
+												<br class="d-none d-xl-block" />
+												<span data-i18n="head-area.title.row3" >with our confortable and secured ecosystem</span>
+											</h1>
+											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="1.6s" data-i18n="head-area.subtitle.row1, <%= appName %>" ><%= appName %> protect your wallet.
+												<br class="d-none d-xl-block" />
+												<span data-i18n="head-area.subtitle.row2">Never send your currencies or wallets to any centralized trading platform again. Enjoy a trading tool worthy of the best stock market tools.</span>
+											</h3>
 											<div class="mt-5">
 												<a id="btn-purchase-head" href="#token-sale-mobile-app" class="btn btn-lg btn-gradient-purple btn-glow mr-4 mb-2 animated" data-animation="fadeInUpShorter"
-												 data-animation-delay="1.7s">Purchase Token</a>
-												<a href="#whitepaper" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="1.8s">Whitepaper</a>
+												 data-animation-delay="1.7s" data-i18n="head-area.button.purchase" >Purchase Token</a>
+												<a href="#whitepaper" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="1.8s" data-i18n="head-area.button.whitepaper">Whitepaper</a>
 											</div>
 										</div>
 									</div>
 									<div class="col-lg-6 col-md-12 move-first">
-										<div id="svg-animation">
+										<img id="head-p2p-image" class="img-fluid" style="width: 100%;height: 100%;" src="assets/images/p2p/p2p_1.gif" alt=""></img>
+										<!--div id="svg-animation">
 											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 857 807" width="857" height="807" preserveAspectRatio="xMidYMid meet"
 											 style="width: 100%;height: 100%;">
 												<g clip-path="url(#svg_animation_mask)">
-													<!-- Step 1 -->
+													<!-- Step 1 ->
 
 
-													<!-- base -->
+													<!-- base ->
 													<g transform="matrix(1,0,0,1,-1.93,468.7)" opacity="1">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1s" width="558px" height="339px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/base.svg"></image>
 													</g>
 
-													<!-- btc-base-shadow -->
+													<!-- btc-base-shadow ->
 													<g transform="matrix(1,0,0,1,60,580)" opacity="0.8">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2s" width="130px" height="130px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-shadow.svg"></image>
 													</g>
 
-													<!-- btc-base -->
+													<!-- btc-base ->
 													<g transform="matrix(1,0,0,1,60.8,560.9)" opacity="1">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.9s" width="130px" height="130px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-btc.svg"></image>
 													</g>
 
-													<!-- eth-base-shadow -->
+													<!-- eth-base-shadow ->
 													<g transform="matrix(1,0,0,1,215,580)" opacity="0.8">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2s" width="90px" height="90px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-shadow.svg"></image>
 													</g>
 
-													<!-- eth-base -->
+													<!-- eth-base ->
 													<g transform="matrix(1,0,0,1,215,545)" opacity="1">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.5s" width="90px" height="130px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-eth.svg"></image>
 													</g>
 
-													<!-- neo-base-shadow -->
+													<!-- neo-base-shadow ->
 													<g transform="matrix(1,0,0,1,238,670)" opacity="0.8">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2s" width="120px" height="120px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-shadow.svg"></image>
 													</g>
 
-													<!-- neo-base -->
+													<!-- neo-base ->
 													<g transform="matrix(1,0,0,1,240.8,660.9)" opacity="1">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.7s" width="120px" height="120px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-neo.svg"></image>
 													</g>
 
-													<!-- btc -->
+													<!-- btc ->
 													<g transform="matrix(1,0,0,1,97,560)" opacity="1">
 														<image class="animated svg-elements-2" data-animation="fadeInUpShorter" data-animation-delay="2s" width="60px" height="60px"
 														 preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/btc.svg"></image>
 													</g>
 
-													<!-- eth -->
+													<!-- eth ->
 													<g transform="matrix(1,0,0,1,230,550)" opacity="1">
 														<image class="animated svg-elements-1" data-animation="fadeInUpShorter" data-animation-delay="1.6s" width="60px" height="60px"
 														 preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/eth.svg"></image>
 													</g>
 
-													<!-- neo -->
+													<!-- neo ->
 													<g transform="matrix(1,0,0,1,270 ,645)" opacity="1">
 														<image class="animated svg-elements-1" data-animation="fadeInUpShorter" data-animation-delay="1.8s" width="70px" height="70px"
 														 preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/neo.svg"></image>
 													</g>
 
-													<!-- Step-2 -->
+													<!-- Step-2 ->
 
-													<!-- base-shaodw -->
+													<!-- base-shaodw ->
 													<g transform="matrix(1,0,0,1,152.1,445.61)" opacity="0.8">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.4s" width="406px" height="274px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/base-shadow.svg"></image>
 													</g>
-													<!-- base -->
+													<!-- base ->
 													<g transform="matrix(1,0,0,1,151.07,301.7)" opacity="0.95">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.4s" width="558px" height="339px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/base.svg"></image>
 													</g>
 
-													<!-- logo-circle-path -->
+													<!-- logo-circle-path ->
 													<g transform="matrix(1,0,0,1,428.5,403.5)" opacity="1">
 														<g opacity="1" transform="matrix(1.0196,0,0,0.9676,-49.875,71.125)">
 															<path class="animated" data-animation="path" data-animation-delay="1.4s" stroke-linecap="round" stroke-linejoin="miter" fill-opacity="0"
@@ -282,7 +288,7 @@
 														</g>
 													</g>
 
-													<!-- neo-path -->
+													<!-- neo-path ->
 													<g transform="matrix(1,0,0,1,345,595)" opacity="1">
 														<g opacity="1" transform="matrix(1,0,0,1,0,0)">
 															<path class="animated" data-animation="path-reverse" data-animation-delay="1.4s" stroke-linecap="butt" stroke-linejoin="miter"
@@ -291,7 +297,7 @@
 														</g>
 													</g>
 
-													<!-- eth-path -->
+													<!-- eth-path ->
 													<g transform="matrix(1,0,0,1,290,545)" opacity="1">
 														<g opacity="1" transform="matrix(1,0,0,1,0,0)">
 															<path class="animated" data-animation="path-reverse" data-animation-delay="1.4s" stroke-linecap="butt" stroke-linejoin="miter"
@@ -299,44 +305,44 @@
 														</g>
 													</g>
 
-													<!-- btc-path -->
+													<!-- btc-path ->
 													<g transform="matrix(1,0,0,1,175,430)" opacity="1">
 														<g opacity="1" transform="matrix(1,0,0,1,0,0)">
 															<path class="animated" data-animation="path" data-animation-delay="2.4s" stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0"
 															 stroke-miterlimit="4" stroke="rgb(99,125,221)" stroke-opacity="1" stroke-width="3" d="M101.68,24.545l-25-15  c0,0-6.14-6-14-1l-28,17c0,0-6.4,5.16-5-30v-20c0,0,0.8-5.6-4-5l-35,25c0,0-5.2,1.6-4,18v90c0,0-1.6,9.8,6,11l40,25c0,0,7,2.6,2,7  l-35,20"></path>
 														</g>
 													</g>
-													<!-- logo-base -->
+													<!-- logo-base ->
 													<g transform="matrix(1,0,0,1,255,345)" opacity="0.5">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.4s" width="250px" height="260px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/logo-base.svg"></image>
 													</g>
 
-													<!-- logo-shaodw -->
+													<!-- logo-shaodw ->
 													<g transform="matrix(0.1385,0,0,0.1175,275,385)" opacity="0.65">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2.2s" width="1500px" height="1500px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/logo-shadow.svg"></image>
 													</g>
-													<!-- logo -->
+													<!-- logo ->
 													<g transform="matrix(1,0,0,1,310,410)" opacity="1">
 														<image class="animated cic-logo" data-animation="fadeInUpShortest" data-animation-delay="2.4s" width="130px" height="89px"
 														 preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/logo.svg"></image>
 													</g>
 
-													<!-- Step 3 -->
-													<!-- base-shaodw -->
+													<!-- Step 3 ->
+													<!-- base-shaodw ->
 													<g transform="matrix(1,0,0,1,305.1,277.61)" opacity="0.8">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.8s" width="406px" height="274px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/base-shadow.svg"></image>
 													</g>
 
-													<!-- base- -->
+													<!-- base- ->
 													<g transform="matrix(1,0,0,1,301.07,133.7)" opacity="0.95">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.8s" width="558px" height="339px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/base.svg"></image>
 													</g>
 
-													<!-- car-path -->
+													<!-- car-path ->
 													<g transform="matrix(1,0,0,1,320.5,330.5)" opacity="1">
 														<g opacity="1" transform="matrix(1,0,0,1,0,0)">
 															<path class="animated" data-animation="path" data-animation-delay="2.4s" stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0"
@@ -344,24 +350,24 @@
 														</g>
 													</g>
 
-													<!-- car-base-shadow -->
+													<!-- car-base-shadow ->
 													<g transform="matrix(1,0,0,1,415,235)" opacity="0.8">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="3s" width="100px" height="100px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-shadow.svg"></image>
 													</g>
-													<!-- car-base -->
+													<!-- car-base ->
 													<g transform="matrix(1,0,0,1,408.62,240.74)" opacity="1">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2.1s" width="109px" height="68px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-car.svg"></image>
 													</g>
 
-													<!-- car -->
+													<!-- car ->
 													<g transform="matrix(1,0,0,1,420.8799,200.27)" opacity="1">
 														<image class="animated svg-elements-1" data-animation="fadeInUpShorter" data-animation-delay="2.2s" width="80px" height="80px"
 														 preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/car.svg"></image>
 													</g>
 
-													<!-- mobile-path -->
+													<!-- mobile-path ->
 													<g transform="matrix(1,0,0,1,475,410)" opacity="1">
 														<g opacity="1" transform="matrix(1,0,0,1,0,0)">
 															<path class="animated" data-animation="path" data-animation-delay="2.4s" stroke-linecap="butt" stroke-linejoin="miter" fill-opacity="0"
@@ -369,25 +375,25 @@
 														</g>
 													</g>
 
-													<!-- mobile-base-shadow -->
+													<!-- mobile-base-shadow ->
 													<g transform="matrix(1,0,0,1,565,300)" opacity="0.8">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="3s" width="120px" height="120px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-shadow.svg"></image>
 													</g>
 
-													<!-- mobile-base -->
+													<!-- mobile-base ->
 													<g transform="matrix(1,0,0,1,565,310)" opacity="1">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2.3s" width="122px" height="78px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-mobile.svg"></image>
 													</g>
 
-													<!-- mobile -->
+													<!-- mobile ->
 													<g transform="matrix(1,0,0,1,600,280)" opacity="1">
 														<image class="animated svg-elements-1" data-animation="fadeInUpShorter" data-animation-delay="2.4s" width="51px" height="78px"
 														 preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/mobile.svg"></image>
 													</g>
 
-													<!-- home-path -->
+													<!-- home-path ->
 													<g transform="matrix(1,0,0,1,495,260)" opacity="1">
 														<g opacity="1" transform="matrix(1,0,0,1,0,0)">
 															<path class="animated" data-animation="path-reverse" data-animation-delay="1.4s" stroke-linecap="butt" stroke-linejoin="miter"
@@ -395,33 +401,33 @@
 														</g>
 													</g>
 
-													<!-- home-base-shadow -->
+													<!-- home-base-shadow ->
 													<g transform="matrix(1,0,0,1,570,150)" opacity="0.8">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="3s" width="200px" height="200px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-shadow.svg"></image>
 													</g>
-													<!-- home-base -->
+													<!-- home-base ->
 													<g transform="matrix(1,0,0,1,570.8,140.9)" opacity="1">
 														<image class="animated" data-animation="fadeInUpShorter" data-animation-delay="2.4s" width="200px" height="150px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/icon-base-home.svg"></image>
 													</g>
-													<!-- home -->
+													<!-- home ->
 													<g transform="matrix(1,0,0,1,600,90)" opacity="1">
 														<image class="animated svg-elements-2" data-animation="fadeInUpShorter" data-animation-delay="2.5s" class="svg-elements-2"
 														 width="140px" height="140px" preserveAspectRatio="xMidYMid slice" xlink:href="theme-assets/images/svg/svg-animation/home.svg"></image>
 													</g>
 
-													<!-- step-1-text -->
+													<!-- step-1-text ->
 													<g transform="matrix(1,0,0,1,734,400)" opacity="0.8">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="2s" width="120px" height="26px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/physical.svg"></image>
 													</g>
-													<!-- step-2-text -->
+													<!-- step-2-text ->
 													<g transform="matrix(1,0,0,1,602,569)" opacity="0.8">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.6s" width="180px" height="24px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/cic-blockchain.svg"></image>
 													</g>
-													<!-- step-3-text -->
+													<!-- step-3-text ->
 													<g transform="matrix(1,0,0,1,432,745)" opacity="0.8">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1.2s" width="80px" height="24px" preserveAspectRatio="xMidYMid slice"
 														 xlink:href="theme-assets/images/svg/svg-animation/digital.svg"></image>
@@ -433,7 +439,7 @@
 													</clipPath>
 												</defs>
 											</svg>
-										</div>
+										</div-->
 									</div>
 								</div>
 							</div>
@@ -449,7 +455,7 @@
 								<h6 class="sub-title">About</h6>
 								<h2 class="title">What is <%= appName %></h2>
 							</div>
-							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s"><%= appName %> aims to disrupt the cryptotrading industry by lowering the barrier
+							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" ><%= appName %> aims to disrupt the cryptotrading industry by lowering the barrier
 								<br class="d-none d-xl-block">to creating algorithmic trading models.</p>
 						</div>
 						<div class="content-area">
@@ -1593,7 +1599,7 @@
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" id="name" name="name" placeholder="Your Name">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" id="mail" name="mail" placeholder="Your Mail">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" id="message" name="message" placeholder="Your Message">
-									<button id="contact-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s" data-i18n="contact-area.joinSNS" >Send Message</button>
+									<button id="contact-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s" data-i18n="contact-area.button.submit" >Send Message</button>
 								</form>
 								<div id="contact-success-alert"></div>
 								<div id="contact-error-alert"></div>
@@ -1604,7 +1610,8 @@
 				</section>
 				<!--/ Contact -->
 				<!-- Exchange Listing Area -->
-				<section class="exchange-listing" id="exchange-listing">
+				<!-- TODO: Réactiver cette section lorsque nous aurons au moins 3 bons articles...  -->
+				<!--section class="exchange-listing" id="exchange-listing">
 					<div class="container-fluid bg-color">
 						<div class="container">
 							<div class="row listing list-unstyled">
@@ -1632,7 +1639,7 @@
 							</div>
 						</div>
 					</div>
-				</section>
+				</section-->
 				<!--/ Exchange Listing Area -->
 				<!-- Purchase Modal -->
 				<div class="modal team-modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -2427,25 +2434,25 @@
 							<h5 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s">Useful Links</h5>
 							<ul class="useful-links float-left mr-5">
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
-									<a href="#">What is ICO</a>
+									<a href="#" data-i18n="navbar.item.about, <%= appName %>">What is <%= appName %></a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s">
-									<a href="#">Solutions</a>
+									<a href="#" data-i18n="navbar.item.problem">Solutions</a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s">
-									<a href="#">Whitepaper </a>
+									<a href="#" data-i18n="navbar.item.whitepaper" >Whitepaper </a>
 								</li>
 							</ul>
 							<ul class="useful-links">
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s">
-									<a href="#">Roadmap</a>
+									<a href="#" data-i18n="navbar.item.roadmap" >Roadmap</a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s">
-									<a href="#">Team</a>
+									<a href="#" data-i18n="navbar.item.team" >Team</a>
 								</li>
-								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s">
+								<!--li class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s">
 									<a href="#">Sign in</a>
-								</li>
+								</li-->
 							</ul>
 						</div>
 					</div>

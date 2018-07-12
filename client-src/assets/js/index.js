@@ -58,6 +58,7 @@
 		var purchaseIntervalDefault = 500;
 		var purchaseInterval = purchaseIntervalDefault;
 		var purchaseIntervalId = null;
+
 		var mailchimpLanguage = '';
 
 		// --- private methods
@@ -166,7 +167,7 @@
 			purchaseIntervalId = setInterval(updatePurchaseTimer, purchaseInterval);
 		}
 
-
+		
 		function CFValidate() {
 			var valid = true;
 			$('#contact-form input[type=text]').each(function(index) {
@@ -314,6 +315,12 @@
 					updateETHTimer();
 					updatePurchaseTimer();
 				}, 200);
+				
+				setInterval(function() {
+					var icon = Math.floor(Math.random() * 4) + 1;
+					$('#head-p2p-image').attr('src', 'assets/images/p2p/p2p_' + icon + '.gif');
+				}, 3000);
+		
 
 			} // end of init:function
 
