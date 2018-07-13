@@ -57,6 +57,11 @@ input.noscript-closing-trick {
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
   visibility: hidden; }
 
+/* -- head ------------------------------------------------------------------- */
+@media (min-width: 992px) {
+  #head-area .banner-wrapper {
+    margin-left: 3rem; } }
+
 /* -- flip clock ------------------------------------------------------------------- */
 .clock-counter .flip-clock-divider.days .flip-clock-label {
   right: -56px; }
@@ -79,6 +84,10 @@ input.noscript-closing-trick {
 
 .token-details .progress-top li.bonus {
   right: 4rem; }
+
+#btn-purchase-sale.disabled {
+  cursor: not-allowed;
+  pointer-events: auto; }
 
 /* -- page login ------------------------------------------------------------------- */
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {

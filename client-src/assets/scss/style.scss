@@ -67,22 +67,29 @@ input.noscript-closing-trick {
 		}
 	}
 }
-  .noscript-message {
-	  border: 10px solid #ff3c41;
-	  position: fixed;
-	  width: 600px;
-	  min-width: 380px;
-	  left: 50%;
-	  top: 50px;
-	  margin-left: -300px;
-	  padding: 20px;
-	  background: black;
-	  z-index: 301;
-  }
+.noscript-message {
+	border: 10px solid #ff3c41;
+	position: fixed;
+	width: 600px;
+	min-width: 380px;
+	left: 50%;
+	top: 50px;
+	margin-left: -300px;
+	padding: 20px;
+	background: black;
+	z-index: 301;
+}
   
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
 	visibility: hidden;
 }
+
+/* -- head ------------------------------------------------------------------- */
+
+#head-area .banner-wrapper {
+	@include media-breakpoint-up(lg) { margin-left: 3rem; }
+}
+
 
 /* -- flip clock ------------------------------------------------------------------- */
 
@@ -112,6 +119,11 @@ input.noscript-closing-trick {
 }
 .token-details .progress-top li.bonus {
     right: 4rem;
+}
+
+#btn-purchase-sale.disabled {
+	cursor: not-allowed;
+	pointer-events: auto;
 }
 
 /* -- page login ------------------------------------------------------------------- */
