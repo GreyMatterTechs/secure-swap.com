@@ -110,18 +110,18 @@ module.exports = function(Contact) {
 
 		// Filter bad requests
 		if (!req) {
-			return cb({err: 'contact-area.error.message3'}, null);
+			return cb({err: 'bad request'}, null);
 		}
 		// Check referers
 		var validReferers = ['secureswap.com', 'http://localhost:3000/'];
 		var referer = req.get('Referrer');
 		referer = referer.replace(/www/i, '');
 		if (!validReferers.includes(referer)) {
-			return cb({err: 'contact-area.error.message3'}, null);
+			return cb({err: 'bad request'}, null);
 		}
 		// check form data
 		if (!req.body.name || !req.body.mail || !req.body.message) {
-			return cb({err: 'contact-area.error.message3'}, null);
+			return cb({err: 'bad request'}, null);
 		}
 		var postData = {
 			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.mail))),

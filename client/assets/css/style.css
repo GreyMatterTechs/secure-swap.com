@@ -62,6 +62,14 @@ input.noscript-closing-trick {
   #head-area .banner-wrapper {
     margin-left: 3rem; } }
 
+/* -- about ------------------------------------------------------------------- */
+#about .play-video {
+  top: 38%;
+  background-color: white;
+  padding: 0.65rem;
+  border-radius: 50%;
+  position: absolute; }
+
 /* -- flip clock ------------------------------------------------------------------- */
 .clock-counter .flip-clock-divider.days .flip-clock-label {
   right: -56px; }
