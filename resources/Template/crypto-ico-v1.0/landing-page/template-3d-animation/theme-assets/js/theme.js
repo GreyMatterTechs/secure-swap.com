@@ -9,6 +9,60 @@
  **/
 
 
+
+// Init waypoints
+var InitWaypointAnimations = function() {
+    function a(d, e, f) {
+        const g = e ? e.attr("data-animation-offset") || f.offset : null;
+        d.each(function() {
+            const h = $(this),
+                i = h.attr("data-animation"),
+                j = h.attr("data-animation-delay") || f.delay,
+                k = h.attr("data-animation-offset") || f.offset;
+            h.css({
+                "-webkit-animation-delay": j,
+                "-moz-animation-delay": j,
+                "animation-delay": j,
+                opacity: 0
+            });
+            const l = e ? e : h;
+            l.waypoint(function() {
+                h.addClass("animated").addClass(i).css({
+                    opacity: 1
+                })
+            }, {
+                triggerOnce: !0,
+                offset: g || k
+            })
+        })
+    }
+
+    function c(d) {
+        return "." + d
+    }
+    return function(d) {
+        d || (d = {});
+        const e = {
+                offset: d.offset || "90%",
+                delay: d.delay || "0s",
+                animateClass: d.animateClass || "animated",
+                animateGroupClass: d.animateGroupClass || "ez-animate-group"
+            },
+            f = c(e.animateGroupClass),
+            g = c(e.animateClass);
+        $(f).each((h, i) => {
+            const j = $(i),
+                k = $(i).find(g);
+            a(k, j, e)
+        }), $(g).filter((h, i) => {
+            return 0 === $(i).parents(f).length
+        }).each((h, i) => {
+            a($(i), null, e)
+        })
+    }
+}();
+
+
 /* Preloader */
 $(window).on('load', function() {
 

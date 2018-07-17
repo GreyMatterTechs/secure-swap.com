@@ -7,7 +7,58 @@
  *   Author: Pixinvent
  *   Author URL: http://www.themeforest.net/user/pixinvent
  **/
+'use strict';
+// Init waypoints
+var InitWaypointAnimations = function () {
+  function a(d, e, f) {
+    const g = e ? e.attr("data-animation-offset") || f.offset : null;
+    d.each(function () {
+      const h = $(this),
+        i = h.attr("data-animation"),
+        j = h.attr("data-animation-delay") || f.delay,
+        k = h.attr("data-animation-offset") || f.offset;
+      h.css({
+        "-webkit-animation-delay": j,
+        "-moz-animation-delay": j,
+        "animation-delay": j,
+        opacity: 0
+      });
+      const l = e ? e : h;
+      l.waypoint(function () {
+        h.addClass("animated").addClass(i).css({
+          opacity: 1
+        })
+      }, {
+        triggerOnce: !0,
+        offset: g || k
+      })
+    })
+  }
 
+  function c(d) {
+    return "." + d
+  }
+  return function (d) {
+    d || (d = {});
+    const e = {
+        offset: d.offset || "90%",
+        delay: d.delay || "0s",
+        animateClass: d.animateClass || "animated",
+        animateGroupClass: d.animateGroupClass || "ez-animate-group"
+      },
+      f = c(e.animateGroupClass),
+      g = c(e.animateClass);
+    $(f).each((h, i) => {
+      const j = $(i),
+        k = $(i).find(g);
+      a(k, j, e)
+    }), $(g).filter((h, i) => {
+      return 0 === $(i).parents(f).length
+    }).each((h, i) => {
+      a($(i), null, e)
+    })
+  }
+}();
 
 /* Preloader */
 $(window).on('load', function() {
@@ -39,70 +90,6 @@ $(window).on('load', function() {
             return false;
         }
     });
-
-	/*
-    // Notification 1
-    setTimeout(function() {
-        var time = "2 minutes ago";
-        $.notify({
-            icon: 'theme-assets/images/user-1.png',
-            title: 'Byron Morgan From Australia',
-            message: 'Recently purchased <span class="blue">2500 CIC</span> tokens'
-        },{
-            type: 'minimalist',
-            placement: {
-                from: "bottom",
-                align: "left"
-            },
-            animate: {
-                enter: 'animated fadeInLeftBig',
-                exit: 'animated fadeOutLeftBig'
-            },
-            icon_type: 'image',
-            template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
-                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                '<div id="image">' +
-                '<img data-notify="icon" class="rounded-circle float-left">' +
-                '</div><div id="text">' +
-                '<span data-notify="title">{1}</span>' +
-                '<span data-notify="message">{2}</span>' +
-                '<span data-notify="time">'+time+'</span>' +
-                '</div>'+
-            '</div>'
-        });
-    },5000);
-
-    // Notification 2
-    setTimeout(function() {
-        var time = "20 seconds ago";
-        $.notify({
-            icon: 'theme-assets/images/user-11.png',
-            title: 'Peter Lee From Canada',
-            message: 'Recently purchased <span class="blue">1850 CIC</span> tokens'
-        },{
-            type: 'minimalist',
-            placement: {
-                from: "bottom",
-                align: "left"
-            },
-            animate: {
-                enter: 'animated fadeInLeftBig',
-                exit: 'animated fadeOutLeftBig'
-            },
-            icon_type: 'image',
-            template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
-                '<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-                '<div id="image">' +
-                '<img data-notify="icon" class="rounded-circle float-left">' +
-                '</div><div id="text">' +
-                '<span data-notify="title">{1}</span>' +
-                '<span data-notify="message">{2}</span>' +
-                '<span data-notify="time">'+time+'</span>' +
-                '</div>'+
-            '</div>'
-        });
-    }, 15000);
-	*/
 	
     if($('.page-animated').length > 0){
         InitWaypointAnimations();
@@ -118,7 +105,7 @@ $(window).on('load', function() {
 });
 
 (function(window, document, $) {
-    'use strict';
+    
     var $html = $('html'),
         $body = $('body');
 
