@@ -62,6 +62,9 @@ input.noscript-closing-trick {
   #head-area .banner-wrapper {
     margin-left: 3rem; } }
 
+header .navbar.navbar-fixed {
+  padding: 0; }
+
 /* -- about ------------------------------------------------------------------- */
 #about .play-video {
   top: 38%;

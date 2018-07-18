@@ -90,6 +90,15 @@ input.noscript-closing-trick {
 	@include media-breakpoint-up(lg) { margin-left: 3rem; }
 }
 
+// Navbar fixed css
+header{
+	.navbar{
+		&.navbar-fixed{
+			padding: 0;
+		}
+	}
+}
+
 
 /* -- about ------------------------------------------------------------------- */
 #about .play-video {
