@@ -14,13 +14,15 @@
     "js":  "client/assets/js"
   },
   "theme_assets_source": {
-    "path": "client-src/theme-assets",
-    "js":   "client-src/theme-assets/js",
-    "sass": "client-src/theme-assets/scss"
+    "path":   "client-src/theme-assets",
+    "js":     "client-src/theme-assets/js",
+    "sass":   "client-src/theme-assets/scss",
+    "vendor": "client-src/theme-assets/vendors"
   },
   "theme_assets_dest": {
-    "css": "client/theme-assets/css",
-    "js":  "client/theme-assets/js"
+    "css":    "client/theme-assets/css",
+    "js":     "client/theme-assets/js",
+    "vendor": "client/theme-assets/vendors"
   },
   "autoprefixerBrowsers": [
     "Android 2.3",

@@ -55,7 +55,7 @@
 		var ethIntervalDefault = 60000;
 		var ethInterval = ethIntervalDefault;
 		var ethIntervalId = null;
-		var purchaseIntervalDefault = 500;
+		var purchaseIntervalDefault = 3000;
 		var purchaseInterval = purchaseIntervalDefault;
 		var purchaseIntervalId = null;
 
@@ -233,7 +233,7 @@
 						label: 'flip-clock-label',
 						flip: 'flip',
 						play: 'play',
-						wrapper: 'flip-clock-small-wrapper'
+						wrapper: 'flip-clock-wrapper'
 					}
 				});
 
@@ -313,14 +313,10 @@
 				setTimeout(function() {
 					updateICOTimer();
 					updateETHTimer();
-					updatePurchaseTimer();
 				}, 200);
-				
-				setInterval(function() {
-					var icon = Math.floor(Math.random() * 4) + 1;
-					$('#head-p2p-image').attr('src', 'assets/images/p2p/p2p_' + icon + '.gif');
-				}, 3000);
-		
+				setTimeout(function() {
+					updatePurchaseTimer();
+				}, 2000);
 
 			} // end of init:function
 

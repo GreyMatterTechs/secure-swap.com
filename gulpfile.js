@@ -71,9 +71,18 @@ gulp.task(      'assets-css', gulpSequence('clean:assets-css',       'assets-sas
 gulp.task('theme-assets-js', gulpSequence('clean:theme-assets-js', 'copy:theme-assets-js', 'uglify:theme-assets-min', 'notify:theme-assets-js'));
 gulp.task(      'assets-js', gulpSequence('clean:assets-js',       'copy:assets-js',       'uglify:assets-min',       'notify:assets-js'));
 
+// Vendor Distribution Task.
+// Gulp task to clean vendor folder from theme-assets, copy js files from src folder, concat, and minify them.
+gulp.task('theme-assets-vendor', gulpSequence('clean:theme-assets-vendor', 
+													'concat:theme-assets-vendor-css',
+													'concat:theme-assets-vendor-js',
+													'copy:theme-assets-vendor-css',
+													'copy:theme-assets-vendor-js',
+													'notify:theme-assets-vendor'));
+
 // Full Distribution Task.
 // Gulp task to generate css and js files in theme-assets folder.
-gulp.task('dist', ['theme-assets-css', 'theme-assets-js', 'assets-css', 'assets-js']);
+gulp.task('dist', ['theme-assets-css', 'theme-assets-js', 'theme-assets-vendor', 'assets-css', 'assets-js']);
 
 // Default Task.
 gulp.task('default', ['dist']);
