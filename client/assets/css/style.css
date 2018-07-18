@@ -10,269 +10,182 @@ NOTE:
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 /* -- noscript -------------------------------------- */
-input.noscript-closing-trick:checked ~ div
-{
-    display: none !important;
-}
+input.noscript-closing-trick:checked ~ div {
+  display: none !important; }
 
-input.noscript-closing-trick
-{
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-}
+input.noscript-closing-trick {
+  position: absolute;
+  top: -9999px;
+  left: -9999px; }
 
-.noscript-overlay
-{
-    position: fixed;
-    z-index: 300; 
-    /*display: none;*/
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+.noscript-overlay {
+  position: fixed;
+  /*display: none;*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300; }
 
-    background: rgba(0, 0, 0, .5);
-}
+.noscript-title {
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  color: #ffffff; }
 
-.noscript-title
-{
-    font-size: 32px;
-    font-weight: 700;
-    line-height: 1.2;
+.noscript p {
+  color: #999;
+  margin: 0 0 25px 0;
+  color: #f0f0f0; }
+  .noscript p a {
+    color: #76daff; }
 
-    margin: 0 0 10px 0;
+.noscript-message {
+  border: 10px solid #ff3c41;
+  position: fixed;
+  width: 600px;
+  min-width: 380px;
+  left: 50%;
+  top: 50px;
+  margin-left: -300px;
+  padding: 20px;
+  background: black;
+  z-index: 301; }
 
-    color: #fff;
-}
-
-.noscript p
-{
-    margin: 0 0 25px 0;
-
-    color: #999;
-    color: #f0f0f0;
-}
-.noscript p a
-{
-    color: #76daff;
-}
-
-.noscript-message
-{
-    position: fixed;
-    z-index: 301; 
-    top: 50px;
-    left: 50%;
-
-    width: 600px;
-    min-width: 380px;
-    margin-left: -300px;
-    padding: 20px;
-
-    border: 10px solid #ff3c41;
-    background: black;
-}
-
-.nojs nav,
-.nojs header,
-.nojs .content-wrapper,
-.nojs footer
-{
-    visibility: hidden;
-}
+.nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
+  visibility: hidden; }
 
 /* -- head ------------------------------------------------------------------- */
-@media (min-width: 992px)
-{
-    #head-area .banner-wrapper
-    {
-        margin-left: 3rem;
-    }
-}
+@media (min-width: 992px) {
+  #head-area .banner-wrapper {
+    margin-left: 3rem; } }
 
 header .navbar.navbar-fixed {
   padding: 0; }
 
+.navbar .dropdown a {
+  line-height: 1.7rem; }
+
 /* -- about ------------------------------------------------------------------- */
-#about .play-video
-{
-    position: absolute; 
-    top: 38%;
+#about .play-video {
+  top: 38%;
+  background-color: white;
+  padding: 0.65rem;
+  border-radius: 50%;
+  position: absolute; }
 
-    padding: .65rem;
-
-    border-radius: 50%;
-    background-color: white;
-}
+/* -- problems & solutions ------------------------------------------------------------------- */
+#problem-solution ul {
+  list-style: circle; }
+  #problem-solution ul li {
+    color: #c7b8ff; }
 
 /* -- flip clock ------------------------------------------------------------------- */
-.flip-clock-wrapper ul
-{
-    width: 40px;
-    height: 60px;
-    margin: 0 4px;
-}
+.flip-clock-wrapper ul {
+  width: 40px;
+  height: 60px;
+  margin: 0 4px; }
 
-.flip-clock-wrapper ul li
-{
-    line-height: 60px;
-}
+.flip-clock-wrapper ul li {
+  line-height: 60px; }
 
-.flip-clock-wrapper ul li a div div.inn
-{
-    font-size: 50px;
-}
+.flip-clock-wrapper ul li a div div.inn {
+  font-size: 50px; }
 
 .flip-clock-wrapper ul,
-.flip-clock-wrapper ul li a div div.inn
-{
-    border-radius: 10px;
-}
+.flip-clock-wrapper ul li a div div.inn {
+  border-radius: 10px; }
 
-.flip-clock-wrapper ul li a div.down
-{
-    border-bottom-right-radius: 10px; 
-    border-bottom-left-radius: 10px;
-}
+.flip-clock-wrapper ul li a div.down {
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px; }
 
-.flip-clock-wrapper ul li a div.up:after
-{
-    top: 29px;
-}
+.flip-clock-wrapper ul li a div.up:after {
+  top: 29px; }
 
-.flip-clock-dot.top
-{
-    top: 14px;
-}
+.flip-clock-dot.top {
+  top: 14px; }
 
-.flip-clock-dot.bottom
-{
-    top: 34px;
-}
+.flip-clock-dot.bottom {
+  top: 34px; }
 
-.flip-clock-dot
-{
-    left: 12px; 
+.flip-clock-dot {
+  width: 12px;
+  height: 12px;
+  left: 12px; }
 
-    width: 12px;
-    height: 12px;
-}
+.flip-clock-divider {
+  width: 36px; }
 
-.flip-clock-divider
-{
-    width: 36px;
-}
+.clock-counter .flip-clock-divider.days .flip-clock-label {
+  right: -56px; }
 
-.clock-counter .flip-clock-divider.days .flip-clock-label
-{
-    right: -56px;
-}
+.clock-counter .flip-clock-divider.hours .flip-clock-label {
+  right: -56px; }
 
-.clock-counter .flip-clock-divider.hours .flip-clock-label
-{
-    right: -56px;
-}
+.clock-counter .flip-clock-divider.minutes .flip-clock-label {
+  right: -64px; }
 
-.clock-counter .flip-clock-divider.minutes .flip-clock-label
-{
-    right: -64px;
-}
-
-.clock-counter .flip-clock-divider.seconds .flip-clock-label
-{
-    right: -70px;
-}
+.clock-counter .flip-clock-divider.seconds .flip-clock-label {
+  right: -70px; }
 
 .flip-clock-small-wrapper ul li a div.up div.inn,
-.flip-clock-small-wrapper ul li a div.down div.inn
-{
-    padding-top: 2px;
-}
+.flip-clock-small-wrapper ul li a div.down div.inn {
+  padding-top: 2px; }
 
-.token-details .progress-top li.pre-sale
-{
-    left: 1.4rem;
-}
+.token-details .progress-top li.pre-sale {
+  left: 1.4rem; }
 
-.token-details .progress-top li.bonus
-{
-    right: 4rem;
-}
+.token-details .progress-top li.bonus {
+  right: 4rem; }
 
-#btn-purchase-sale.disabled
-{
-    cursor: not-allowed;
-    pointer-events: auto;
-}
+#btn-purchase-sale.disabled {
+  cursor: not-allowed;
+  pointer-events: auto; }
 
 /* -- page login ------------------------------------------------------------------- */
-input:-webkit-autofill,
-textarea:-webkit-autofill,
-select:-webkit-autofill
-{
-    background: none !important;
-}
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background: none !important; }
 
-#contact .err-mess
-{
-    margin-top: 6rem;
-}
+#contact .err-mess {
+  margin-top: 6rem; }
 
-.required-error
-{
-    border-bottom: 2px solid #be2e1b !important;
-}
+.required-error {
+  border-bottom: 2px solid #be2e1b !important; }
 
-#contact-success-alert
-{
-    font-size: 11px;
+#contact-success-alert {
+  text-align: center;
+  background-color: #57cc65;
+  border: 2px solid #57cc65;
+  color: #fff;
+  padding: 15px 0;
+  margin-top: 1rem;
+  display: none;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
 
-    display: none;
+#contact-error-alert {
+  text-align: center;
+  background-color: #cc5757;
+  border: 2px solid #cc5757;
+  color: #fff;
+  padding: 15px 0;
+  margin-top: 1rem;
+  display: none;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
 
-    margin-top: 1rem;
-    padding: 15px 0;
-
-    text-align: center;
-    letter-spacing: 1px;
-    text-transform: uppercase; 
-
-    color: #fff;
-    border: 2px solid #57cc65;
-    background-color: #57cc65;
-}
-
-#contact-error-alert
-{
-    font-size: 11px;
-
-    display: none;
-
-    margin-top: 1rem;
-    padding: 15px 0;
-
-    text-align: center;
-    letter-spacing: 1px;
-    text-transform: uppercase; 
-
-    color: #fff;
-    border: 2px solid #cc5757;
-    background-color: #cc5757;
-}
-
-#contact-debug-alert
-{
-    font-size: 11px;
-
-    display: none;
-
-    margin-top: 1rem;
-    padding: 15px 0;
-
-    text-align: center;
-    letter-spacing: 1px; 
-
-    color: #fff;
-    border: 2px solid #cc5757;
-    background-color: #cc5757;
-}
+#contact-debug-alert {
+  text-align: center;
+  background-color: #cc5757;
+  border: 2px solid #cc5757;
+  color: #fff;
+  padding: 15px 0;
+  margin-top: 1rem;
+  display: none;
+  font-size: 11px;
+  letter-spacing: 1px; }

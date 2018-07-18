@@ -39,7 +39,7 @@ $(window).on('load', function() {
             return false;
         }
     });
-	
+
     if($('.page-animated').length > 0){
         InitWaypointAnimations();
     }
