@@ -2,8 +2,8 @@ var uglify = require('gulp-uglify');
 var rename = require("gulp-rename");
 
 module.exports = function(gulp, callback) {
-    return gulp.src( ['**/*.js', '!**/*.min.js', '!**/sweet-alerts.js'], 
-                     {cwd: config.theme_assets_dest.js} 
+    return gulp.src( ['**/*.js', '!**/*.min.js'],
+                     {cwd: config.theme_assets_dest.js}
                     )
     .pipe(uglify())
     .pipe(rename({ suffix: '.min' }))

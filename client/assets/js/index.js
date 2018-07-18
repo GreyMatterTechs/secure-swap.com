@@ -233,7 +233,7 @@
 						label: 'flip-clock-label',
 						flip: 'flip',
 						play: 'play',
-						wrapper: 'flip-clock-small-wrapper'
+						wrapper: 'flip-clock-wrapper'
 					}
 				});
 

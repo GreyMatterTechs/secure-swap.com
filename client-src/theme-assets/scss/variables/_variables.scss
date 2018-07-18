@@ -252,21 +252,21 @@ $line-height-lg:              1;
 $font-family-base: 				 "Comfortaa", "Roboto", "Helvetica Neue", Arial, sans-serif;
 // // stylelint-enable value-keyword-case
 
-$font-size-base:              1rem; // Assumes the browser default, typically `16px`
+// $font-size-base:              1rem; // Assumes the browser default, typically `16px`
 $font-size-lg:                ($font-size-base * 1.125);
 $font-size-sm:                ($font-size-base * .8);
 
 // $font-weight-light:           300 !default;
 // $font-weight-normal:          400 !default;
-$font-weight-bold:            700;
+// $font-weight-bold:            700;
 
 // $font-weight-base:            $font-weight-normal !default;
-$line-height-base:            1.5;
+// $line-height-base:            1.5;
 
 // $h1-font-size:                $font-size-base * 2.5 !default;
 // $h2-font-size:                $font-size-base * 2 !default;
 // $h3-font-size:                $font-size-base * 1.75 !default;
-$h4-font-size:                $font-size-base * 1.5;
+// $h4-font-size:                $font-size-base * 1.5;
 // $h5-font-size:                $font-size-base * 1.25 !default;
 // $h6-font-size:                $font-size-base !default;
 
@@ -369,17 +369,17 @@ $input-btn-line-height-lg:    $line-height-lg;
 // //
 // // For each of Bootstrap's buttons, define text, background, and border color.
 
-$btn-padding-y:               $input-btn-padding-y;
-$btn-padding-x:               $input-btn-padding-x;
+// $btn-padding-y:               $input-btn-padding-y;
+// $btn-padding-x:               $input-btn-padding-x;
 // $btn-line-height:             $input-btn-line-height !default;
 
-$btn-padding-y-sm:            $input-btn-padding-y-sm;
-$btn-padding-x-sm:            $input-btn-padding-x-sm;
+// $btn-padding-y-sm:            $input-btn-padding-y-sm;
+// $btn-padding-x-sm:            $input-btn-padding-x-sm;
 // $btn-line-height-sm:          $input-btn-line-height-sm !default;
 
-$btn-padding-y-lg:            $input-btn-padding-y-lg;
-$btn-padding-x-lg:            $input-btn-padding-x-lg;
-$btn-line-height-lg:          $input-btn-line-height-lg;
+// $btn-padding-y-lg:            $input-btn-padding-y-lg;
+// $btn-padding-x-lg:            $input-btn-padding-x-lg;
+// $btn-line-height-lg:          $input-btn-line-height-lg;
 
 // $btn-border-width:            $input-btn-border-width !default;
 

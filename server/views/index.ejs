@@ -23,12 +23,10 @@
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
 	<!-- BEGIN VENDOR CSS-->
+	<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"-->
 	<link rel="stylesheet" type="text/css" href="theme-assets/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/fonts/themify/style.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/fonts/flag-icon-css/css/flag-icon.min.css">
-	<!--link rel="stylesheet" type="text/css" href="theme-assets/vendors/animate/animate.min.css">
-	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/flipclock/flipclock.css">
-	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/swiper/css/swiper.min.css"-->
 	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/vendors.min.css">
 	<!-- END VENDOR CSS-->
 	<!-- BEGIN Page Level CSS-->
@@ -37,16 +35,7 @@
 	<!-- BEGIN Custom CSS-->
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<!-- END Custom CSS-->
-	<!--style type="text/css" id="flipClockCustomCSS">
-		.clock ul li a div div.inn { color: #CCCCCC; background-color: #333333; } 
-		.clock-dot { background: #323434; } 
-		.clock .flip-clock-meridium a { color: #323434; }
-	</style-->
-
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-
+	
 </head>
 
 <body class=" 1-column undefined  page-animated svg-wrapper nojs loaded" data-menu-open="hover" data-menu="">
@@ -196,7 +185,7 @@
 											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="1.6s" >
 												<span data-i18n="head-area.subtitle.row1, <%= appName %>" ><%= appName %> protect your wallet.</span>
 												<br class="d-none d-xl-block" />
-												<span data-i18n="head-area.subtitle.row2">Never send your currencies or wallets to any centralized trading platform again. Keep them at home. <b />Enjoy a true advanced trading tool worthy of the best stock market tools.</span>
+												<span data-i18n="head-area.subtitle.row2">Never send your currencies or wallets to any centralized trading platform again. Keep them at home. <br />Enjoy a true advanced trading tool worthy of the best stock market tools.</span>
 											</h3>
 											<div class="mt-5">
 												<a id="btn-purchase-head" href="#token-sale-mobile-app" class="btn btn-lg btn-gradient-purple btn-glow mr-4 mb-2 animated" data-animation="fadeInUpShorter"
@@ -691,7 +680,7 @@
 										<div class="token-details text-center">
 											<!-- ICO Counter -->
 											<div class="clock-counter mb-4">
-												<div class="clock ml-0 mt-5 mb-5 d-flex justify-content-center"></div>
+												<div class="clock ml-0 mt-5 d-flex justify-content-center"></div>
 												<div class="message"></div>
 											</div>
 											<!-- ICO Counter -->
@@ -2450,7 +2439,7 @@
 	</div>
 	<!-- //////////////////////////////////// FOOTER ////////////////////////////////////-->
 
-	<footer class="footer static-bottom footer-dark footer-custom-class" data-midnight="">
+	<footer class="footer static-bottom footer-dark footer-custom-class" data-midnight="default">
 		<div class="container">
 			<div class="footer-wrapper">
 				<div class="row">
@@ -2538,16 +2527,11 @@
 
 
 	<!-- BEGIN VENDOR JS-->
-
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
-	<!-- BEGIN PAGE VENDOR JS-->
-	<!--script src="theme-assets/vendors/flipclock/flipclock.js"></script>
-	<script src="theme-assets/vendors/countdown/jquery.countdown.min.js"></script>
-	<script src="theme-assets/vendors/swiper/js/swiper.min.js"></script>
-	<script src="theme-assets/vendors/particles/particles.min.js"></script>
-	<script src="theme-assets/vendors/waypoints/jquery.waypoints.min.js"></script-->
-	<!-- END PAGE VENDOR JS-->
 	<!-- BEGIN I18N JS-->
 	<script src="assets/vendors/jquery-i18n/CLDRPluralRuleParser.js"></script>
 	<script src="assets/vendors/jquery-i18n/jquery.i18n.js"></script>

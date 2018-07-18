@@ -8,57 +8,6 @@
  *   Author URL: http://www.themeforest.net/user/pixinvent
  **/
 'use strict';
-// Init waypoints
-var InitWaypointAnimations = function () {
-  function a(d, e, f) {
-    const g = e ? e.attr("data-animation-offset") || f.offset : null;
-    d.each(function () {
-      const h = $(this),
-        i = h.attr("data-animation"),
-        j = h.attr("data-animation-delay") || f.delay,
-        k = h.attr("data-animation-offset") || f.offset;
-      h.css({
-        "-webkit-animation-delay": j,
-        "-moz-animation-delay": j,
-        "animation-delay": j,
-        opacity: 0
-      });
-      const l = e ? e : h;
-      l.waypoint(function () {
-        h.addClass("animated").addClass(i).css({
-          opacity: 1
-        })
-      }, {
-        triggerOnce: !0,
-        offset: g || k
-      })
-    })
-  }
-
-  function c(d) {
-    return "." + d
-  }
-  return function (d) {
-    d || (d = {});
-    const e = {
-        offset: d.offset || "90%",
-        delay: d.delay || "0s",
-        animateClass: d.animateClass || "animated",
-        animateGroupClass: d.animateGroupClass || "ez-animate-group"
-      },
-      f = c(e.animateGroupClass),
-      g = c(e.animateClass);
-    $(f).each((h, i) => {
-      const j = $(i),
-        k = $(i).find(g);
-      a(k, j, e)
-    }), $(g).filter((h, i) => {
-      return 0 === $(i).parents(f).length
-    }).each((h, i) => {
-      a($(i), null, e)
-    })
-  }
-}();
 
 /* Preloader */
 $(window).on('load', function() {
@@ -90,7 +39,7 @@ $(window).on('load', function() {
             return false;
         }
     });
-	
+
     if($('.page-animated').length > 0){
         InitWaypointAnimations();
     }
@@ -262,3 +211,59 @@ function navbarSlideLine() {
         });
     }
 };
+
+
+// Init waypoints
+function InitWaypointAnimations() {
+    function a(d, e, f) {
+      var offset = e ? e.attr('data-animation-offset') || f.offset : null;
+      d.each(function () {
+        var   $this = $(this),
+              i = $this.attr('data-animation'),
+              j = $this.attr('data-animation-delay') || f.delay,
+              k = $this.attr('data-animation-offset') || f.offset;
+              $this.css({
+                            "-webkit-animation-delay": j,
+                            "-moz-animation-delay": j,
+                            "animation-delay": j,
+                            opacity: 0
+                            });
+        var $handler = e ? e : $this;
+        $handler.waypoint(
+            function() {
+                $this.addClass('animated').addClass(i).css({opacity: 1}); 
+            },
+            {
+                triggerOnce: !0,
+                offset: offset || k
+            }
+        );
+      });
+    }
+  
+    function c(d) {
+        return '.' + d;
+    }
+
+    return function (d) {
+      d = d || {};
+      var e = {
+                    offset: d.offset || '90%',
+                    delay: d.delay || '0s',
+                    animateClass: d.animateClass || 'animated',
+                    animateGroupClass: d.animateGroupClass || 'ez-animate-group'
+                },
+           f = c(e.animateGroupClass),
+           g = c(e.animateClass);
+      $(f).each( function(h, i) {
+        var j = $(i),
+            k = $(i).find(g);
+        a(k, j, e);
+      });
+      $(g).filter(function(h, i) {
+        return 0 === $(i).parents(f).length;
+      }).each(function(h, i) {
+        a($(i), null, e);
+      });
+    }
+}
