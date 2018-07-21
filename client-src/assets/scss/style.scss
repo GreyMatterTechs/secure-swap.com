@@ -109,6 +109,10 @@ header{
 
 /* -- about ------------------------------------------------------------------- */
 
+#about > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
 #about .play-video {
 	top: 38%;
     background-color: white;
@@ -119,16 +123,40 @@ header{
 
 /* -- problems & solutions ------------------------------------------------------------------- */
 
+#problem-solution > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
 #problem-solution ul {
 	list-style: circle;
 	li {
 		   color: #c7b8ff;
 	}
 }
+.problems-img-inline, .solutions-img-inline {
+	display: none;
+}
+@include media-breakpoint-up(lg) {
+	.solution-align {
+		margin-left: 17rem;
+	}
+	.problems-img-inline, .solutions-img-inline {
+		display: block;
+	}
+	.problems-img-inline {
+		margin-left: 1rem;
+		margin-bottom: 1rem;
+	}
+	.solutions-img-inline {
+		margin-right: 1rem;
+		margin-bottom: 1rem;
+	}
+	.problems-img-row, .solutions-img-row {
+		display: none;
+	}
+}
 
-
-/* -- flip clock ------------------------------------------------------------------- */
-
+/* -- token sale ------------------------------------------------------------------- */
 
 $clock-font-size: 50px;
 $clock-height: ($clock-font-size * 1.2);
@@ -215,6 +243,11 @@ $dot-size: 12px;
 	cursor: not-allowed;
 	pointer-events: auto;
 }
+
+.token-sale .note {
+	font-size: 0.75rem;
+}
+
 
 /* -- page login ------------------------------------------------------------------- */
 

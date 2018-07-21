@@ -511,14 +511,14 @@
 										<%= appName %> is a real trading tool. Our client interface offers the best tools for budget management, risk management and trading assistance. It allows to place orders on obliques, OCO orders, etc...</p>
 								</div>
 								<div class="col-md-12 col-lg-6 animated move-first" data-animation="fadeInUpShorter" data-animation-delay="0.7s">
-									<div class="crypto-video animated" data-animation="fadeInUpShorter" data-animation-delay="1.7s">
+									<div class="crypto-video animated text-center" data-animation="fadeInUpShorter" data-animation-delay="1.7s">
 										<img src="assets/images/video-banner.png" class="video-img img-fluid" alt="What is <%= appName %>">
 										<div class="play-video text-center">
 											<a href="#" class="play rounded-circle btn-gradient-orange video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/UXAJu3zS4bU" data-target="#ico-modal">
 												<i class="ti-control-play"></i>
 											</a>
 										</div>
-										<p class="mt-2 d-none d-md-block text-center" data-i18n="about-area.content.video.subtitle">Alain Saffray, our CEO, presents our SecureSwap ecosystem.</p>
+										<p class="mt-2 d-none d-md-block text-center" data-i18n="about-area.content.video.subtitle, <%= appName %>">Alain Saffray, our CEO, presents our <%= appName %> ecosystem.</p>
 									</div>
 								</div>
 							</div>
@@ -538,17 +538,18 @@
 								</h2>
 							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
-								<span data-i18n="solution-area.desc1">More than $40 million in assets were placed under restraint pending forfeiture, and more than 30</span>
+								<span data-i18n="solution-area.desc1">The problems with centralized platforms are well known by the crypto-currency trading community.</span>
 								<br class="d-none d-xl-block">
-								<span data-i18n="solution-area.desc2">Liberty Reserve exchanger domain names were seized.</span>
+								<span data-i18n="solution-area.desc2">We provide simple and innovative solutions.</span>
 							</p>
 						</div>
 						<div class="problems">
 							<div class="row">
-								<div class="col-md-12 col-lg-6">
+								<div class="col-md-12">
 									<div class="heading mb-4">
 										<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="solution-area.problems">Problems</h4>
 									</div>
+									<img src="assets/images/problems.jpg" class="pull-right problems-img problems-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="problems-graphic">
 									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.6s" >
 										<span data-i18n="solution-area.problems.p1" >The press regularly reports acts of piracy on centralized exchange platforms, to the tune of millions of dollars. The victims are above all the users themselves, since it is the exchanger that holds the private keys of the traders' wallets. Lack of confidence in the security of centralized platforms prompts users to remove their cryptocurrencies from these platforms:</span>
 										<ul>
@@ -559,26 +560,35 @@
 									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="solution-area.problems.p2" >Current platforms suffer from a lack of ergonomics compared to stock market trading tools. Some are puzzles to use, even for a trader at ease with the computer tool.</p>
 									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" data-i18n="solution-area.problems.p3" >Finally, existing trading platforms have load problems, even interrupting their services during periods of heavy activity, a critical time when users need them most (market panic).</p>
 								</div>
-								<div class="col-md-12 col-lg-6 text-center">
-									<img src="theme-assets/images/problems-graphic.png" class="problems-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s"
-									 alt="problems-graphic">
+								<div class="col-md-12 text-center problems-img-row">
+									<img src="assets/images/problems.jpg" class="problems-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="problems-graphic">
 								</div>
 							</div>
 						</div>
 						<div class="solutions mt-5">
 							<div class="row">
-								<div class="col-md-12 col-lg-6 text-center">
-									<img src="theme-assets/images/solutions-graphic.png" class="solutions-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s"
-									 alt="problems-graphic">
+								<div class="col-md-12 text-center solutions-img-row">
+									<img src="assets/images/solutions.gif" class="solutions-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="solutions-graphic">
 								</div>
-								<div class="col-md-12 col-lg-6 move-first">
+								<div class="col-md-12 move-first">
 									<div class="heading mb-4">
 										<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" "solution-area.solutions" >Solutions</h4>
 									</div>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="solution-area.solutions.p1" >Decentralized cryptocurrency is produced by the entire cryptocurrency system collectively, at a rate which is defined
-										when the system is created and which is publicly known.</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="solution-area.solutions.p2" >In centralized banking and economic systems such as the Federal Reserve System, corporate boards or governments
-										control the supply of currency by printing units of fiat money or demanding additions to digital banking ledgers.</p>
+									<img src="assets/images/solutions.gif" class="pull-left solutions-img solutions-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="solutions-graphic">
+									<div class="solution-align" >
+										<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="solution-area.solutions.p1, <%= appName %>" ><%= appName %> is a cryptocurrency exchange ecosystem, built around a decentralized service (P2P), a client application for trading, and optional micro services to take advantage of the new options offered by this new network.</p>
+										<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.7s" >
+										<span data-i18n="solution-area.solutions.p2, <%= appName %>" ><%= appName %> provides both the advantages of centralized and decentralized exchanges:</span>
+										<ul>
+											<li data-i18n="solution-area.solutions.p2.li1">good liquidity</li>
+											<li data-i18n="solution-area.solutions.p2.li2">enhanced safety "by design"</li>
+											<li data-i18n="solution-area.solutions.p2.li3">"no intermediaries holding the users' crypto-currencies"</li>
+											<li data-i18n="solution-area.solutions.p2.li4">ergonomics inspired by the best stock trading software</li>
+											<li data-i18n="solution-area.solutions.p2.li5">scalability (P2P network) guaranteeing service availability</li>
+										</ul>
+										</p>
+									</div>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" data-i18n="solution-area.solutions.p3" >The security and atomicity of the exchanges are ensured by a DApp ETH application dedicated to this task. It will be carried on other blockchains supporting smart contracts such as EOS, in order to ensure interoperability and atomicity of exchanges on the latter, and to increase the number of transactions per second feasible, by aggregating the execution capabilities of each blockchain.</p>
 								</div>
 							</div>
 						</div>
@@ -589,10 +599,13 @@
 				<section id="whitepaper" class="whitepaper section-padding">
 					<div class="container">
 						<div class="heading text-center">
-							<h6 class="sub-title">Documents</h6>
-							<h2 class="title">Whitepaper</h2>
-							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">Terms of service are rules by which one must agree to abide in order to use a service.
-								<br class="d-none d-xl-block">Terms of service can also be merely a disclaimer, especially regarding the use of websites.</p>
+							<h6 class="sub-title" data-i18n="whitepaper-area.subtitle">Documents</h6>
+							<h2 class="title" data-i18n="whitepaper-area.title">Whitepaper</h2>
+							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
+								<span data-i18n="whitepaper-area.desc1">Do you want to know more?</span>
+								<br class="d-none d-xl-block">
+								<span data-i18n="whitepaper-area.desc2, <%= appName %>">Read the Whitepaper to learn more about <%= appName %> and the opportunities available.</span>
+							</p>
 						</div>
 						<div class="row">
 							<div class="col-lg-5 col-md-12">
@@ -603,15 +616,10 @@
 							</div>
 							<div class="col-lg-7 col-md-12">
 								<div class="content-area">
-									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s">Read Whitepaper</h4>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">A white paper is an authoritative report or guide that informs readers concisely about a complex issue and presents
-										the issuing body's philosophy on the matter. It is meant to help readers understand an issue, solve a problem,
-										or make a decision.</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s">The initial British term concerning a type of government-issued document has proliferated, taking a somewhat new
-										meaning in business. In business, a white paper is closer to a form of marketing presentation, a tool meant to
-										persuade customers and partners and promote a product or viewpoint, White papers may be considered grey literature.</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s">Since the early 1990s, the term "white paper", or "whitepaper", has been applied to documents used as marketing
-										or sales tools in business.</p>
+									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="whitepaper-area.read">Read Whitepaper</h4>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="whitepaper-area.read.p1, <%= appName %>">Learn more about the vision of <%= appName %> and fully understand why the decentralization of exchanges platforms is the future of digital currencies trading.</p>
+									<!--p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="whitepaper-area.read.p2"></p>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="whitepaper-area.read.p3"></p-->
 									<div class="whitepaper-languages">
 										<div class="row">
 											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
@@ -664,15 +672,18 @@
 					<div class="token-sale">
 						<div class="container">
 							<div class="heading text-center">
-								<h6 class="sub-title">Pre-Sale &amp; Values</h6>
-								<h2 class="title">Tokens Sale</h2>
-								<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">The first token sale (also known as an ICO) was held by Mastercoin in
-									<br class="d-none d-xl-block">July 2013. Ethereum raised money with a token sale in 2014.</p>
+								<h6 class="sub-title" data-i18n="tokensale-area.subtitle">Pre-Sale &amp; Values</h6>
+								<h2 class="title" data-i18n="tokensale-area.title">Tokens Sale</h2>
+								<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
+									<span data-i18n="tokensale-area.desc1">Beyond speculation on SSWT tokens, token owners, who will have launched one or more nodes, </span>
+									<br class="d-none d-xl-block">
+									<span data-i18n="tokensale-area.desc2">are rewarded by earning a portion of the margin generated by the transactions.</span>
+								</p>
 							</div>
 							<div class="row align-items-center">
 								<div class="col-xl-6 col-lg-6 col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
 									<div class="token-sale-counter">
-										<h5>ICO will start in</h5>
+										<h5 data-i18n="tokensale-area.info.start" >ICO will start in</h5>
 										<div class="token-details text-center">
 											<!-- ICO Counter -->
 											<div class="clock-counter mb-4">
@@ -684,8 +695,8 @@
 											<div class="loading-bar mb-2 position-relative">
 												<div class="progres-area pb-5">
 													<ul class="progress-top">
-														<li class="pre-sale">soft cap</li>
-														<li class="bonus">hard cap</li>
+														<li class="pre-sale" data-i18n="tokensale-area.info.softcap">soft cap</li>
+														<li class="bonus" data-i18n="tokensale-area.info.hardcap">hard cap</li>
 													</ul>
 													<ul class="progress-bars">
 														<li></li>
@@ -701,51 +712,61 @@
 														<li></li>
 													</ul>
 													<div class="progress">
-														<div class="progress-bar progress-bar-custom" role="progressbar" style="width: 65%;" aria-valuenow="100" aria-valuemin="0"
-														 aria-valuemax="10"></div>
+														<div class="progress-bar progress-bar-custom" role="progressbar" style="width: 65%;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="10"></div>
 													</div>
 													<div class="progress-bottom">
-														<div class="progress-info">% target raised</div>
-														<div class="progress-info">1 SSWT = 0.45$ = 0.40€ = 0.1ETH</div>
+														<div class="progress-info" data-i18n="tokensale-area.info.percent, 1">% target raised</div>
+														<div class="progress-info" data-i18n="tokensale-area.info.eth">1 SSWT = 0.45$ = 0.40€ = 0.1ETH</div>
 													</div>
 												</div>
 											</div>
 											<!--/ Progressbar -->
-											<a href="#" id="btn-purchase-sale" data-toggle="modal" data-target="#purchase-modal" class="btn btn-lg btn-glow btn-gradient-blue">Purchase Token</a>
+											<a href="#" id="btn-purchase-sale" data-toggle="modal" data-target="#purchase-modal" class="btn btn-lg btn-glow btn-gradient-blue" data-i18n="tokensale-area.btn.purchase">Purchase Token</a>
 										</div>
 									</div>
 								</div>
 								<div class="col-xl-6 col-lg-6 col-md-12 mt-5 pl-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
 									<div class="row">
-										<p>We have successfully reached the soft cap! Join now and get a higher discount.
-											<br/>Get your tokens for the best price: We fixed the Ether price at $800.</p>
+										<p data-i18n="tokensale-area.info.desc">We will post our Wallet address one minute before the pre-sale begins. This will be posted on all our websites, Bitcointalk, Twitter and Facebook. Please check at least 2-3 of these sites to make sure the address is exactly the same, before sending your Ethers to this address.</p>
 										<div class="col-md-5">
 											<ul class="token-sale-info">
-												<li>Public PRE-ITS starts
-													<strong class="white">13 March</strong>
+												<!--li>
+													<span data-i18n="tokensale-area.li1">Public PRE-ITS starts</span>
+													<strong class="white" data-i18n="tokensale-area.li1.value">13 March</strong>
+												</li-->
+												<li>
+													<span data-i18n="tokensale-area.li3">Public ICO starts</span>
+													<strong class="white" data-i18n="tokensale-area.li3.value">25 April</strong>
 												</li>
-												<li>Public ITS ends
-													<strong class="white">25 May</strong>
-												</li>
-												<li>Public ITS starts
-													<strong class="white">25 April</strong>
+												<li>
+													<span data-i18n="tokensale-area.li2">Public ICO ends</span>
+													<strong class="white" data-i18n="tokensale-area.li2.value">25 May</strong>
 												</li>
 											</ul>
 										</div>
 										<div class="col-md-7 pr-0">
 											<ul class="token-sale-info">
-												<li>Acceptable currencies
-													<strong class="white">ETH, BTC, LTC</strong>
+												<li>
+													<span data-i18n="tokensale-area.li4">Acceptable currencies</span>
+													<strong class="white" data-i18n="tokensale-area.li4.value">ETH, BTC, LTC</strong>
 												</li>
-												<li>Minimal transaction amount
-													<strong class="white">1 ETH, 1 BTC, 1 LTC</strong>
-												</li>
-												<li>Number of tokens for sale
-													<strong class="white">890,000 CIC (8%)</strong>
+												<!--li>
+													<span data-i18n="tokensale-area.li5">Minimal transaction amount</span>
+													<strong class="white" data-i18n="tokensale-area.li5.value">1 ETH, 1 BTC, 1 LTC</strong>
+												</li-->
+												<li>
+													<span data-i18n="tokensale-area.li6">Number of tokens for sale</span>
+													<strong class="white" data-i18n="tokensale-area.li6.value">100,000,000 SSWT</strong>
 												</li>
 											</ul>
 										</div>
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
+									<p class="note" data-i18n="tokensale-area.note1">Please note that we will not personally send you our address by Telegram or any other platform, so be careful and beware of any scam!</p>
+									<p class="note" data-i18n="tokensale-area.note2, <%= appName %>">Note that our Wallet address will only be published one minute before the start of the presale, so any other platform claiming to represent <%= appName %> are scam attempts! If you discover such an attempt, please report it to us so that we can remedy it immediately,</p>
 								</div>
 							</div>
 						</div>
@@ -1699,6 +1720,14 @@
 							<div class="modal-body">
 								<div class="row p-4">
 									
+									checkbox I confirm that I have read the conditions for purchasing Sonder tokens and White Paper and accept their terms.
+									checkbox I confirm that I am not a citizen of the United States, China or Singapore. I also confirm that I am not a citizen, I am not a resident and I am not on the territory of the state (autonomous territories), in which activities related to ICO and operations with crypto-currencies are prohibited or require special authorizations.
+									checkbox I confirm that by participating in the ICO and acquiring Sonder tokens (utility tokens), I do not violate applicable law.
+
+									Do note that the GStar.AI team will never PM you for contribution of funds, or change the contribution address. Beware of scammers!
+									https://medium.com/@gstarai/how-do-i-take-part-in-gstar-ais-tokensale-59aa9afc4918
+									DO NOT SEND ETHEREUM TRANSACTIONS DIRECTLY FROM CRYPTOCURRENCY EXCHANGES SUCH AS COINBASE OR KRAKEN. YOU NEED A TOKEN COMPATIBLE ETHEREUM WALLET.
+
 								</div>
 							</div>
 						</div>
@@ -2545,6 +2574,7 @@
 	<script src="theme-assets/js/scripts/particles-type1.js"></script>
 	<!-- END PAGE LEVEL JS-->
 	<!-- BEGIN Custom JS-->
+	<script src="assets/vendors/moment/moment-with-locales.js"></script>
 	<script src="assets/js/tools.js"></script>
 	<script src="assets/js/i18n.js"></script>
 	<script src="assets/js/index.js"></script>

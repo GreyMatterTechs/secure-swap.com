@@ -69,6 +69,10 @@ header .navbar.navbar-fixed {
   line-height: 1.7rem; }
 
 /* -- about ------------------------------------------------------------------- */
+@media (min-width: 992px) {
+  #about > .container {
+    padding-left: 4rem; } }
+
 #about .play-video {
   top: 38%;
   background-color: white;
@@ -77,12 +81,33 @@ header .navbar.navbar-fixed {
   position: absolute; }
 
 /* -- problems & solutions ------------------------------------------------------------------- */
+@media (min-width: 992px) {
+  #problem-solution > .container {
+    padding-left: 4rem; } }
+
 #problem-solution ul {
   list-style: circle; }
   #problem-solution ul li {
     color: #c7b8ff; }
 
-/* -- flip clock ------------------------------------------------------------------- */
+.problems-img-inline, .solutions-img-inline {
+  display: none; }
+
+@media (min-width: 992px) {
+  .solution-align {
+    margin-left: 17rem; }
+  .problems-img-inline, .solutions-img-inline {
+    display: block; }
+  .problems-img-inline {
+    margin-left: 1rem;
+    margin-bottom: 1rem; }
+  .solutions-img-inline {
+    margin-right: 1rem;
+    margin-bottom: 1rem; }
+  .problems-img-row, .solutions-img-row {
+    display: none; } }
+
+/* -- token sale ------------------------------------------------------------------- */
 .flip-clock-wrapper ul {
   width: 40px;
   height: 60px;
@@ -144,6 +169,9 @@ header .navbar.navbar-fixed {
 #btn-purchase-sale.disabled {
   cursor: not-allowed;
   pointer-events: auto; }
+
+.token-sale .note {
+  font-size: 0.75rem; }
 
 /* -- page login ------------------------------------------------------------------- */
 input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {

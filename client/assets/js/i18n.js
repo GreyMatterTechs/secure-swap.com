@@ -9,10 +9,10 @@
  * @url         http://secureswap.com
  * @license:	Copyright (c) 2018, GreyMattersTechs. All rights reserved.
  */
+'use strict';
 
-( function( window, undefined ) {
-	'use strict';
-	
+(function(window, undefined) {
+
 	window.ss_ico = window.ss_ico || {};	// NameSpace
 
 	if ( window.ss_ico.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }

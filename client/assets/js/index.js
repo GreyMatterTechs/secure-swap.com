@@ -11,9 +11,9 @@
  * @namespace:	ss_ico
  *
  */
+'use strict';
 
 (function(window, undefined) {
-	'use strict';
 
 	window.ss_ico = window.ss_ico || {};	// NameSpace
 
@@ -58,18 +58,30 @@
 		var purchaseIntervalDefault = 3000;
 		var purchaseInterval = purchaseIntervalDefault;
 		var purchaseIntervalId = null;
-
+		var icoData = {};
+		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
 
 		// --- private methods
 
 		var tokenPriceUSD = 0.45;
 
+		function updateTokeSaleArea(locale) {
+			$('[data-i18n="tokensale-area.info.percent"]').text($.i18n('tokensale-area.info.percent', icoData.purchaseSoldPercent));
+			// $('[data-i18n="tokensale-area.li1.value"]').text($.i18n('tokensale-area.li1.value', new Date(icoData.predateStart)));
+			$('[data-i18n="tokensale-area.li2.value"]').text($.i18n('tokensale-area.li2.value', moment(icoData.dateEnd).format('LL')));
+			$('[data-i18n="tokensale-area.li3.value"]').text($.i18n('tokensale-area.li3.value', moment(icoData.dateStart).format('LL')));
+			// $('[data-i18n="tokensale-area.li4.value"]').text($.i18n('tokensale-area.li4.value', dateStart));
+			// $('[data-i18n="tokensale-area.li5.value"]').text($.i18n('tokensale-area.li5.value', dateStart));
+			$('[data-i18n="tokensale-area.li6.value"]').text($.i18n('tokensale-area.li6.value', icoData.tokensTotal));
+		}
+
 		function updateICO() {
 			$.get('/api/ICOs/GetICOData')
 				.done(function(ico) {
 					clockInterval = clockIntervalDefault;
 					if (ico) {
+						icoData = ico;
 						var date = new Date(ico.dateStart);
 						var now = new Date();
 						var dif = (date.getTime() - now.getTime()) / 1000;
@@ -87,9 +99,9 @@
 						tokenPriceUSD = ico.tokenPriceUSD;
 						var total = ico.tokensTotal;
 						var sold = ico.tokensSold;
-						var purchaseSoldPercent = parseInt(sold * 100 / total);
-						$('#token-sale-mobile-app div.progress > div').css('width', purchaseSoldPercent + '%');
-						$('#token-sale-mobile-app div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
+						icoData.purchaseSoldPercent = parseInt(sold * 100 / total);
+						$('#token-sale-mobile-app div.progress > div').css('width', icoData.purchaseSoldPercent + '%');
+						updateTokeSaleArea();
 					}
 				})
 				.fail(function(err) {
@@ -144,16 +156,16 @@
 								exit: 'animated fadeOutLeftBig'
 							},
 							icon_type: 'image',
-							template:	'<div data-notify="container" class="alert alert-{0}" role="alert">' +
-											'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-											'<div id="image">' +
-											'<img data-notify="icon" class="rounded-circle float-left">' +
-											'</div><div id="text">' +
-											'<span data-notify="title">{1}</span>' +
-											'<span data-notify="message">{2}</span>' +
-											'<span data-notify="time">' + time + '</span>' +
-											'</div>' +
-										'</div>'
+							template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
+								'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+								'<div id="image">' +
+								'<img data-notify="icon" class="rounded-circle float-left">' +
+								'</div><div id="text">' +
+								'<span data-notify="title">{1}</span>' +
+								'<span data-notify="message">{2}</span>' +
+								'<span data-notify="time">' + time + '</span>' +
+								'</div>' +
+								'</div>'
 						});
 					}
 				})
@@ -167,7 +179,7 @@
 			purchaseIntervalId = setInterval(updatePurchaseTimer, purchaseInterval);
 		}
 
-		
+
 		function CFValidate() {
 			var valid = true;
 			$('#contact-form input[type=text]').each(function(index) {
@@ -248,9 +260,9 @@
 					var valid = CFValidate();
 					if (valid) {
 						var ser = $('#contact-form').serialize();
-					//	if (mailchimpLanguage !== '') {
-					//		ser += '&language=' + mailchimpLanguage;
-					//	}
+						//	if (mailchimpLanguage !== '') {
+						//		ser += '&language=' + mailchimpLanguage;
+						//	}
 						$('#contact-debug-alert').hide();
 						$('#contact-submit').text($.i18n('contact-area.button.sending'));
 						$.ajax({
@@ -281,7 +293,7 @@
 						});
 					}
 				});
-				$('#name, #mail, #message').on('input change', function(e) {
+				$('#name, #mail, #message').on('input change', function (e) {
 					$(this).removeClass('required-error');
 				});
 
@@ -290,12 +302,15 @@
 				//--------------------------------------------------------------------------------------------------------------
 
 				var i18nInitCallback = function(_locale, _mailchimpLanguage) {
+					moment.locale(_locale);
 					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale file is loaded , we can start other inits that needs i18n ready
 					$('input[placeholder]').i18n();
 				};
 
-				var i18nUpdateCallback = function() {
+				var i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
+					moment.locale(_locale);
+					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale is changed, we can update each moduel that needs i18n strings
 					$('input[placeholder]').i18n();
 					$('tokensale-area.flipclock.years').i18n();
@@ -304,7 +319,7 @@
 					$('tokensale-area.flipclock.hours').i18n();
 					$('tokensale-area.flipclock.minutes').i18n();
 					$('tokensale-area.flipclock.seconds').i18n();
-			//		$('div.progress-bottom > div:nth-child(1)').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
+					updateTokeSaleArea();
 				};
 
 				i18n.init();
