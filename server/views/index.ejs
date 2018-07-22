@@ -780,36 +780,18 @@
 								<h6 class="sub-title" data-i18n="app-area.subhead, <%= appName %>"><%= appName %> App</h6>
 								<h2 class="title" data-i18n="app-area.head">Multi-platform App</h2>
 								<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
-									<span  data-i18n="app-area.desc1">Ne transférez plus jamais vos devises digitales sur aucune plateforme.</span>
+									<span data-i18n="app-area.desc1">Never transfer your digital currency to any trading platform again.</span>
 									<br class="d-none d-xl-block">
-									<span  data-i18n="app-area.desc2">Tradez directement vos devises à partir de votre wallet, sans intermédiaire.</span>
+									<span data-i18n="app-area.desc2">Trade your currency directly from your wallet, no middleman.</span>
 								</p>
 							</div>
 							<div class="row">
 								<div class="col-lg-6 col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
 									<div class="heading mb-4">
-										<h4 class="title">Un système antivol</h4>
+										<h4 class="title" data-i18n="app-area.title">An anti-theft system</h4>
 									</div>
-									<p>SecureSwap propose une application client dédiée au trading.
-									
-									Système réellement décentralisé, les utilisateurs restent en possession de leurs crypto monnaies jusqu’au moment d’effectuer un échange.
-									
-									Seule l’application client SecureSwap a connaissance des clefs privées des wallets de l’utilisateur. 
-									Elle est ainsi à même de signer les contrats à destination des blockchains (signature offline). 
-									De ce fait, personne ne peut signer les transactions à la place de l’application client, dans une tentative de voler les avoirs des utilisateurs. 
-									L’utilisateur reste ainsi propriétaire de ses crypto monnaies, contrairement à l’utilisation d’une plateforme d’échanges centralisée, 
-									où celle-ci est propriétaire des crypto monnaies qui y sont entreposées, de par la possession des clefs privées.
-
-									De plus,  si l’utilisateur possède des wallets hardware (ledger, Trezor…),  
-									les clefs privées correspondant à ces wallets ne sont même jamais stockées sur son ordinateur mais restent en sécurité sur ses wallets hardware.
-
-									L’application client permet d’offrir un confort d’utilisation et une ergonomie comparables aux meilleurs logiciels de trading existants
-									 (marchés boursiers, contrats futur, forex...). 
-									 Notamment, l’application client proposera des ordres dits ‘avancés’, comme les ordres à plage de déclenchement, 
-									 les ordres conditionnels à plages multiples, les ordres OCO…, 
-									 ainsi que le trading sur le graphique avec des ordres conditionnels sur franchissement de droites horizontales ou pentes, sur indicateurs, etc.
-
-									</p>
+									<p data-i18n="app-area.p1, <%= appName %>"><%= appName %> offers a client application dedicated to crypto-currencies trading. This system is really decentralized, traders remain in possession of their crypto-currencies until the moment the sell order finds a counterpart. Only the <%= appName %> client application knows the user's private wallet keys. Digital signature of contracts for blockchains is done directly on the customer's application (offline signature). With a hardware wallet (ledger, Trezor...), private keys are never even stored on your computer.</p>
+									<p data-i18n="app-area.p2, <%= appName %>">In addition, <%= appName %> offers ease of use and ergonomics comparable to the best existing trading software (stock markets, future contracts, forex...). In particular, <%= appName %> supports advanced orders, such as trigger range orders, multiple range conditional orders, OCO orders..., as well as trading on charts with conditional orders on crossing horizontal lines or slopes, on indicators, etc...</p>
 									<ul class="app-features">
 										<li class="dark-bg-text-color">
 											<i class="ti-pulse white mr-3"></i>Live crypto rate</li>
@@ -818,17 +800,9 @@
 										<li class="dark-bg-text-color">
 											<i class="ti-split-h white mr-3"></i>Cryptocurrency exchange</li>
 									</ul>
-									<a href="#" class="android mobile-button btn btn-gradient-purple btn-glow mr-4">
-										<span>Android</span>
-										<img src="theme-assets/images/icon-android.png" alt="">
-									</a>
-									<a href="#" class="apple mobile-button btn btn-gradient-purple btn-glow">
-										<span>Apple</span>
-										<img src="theme-assets/images/icon-apple.png" alt="">
-									</a>
 								</div>
-								<div class="col-lg-6 col-md-12 move-first">
-									<div class="mobile-app-imgs">
+								<div class="col-lg-6 col-md-12 move-first mt-5">
+									<div class="mobile-app-imgs mt-5">
 										<img src="assets/images/mobile-app-1.png" alt="mobile-app" class="mobile-app-img-1 animated mt-5" data-animation="fadeInUpShorter"
 										 data-animation-delay="0.9s" style="max-width: 100%;" >
 										<img src="theme-assets/images/mobile-app-2.png" alt="mobile-app" class="mobile-app-img-2 animated" data-animation="zoomIn"
@@ -840,6 +814,30 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s">
+								<a href="#" class="windows mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<span data-i18n="app-area.system.windows" >Windows</span>
+									<img src="assets/images/icon-windows.png" alt="">
+								</a>
+								<a href="#" class="mac mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<span data-i18n="app-area.system.mac" >Mac</span>
+									<img src="assets/images/icon-finder.png" alt="">
+								</a>
+								<a href="#" class="linux mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<span data-i18n="app-area.system.linux" >Linux</span>
+									<img src="assets/images/icon-linux.png" alt="">
+								</a>
+								<a href="#" class="android mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<span data-i18n="app-area.system.android" >Android</span>
+									<img src="theme-assets/images/icon-android.png" alt="">
+								</a>
+								<a href="#" class="apple mobile-button btn btn-gradient-purple btn-glow">
+									<span data-i18n="app-area.system.ios" >iOS</span>
+									<img src="theme-assets/images/icon-apple.png" alt="">
+								</a>
+							</div>
+							</div>	
 						</div>
 					</div>
 					<!--/ Crypto ico App -->
