@@ -3190,7 +3190,7 @@ header .navbar.navbar-shadow
 .about .content-area .play-video
 {
     position: absolute;
-    top: 78%;
+    top: 30%;
     left: 53%;
 
     -webkit-transform: translate(-70%, -50%);
@@ -4987,7 +4987,7 @@ p
     }
     .about .content-area .play-video
     {
-        top: 75%;
+        top: 30%;
         left: 53%;
     }
     .about .content-area .play-video .play

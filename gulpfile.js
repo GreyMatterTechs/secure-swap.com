@@ -96,8 +96,10 @@ gulp.task('monitor', gulpSequence('watch:theme-assets-css', 'watch:theme-assets-
 // gulp.task(      'assets-monitor', gulpSequence('sass:assets-watch-css',       'sass:assets-watch-js'));
 
 gulp.task('monitor', function() {
-	gulp.watch(config.assets_source.sass+'/**/*.scss', ['sass:assets-style']);
-	gulp.watch(config.assets_source.js+'/**/*.js', ['copy:assets-js']);
+	gulp.watch(config.assets_source.sass + '/**/*.scss', ['assets-css']);
+	gulp.watch(config.assets_source.js + '/**/*.js', ['assets-js']);
+	gulp.watch(config.theme_assets_source.sass + '/**/*.js', ['theme-assets-css']);
+	gulp.watch(config.theme_assets_source.js + '/**/*.js', ['theme-assets-js']);
 });
 
 // Full Monitoring Task.

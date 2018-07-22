@@ -332,7 +332,7 @@
 				setTimeout(function() {
 					updatePurchaseTimer();
 				}, 2000);
-
+			
 			} // end of init:function
 
 		}; // end of return

@@ -7,7 +7,6 @@
 	},
 
 	"-------------- NAV BAR --------------": "",
-	"navbar.brand.ico": "ICO",
 	"navbar.item.about": "Présentation",
 	"navbar.item.problem": "Solutions",
 	"navbar.item.whitepaper": "Whitepaper",
@@ -29,17 +28,6 @@
 	"head-area.button.purchase": "Purchase Token",
 	"head-area.button.whitepaper": "Whitepaper",
 
-	"-------------- SECTION ABOUT --------------": "",
-	"about-area.subtitle": "About",
-	"about-area.title": "What is SecureSwap",
-	"about-area.content.row1": "SecureSwap aims to disrupt the cryptotrading industry by lowering the barrier",
-	"about-area.content.row2": "to creating algorithmic trading models.",
-	"about-area.content.row3": "We built a platform for",
-	"about-area.content.row4": " The crypto trading Industry",
-	"about-area.content.row5": "Cryptocurrency exchanges or digital currency exchanges (DCE) are businesses that allow customers to trade cryptocurrencies or digital currencies for other assets.",
-	"about-area.content.row6": "Cryptocurrency exchanges or digital currency exchanges (DCE) are businesses that allow customers to trade cryptocurrencies or digital currencies for other assets",
-	"about-area.content.row7": "Creators of digital currencies are often independent of the DCEs that trade the currency.[6] In one type of system, digital currency providers (DCP), are businesses that keep and administer accounts.",
-	"about-area.content.video.subtitle": "How it works",
 
 	"last": ""
 }

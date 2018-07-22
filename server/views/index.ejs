@@ -28,6 +28,7 @@
 	<link rel="stylesheet" type="text/css" href="theme-assets/fonts/themify/style.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/fonts/flag-icon-css/css/flag-icon.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/vendors.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<!-- END VENDOR CSS-->
 	<!-- BEGIN Page Level CSS-->
 	<link rel="stylesheet" type="text/css" href="theme-assets/css/template-3d-animation.css">
@@ -484,8 +485,8 @@
 					<div class="container">
 						<div class="heading text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-								<h6 class="sub-title" data-i18n="about-area.subtitle">About</h6>
-								<h2 class="title" data-i18n="about-area.title, <%= appName %>">What is <%= appName %></h2>
+								<h6 class="sub-title" data-i18n="about-area.subhead">About</h6>
+								<h2 class="title" data-i18n="about-area.head, <%= appName %>">What is <%= appName %></h2>
 							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" >
 								<span data-i18n="about-area.content.row1, <%= appName %>" ><%= appName %> constitutes a technological breakthrough in the jungle of exchanges.</span>
@@ -531,10 +532,10 @@
 					<div class="container">
 						<div class="heading text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-								<h6 class="sub-title" data-i18n="solution-area.subtitle">Solutions</h6>
+								<h6 class="sub-title" data-i18n="solution-area.subhead">Solutions</h6>
 								<h2 class="title" >
-									<span data-i18n="solution-area.title">Problems &amp;</span>
-									<strong data-i18n="solution-area.titlestrong">Solutions</strong>
+									<span data-i18n="solution-area.head">Problems &amp;</span>
+									<strong data-i18n="solution-area.headstrong">Solutions</strong>
 								</h2>
 							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
@@ -550,15 +551,15 @@
 										<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="solution-area.problems">Problems</h4>
 									</div>
 									<img src="assets/images/problems.jpg" class="pull-right problems-img problems-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="problems-graphic">
-									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.6s" >
+									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.4s" >
 										<span data-i18n="solution-area.problems.p1" >The press regularly reports acts of piracy on centralized exchange platforms, to the tune of millions of dollars. The victims are above all the users themselves, since it is the exchanger that holds the private keys of the traders' wallets. Lack of confidence in the security of centralized platforms prompts users to remove their cryptocurrencies from these platforms:</span>
-										<ul>
+										<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
 											<li data-i18n="solution-area.problems.p1.li1">which results in transaction costs and additional delays.</li>
 											<li data-i18n="solution-area.problems.p1.li2">which prevents the use of classic orders such as stop-loss, trigger range orders, OCO orders (order cancels order), thus becoming useless.</li>
 										</ul>
 									</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="solution-area.problems.p2" >Current platforms suffer from a lack of ergonomics compared to stock market trading tools. Some are puzzles to use, even for a trader at ease with the computer tool.</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" data-i18n="solution-area.problems.p3" >Finally, existing trading platforms have load problems, even interrupting their services during periods of heavy activity, a critical time when users need them most (market panic).</p>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="solution-area.problems.p2" >Current platforms suffer from a lack of ergonomics compared to stock market trading tools. Some are puzzles to use, even for a trader at ease with the computer tool.</p>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="solution-area.problems.p3" >Finally, existing trading platforms have load problems, even interrupting their services during periods of heavy activity, a critical time when users need them most (market panic).</p>
 								</div>
 								<div class="col-md-12 text-center problems-img-row">
 									<img src="assets/images/problems.jpg" class="problems-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="problems-graphic">
@@ -578,14 +579,14 @@
 									<div class="solution-align" >
 										<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="solution-area.solutions.p1, <%= appName %>" ><%= appName %> is a cryptocurrency exchange ecosystem, built around a decentralized service (P2P), a client application for trading, and optional micro services to take advantage of the new options offered by this new network.</p>
 										<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.7s" >
-										<span data-i18n="solution-area.solutions.p2, <%= appName %>" ><%= appName %> provides both the advantages of centralized and decentralized exchanges:</span>
-										<ul>
-											<li data-i18n="solution-area.solutions.p2.li1">good liquidity</li>
-											<li data-i18n="solution-area.solutions.p2.li2">enhanced safety "by design"</li>
-											<li data-i18n="solution-area.solutions.p2.li3">"no intermediaries holding the users' crypto-currencies"</li>
-											<li data-i18n="solution-area.solutions.p2.li4">ergonomics inspired by the best stock trading software</li>
-											<li data-i18n="solution-area.solutions.p2.li5">scalability (P2P network) guaranteeing service availability</li>
-										</ul>
+											<span data-i18n="solution-area.solutions.p2, <%= appName %>" ><%= appName %> provides both the advantages of centralized and decentralized exchanges:</span>
+											<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" >
+												<li data-i18n="solution-area.solutions.p2.li1">good liquidity</li>
+												<li data-i18n="solution-area.solutions.p2.li2">enhanced safety "by design"</li>
+												<li data-i18n="solution-area.solutions.p2.li3">"no intermediaries holding the users' crypto-currencies"</li>
+												<li data-i18n="solution-area.solutions.p2.li4">ergonomics inspired by the best stock trading software</li>
+												<li data-i18n="solution-area.solutions.p2.li5">scalability (P2P network) guaranteeing service availability</li>
+											</ul>
 										</p>
 									</div>
 									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" data-i18n="solution-area.solutions.p3" >The security and atomicity of the exchanges are ensured by a DApp ETH application dedicated to this task. It will be carried on other blockchains supporting smart contracts such as EOS, in order to ensure interoperability and atomicity of exchanges on the latter, and to increase the number of transactions per second feasible, by aggregating the execution capabilities of each blockchain.</p>
@@ -599,8 +600,8 @@
 				<section id="whitepaper" class="whitepaper section-padding">
 					<div class="container">
 						<div class="heading text-center">
-							<h6 class="sub-title" data-i18n="whitepaper-area.subtitle">Documents</h6>
-							<h2 class="title" data-i18n="whitepaper-area.title">Whitepaper</h2>
+							<h6 class="sub-title" data-i18n="whitepaper-area.subhead">Documents</h6>
+							<h2 class="title" data-i18n="whitepaper-area.head">Whitepaper</h2>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
 								<span data-i18n="whitepaper-area.desc1">Do you want to know more?</span>
 								<br class="d-none d-xl-block">
@@ -672,8 +673,8 @@
 					<div class="token-sale">
 						<div class="container">
 							<div class="heading text-center">
-								<h6 class="sub-title" data-i18n="tokensale-area.subtitle">Pre-Sale &amp; Values</h6>
-								<h2 class="title" data-i18n="tokensale-area.title">Tokens Sale</h2>
+								<h6 class="sub-title" data-i18n="tokensale-area.subhead">Pre-Sale &amp; Values</h6>
+								<h2 class="title" data-i18n="tokensale-area.head">Tokens Sale</h2>
 								<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
 									<span data-i18n="tokensale-area.desc1">Beyond speculation on SSWT tokens, token owners, who will have launched one or more nodes, </span>
 									<br class="d-none d-xl-block">
@@ -763,7 +764,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="row">
+							<div class="row mt-5">
 								<div class="col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
 									<p class="note" data-i18n="tokensale-area.note1">Please note that we will not personally send you our address by Telegram or any other platform, so be careful and beware of any scam!</p>
 									<p class="note" data-i18n="tokensale-area.note2, <%= appName %>">Note that our Wallet address will only be published one minute before the start of the presale, so any other platform claiming to represent <%= appName %> are scam attempts! If you discover such an attempt, please report it to us so that we can remedy it immediately,</p>
@@ -776,20 +777,39 @@
 					<div id="mobile-app" class="mobile-app">
 						<div class="container">
 							<div class="heading text-center">
-								<h6 class="sub-title">Crypto ico App</h6>
-								<h2 class="title">Mobile App</h2>
-								<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">A cryptocurrency wallet stores the public and private keys which can be used to receive or spend
-									<br/>the cryptocurrency. A wallet can contain multiple public and private key pairs.</p>
+								<h6 class="sub-title" data-i18n="app-area.subhead, <%= appName %>"><%= appName %> App</h6>
+								<h2 class="title" data-i18n="app-area.head">Multi-platform App</h2>
+								<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
+									<span  data-i18n="app-area.desc1">Ne transférez plus jamais vos devises digitales sur aucune plateforme.</span>
+									<br class="d-none d-xl-block">
+									<span  data-i18n="app-area.desc2">Tradez directement vos devises à partir de votre wallet, sans intermédiaire.</span>
+								</p>
 							</div>
 							<div class="row">
 								<div class="col-lg-6 col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
 									<div class="heading mb-4">
-										<h4 class="title">Android &amp; ios app</h4>
+										<h4 class="title">Un système antivol</h4>
 									</div>
-									<p>Mobile app development is a term used to denote the act or process by which a mobile app is developed for mobile
-										devices, such as personal digital assistants, enterprise digital assistants or mobile phones. These applications
-										can be pre-installed on phones during manufacturing platforms, or delivered as web application using server-side
-										or client-side processing to provide an "application-like" experience within a Web browser.</p>
+									<p>SecureSwap propose une application client dédiée au trading.
+									
+									Système réellement décentralisé, les utilisateurs restent en possession de leurs crypto monnaies jusqu’au moment d’effectuer un échange.
+									
+									Seule l’application client SecureSwap a connaissance des clefs privées des wallets de l’utilisateur. 
+									Elle est ainsi à même de signer les contrats à destination des blockchains (signature offline). 
+									De ce fait, personne ne peut signer les transactions à la place de l’application client, dans une tentative de voler les avoirs des utilisateurs. 
+									L’utilisateur reste ainsi propriétaire de ses crypto monnaies, contrairement à l’utilisation d’une plateforme d’échanges centralisée, 
+									où celle-ci est propriétaire des crypto monnaies qui y sont entreposées, de par la possession des clefs privées.
+
+									De plus,  si l’utilisateur possède des wallets hardware (ledger, Trezor…),  
+									les clefs privées correspondant à ces wallets ne sont même jamais stockées sur son ordinateur mais restent en sécurité sur ses wallets hardware.
+
+									L’application client permet d’offrir un confort d’utilisation et une ergonomie comparables aux meilleurs logiciels de trading existants
+									 (marchés boursiers, contrats futur, forex...). 
+									 Notamment, l’application client proposera des ordres dits ‘avancés’, comme les ordres à plage de déclenchement, 
+									 les ordres conditionnels à plages multiples, les ordres OCO…, 
+									 ainsi que le trading sur le graphique avec des ordres conditionnels sur franchissement de droites horizontales ou pentes, sur indicateurs, etc.
+
+									</p>
 									<ul class="app-features">
 										<li class="dark-bg-text-color">
 											<i class="ti-pulse white mr-3"></i>Live crypto rate</li>
@@ -809,13 +829,13 @@
 								</div>
 								<div class="col-lg-6 col-md-12 move-first">
 									<div class="mobile-app-imgs">
-										<img src="theme-assets/images/mobile-app-1.png" alt="mobile-app" class="mobile-app-img-1 animated" data-animation="fadeInUpShorter"
-										 data-animation-delay="0.9s">
+										<img src="assets/images/mobile-app-1.png" alt="mobile-app" class="mobile-app-img-1 animated mt-5" data-animation="fadeInUpShorter"
+										 data-animation-delay="0.9s" style="max-width: 100%;" >
 										<img src="theme-assets/images/mobile-app-2.png" alt="mobile-app" class="mobile-app-img-2 animated" data-animation="zoomIn"
 										 data-animation-delay="1.4s">
 										<img src="theme-assets/images/mobile-app-3.png" alt="mobile-app" class="mobile-app-img-3 animated" data-animation="zoomIn"
 										 data-animation-delay="1.9s">
-										<img src="theme-assets/images/mobile-app-4.png" alt="mobile-app" class="mobile-app-img-4 animated" data-animation="zoomIn"
+										<img src="assets/images/mobile-app-4.png" alt="mobile-app" class="mobile-app-img-4 animated" data-animation="zoomIn"
 										 data-animation-delay="2.4s">
 									</div>
 								</div>
@@ -1643,8 +1663,8 @@
 					<div class="container">
 						<div class="heading text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-								<h6 class="sub-title" data-i18n="contact-area.subtitle" >JOIN US</h6>
-								<h2 class="title" data-i18n="contact-area.title">Contact</h2>
+								<h6 class="sub-title" data-i18n="contact-area.subhead" >JOIN US</h6>
+								<h2 class="title" data-i18n="contact-area.head">Contact</h2>
 							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" data-i18n="contact-area.desc">Have questions? We’re happy to help.</p>
 						</div>

@@ -3,7 +3,7 @@
  *   Description: Theme related common JS.
  *   -------------------------------------------------------------------------------------------
  *   Item Name: Crypto ICO - Cryptocurrency Website Landing Page HTML + Dashboard Template
- *   Version: 1.0  
+ *   Version: 1.0
  *   Author: Pixinvent
  *   Author URL: http://www.themeforest.net/user/pixinvent
  **/
@@ -12,258 +12,251 @@
 /* Preloader */
 $(window).on('load', function() {
 
-    setTimeout(function() {
-        $('body').addClass('loaded');
-    }, 200);
-    
-    // Vertical Nav with social icons + telegram
-    $('nav.vertical-social').midnight();
-    
-    // Navbar dropdown on hover
-    $('.navbar .dropdown').on('mouseover',function () {
-        var $this = $(this).find('.dropdown-menu');
-        if($this.hasClass('show')){
-            return false;
-        }
-        $('.dropdown-toggle', this).dropdown('toggle');
-    });
-    $('.navbar .dropdown').on('mouseout',function () {
-        var $this = $(this).find('.dropdown-menu');
-        if($this.hasClass('show')){
-            $('.dropdown-toggle', this).dropdown('toggle');
-        }
-    });
-    $('.navbar .dropdown').on('click',function () {
-        var $this = $(this);
-        if($this.hasClass('show')){
-            return false;
-        }
-    });
+	setTimeout(function() {
+		$('body').addClass('loaded');
+	}, 200);
 
-    if($('.page-animated').length > 0){
-        InitWaypointAnimations();
-    }
+	// Vertical Nav with social icons + telegram
+	$('nav.vertical-social').midnight();
 
-    setTimeout(function() {
-        $('.cic-logo').addClass('cic-logo-animation');
-        $('.svg-elements-1').addClass('svg-elements-1-animation');
-        $('.svg-elements-2').addClass('svg-elements-2-animation');        
-    }, 3000);
+	// Navbar dropdown on hover
+	$('.navbar .dropdown').on('mouseover', function() {
+		var $this = $(this).find('.dropdown-menu');
+		if ($this.hasClass('show')) {
+			return false;
+		}
+		$('.dropdown-toggle', this).dropdown('toggle');
+	});
+	$('.navbar .dropdown').on('mouseout', function() {
+		var $this = $(this).find('.dropdown-menu');
+		if ($this.hasClass('show')) {
+			$('.dropdown-toggle', this).dropdown('toggle');
+		}
+	});
+	$('.navbar .dropdown').on('click', function() {
+		var $this = $(this);
+		if ($this.hasClass('show')) {
+			return false;
+		}
+	});
 
-    
+	if ($('.page-animated').length > 0) {
+		InitWaypointAnimations();
+	}
+
+	setTimeout(function() {
+		$('.cic-logo').addClass('cic-logo-animation');
+		$('.svg-elements-1').addClass('svg-elements-1-animation');
+		$('.svg-elements-2').addClass('svg-elements-2-animation');
+	}, 3000);
+
+
 });
 
 (function(window, document, $) {
-    
-    var $html = $('html'),
-        $body = $('body');
 
-    //Using scrollSpy for the navigation
-    $($body).scrollspy({ target: '#navigation' });
-    //Init Navbar slideline function
-    navbarSlideLine();
-    //Update the slideline position on scroll/click
-    $(window).on('activate.bs.scrollspy', function(e) {        
-        navbarSlideLine();
-    });
+	var $html = $('html');
+	var $body = $('body');
 
-    /* Add shadow and color to fixed top navbar */
-    $(window).scroll(function() {
-        var scroll = $(window).scrollTop();
-        if (scroll >= 50) {
-            if ($(window).width() > 992) {
-                $(".navbar").addClass("navbar-fixed navbar-shadow");
-                $(".navbar #slide-line").removeClass("d-none");                
-                inverseNavbar(true); // For inverse navbar            
-            }
-        } else {
-            $(".navbar").removeClass("navbar-fixed navbar-shadow");
-            $(".navbar #slide-line").addClass("d-none");            
-            inverseNavbar(false);
-        }
-    });
+	// Using scrollSpy for the navigation
+	$($body).scrollspy({target: '#navigation'});
+	// Init Navbar slideline function
+	navbarSlideLine();
+	// Update the slideline position on scroll/click
+	$(window).on('activate.bs.scrollspy', function(e) {
+		navbarSlideLine();
+	});
+
+	/* Add shadow and color to fixed top navbar */
+	$(window).scroll(function() {
+		var scroll = $(window).scrollTop();
+		if (scroll >= 50) {
+			if ($(window).width() > 992) {
+				$('.navbar').addClass('navbar-fixed navbar-shadow');
+				$('.navbar #slide-line').removeClass('d-none');
+				inverseNavbar(true); // For inverse navbar
+			}
+		} else {
+			$('.navbar').removeClass('navbar-fixed navbar-shadow');
+			$('.navbar #slide-line').addClass('d-none');
+			inverseNavbar(false);
+		}
+	});
 
 
-    // Navbar absolute position on small screen
-    navbarAbsolute();    
-    $(window).resize(function() { /* Invoke on window resize */
-        navbarAbsolute();
-    });    
+	// Navbar absolute position on small screen
+	navbarAbsolute();
+	$(window).resize(function() { /* Invoke on window resize */
+		navbarAbsolute();
+	});
 
-    /* Menu navbar toggler animation */
-    $('.main-menu .navbar-toggler').click(function(event) {
-        $('.main-menu').toggleClass('open', 2000, "swing");
-    });
+	/* Menu navbar toggler animation */
+	$('.main-menu .navbar-toggler').click(function(event) {
+		$('.main-menu').toggleClass('open', 2000, 'swing');
+	});
 
-    /* On menu click, Smooth Scrolling */
-    $('.main-menu a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
-        if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-            var target = $(this.hash);
-            target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-            if (target.length) {
-                event.preventDefault();
-                $('html, body').animate({
-                    scrollTop: target.offset().top
-                }, 1000, function() {
-                    var $target = $(target);
-                    $target.focus();
-                    if ($target.is(":focus")) { return false; } else {
-                        $target.attr('tabindex', '-1');
-                        $target.focus();
-                    };
-                });
-            }
-        }
-    });
+	/* On menu click, Smooth Scrolling */
+	$('.main-menu a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
+		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+			var target = $(this.hash);
+			target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+			if (target.length) {
+				event.preventDefault();
+				$('html, body').animate({
+					scrollTop: target.offset().top
+				}, 1000, function() {
+					var $target = $(target);
+					$target.focus();
+					if ($target.is(':focus')) { return false; } else {
+						$target.attr('tabindex', '-1');
+						$target.focus();
+					};
+				});
+			}
+		}
+	});
 
-    /* Video Modal Open / Close */
+	/* Video Modal Open / Close */
 
-    /* Gets the video src from the data-src on video button */
-    var $videoSrc;
-    $('.video-btn').click(function() {
-        $videoSrc = $(this).data("src");
-    });
+	/* Gets the video src from the data-src on video button */
+	var $videoSrc;
+	$('.video-btn').click(function() {
+		$videoSrc = $(this).data('src');
+	});
 
-    /* when the modal is opened autoplay it   */
-    $('#ico-modal').on('shown.bs.modal', function(e) {
+	/* when the modal is opened autoplay it   */
+	$('#ico-modal').on('shown.bs.modal', function(e) {
 
-        /* set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get */
-        $("#video").attr('src', $videoSrc + "?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1");
-    })
+		/* set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get */
+		$('#video').attr('src', $videoSrc + '"?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1');
+	});
 
-    /* stop playing the youtube video when I close the modal */
-    $('#ico-modal').on('hide.bs.modal', function(e) {
-        /* a poor man's stop video */
-        $("#video").attr('src', $videoSrc);
-    })
+	/* stop playing the youtube video when I close the modal */
+	$('#ico-modal').on('hide.bs.modal', function(e) {
+		/* a poor man's stop video */
+		$('#video').attr('src', $videoSrc);
+	});
 
-    /* Initialize Swiper */
-    var swiper = new Swiper('.swiper-container', {
-        slidesPerView: 5,
-        grabCursor: true,
-        navigation: {
-            nextEl: '.next-slide',
-            prevEl: '.prev-slide',
-        },
-        /* Responsive breakpoints */
-        breakpoints: {
-            /* when window width is <= 576px */
-            576: {
-                slidesPerView: 1,
-            },
-            /* when window width is <= 767px */
-            767: {
-                slidesPerView: 2,
-            },
-            /* when window width is <= 992px */
-            992: {
-                slidesPerView: 3,
-            }
-        }
-    });
+	/* Initialize Swiper */
+	var swiper = new Swiper('.swiper-container', {
+		slidesPerView: 5,
+		grabCursor: true,
+		navigation: {
+			nextEl: '.next-slide',
+			prevEl: '.prev-slide',
+		},
+		/* Responsive breakpoints */
+		breakpoints: {
+			/* when window width is <= 576px */
+			576: {
+				slidesPerView: 1
+			},
+			/* when window width is <= 767px */
+			767: {
+				slidesPerView: 2
+			},
+			/* when window width is <= 992px */
+			992: {
+				slidesPerView: 3
+			}
+		}
+	});
 
-    if ($(window).width() < 992) {
-        swiper.slideTo(2, 1000, false);
-    }
+	if ($(window).width() < 992) {
+		swiper.slideTo(2, 1000, false);
+	}
 
-    $(window).resize(function() {
-        if ($(window).width() < 992) {
-            swiper.slideTo(2, 1000, false);
-        }
-    });
+	$(window).resize(function() {
+		if ($(window).width() < 992) {
+			swiper.slideTo(2, 1000, false);
+		}
+	});
 
 })(window, document, jQuery);
 
 /* Absolute navbar below 992(md) screen */
 function navbarAbsolute() {
-    if ($(window).width() < 992) {
-        $(".main-menu").removeClass("fixed-top").addClass("navbar-absolute");
-        $(".main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in").removeClass('animated');
-    } else {
-        $(".main-menu").addClass("fixed-top").removeClass("navbar-absolute");
-        $(".main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in").addClass('animated');
-    }
+	if ($(window).width() < 992) {
+		$('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
+		$('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
+	} else {
+		$('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
+		$('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
+	}
 }
 
-function inverseNavbar(isFixed){
-    if($('body').hasClass('template-intro-video')){
-        if(isFixed){
-            $('.navbar-brand-logo-dark').removeClass('d-none');
-            $('.navbar-brand-logo').addClass('d-none');
-            $('.btn-sign-in').removeClass('btn-light').addClass('btn-gradient-blue btn-glow');            
-        }else{
-            $('.navbar-brand-logo-dark').addClass('d-none');
-            $('.navbar-brand-logo').removeClass('d-none');
-            $('.btn-sign-in').addClass('btn-light').removeClass('btn-gradient-blue btn-glow');
-        }
-    }
+function inverseNavbar(isFixed) {
+	if ($('body').hasClass('template-intro-video')) {
+		if (isFixed) {
+			$('.navbar-brand-logo-dark').removeClass('d-none');
+			$('.navbar-brand-logo').addClass('d-none');
+			$('.btn-sign-in').removeClass('btn-light').addClass('btn-gradient-blue btn-glow');
+		} else {
+			$('.navbar-brand-logo-dark').addClass('d-none');
+			$('.navbar-brand-logo').removeClass('d-none');
+			$('.btn-sign-in').addClass('btn-light').removeClass('btn-gradient-blue btn-glow');
+		}
+	}
 }
 // Set the slideline width for active menu
 function navbarSlideLine() {
-    var $nav = $("#navigation"),
-        $slideLine = $nav.find("#slide-line"),
-        $currentItem = $nav.find(".active");
-    // Menu has active item
-    if ($currentItem[0]) {
-        $slideLine.css({
-            "width": $currentItem.width()+16,
-            "left": ($currentItem.parent().position().left + ( $currentItem.parent().width() - $currentItem.width() )/2 - 8)
-        });
-    }
+	var $nav = $('#navigation');
+	var $slideLine = $nav.find('#slide-line');
+	var $currentItem = $nav.find('.active');
+	// Menu has active item
+	if ($currentItem[0]) {
+		$slideLine.css({
+			'width': $currentItem.width() + 16,
+			'left': ($currentItem.parent().position().left + ($currentItem.parent().width() - $currentItem.width()) / 2 - 8)
+		});
+	}
 };
 
 
 // Init waypoints
-function InitWaypointAnimations() {
-    function a(d, e, f) {
-      var offset = e ? e.attr('data-animation-offset') || f.offset : null;
-      d.each(function () {
-        var   $this = $(this),
-              i = $this.attr('data-animation'),
-              j = $this.attr('data-animation-delay') || f.delay,
-              k = $this.attr('data-animation-offset') || f.offset;
-              $this.css({
-                            "-webkit-animation-delay": j,
-                            "-moz-animation-delay": j,
-                            "animation-delay": j,
-                            opacity: 0
-                            });
-        var $handler = e ? e : $this;
-        $handler.waypoint(
-            function() {
-                $this.addClass('animated').addClass(i).css({opacity: 1}); 
-            },
-            {
-                triggerOnce: !0,
-                offset: offset || k
-            }
-        );
-      });
-    }
-  
-    function c(d) {
-        return '.' + d;
-    }
+var InitWaypointAnimations = function() {
+	function setWayPoints(elements, group, params) {
+		const groupOffset = group ? group.attr('data-animation-offset') || params.offset : null;
+		elements.each(function() {
+			const element = $(this);
+			const anim = element.attr('data-animation');
+			const delay = element.attr('data-animation-delay') || params.delay;
+			const offset = element.attr('data-animation-offset') || params.offset;
+			element.css({'-webkit-animation-delay': delay, '-moz-animation-delay': delay, 'animation-delay': delay, opacity: 0});
+			const l = group ? group : element;
+			l.waypoint(function() {
+				element.addClass('animated').addClass(anim).css({opacity: 1});
+			}, {
+				triggerOnce:	!0,
+				offset:			groupOffset || offset
+			});
+		});
+	}
 
-    return function (d) {
-      d = d || {};
-      var e = {
-                    offset: d.offset || '90%',
-                    delay: d.delay || '0s',
-                    animateClass: d.animateClass || 'animated',
-                    animateGroupClass: d.animateGroupClass || 'ez-animate-group'
-                },
-           f = c(e.animateGroupClass),
-           g = c(e.animateClass);
-      $(f).each( function(h, i) {
-        var j = $(i),
-            k = $(i).find(g);
-        a(k, j, e);
-      });
-      $(g).filter(function(h, i) {
-        return 0 === $(i).parents(f).length;
-      }).each(function(h, i) {
-        a($(i), null, e);
-      });
-    }
-}
+	function makeClassSelector(className) {
+		return '.' + className;
+	}
+
+	return function(defaults) {
+		defaults = defaults || {};
+		const params = {
+			offset:				defaults.offset || '90%',
+			delay:				defaults.delay || '0s',
+			animateClass:		defaults.animateClass || 'animated',
+			animateGroupClass:	defaults.animateGroupClass || 'ez-animate-group'
+		};
+		const animateGroup	= makeClassSelector(params.animateGroupClass);
+		const animate		= makeClassSelector(params.animateClass);
+		$(animateGroup).each((index, element) => {
+			const group = $(element);
+			const anims = $(element).find(animate);
+			setWayPoints(anims, group, params);
+		});
+		$(animate).filter((index, element) => {
+			return 0 === $(element).parents(animateGroup).length;
+		}).each((index, element) => {
+			setWayPoints($(element), null, params);
+		});
+	};
+}();
+
