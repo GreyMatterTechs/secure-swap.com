@@ -81,6 +81,13 @@ gulp.task('theme-assets-vendor', gulpSequence('clean:theme-assets-vendor',
 													'copy:theme-assets-vendor-css',
 													'copy:theme-assets-vendor-js',
 													'notify:theme-assets-vendor'));
+gulp.task('assets-vendor', 		gulpSequence('clean:assets-vendor', 
+													'concat:assets-vendor-css',
+													'concat:assets-vendor-js',
+													'copy:assets-vendor-css',
+													'copy:assets-vendor-js',
+													'notify:assets-vendor'));
+
 
 // Full Distribution Task.
 // Gulp task to generate css and js files in theme-assets folder.
@@ -92,7 +99,7 @@ gulp.task('default', ['dist']);
 
 // Monitor changes for both pug and sass files.
 // Watch all scss and pug files change and compile it accordingly. In this command you need to pass the Layout, LayoutName & TextDirection.
-gulp.task('monitor', gulpSequence('watch:theme-assets-css', 'watch:theme-assets-js', 'watch:assets-css', 'watch:assets-js'));
+// gulp.task('monitor', gulpSequence('watch:theme-assets-css', 'watch:theme-assets-js', 'watch:assets-css', 'watch:assets-js'));
 // gulp.task(      'assets-monitor', gulpSequence('sass:assets-watch-css',       'sass:assets-watch-js'));
 
 gulp.task('monitor', function() {

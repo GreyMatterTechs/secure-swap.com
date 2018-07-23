@@ -6,12 +6,14 @@
         "theme_assets_path": "../../../theme-assets",
   "assets_source": {
     "path": "client-src/assets",
-	"js":   "client-src/assets/js",
-	"sass": "client-src/assets/scss"
+	  "js":   "client-src/assets/js",
+	  "sass": "client-src/assets/scss",
+    "vendor": "client-src/assets/vendors"
   },
   "assets_dest": {
     "css": "client/assets/css",
-    "js":  "client/assets/js"
+    "js":  "client/assets/js",
+    "vendor": "client/assets/vendors"
   },
   "theme_assets_source": {
     "path":   "client-src/theme-assets",

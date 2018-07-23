@@ -25,10 +25,11 @@
 	<!-- BEGIN VENDOR CSS-->
 	<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"-->
 	<link rel="stylesheet" type="text/css" href="theme-assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/fonts/themify/style.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/fonts/flag-icon-css/css/flag-icon.min.css">
 	<link rel="stylesheet" type="text/css" href="theme-assets/vendors/vendors.min.css">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendors/vendors.min.css">
 	<!-- END VENDOR CSS-->
 	<!-- BEGIN Page Level CSS-->
 	<link rel="stylesheet" type="text/css" href="theme-assets/css/template-3d-animation.css">
@@ -800,14 +801,15 @@
 									</div>
 									<p data-i18n="app-area.p1, <%= appName %>"><%= appName %> offers a client application dedicated to crypto-currencies trading. This system is really decentralized, traders remain in possession of their crypto-currencies until the moment the sell order finds a counterpart. Only the <%= appName %> client application knows the user's private wallet keys. Digital signature of contracts for blockchains is done directly on the customer's application (offline signature). With a hardware wallet (ledger, Trezor...), private keys are never even stored on your computer.</p>
 									<p data-i18n="app-area.p2, <%= appName %>">In addition, <%= appName %> offers ease of use and ergonomics comparable to the best existing trading software (stock markets, future contracts, forex...). In particular, <%= appName %> supports advanced orders, such as trigger range orders, multiple range conditional orders, OCO orders..., as well as trading on charts with conditional orders on crossing horizontal lines or slopes, on indicators, etc...</p>
-									<ul class="app-features">
+									<p data-i18n="app-area.p3">The trading application is multi-platform. It runs on all most common systems, desktops or mobile.</p>
+									<!--ul class="app-features">
 										<li class="dark-bg-text-color">
 											<i class="ti-pulse white mr-3"></i>Live crypto rate</li>
 										<li class="dark-bg-text-color">
 											<i class="ti-stats-up white mr-3"></i>Latest cryptocurrency news</li>
 										<li class="dark-bg-text-color">
 											<i class="ti-split-h white mr-3"></i>Cryptocurrency exchange</li>
-									</ul>
+									</ul-->
 								</div>
 								<div class="col-lg-6 col-md-12 move-first mt-5">
 									<div class="mobile-app-imgs mt-5">
@@ -824,26 +826,26 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s">
-								<a href="#" class="windows mobile-button btn btn-gradient-purple btn-glow mr-4">
+								<div class="windows mobile-button btn btn-gradient-purple btn-glow mr-4">
 									<span data-i18n="app-area.system.windows" >Windows</span>
 									<img src="assets/images/icon-windows.png" alt="">
-								</a>
-								<a href="#" class="mac mobile-button btn btn-gradient-purple btn-glow mr-4">
+								</div>
+								<div class="mac mobile-button btn btn-gradient-purple btn-glow mr-4">
 									<span data-i18n="app-area.system.mac" >Mac</span>
 									<img src="assets/images/icon-finder.png" alt="">
-								</a>
-								<a href="#" class="linux mobile-button btn btn-gradient-purple btn-glow mr-4">
+								</div>
+								<div class="linux mobile-button btn btn-gradient-purple btn-glow mr-4">
 									<span data-i18n="app-area.system.linux" >Linux</span>
 									<img src="assets/images/icon-linux.png" alt="">
-								</a>
-								<a href="#" class="android mobile-button btn btn-gradient-purple btn-glow mr-4">
+								</div>
+								<div class="android mobile-button btn btn-gradient-purple btn-glow mr-4">
 									<span data-i18n="app-area.system.android" >Android</span>
 									<img src="theme-assets/images/icon-android.png" alt="">
-								</a>
-								<a href="#" class="apple mobile-button btn btn-gradient-purple btn-glow">
+								</div>
+								<div class="apple mobile-button btn btn-gradient-purple btn-glow">
 									<span data-i18n="app-area.system.ios" >iOS</span>
 									<img src="theme-assets/images/icon-apple.png" alt="">
-								</a>
+								</div>
 							</div>
 							</div>	
 						</div>
@@ -2582,16 +2584,18 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 	<script src="theme-assets/vendors/vendors.min.js"></script>
+	<script src="assets/vendors/vendors.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN I18N JS-->
-	<script src="assets/vendors/jquery-i18n/CLDRPluralRuleParser.js"></script>
-	<script src="assets/vendors/jquery-i18n/jquery.i18n.js"></script>
-	<script src="assets/vendors/jquery-i18n/jquery.i18n.messagestore.js"></script>
-	<script src="assets/vendors/jquery-i18n/jquery.i18n.fallbacks.js"></script>
-	<script src="assets/vendors/jquery-i18n/jquery.i18n.parser.js"></script>
-	<script src="assets/vendors/jquery-i18n/jquery.i18n.emitter.js"></script>
-	<script src="assets/vendors/jquery-i18n/jquery.i18n.language.js"></script>
-	<script src="assets/vendors/jquery-i18n/languages/uk.js"></script>
+	<script src="assets/jquery-i18n/CLDRPluralRuleParser.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.messagestore.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.fallbacks.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.language.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.parser.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.emitter.js"></script>
+	<script src="assets/jquery-i18n/jquery.i18n.emitter.bidi.js"></script>
+	<script src="assets/jquery-i18n/languages/uk.js"></script>
 	<!-- END I18N JS-->
 	<!-- BEGIN THEME JS-->
 	<script src="theme-assets/js/theme.js"></script>
@@ -2600,7 +2604,7 @@
 	<script src="theme-assets/js/scripts/particles-type1.js"></script>
 	<!-- END PAGE LEVEL JS-->
 	<!-- BEGIN Custom JS-->
-	<script src="assets/vendors/moment/moment-with-locales.js"></script>
+	<!--script src="assets/vendors/moment/moment-with-locales.js"></script-->
 	<script src="assets/js/tools.js"></script>
 	<script src="assets/js/i18n.js"></script>
 	<script src="assets/js/index.js"></script>

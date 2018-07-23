@@ -29,6 +29,12 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 @import "../../theme-assets/scss/variables/template-3d-animation-variables";
 @import "variables/template-3d-animation-variables";
 
+/* -- general -------------------------------------- */
+
+.balloon {
+    cursor: help;
+    border-bottom: 1px dotted;
+}
 
 /* -- noscript -------------------------------------- */
 
@@ -247,6 +253,11 @@ $dot-size: 12px;
 	font-size: 0.75rem;
 }
 
+/* -- App ------------------------------------------------------------------- */
+
+#mobile-app .mobile-button {
+	cursor: inherit;
+}
 
 /* -- page login ------------------------------------------------------------------- */
 
