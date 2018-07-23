@@ -27,6 +27,10 @@
 	"head-area.subtitle.row2":			"N'envoyez plus jamais vos devises ni vos wallets sur une plate-forme de trading centralisée. Gardez-les chez vous. <br />Profitez d'un vrai outil de trading évolué digne des meilleurs outils boursiers.",
 	"head-area.button.purchase":		"Acheter des Jetons",
 	"head-area.button.whitepaper":		"Livre blanc",
+	"head-area.graph.upperlevel":		"Interface",
+	"head-area.graph.upperlevel2":		"de trading",
+	"head-area.graph.midlevel":			"Nodes passerelles",
+	"head-area.graph.lowerlevel":		"Blockchains",
 
 	"-------------- SECTION ABOUT --------------": "",
 	"about-area.subhead":				"A propos",
