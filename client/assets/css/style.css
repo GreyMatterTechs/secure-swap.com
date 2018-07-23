@@ -291,6 +291,22 @@ header .navbar.navbar-fixed
     cursor: inherit;
 }
 
+/* -- Roadmap ------------------------------------------------------------------- */
+.roadmap .swiper-slide .roadmap-info
+{
+    margin-right: 1rem; 
+    margin-left: 1rem;
+}
+.roadmap .swiper-slide .roadmap-info .status span
+{
+    font-size: .7rem;
+}
+
+.roadmap .swiper-slide:not(.active) .roadmap-info .status
+{
+    text-align: left;
+}
+
 /* -- page login ------------------------------------------------------------------- */
 input:-webkit-autofill,
 textarea:-webkit-autofill,
