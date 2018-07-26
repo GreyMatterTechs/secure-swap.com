@@ -65,7 +65,9 @@
 		// --- private methods
 
 		var tokenPriceUSD = 0.45;
-
+		var tokenPriceEUR = tokenPriceUSD * (409 / 477);
+		var tokenPriceETH = tokenPriceUSD / 477;
+	
 		function updateTokeSaleArea(locale) {
 			$('[data-i18n="tokensale-area.info.percent"]').text($.i18n('tokensale-area.info.percent', icoData.purchaseSoldPercent));
 			// $('[data-i18n="tokensale-area.li1.value"]').text($.i18n('tokensale-area.li1.value', new Date(icoData.predateStart)));
@@ -74,6 +76,9 @@
 			// $('[data-i18n="tokensale-area.li4.value"]').text($.i18n('tokensale-area.li4.value', dateStart));
 			// $('[data-i18n="tokensale-area.li5.value"]').text($.i18n('tokensale-area.li5.value', dateStart));
 			$('[data-i18n="tokensale-area.li6.value"]').text($.i18n('tokensale-area.li6.value', icoData.tokensTotal));
+
+			$('#token-sale-mobile-app div.progress-bottom > div:nth-child(2)').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+
 		}
 
 		function updateICO() {
@@ -86,15 +91,17 @@
 						var now = new Date();
 						var dif = (date.getTime() - now.getTime()) / 1000;
 						dif = Math.max(1, dif);
-						if (dif <= 0) {
-							dif = 0;
-							$('#btn-purchase-sale').removeClass('disabled');
-							$('#btn-purchase-head').show();
-						}
-						if (clock) {
-							clock.stop();
-							clock.setTime(dif);
-							clock.start();
+						if (icoData.tokenSold < icoData.hardCap) {
+							if (dif <= 0) {
+								dif = 0;
+								$('#btn-purchase-sale').removeClass('disabled');
+								$('#btn-purchase-head').show();
+							}
+							if (clock) {
+								clock.stop();
+								clock.setTime(dif);
+								clock.start();
+							}
 						}
 						tokenPriceUSD = ico.tokenPriceUSD;
 						var total = ico.tokensTotal;
@@ -119,9 +126,9 @@
 				.done(function(eth) {
 					ethInterval = ethIntervalDefault;
 					if (eth) {
-						var tokenPriceEUR = tokenPriceUSD * (eth.data.quotes.EUR.price / eth.data.quotes.USD.price);
-						var tokenPriceETH = tokenPriceUSD / eth.data.quotes.USD.price;
-						$('#token-sale-mobile-app div.progress-bottom > div:nth-child(2)').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(2), tokenPriceETH.toFixed(5)));
+						tokenPriceEUR = tokenPriceUSD * (eth.data.quotes.EUR.price / eth.data.quotes.USD.price);
+						tokenPriceETH = tokenPriceUSD / eth.data.quotes.USD.price;
+						$('#token-sale-mobile-app div.progress-bottom > div:nth-child(2)').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
 					}
 				})
 				.fail(function(err) {
@@ -139,12 +146,13 @@
 				.done(function(purchase) {
 					purchaseInterval = purchaseIntervalDefault;
 					if (purchase) {
+						// show notification about recent purchase
 						var time = 'A minute ago';
 						var icon = Math.floor(Math.random() * 16) + 1;
 						$.notify({
 							icon: 'assets/images/unknown_users/' + icon + '.png',
 							title: 'Thank you',
-							message: 'New purchase: <span class="blue">' + purchase + ' SSWT</span> tokens.'
+							message: 'New purchase: <span class="blue">' + purchase.ethReceived + ' ETH</span> received.'
 						}, {
 							type: 'minimalist',
 							placement: {
@@ -167,6 +175,24 @@
 								'</div>' +
 								'</div>'
 						});
+
+						// update tokenPriceETH, ethTotal, tokensSold
+
+						icoData.ethReceived	= purchase.ethReceived;
+						icoData.ethTotal 	= purchase.ethTotal;
+						icoData.tokensSold	= purchase.tokensSold;
+						icoData.purchaseSoldPercent = parseInt(icoData.tokensSold * 100 / icoData.tokensTotal);
+						$('#token-sale-mobile-app div.progress > div').css('width', icoData.purchaseSoldPercent + '%');
+						updateTokeSaleArea();
+
+						if (purchase.tokenSold >= (icoData.hardCap)) {
+							// Hard Cap atteint
+							// update sales box
+							$('[data-i18n="tokensale-area.info.ended"]').text($.i18n('tokensale-area.info.ended'));
+							$('#btn-purchase-sale').addClass('disabled');
+							$('#btn-purchase-head').hide();
+						}
+
 					}
 				})
 				.fail(function(err) {
@@ -273,15 +299,16 @@
 				// Build the chart
 				Highcharts.chart('token-dist-chart', {
 					chart: {
-						backgroundColor: 'transparent',
+						backgroundColor: null,
 						plotBackgroundColor: null,
 						plotBorderWidth: null,
 						plotShadow: true,
+						shadow: true,
 						type: 'pie'
 					},
-				//	title: {
-				//		text: 'Browser market shares in January, 2018'
-				//	},
+					title: {
+						text: ''
+					},
 				//	tooltip: {
 				//		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
 				//	},

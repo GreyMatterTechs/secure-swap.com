@@ -117,7 +117,7 @@ module.exports = function(ICO) {
 			// update popup message
 			//
 			//	-        Nombre d’ethereum total reçu
-			//	-        Nombre de Token total vendu														
+			//	-        Nombre de Token total vendu
 			//
 			ICO.findById(1, function(err, ico) {
 				if (err) return cb(err, null);
@@ -127,8 +127,8 @@ module.exports = function(ICO) {
 					return cb(err, null);
 				}
 				ico.updateAttributes({
-					ethReceived: 	params.ethReceived, 
-					ethTotal:	 	params.ethTotal, 
+					ethReceived: 	params.ethReceived,
+					ethTotal:	 	params.ethTotal,
 					tokensSold: 	params.tokensSold
 				}, function(err) {
 					if (err) return cb(err, null);
@@ -152,7 +152,11 @@ module.exports = function(ICO) {
 					ethReceived: 0
 				}, function(err) {
 					if (err) return cb(err, null);
-					return cb(null, received);
+					return cb(null, {
+						ethReceived: 	ico.ethReceived,
+						ethTotal:	 	ico.ethTotal,
+						tokensSold: 	ico.tokensSold
+					});
 				});
 			} else {
 				return cb(null, null);

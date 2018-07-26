@@ -134,7 +134,7 @@ module.exports = function(server) {
 	});
 
 
-	router.post('/login', urlencodedParser, function(req, res) {
+	router.post('/login', jsonParser, function(req, res) {
 		login(req, (err, tokenId) => {
 			if (err) {
 				res.sendStatus(err);

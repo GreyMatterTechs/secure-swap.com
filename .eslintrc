@@ -33,7 +33,10 @@
 			"exports": "never",
 			"functions": "ignore"
 		}],
-		"max-len": 0
+		"max-len": 0,
+		"key-spacing": ["error", { 
+			"mode": "minimum"
+		}]
 	},
 	"extends": "loopback",
 	"env": {

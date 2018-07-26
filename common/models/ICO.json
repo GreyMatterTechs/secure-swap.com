@@ -78,6 +78,11 @@
 			"type": "Object",
 			"root": true
 		}],
+		"returns": {
+			"arg": "response",
+			"type": "String",
+			"root": true
+		},
 		"http": {
 		  "verb": "post"
 		}
@@ -92,7 +97,11 @@
 			"type": "Object",
 			"root": true
 		}],
-		"returns": [],
+		"returns": {
+			"arg": "response",
+			"type": "String",
+			"root": true
+		},
 		"http": {
 		  "verb": "post"
 		}
@@ -101,7 +110,7 @@
 		"accepts": [],
 		"returns": {
 		  "arg": "purchase",
-		  "type": "Number",
+		  "type": "Object",
 		  "root": true
 		},
 		"http": {
