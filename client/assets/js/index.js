@@ -62,12 +62,12 @@
 		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
 
-		// --- private methods
-
 		var tokenPriceUSD = 0.45;
 		var tokenPriceEUR = tokenPriceUSD * (409 / 477);
 		var tokenPriceETH = tokenPriceUSD / 477;
-	
+
+		// --- private methods
+
 		function updateTokenSalesArea(locale) {
 
 			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', icoData.purchaseSoldPercent));
@@ -189,7 +189,7 @@
 						if (purchase.tokenSold >= (icoData.hardCap)) {
 							// Hard Cap atteint
 							// update sales box
-							$('[data-i18n="tokensale-area.info.ended"]').text($.i18n('tokensale-area.info.ended'));
+							$('#tokensale-title').text($.i18n('tokensale-area.info.ended'));
 							$('#btn-purchase-sale').addClass('disabled');
 							$('#btn-purchase-head').hide();
 						}
@@ -280,65 +280,6 @@
 				// Token distribution
 				//--------------------------------------------------------------------------------------------------------------
 
-				// Radialize the colors
-				Highcharts.setOptions({
-					colors: Highcharts.map(Highcharts.getOptions().colors, function(color) {
-						return {
-							radialGradient: {
-								cx: 0.5,
-								cy: 0.3,
-								r: 0.7
-							},
-							stops: [
-								[0, color],
-								[1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
-							]
-						};
-					})
-				});
-
-				// Build the chart
-				Highcharts.chart('token-dist-chart', {
-					chart: {
-						backgroundColor: null,
-						plotBackgroundColor: null,
-						plotBorderWidth: null,
-						plotShadow: true,
-						shadow: true,
-						type: 'pie'
-					},
-					title: {
-						text: ''
-					},
-				//	tooltip: {
-				//		pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-				//	},
-					plotOptions: {
-						pie: {
-				//			allowPointSelect: true,
-				//			cursor: 'pointer',
-							dataLabels: {
-								enabled: true,
-								format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-								style: {
-									color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-								},
-								connectorColor: 'silver'
-							}
-						}
-					},
-					series: [{
-						name: 'Distribution',
-						data: [
-							{ name: 'Crowdsale', y: 61.41 },
-							{ name: 'Team', y: 11.84 },
-							{ name: 'Advisors', y: 10.85 },
-							{ name: 'Program', y: 4.67 },
-							{ name: 'BugBounty', y: 4.18 },
-							{ name: 'Other', y: 7.05 }
-						]
-					}]
-				});
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Contact Form
@@ -410,7 +351,7 @@
 					$('tokensale-area.flipclock.hours').i18n();
 					$('tokensale-area.flipclock.minutes').i18n();
 					$('tokensale-area.flipclock.seconds').i18n();
-					updateTokeSaleArea();
+					updateTokenSalesArea();
 				};
 
 				i18n.init();

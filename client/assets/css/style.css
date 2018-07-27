@@ -307,6 +307,54 @@ header .navbar.navbar-fixed
     text-align: left;
 }
 
+/* -- Token sales ------------------------------------------------------------------- */
+#sales-pie-labels
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    text-align: center; 
+
+    color: #fff;
+}
+#sales-pie-labels h4
+{
+    line-height: 1.1rem;
+
+    position: absolute;
+}
+
+#sales-pie-labels-crowdsale
+{
+    top: 89px;
+    left: 119px;
+}
+
+#sales-pie-labels-team
+{
+    top: 234px;
+    left: 414px;
+}
+
+#sales-pie-labels-airdrop
+{
+    top: 312px;
+    left: 378px;
+}
+
+#sales-pie-labels-advisors
+{
+    top: 365px;
+    left: 321px;
+}
+
+#sales-pie-labels-marketing
+{
+    top: 388px;
+    left: 213px;
+}
+
 /* -- page login ------------------------------------------------------------------- */
 input:-webkit-autofill,
 textarea:-webkit-autofill,

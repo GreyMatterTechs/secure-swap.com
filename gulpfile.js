@@ -2,14 +2,13 @@
 
 'use strict';
 
-var gulp             = require('gulp');
-var gutil            = require('gulp-util');
-var gulpSequence     = require('gulp-sequence');
-var gulpRequireTasks = require('gulp-require-tasks');
-var minimist         = require('minimist');
-var config           = require('./gulpconfig.json');
-
-var options          = minimist(process.argv.slice(2));
+var gulp				= require('gulp');
+var gutil				= require('gulp-util');
+var gulpSequence		= require('gulp-sequence');
+var gulpRequireTasks	= require('gulp-require-tasks');
+var minimist			= require('minimist');
+var config				= require('./gulpconfig.json');
+var options				= minimist(process.argv.slice(2));
 
 // Global Variables
 global.config          = config;
@@ -65,13 +64,29 @@ gulp.task('sass-compile', ['theme-assets-sass-compile', 'assets-sass-compile']);
 
 // CSS Distribution Task.
 // Clean css folder, compile all scss files, auto prefix them, organize them and finally minify them in theme-assets/css folder.
-gulp.task('theme-assets-css', gulpSequence('clean:theme-assets-css', 'theme-assets-sass-compile', 'autoprefixer:theme-assets-css', 'csscomb:theme-assets-css', 'cssmin:theme-assets-css', 'notify:theme-assets-css'));
-gulp.task(      'assets-css', gulpSequence('clean:assets-css',       'assets-sass-compile',       'autoprefixer:assets-css',       'csscomb:assets-css',       'cssmin:assets-css',       'notify:assets-css'));
+gulp.task('theme-assets-css',
+	// gulpSequence('clean:theme-assets-css', 'theme-assets-sass-compile', 'autoprefixer:theme-assets-css', 'csscomb:theme-assets-css', 'cssmin:theme-assets-css', 'notify:theme-assets-css')
+	function(callback) {
+		gulpSequence('clean:theme-assets-css', 'theme-assets-sass-compile', 'autoprefixer:theme-assets-css', 'csscomb:theme-assets-css', 'cssmin:theme-assets-css', callback);
+});
+gulp.task('assets-css',
+	// gulpSequence('clean:assets-css',       'assets-sass-compile',       'autoprefixer:assets-css',       'csscomb:assets-css',       'cssmin:assets-css',       'notify:assets-css')
+	function(callback) {
+		gulpSequence('clean:assets-css', 'assets-sass-compile', 'autoprefixer:assets-css', 'csscomb:assets-css', 'cssmin:assets-css', callback);
+});
 
 // JS Distribution Task.
 // Gulp task to clean js folder from theme-assets, copy js files from src folder and minify them.
-gulp.task('theme-assets-js', gulpSequence('clean:theme-assets-js', 'copy:theme-assets-js', 'uglify:theme-assets-min', 'notify:theme-assets-js'));
-gulp.task(      'assets-js', gulpSequence('clean:assets-js',       'copy:assets-js',       'uglify:assets-min',       'notify:assets-js'));
+gulp.task('theme-assets-js',
+	// gulpSequence('clean:theme-assets-js', 'copy:theme-assets-js', 'uglify:theme-assets-min', 'notify:theme-assets-js')
+	function(callback) {
+		gulpSequence('clean:theme-assets-js', 'copy:theme-assets-js', 'uglify:theme-assets-min', callback);
+});
+gulp.task('assets-js',
+	// gulpSequence('clean:assets-js', 'copy:assets-js', 'uglify:assets-min', 'notify:assets-js')
+	function(callback) {
+		gulpSequence('clean:assets-js', 'copy:assets-js', 'uglify:assets-min', callback);
+});
 
 // Vendor Distribution Task.
 // Gulp task to clean vendor folder from theme-assets, copy js files from src folder, concat, and minify them.
@@ -91,7 +106,7 @@ gulp.task('assets-vendor', 		gulpSequence('clean:assets-vendor',
 
 // Full Distribution Task.
 // Gulp task to generate css and js files in theme-assets folder.
-gulp.task('dist', ['theme-assets-css', 'theme-assets-js', 'theme-assets-vendor', 'assets-css', 'assets-js']);
+gulp.task('dist', ['theme-assets-css', 'theme-assets-js', 'theme-assets-vendor', 'assets-css', 'assets-js', 'assets-vendor']);
 
 // Default Task.
 gulp.task('default', ['dist']);
@@ -99,15 +114,23 @@ gulp.task('default', ['dist']);
 
 // Monitor changes for both pug and sass files.
 // Watch all scss and pug files change and compile it accordingly. In this command you need to pass the Layout, LayoutName & TextDirection.
-// gulp.task('monitor', gulpSequence('watch:theme-assets-css', 'watch:theme-assets-js', 'watch:assets-css', 'watch:assets-js'));
-// gulp.task(      'assets-monitor', gulpSequence('sass:assets-watch-css',       'sass:assets-watch-js'));
+// gulp.task('monitor',        ['watch:theme-assets-css', 'watch:theme-assets-js', 'watch:assets-css', 'watch:assets-js']);
+// gulp.task('assets-monitor', gulpSequence('sass:assets-watch-css',  'sass:assets-watch-js'));
+
+// gulp.task('monitor', function() {
+//	gulp.watch(config.assets_source.sass + '/**/*.scss', ['assets-css']);
+//	gulp.watch(config.assets_source.js + '/**/*.js', ['assets-js']);
+//	gulp.watch(config.theme_assets_source.sass + '/**/*.js', ['theme-assets-css']);
+//	gulp.watch(config.theme_assets_source.js + '/**/*.js', ['theme-assets-js']);
+// });
 
 gulp.task('monitor', function() {
-	gulp.watch(config.assets_source.sass + '/**/*.scss', ['assets-css']);
-	gulp.watch(config.assets_source.js + '/**/*.js', ['assets-js']);
-	gulp.watch(config.theme_assets_source.sass + '/**/*.js', ['theme-assets-css']);
 	gulp.watch(config.theme_assets_source.js + '/**/*.js', ['theme-assets-js']);
+	gulp.watch(config.theme_assets_source.sass+'/**/*.scss', ['theme-assets-css']);
+	gulp.watch(config.assets_source.js + '/**/*.js', ['assets-js']);
+	gulp.watch(config.assets_source.sass+'/**/*.scss', ['assets-css']);
 });
+
 
 // Full Monitoring Task.
 // Monitor changes for both pug and sass files from assets and theme-assets folders.
