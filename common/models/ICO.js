@@ -153,7 +153,7 @@ module.exports = function(ICO) {
 				}, function(err) {
 					if (err) return cb(err, null);
 					return cb(null, {
-						ethReceived: 	ico.ethReceived,
+						ethReceived: 	received,
 						ethTotal:	 	ico.ethTotal,
 						tokensSold: 	ico.tokensSold
 					});

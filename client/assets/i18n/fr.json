@@ -90,6 +90,7 @@
 	"tokensale-area.flipclock.seconds":	"Secondes",
 	"tokensale-area.btn.purchase":		"Acheter des tokens",
 	"tokensale-area.info.start":		"L'ICO va commencer d'ici :",
+	"tokensale-area.info.ends":			"L'ICO se termine dans :",
 	"tokensale-area.info.ended":		"Le HardCap est atteint. Merci à tous, salut !!!",
 	"tokensale-area.info.softcap":		"Soft Cap",
 	"tokensale-area.info.hardcap":		"Hard Cap",

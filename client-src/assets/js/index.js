@@ -62,22 +62,23 @@
 		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
 
-		// --- private methods
-
 		var tokenPriceUSD = 0.45;
 		var tokenPriceEUR = tokenPriceUSD * (409 / 477);
 		var tokenPriceETH = tokenPriceUSD / 477;
-	
-		function updateTokeSaleArea(locale) {
-			$('[data-i18n="tokensale-area.info.percent"]').text($.i18n('tokensale-area.info.percent', icoData.purchaseSoldPercent));
+
+		// --- private methods
+
+		function updateTokenSalesArea(locale) {
+
+			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', icoData.purchaseSoldPercent));
 			// $('[data-i18n="tokensale-area.li1.value"]').text($.i18n('tokensale-area.li1.value', new Date(icoData.predateStart)));
-			$('[data-i18n="tokensale-area.li2.value"]').text($.i18n('tokensale-area.li2.value', moment(icoData.dateEnd).format('LL')));
-			$('[data-i18n="tokensale-area.li3.value"]').text($.i18n('tokensale-area.li3.value', moment(icoData.dateStart).format('LL')));
+			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(icoData.dateEnd).format('LL')));
+			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(icoData.dateStart).format('LL')));
 			// $('[data-i18n="tokensale-area.li4.value"]').text($.i18n('tokensale-area.li4.value', dateStart));
 			// $('[data-i18n="tokensale-area.li5.value"]').text($.i18n('tokensale-area.li5.value', dateStart));
-			$('[data-i18n="tokensale-area.li6.value"]').text($.i18n('tokensale-area.li6.value', icoData.tokensTotal));
+			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', icoData.tokensTotal));
 
-			$('#token-sale-mobile-app div.progress-bottom > div:nth-child(2)').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+			$('#tokensale-eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
 
 		}
 
@@ -91,7 +92,7 @@
 						var now = new Date();
 						var dif = (date.getTime() - now.getTime()) / 1000;
 						dif = Math.max(1, dif);
-						if (icoData.tokenSold < icoData.hardCap) {
+						if (icoData.tokensSold < icoData.hardCap) {
 							if (dif <= 0) {
 								dif = 0;
 								$('#btn-purchase-sale').removeClass('disabled');
@@ -106,9 +107,9 @@
 						tokenPriceUSD = ico.tokenPriceUSD;
 						var total = ico.tokensTotal;
 						var sold = ico.tokensSold;
-						icoData.purchaseSoldPercent = parseInt(sold * 100 / total);
+						icoData.purchaseSoldPercent = Math.round(sold * 100 / total);
 						$('#token-sale-mobile-app div.progress > div').css('width', icoData.purchaseSoldPercent + '%');
-						updateTokeSaleArea();
+						updateTokenSalesArea();
 					}
 				})
 				.fail(function(err) {
@@ -128,7 +129,7 @@
 					if (eth) {
 						tokenPriceEUR = tokenPriceUSD * (eth.data.quotes.EUR.price / eth.data.quotes.USD.price);
 						tokenPriceETH = tokenPriceUSD / eth.data.quotes.USD.price;
-						$('#token-sale-mobile-app div.progress-bottom > div:nth-child(2)').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+						$('#tokensale.eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
 					}
 				})
 				.fail(function(err) {
@@ -152,7 +153,7 @@
 						$.notify({
 							icon: 'assets/images/unknown_users/' + icon + '.png',
 							title: 'Thank you',
-							message: 'New purchase: <span class="blue">' + purchase.ethReceived + ' ETH</span> received.'
+							message: 'New purchase: <span class="blue">' + purchase.ethReceived.toFixed(5) + ' ETH</span> received.'
 						}, {
 							type: 'minimalist',
 							placement: {
@@ -183,12 +184,12 @@
 						icoData.tokensSold	= purchase.tokensSold;
 						icoData.purchaseSoldPercent = parseInt(icoData.tokensSold * 100 / icoData.tokensTotal);
 						$('#token-sale-mobile-app div.progress > div').css('width', icoData.purchaseSoldPercent + '%');
-						updateTokeSaleArea();
+						updateTokenSalesArea();
 
 						if (purchase.tokenSold >= (icoData.hardCap)) {
 							// Hard Cap atteint
 							// update sales box
-							$('[data-i18n="tokensale-area.info.ended"]').text($.i18n('tokensale-area.info.ended'));
+							$('#tokensale-title').text($.i18n('tokensale-area.info.ended'));
 							$('#btn-purchase-sale').addClass('disabled');
 							$('#btn-purchase-head').hide();
 						}
@@ -409,7 +410,7 @@
 					$('tokensale-area.flipclock.hours').i18n();
 					$('tokensale-area.flipclock.minutes').i18n();
 					$('tokensale-area.flipclock.seconds').i18n();
-					updateTokeSaleArea();
+					updateTokenSalesArea();
 				};
 
 				i18n.init();
