@@ -1,6 +1,7 @@
 {
 	"globals": {
-		"FlipClock": true
+		"FlipClock": true,
+		"moment": true
 	},
 	"rules": {
 		"no-console": 0,

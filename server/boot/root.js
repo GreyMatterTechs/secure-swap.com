@@ -3,7 +3,6 @@
 var requestIp	= require('request-ip');
 var geoip		= require('geoip-lite');
 var path		= require('path');
-var bodyParser	= require('body-parser');
 var config		= require(path.join(__dirname, '../config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
 var ONE_HOUR = 60 * 60;
@@ -41,7 +40,7 @@ function login(req, cb) {
 	mAdmin.login({
 		username: req.body.username,
 		password: req.body.password,
-		ttl: ONE_MINUTE
+		ttl: ONE_HOUR
 	}, 'user', function(err, token) {
 		if (err) {
 			return cb(err.statusCode, token.id);
@@ -68,15 +67,10 @@ function login(req, cb) {
 module.exports = function(server) {
 	server.locals.env		= process.env.NODE_ENV;
 	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : server.dataSources.db.settings.file;
-
-	var router				= server.loopback.Router();
-	var jsonParser			= bodyParser.json();	// parse application/json
-	var urlencodedParser	= bodyParser.urlencoded({extended: true});	// parse application/x-www-form-urlencoded
-
 	mAdmin					= server.models.Admin;
 	mICO					= server.models.ICO;
 	mContact				= server.models.Contact;
-
+	var router				= server.loopback.Router();
 
 	// ------------------------------------------------
 	// Add Expires header to /images and /stylesheets directories
@@ -115,7 +109,7 @@ module.exports = function(server) {
 	});
 
 
-	router.get('/dashboard', urlencodedParser, function(req, res) {
+	router.get('/dashboard', function(req, res) {
 		if (!req.query.access_token && !req.accessToken) {
 			return res.render('dashboard', {	// render the login form
 				appName: config.appName,
@@ -134,7 +128,7 @@ module.exports = function(server) {
 	});
 
 
-	router.post('/login', jsonParser, function(req, res) {
+	router.post('/login', function(req, res) {
 		login(req, (err, tokenId) => {
 			if (err) {
 				res.sendStatus(err);
@@ -144,7 +138,7 @@ module.exports = function(server) {
 		});
 	});
 
-	router.post('/dashboard', urlencodedParser, function(req, res) {
+	router.post('/dashboard', function(req, res) {
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {
@@ -174,7 +168,7 @@ module.exports = function(server) {
 	});
 
 	// log a user out
-	router.get('/logout', urlencodedParser, function(req, res, next) {
+	router.get('/logout', function(req, res, next) {
 		if (!req.body)
 			return res.sendStatus(403);
 		if (!req.accessToken)
@@ -185,7 +179,7 @@ module.exports = function(server) {
 		});
 	});
 
-	router.post('/contact', urlencodedParser, function(req, res, next) {
+	router.post('/contact', function(req, res, next) {
 		if (!req.cookies.sent) {
 			mContact.contact(req, function(err, result) {
 				if (err) {

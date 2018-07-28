@@ -4,7 +4,11 @@
   "base": "Model",
   "idInjection": true,
   "properties": {
-    "wallet": {
+    "state": {
+	  "type": "number",
+	  "required": true	
+	},
+	"wallet": {
       "type": "string",
       "required": true
     },
@@ -60,13 +64,24 @@
     "getICOData": {
       "accepts": [],
       "returns": {
-        "arg": "data",
+        "arg": "ico",
         "type": "Object",
         "root": true
       },
       "http": {
         "verb": "get"
       }
+	},
+	"getPurchase": {
+		"accepts": [],
+		"returns": {
+		  "arg": "purchase",
+		  "type": "Object",
+		  "root": true
+		},
+		"http": {
+		  "verb": "get"
+		}
 	},
 	"setParams": {
 		"accepts": [{
@@ -78,11 +93,22 @@
 			"type": "Object",
 			"root": true
 		}],
-		"returns": {
-			"arg": "response",
+		"returns": [],
+		"http": {
+		  "verb": "post"
+		}
+	},
+	"setState": {
+		"accepts": [{
+			"arg": "tokenId",
 			"type": "String",
 			"root": true
-		},
+		}, {
+			"arg": "state",
+			"type": "Number",
+			"root": true
+		}],
+		"returns": [],
 		"http": {
 		  "verb": "post"
 		}
@@ -97,24 +123,9 @@
 			"type": "Object",
 			"root": true
 		}],
-		"returns": {
-			"arg": "response",
-			"type": "String",
-			"root": true
-		},
+		"returns": [],
 		"http": {
 		  "verb": "post"
-		}
-	},
-	"getPurchase": {
-		"accepts": [],
-		"returns": {
-		  "arg": "purchase",
-		  "type": "Object",
-		  "root": true
-		},
-		"http": {
-		  "verb": "get"
 		}
 	}
   }

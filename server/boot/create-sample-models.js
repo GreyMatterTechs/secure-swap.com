@@ -34,7 +34,8 @@ function updateRole(cb) {
 function updateICO(cb) {
 
 	var icoData = {
-		wallet: 'dujfdmhbgpqsdhbÖUHG4',
+		state: 1,
+		wallet: '0xC50E31926CAf2cd7C69547cB2C1Bb127cB782E30',
 		tokenName: 'SSWT',
 		tokenPriceUSD: 0.45,
 		tokenPriceETH: 0.15414,
@@ -44,8 +45,8 @@ function updateICO(cb) {
 		ethReceived: 0,
 		ethTotal: 13653,
 		tokensSold: 60000000,
-		dateStart: new Date(2018,8,2).getTime(),
-		dateEnd: new Date(2018,11,31).getTime()
+		dateStart: new Date(2018, 8, 2).getTime(),
+		dateEnd: new Date(2018, 11, 31).getTime()
 	};
 
 	mICO.findById(1, function(err, inst) {

@@ -285,6 +285,11 @@ header .navbar.navbar-fixed
     font-size: .75rem;
 }
 
+.ico-ended
+{
+    display: none;
+}
+
 /* -- App ------------------------------------------------------------------- */
 #mobile-app .mobile-button
 {

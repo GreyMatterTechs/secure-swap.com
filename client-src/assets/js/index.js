@@ -49,77 +49,153 @@
 
 		var i18n = null;
 		var clock = null;
-		var clockIntervalDefault = 60000;
-		var clockInterval = clockIntervalDefault;
-		var clockIntervalId = null;
+		var updateICOIntervalDefault = 3000;
+		var updateICOInterval = updateICOIntervalDefault;
+		var updateICOIntervalId = null;
 		var ethIntervalDefault = 60000;
 		var ethInterval = ethIntervalDefault;
 		var ethIntervalId = null;
 		var purchaseIntervalDefault = 3000;
 		var purchaseInterval = purchaseIntervalDefault;
 		var purchaseIntervalId = null;
-		var icoData = {};
 		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
 
+		var icoState = 0;
 		var tokenPriceUSD = 0.45;
-		var tokenPriceEUR = tokenPriceUSD * (409 / 477);
-		var tokenPriceETH = tokenPriceUSD / 477;
+		var coinMarketCapEUR = 409;
+		var	coinMarketCapUSD = 477;
+		var tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
+		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
+		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal;
 
 		// --- private methods
 
-		function updateTokenSalesArea(locale) {
+		function notify(ethReceived) {
+			// show notification about recent purchase
+			var time = 'Few seconds ago';
+			var icon = Math.floor(Math.random() * 16) + 1;
+			$.notify({
+				icon: 'assets/images/unknown_users/' + icon + '.png',
+				title: 'Thank you',
+				message: 'New purchase: <span class="blue">' + ethReceived.toFixed(5) + ' ETH</span> received.'
+			}, {
+				type: 'minimalist',
+				placement: {
+					from: 'bottom',
+					align: 'left'
+				},
+				animate: {
+					enter: 'animated fadeInLeftBig',
+					exit: 'animated fadeOutLeftBig'
+				},
+				icon_type: 'image',
+				template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
+					'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+					'<div id="image">' +
+					'<img data-notify="icon" class="rounded-circle float-left">' +
+					'</div><div id="text">' +
+					'<span data-notify="title">{1}</span>' +
+					'<span data-notify="message">{2}</span>' +
+					'<span data-notify="time">' + time + '</span>' +
+					'</div>' +
+					'</div>'
+			});
+		}
 
-			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', icoData.purchaseSoldPercent));
-			// $('[data-i18n="tokensale-area.li1.value"]').text($.i18n('tokensale-area.li1.value', new Date(icoData.predateStart)));
-			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(icoData.dateEnd).format('LL')));
-			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(icoData.dateStart).format('LL')));
-			// $('[data-i18n="tokensale-area.li4.value"]').text($.i18n('tokensale-area.li4.value', dateStart));
-			// $('[data-i18n="tokensale-area.li5.value"]').text($.i18n('tokensale-area.li5.value', dateStart));
-			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', icoData.tokensTotal));
-
+		function refreshTokenPrices() {
+			tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
+			tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
 			$('#tokensale-eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+		}
 
+		function updateTokenSalesArea() {
+			switch (icoState) {
+			case 1:	$('#tokensale-title').text($.i18n('tokensale-area.info.start'));	break;
+			case 2:	$('#tokensale-title').text($.i18n('tokensale-area.info.ends'));		break;
+			case 3:	$('#tokensale-title').text($.i18n('tokensale-area.info.ended'));	break;
+			}
+			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
+			$('#token-sale-mobile-app div.progress > div').css('width', purchaseSoldPercent + '%');
+			refreshTokenPrices();
+			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
+			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(dateStart).format('LL')));
+			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', tokensTotal));
+		}
+
+		function setTimerClock(icoDate) {
+			// set timer to remaining time before ICO starts
+			var date = new Date(icoDate);
+			var now = new Date();
+			var dif = Math.max(0, (date.getTime() - now.getTime()) / 1000);
+			if (clock) {
+				clock.stop();
+				clock.setTime(dif);
+				clock.start();
+			}
+		}
+
+		function setStatePreICO(ico) {
+			// set timer to remaining time before ICO starts
+			setTimerClock(ico.dateStart);
+			$('.clock-counter').show();
+			$('.ico-ended').hide();
+//			$('.loading-bar').css('margin-top', '0');
+			// refresh translations
+			$('#btn-purchase-sale').addClass('disabled');
+			updateTokenSalesArea();
+		}
+		function setStateICO(ico) {
+			// set timer to remaining time until ICO ends
+			setTimerClock(ico.dateEnd);
+			$('.clock-counter').show();
+			$('.ico-ended').hide();
+//			$('.loading-bar').css('margin-top', '0');
+			// refresh translations
+			$('#btn-purchase-sale').removeClass('disabled');
+			updateTokenSalesArea();
+		}
+		function setStateEndICO(ico) {
+			// remove flipclock
+			if (clock) { clock.stop(); }
+			$('.clock-counter').hide();
+			$('.ico-ended').show();
+//			$('.loading-bar').css('margin-top', '10rem');
+			// refresh translations
+			$('#btn-purchase-sale').addClass('disabled');
+			updateTokenSalesArea();
 		}
 
 		function updateICO() {
 			$.get('/api/ICOs/GetICOData')
 				.done(function(ico) {
-					clockInterval = clockIntervalDefault;
+					updateICOInterval = updateICOIntervalDefault;
 					if (ico) {
-						icoData = ico;
-						var date = new Date(ico.dateStart);
-						var now = new Date();
-						var dif = (date.getTime() - now.getTime()) / 1000;
-						dif = Math.max(1, dif);
-						if (icoData.tokensSold < icoData.hardCap) {
-							if (dif <= 0) {
-								dif = 0;
-								$('#btn-purchase-sale').removeClass('disabled');
-								$('#btn-purchase-head').show();
+						tokenPriceUSD		= ico.tokenPriceUSD;
+						purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / ico.tokensTotal);
+						dateEnd				= ico.dateEnd;
+						dateStart			= ico.dateStart;
+						tokensTotal			= ico.tokensTotal;
+						if (ico.state !== icoState) {
+							icoState = ico.state;
+							switch (ico.state) {
+							case 1:	setStatePreICO(ico);	break;
+							case 2:	setStateICO(ico);		break;
+							case 3:	setStateEndICO(ico);	break;
 							}
-							if (clock) {
-								clock.stop();
-								clock.setTime(dif);
-								clock.start();
-							}
+						} else {
+							updateTokenSalesArea();
 						}
-						tokenPriceUSD = ico.tokenPriceUSD;
-						var total = ico.tokensTotal;
-						var sold = ico.tokensSold;
-						icoData.purchaseSoldPercent = Math.round(sold * 100 / total);
-						$('#token-sale-mobile-app div.progress > div').css('width', icoData.purchaseSoldPercent + '%');
-						updateTokenSalesArea();
 					}
 				})
 				.fail(function(err) {
-					if (clockInterval < clockIntervalDefault * 100) clockInterval *= 2;
+					if (updateICOInterval < updateICOIntervalDefault * 100) updateICOInterval *= 2;
 				});
 		}
 		function updateICOTimer() {
-			if (clockIntervalId) clearInterval(clockIntervalId);
+			if (updateICOIntervalId) clearInterval(updateICOIntervalId);
 			updateICO();
-			clockIntervalId = setInterval(updateICOTimer, clockInterval);
+			updateICOIntervalId = setInterval(updateICOTimer, updateICOInterval);
 		}
 
 		function updateETH() {
@@ -127,9 +203,9 @@
 				.done(function(eth) {
 					ethInterval = ethIntervalDefault;
 					if (eth) {
-						tokenPriceEUR = tokenPriceUSD * (eth.data.quotes.EUR.price / eth.data.quotes.USD.price);
-						tokenPriceETH = tokenPriceUSD / eth.data.quotes.USD.price;
-						$('#tokensale.eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+						coinMarketCapEUR = eth.data.quotes.EUR.price;
+						coinMarketCapUSD = eth.data.quotes.USD.price;
+						refreshTokenPrices();
 					}
 				})
 				.fail(function(err) {
@@ -147,53 +223,13 @@
 				.done(function(purchase) {
 					purchaseInterval = purchaseIntervalDefault;
 					if (purchase) {
-						// show notification about recent purchase
-						var time = 'A minute ago';
-						var icon = Math.floor(Math.random() * 16) + 1;
-						$.notify({
-							icon: 'assets/images/unknown_users/' + icon + '.png',
-							title: 'Thank you',
-							message: 'New purchase: <span class="blue">' + purchase.ethReceived.toFixed(5) + ' ETH</span> received.'
-						}, {
-							type: 'minimalist',
-							placement: {
-								from: 'bottom',
-								align: 'left'
-							},
-							animate: {
-								enter: 'animated fadeInLeftBig',
-								exit: 'animated fadeOutLeftBig'
-							},
-							icon_type: 'image',
-							template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
-								'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-								'<div id="image">' +
-								'<img data-notify="icon" class="rounded-circle float-left">' +
-								'</div><div id="text">' +
-								'<span data-notify="title">{1}</span>' +
-								'<span data-notify="message">{2}</span>' +
-								'<span data-notify="time">' + time + '</span>' +
-								'</div>' +
-								'</div>'
-						});
-
-						// update tokenPriceETH, ethTotal, tokensSold
-
-						icoData.ethReceived	= purchase.ethReceived;
-						icoData.ethTotal 	= purchase.ethTotal;
-						icoData.tokensSold	= purchase.tokensSold;
-						icoData.purchaseSoldPercent = parseInt(icoData.tokensSold * 100 / icoData.tokensTotal);
-						$('#token-sale-mobile-app div.progress > div').css('width', icoData.purchaseSoldPercent + '%');
-						updateTokenSalesArea();
-
-						if (purchase.tokenSold >= (icoData.hardCap)) {
-							// Hard Cap atteint
-							// update sales box
-							$('#tokensale-title').text($.i18n('tokensale-area.info.ended'));
-							$('#btn-purchase-sale').addClass('disabled');
-							$('#btn-purchase-head').hide();
+						notify(purchase.ethReceived);
+						purchaseSoldPercent	= Math.round(purchase.tokensSold * 100 / tokensTotal);
+						if (purchase.state !== icoState) {
+							updateICO();
+						} else {
+							updateTokenSalesArea();
 						}
-
 					}
 				})
 				.fail(function(err) {
@@ -246,10 +282,37 @@
 
 				i18n = window.ss_ico.I18n.getInstance();
 
-				$('#btn-purchase-sale').addClass('disabled');
-				$('#btn-purchase-head').hide();
+				//--------------------------------------------------------------------------------------------------------------
+				// Call to action buttons
+				//--------------------------------------------------------------------------------------------------------------
 
-				/* FlipClock Counter */
+				/* On button click, Smooth Scrolling */
+				$('.head-content a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
+					if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+						var target = $(this.hash);
+						target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+						if (target.length) {
+							event.preventDefault();
+							$('html, body').animate({
+								scrollTop: target.offset().top
+							}, 1000, function() {
+								var $target = $(target);
+								$target.focus();
+								if ($target.is(':focus')) {
+									return false;
+								} else {
+									$target.attr('tabindex', '-1');
+									$target.focus();
+								};
+							});
+						}
+					}
+				});
+
+				//--------------------------------------------------------------------------------------------------------------
+				// FlipClock Counter
+				//--------------------------------------------------------------------------------------------------------------
+
 				// http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
 				FlipClock.Lang.Custom = {
 					'years': '<span data-i18n="tokensale-area.flipclock.years"></span>',
@@ -325,7 +388,7 @@
 						});
 					}
 				});
-				$('#name, #mail, #message').on('input change', function (e) {
+				$('#name, #mail, #message').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 
@@ -364,7 +427,7 @@
 				setTimeout(function() {
 					updatePurchaseTimer();
 				}, 2000);
-			
+
 			} // end of init:function
 
 		}; // end of return

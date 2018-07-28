@@ -1,6 +1,8 @@
 {
   "initial:before": {
-    "loopback#favicon": {}
+    "loopback#favicon": {
+		"params": "$!../client/favicon.ico"
+	}
   },
   "initial": {
     "compression": {},
@@ -30,7 +32,14 @@
   },
   "session": {},
   "auth": {},
-  "parse": {},
+  "parse": {
+	"body-parser#json": {},
+	"body-parser#urlencoded": {
+		"params": {
+			"extended": true
+		}
+	}
+  },
   "routes": {
     "loopback#rest": {
       "paths": [
@@ -38,7 +47,14 @@
       ]
     }
   },
-  "files": {},
+  "files": {
+	"loopback#static": [
+		{
+			"paths": "/client",
+			"params": "$!../client"
+		}
+	]
+  },
   "final": {
     "loopback#urlNotFound": {}
   },

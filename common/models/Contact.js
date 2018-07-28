@@ -17,7 +17,7 @@ function sendMail(data, mEmail, cb) {
 		options.cc = config.mailRecipient.cc;
 		options.bcc = config.mailRecipient.cci;
 		options.replyTo = data.mail;
-		options.subject = 'Contact from secureswap.com - ' + data.name;
+		options.subject = '[SecureSwap] Contact from ' + data.name;
 		options.type = 'email';
 		options.protocol = 'http';
 		options.host = config.nginxhost;

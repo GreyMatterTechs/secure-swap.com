@@ -12,15 +12,15 @@ var config		= require(path.join(__dirname, '../../server/config' + (process.env.
 
 var bcrypt;
 try {
-  // Try the native module first
-  bcrypt = require('bcrypt');
-  // Browserify returns an empty object
-  if (bcrypt && typeof bcrypt.compare !== 'function') {
-    bcrypt = require('bcryptjs');
-  }
+	// Try the native module first
+	bcrypt = require('bcrypt');
+	// Browserify returns an empty object
+	if (bcrypt && typeof bcrypt.compare !== 'function') {
+		bcrypt = require('bcryptjs');
+	}
 } catch (err) {
-  // Fall back to pure JS impl
-  bcrypt = require('bcryptjs');
+	// Fall back to pure JS impl
+	bcrypt = require('bcryptjs');
 }
 
 var SALT_WORK_FACTOR = 10;
