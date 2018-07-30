@@ -174,6 +174,17 @@
 	"token-area.desc2":					"",
 	"token-area.title":					"SSW Token",
 
+	"-------------- SECTION FAQ --------------": "",
+	"faq-area.subhead":					"question",
+	"faq-area.head":					"FAQ",
+	"faq-area.desc1":					"Some of the answers to frequently asked questions.",
+	"faq-area.desc2":					"Any other questions? Use the form below, or join us on social networks.",
+	"faq-area.tab.general":				"General",
+	"faq-area.tab.ico":					"ICO",
+	"faq-area.tab.token":				"Token",
+	"faq-area.tab.client":				"Client",
+	"faq-area.tab.legal":				"Legal",
+
 	"-------------- SECTION CONTACT --------------": "",
 	"contact-area.subhead":				"JOIN US",
 	"contact-area.head":				"Contact",
