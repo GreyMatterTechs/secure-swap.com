@@ -1,2 +1,2 @@
 # secureswap.com
-Site pour l'ICO de SecureSwap
+![SecureSwap logo](/images/logo.png) Site pour l'ICO de SecureSwap
