@@ -176,23 +176,23 @@ module.exports = function(ICO) {
 	ICO.validatesInclusionOf('state', {in: [1, 2, 3]});
 
 	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
-	ICO.disableRemoteMethodByName('upsert');                               // disables PATCH /ICOs
-	ICO.disableRemoteMethodByName('find');                                 // disables GET /ICOs
-	ICO.disableRemoteMethodByName('replaceOrCreate');                      // disables PUT /ICOs
-	ICO.disableRemoteMethodByName('create');                               // disables POST /ICOs
-	ICO.disableRemoteMethodByName('prototype.updateAttributes');           // disables PATCH /ICOs/{id}
-	ICO.disableRemoteMethodByName('findById');                             // disables GET /ICOs/{id}
-	ICO.disableRemoteMethodByName('exists');                               // disables HEAD /ICOs/{id}
-	ICO.disableRemoteMethodByName('replaceById');                          // disables PUT /ICOs/{id}
-	ICO.disableRemoteMethodByName('deleteById');                           // disables DELETE /ICOs/{id}
-	ICO.disableRemoteMethodByName('prototype.__findById__accessTokens');   // disable GET /ICOs/{id}/accessTokens/{fk}
-	ICO.disableRemoteMethodByName('prototype.__updateById__accessTokens'); // disable PUT /ICOs/{id}/accessTokens/{fk}
-	ICO.disableRemoteMethodByName('prototype.__destroyById__accessTokens');// disable DELETE /ICOs/{id}/accessTokens/{fk}
-	ICO.disableRemoteMethodByName('prototype.__count__accessTokens');      // disable  GET /ICOs/{id}/accessTokens/count
-	ICO.disableRemoteMethodByName('count');                                // disables GET /ICOs/count
-	ICO.disableRemoteMethodByName('findOne');                              // disables GET /ICOs/findOne
-	ICO.disableRemoteMethodByName('update');                               // disables POST /ICOs/update
-	ICO.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /I18ns/upsertWithWhere
+	ICO.disableRemoteMethodByName('upsert');								// disables PATCH /ICOs
+	ICO.disableRemoteMethodByName('find');									// disables GET /ICOs
+	ICO.disableRemoteMethodByName('replaceOrCreate');						// disables PUT /ICOs
+	ICO.disableRemoteMethodByName('create');								// disables POST /ICOs
+	ICO.disableRemoteMethodByName('prototype.updateAttributes');			// disables PATCH /ICOs/{id}
+	ICO.disableRemoteMethodByName('findById');								// disables GET /ICOs/{id}
+	ICO.disableRemoteMethodByName('exists');								// disables HEAD /ICOs/{id}
+	ICO.disableRemoteMethodByName('replaceById');							// disables PUT /ICOs/{id}
+	ICO.disableRemoteMethodByName('deleteById');							// disables DELETE /ICOs/{id}
+	ICO.disableRemoteMethodByName('prototype.__findById__accessTokens');	// disable GET /ICOs/{id}/accessTokens/{fk}
+	ICO.disableRemoteMethodByName('prototype.__updateById__accessTokens');	// disable PUT /ICOs/{id}/accessTokens/{fk}
+	ICO.disableRemoteMethodByName('prototype.__destroyById__accessTokens');	// disable DELETE /ICOs/{id}/accessTokens/{fk}
+	ICO.disableRemoteMethodByName('prototype.__count__accessTokens');		// disable  GET /ICOs/{id}/accessTokens/count
+	ICO.disableRemoteMethodByName('count');									// disables GET /ICOs/count
+	ICO.disableRemoteMethodByName('findOne');								// disables GET /ICOs/findOne
+	ICO.disableRemoteMethodByName('update');								// disables POST /ICOs/update
+	ICO.disableRemoteMethodByName('upsertWithWhere');						// disables POST /I18ns/upsertWithWhere
 
 	/**
 	 * Get all ICO params from database

@@ -198,11 +198,11 @@ $dot-size: 12px;
 }
 
 .flip-clock-dot.top {
-    top: ($clock-height / 2 - $clock-font-size * 0.2 - $dot-size / 2);
+    top: 24px;	// (($clock-height - $dot-size / 2) - ($clock-font-size * 0.15));
 }
 
 .flip-clock-dot.bottom {
-    top: ($clock-height / 2 + $clock-font-size * 0.2 - $dot-size / 2);
+    top: 36px;	// (($clock-height - $dot-size / 2) + ($clock-font-size * 0.15));
 }
 
 .flip-clock-dot{
@@ -214,7 +214,6 @@ $dot-size: 12px;
 .flip-clock-divider {
     width: ($dot-size * 3);
 }
-
 
 .clock-counter {
 	.flip-clock-divider.days .flip-clock-label {
