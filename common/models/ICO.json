@@ -104,8 +104,8 @@
 			"type": "String",
 			"root": true
 		}, {
-			"arg": "state",
-			"type": "Number",
+			"arg": "params",
+			"type": "Object",
 			"root": true
 		}],
 		"returns": [],

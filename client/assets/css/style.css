@@ -360,6 +360,24 @@ header .navbar.navbar-fixed
     left: 213px;
 }
 
+/* -- page team ------------------------------------------------------------------- */
+.team-description
+{
+    font-size: .8rem;
+    font-weight: 300;
+
+    position: absolute;
+    top: 100%;
+    right: 10px;
+    left: 10px;
+
+    display: none; 
+
+    padding: 10px 10px 10px 15px;
+
+    color: #fff;
+}
+
 /* -- page login ------------------------------------------------------------------- */
 input:-webkit-autofill,
 textarea:-webkit-autofill,
