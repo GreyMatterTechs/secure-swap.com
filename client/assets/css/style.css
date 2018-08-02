@@ -180,7 +180,25 @@ header .navbar.navbar-fixed
     }
 }
 
+/* -- whitepaper ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #whitepaper > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
 /* -- token sale ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #token-sale-mobile-app > .token-sale > .container,
+    #token-sale-mobile-app > .mobile-app > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
 .flip-clock-wrapper ul
 {
     width: 40px;
@@ -297,6 +315,14 @@ header .navbar.navbar-fixed
 }
 
 /* -- Roadmap ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #roadmap > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
 .roadmap .swiper-slide .roadmap-info
 {
     margin-right: 1rem; 
@@ -312,7 +338,24 @@ header .navbar.navbar-fixed
     text-align: left;
 }
 
-/* -- Token sales ------------------------------------------------------------------- */
+/* -- Token ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #our-coin > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
+/* -- Token distribution ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #token-distribution > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
 #sales-pie-labels
 {
     position: absolute;
@@ -361,6 +404,15 @@ header .navbar.navbar-fixed
 }
 
 /* -- page team ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #team > .container,
+    #advisor > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
 .team-description
 {
     font-size: .8rem;
@@ -376,6 +428,15 @@ header .navbar.navbar-fixed
     padding: 10px 10px 10px 15px;
 
     color: #fff;
+}
+
+/* -- page faq ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #faq > .container
+    {
+        padding-left: 4rem;
+    }
 }
 
 /* -- page login ------------------------------------------------------------------- */

@@ -9,7 +9,7 @@
  **/
 'use strict';
 
-/* Preloader */
+// Preloader
 $(window).on('load', function() {
 
 	setTimeout(function() {
@@ -53,8 +53,8 @@ $(window).on('load', function() {
 
 });
 
-(function(window, document, $) {
 
+(function(window, document, $) {
 	var $html = $('html');
 	var $body = $('body');
 
@@ -67,7 +67,7 @@ $(window).on('load', function() {
 		navbarSlideLine();
 	});
 
-	/* Add shadow and color to fixed top navbar */
+	// Add shadow and color to fixed top navbar
 	$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
 		if (scroll >= 50) {
@@ -86,16 +86,16 @@ $(window).on('load', function() {
 
 	// Navbar absolute position on small screen
 	navbarAbsolute();
-	$(window).resize(function() { /* Invoke on window resize */
+	$(window).resize(function() { // Invoke on window resize
 		navbarAbsolute();
 	});
 
-	/* Menu navbar toggler animation */
+	// Menu navbar toggler animation
 	$('.main-menu .navbar-toggler').click(function(event) {
 		$('.main-menu').toggleClass('open', 2000, 'swing');
 	});
 
-	/* On menu click, Smooth Scrolling */
+	// On menu click, Smooth Scrolling
 	$('.main-menu a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
 		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
 			var target = $(this.hash);
@@ -116,28 +116,27 @@ $(window).on('load', function() {
 		}
 	});
 
-	/* Video Modal Open / Close */
+	// Video Modal Open / Close
 
-	/* Gets the video src from the data-src on video button */
+	// Gets the video src from the data-src on video button
 	var $videoSrc;
 	$('.video-btn').click(function() {
 		$videoSrc = $(this).data('src');
 	});
-
-	/* when the modal is opened autoplay it   */
+	// when the modal is opened autoplay it
 	$('#ico-modal').on('shown.bs.modal', function(e) {
 
-		/* set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get */
+		// set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
 		$('#video').attr('src', $videoSrc + '"?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1');
 	});
 
-	/* stop playing the youtube video when I close the modal */
+	// stop playing the youtube video when I close the modal
 	$('#ico-modal').on('hide.bs.modal', function(e) {
-		/* a poor man's stop video */
+		// a poor man's stop video 
 		$('#video').attr('src', $videoSrc);
 	});
 
-	/* Initialize Swiper */
+	// Initialize Swiper
 	var swiper = new Swiper('.swiper-container', {
 		slidesPerView: 5,
 		grabCursor: true,
@@ -145,17 +144,14 @@ $(window).on('load', function() {
 			nextEl: '.next-slide',
 			prevEl: '.prev-slide',
 		},
-		/* Responsive breakpoints */
+		// Responsive breakpoints
 		breakpoints: {
-			/* when window width is <= 576px */
 			576: {
 				slidesPerView: 1
 			},
-			/* when window width is <= 767px */
 			767: {
 				slidesPerView: 2
 			},
-			/* when window width is <= 992px */
 			992: {
 				slidesPerView: 3
 			}
@@ -171,10 +167,11 @@ $(window).on('load', function() {
 			swiper.slideTo(2, 1000, false);
 		}
 	});
-
 })(window, document, jQuery);
 
-/* Absolute navbar below 992(md) screen */
+
+// Absolute navbar below 992(md) screen
+
 function navbarAbsolute() {
 	if ($(window).width() < 992) {
 		$('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
@@ -184,6 +181,7 @@ function navbarAbsolute() {
 		$('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
 	}
 }
+
 
 function inverseNavbar(isFixed) {
 	if ($('body').hasClass('template-intro-video')) {
@@ -198,7 +196,9 @@ function inverseNavbar(isFixed) {
 		}
 	}
 }
+
 // Set the slideline width for active menu
+
 function navbarSlideLine() {
 	var $nav = $('#navigation');
 	var $slideLine = $nav.find('#slide-line');
@@ -215,15 +215,16 @@ function navbarSlideLine() {
 
 // Init waypoints
 var InitWaypointAnimations = function() {
+	
 	function setWayPoints(elements, group, params) {
-		const groupOffset = group ? group.attr('data-animation-offset') || params.offset : null;
+		var groupOffset = group ? group.attr('data-animation-offset') || params.offset : null;
 		elements.each(function() {
-			const element = $(this);
-			const anim = element.attr('data-animation');
-			const delay = element.attr('data-animation-delay') || params.delay;
-			const offset = element.attr('data-animation-offset') || params.offset;
+			var element = $(this);
+			var anim = element.attr('data-animation');
+			var delay = element.attr('data-animation-delay') || params.delay;
+			var offset = element.attr('data-animation-offset') || params.offset;
 			element.css({'-webkit-animation-delay': delay, '-moz-animation-delay': delay, 'animation-delay': delay, opacity: 0});
-			const l = group ? group : element;
+			var l = group ? group : element;
 			l.waypoint(function() {
 				element.addClass('animated').addClass(anim).css({opacity: 1});
 			}, {
@@ -239,24 +240,25 @@ var InitWaypointAnimations = function() {
 
 	return function(defaults) {
 		defaults = defaults || {};
-		const params = {
+		var params = {
 			offset:				defaults.offset || '90%',
 			delay:				defaults.delay || '0s',
 			animateClass:		defaults.animateClass || 'animated',
 			animateGroupClass:	defaults.animateGroupClass || 'ez-animate-group'
 		};
-		const animateGroup	= makeClassSelector(params.animateGroupClass);
-		const animate		= makeClassSelector(params.animateClass);
-		$(animateGroup).each((index, element) => {
-			const group = $(element);
-			const anims = $(element).find(animate);
+		var animateGroup	= makeClassSelector(params.animateGroupClass);
+		var animate		= makeClassSelector(params.animateClass);
+		$(animateGroup).each(function(index, element) {
+			var group = $(element);
+			var anims = $(element).find(animate);
 			setWayPoints(anims, group, params);
 		});
-		$(animate).filter((index, element) => {
+		$(animate).filter(function(index, element) {
 			return 0 === $(element).parents(animateGroup).length;
-		}).each((index, element) => {
+		}).each(function(index, element) {
 			setWayPoints($(element), null, params);
 		});
 	};
+
 }();
 

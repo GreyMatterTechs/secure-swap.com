@@ -1519,6 +1519,12 @@ window.particlesJS = function(tag_id, params){
 
 };
 
+
+window.particlesJS.getDom = function (callback) {
+  if (callback) callback(pJSDom);
+};
+
+
 window.particlesJS.load = function(tag_id, path_config_json, callback){
 
   /* load json config */

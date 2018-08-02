@@ -161,7 +161,19 @@ header{
 	}
 }
 
+/* -- whitepaper ------------------------------------------------------------------- */
+
+#whitepaper > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
+
 /* -- token sale ------------------------------------------------------------------- */
+
+#token-sale-mobile-app > .token-sale > .container, 
+#token-sale-mobile-app > .mobile-app > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
 
 $clock-font-size: 50px;
 $clock-height: ($clock-font-size * 1.2);
@@ -264,6 +276,10 @@ $dot-size: 12px;
 
 /* -- Roadmap ------------------------------------------------------------------- */
 
+#roadmap > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
 .roadmap {
 	.swiper-slide {
 		.roadmap-info {
@@ -288,7 +304,19 @@ $dot-size: 12px;
 }
 
 
-/* -- Token sales ------------------------------------------------------------------- */
+/* -- Token ------------------------------------------------------------------- */
+
+#our-coin > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
+
+/* -- Token distribution ------------------------------------------------------------------- */
+
+#token-distribution > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
 
 #sales-pie-labels {
     position: absolute;
@@ -324,6 +352,11 @@ $dot-size: 12px;
 
 /* -- page team ------------------------------------------------------------------- */
 
+#team > .container,
+#advisor > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
+}
+
 .team-description {
     font-size: 0.8rem;
     font-weight: 300;
@@ -334,6 +367,12 @@ $dot-size: 12px;
     padding: 10px 10px 10px 15px;
 	color: #fff;
 	display: none;
+}
+
+/* -- page faq ------------------------------------------------------------------- */
+
+#faq > .container {
+	@include media-breakpoint-up(lg) { padding-left: 4rem; }
 }
 
 /* -- page login ------------------------------------------------------------------- */
