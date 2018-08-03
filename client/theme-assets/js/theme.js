@@ -132,7 +132,7 @@ $(window).on('load', function() {
 
 	// stop playing the youtube video when I close the modal
 	$('#ico-modal').on('hide.bs.modal', function(e) {
-		// a poor man's stop video 
+		// a poor man's stop video
 		$('#video').attr('src', $videoSrc);
 	});
 
@@ -142,7 +142,7 @@ $(window).on('load', function() {
 		grabCursor: true,
 		navigation: {
 			nextEl: '.next-slide',
-			prevEl: '.prev-slide',
+			prevEl: '.prev-slide'
 		},
 		// Responsive breakpoints
 		breakpoints: {
@@ -215,7 +215,7 @@ function navbarSlideLine() {
 
 // Init waypoints
 var InitWaypointAnimations = function() {
-	
+
 	function setWayPoints(elements, group, params) {
 		var groupOffset = group ? group.attr('data-animation-offset') || params.offset : null;
 		elements.each(function() {

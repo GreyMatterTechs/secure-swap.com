@@ -439,6 +439,12 @@ header .navbar.navbar-fixed
     }
 }
 
+/* -- footer ------------------------------------------------------------------- */
+.footer
+{
+    background: url(../../assets/images/footer-image.png) no-repeat center top;
+}
+
 /* -- page login ------------------------------------------------------------------- */
 input:-webkit-autofill,
 textarea:-webkit-autofill,

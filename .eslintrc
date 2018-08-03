@@ -1,7 +1,8 @@
 {
 	"globals": {
 		"FlipClock": true,
-		"moment": true
+		"moment": true,
+		"Swiper": true
 	},
 	"rules": {
 		"no-console": 0,
