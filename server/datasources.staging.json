@@ -1,0 +1,23 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory",
+    "file": "mydata.json"
+  },
+  "emailDS": {
+	"name": "emailDS",
+	"connector": "mail",
+	"transports": [
+		{
+			"type": "smtp",
+			"host": "smtp.free.fr",
+			"secure": true,
+			"port": 465,
+			"auth": {
+				"user": "philippe.aubessard@free.fr",
+				"pass": "JlVO%7d6qGWwuDzX"
+			  }
+		}
+	]
+  }
+}
