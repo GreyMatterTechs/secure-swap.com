@@ -4,6 +4,7 @@ var requestIp	= require('request-ip');
 var geoip		= require('geoip-lite');
 var path		= require('path');
 var config		= require(path.join(__dirname, '../config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+var logger		= reqlocal('/server/boot/winston.js').logger;
 
 var ONE_HOUR = 60 * 60;
 var ONE_MINUTE = 60;
@@ -80,9 +81,9 @@ module.exports = function(server) {
 		var ip = requestIp.getClientIp(req);
 		var geo = geoip.lookup(ip);
 		if (geo) {
-			console.log(config.appName + ' received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (' + geo.city + ' ' + geo.zip + ' ' + geo.region + ' ' + geo.country + ')');
+			logger.info(config.appName + ' received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (' + geo.city + ' ' + geo.zip + ' ' + geo.region + ' ' + geo.country + ')');
 		} else {
-			console.log(config.appName + ' received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (machine locale)');
+			logger.info(config.appName + ' received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (machine locale)');
 		}
 		if (req.url.indexOf('assets/images') >= 0 || req.url.indexOf('assets/css/') >= 0) {
 			res.setHeader('Cache-Control', 'public, max-age=2592000');

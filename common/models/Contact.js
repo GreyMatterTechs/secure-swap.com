@@ -1,13 +1,13 @@
 'use strict';
 
 var path		= require('path');
-var debug		= require('debug')('ss_ico:contact');
 var config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 var datasources	= require(path.join(__dirname, '../../server/datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 var loopback	= require('../../node_modules/loopback/lib/loopback');
 var validator	= require('validator');
 var xssFilters	= require('xss-filters');
 var app			= require('../../server/server');
+var logger		= reqlocal('/server/boot/winston.js').logger;
 
 function sendMail(data, mEmail, cb) {
 

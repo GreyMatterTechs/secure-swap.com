@@ -1,11 +1,14 @@
 'use strict';
 
+global.reqlocal		= require('app-root-path').require;
+
 var loopback		= require('loopback');
 var boot			= require('loopback-boot');
 var path			= require('path');
 var helmet			= require('helmet');
 var cookieParser	= require('cookie-parser');
 var bodyParser		= require('body-parser');
+var logger			= reqlocal('/server/boot/winston.js').logger;
 var config			= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
 
@@ -45,20 +48,27 @@ app.use(cookieParser());
 // $$$ TODO https://github.com/strongloop/loopback-example-ssl
 //          et passer en TLS
 
+// $$$ TODO intégrer GZIp
+// https://strongloop.com/strongblog/best-practices-for-express-in-production-part-two-performance-and-reliability/#code
+
+// $$$ TODO Use a caching server like Varnish or Nginx (see also Nginx Caching) to greatly improve the speed and performance of your app.
+// https://www.nginx.com/resources/wiki/start/topics/examples/reverseproxycachingexample/
+// https://serversforhackers.com/c/nginx-caching
+
 
 app.start = function() {
 	// start the web server
 	return app.listen(function() {
 		app.emit('started');
 		var baseUrl = app.get('url').replace(/\/$/, '');
-		console.log('Web server listening at: %s', baseUrl);
-		console.log('Running Environment: ' + (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV));
-		console.log('NodeJS server URL: ' + 'http://' + config.host + ':' + config.port);
-		console.log('Nginx  server URL: ' + 'http://' + config.nginxhost + ':' + config.nginxport);
+		logger.info('Web server listening at: %s', baseUrl);
+		logger.info('Running Environment: ' + (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV));
+		logger.info('NodeJS server URL: ' + 'http://' + config.host + ':' + config.port);
+		logger.info('Nginx  server URL: ' + 'http://' + config.nginxhost + ':' + config.nginxport);
 
 		if (app.get('loopback-component-explorer')) {
 			var explorerPath = app.get('loopback-component-explorer').mountPath;
-			console.log('Browse your REST API at %s%s', baseUrl, explorerPath);
+			logger.info('Browse your REST API at %s%s', baseUrl, explorerPath);
 		}
 	});
 };

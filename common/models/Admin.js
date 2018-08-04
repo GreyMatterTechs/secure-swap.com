@@ -5,10 +5,10 @@ var async		= require('async');
 var passGen		= require('password-generator');
 var uuidV1		= require('uuid/v1');
 var g			= require('../../node_modules/loopback/lib/globalize');
-var debug		= require('debug')('ss_ico:admin');
 var loopback	= require('../../node_modules/loopback/lib/loopback');
 var utils		= require('../../node_modules/loopback/lib/utils');
 var config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+var logger		= reqlocal('/server/boot/winston.js').logger;
 
 var bcrypt;
 try {
@@ -612,7 +612,7 @@ module.exports = function (Admin) {
 					if (err) {
 						return next(err);
 					}
-					//console.log('> sending new user email to:' + config.mailRecipient.adminTo);
+					logger.info('> sending new user email to:' + config.mailRecipient.adminTo);
 					return next();
 				});
 			}
@@ -704,7 +704,7 @@ module.exports = function (Admin) {
 		options.verifyHref	= options.protocol + '://' + options.host + options.displayPort + '/reset-password' + '?access_token=' + info.accessToken.id;
 		options.text		= 'To reset your password, copy/paste this link: "' + options.verifyHref + '" to your browser.';
 		createTemplatedEmailBody(options, function(err, html) {
-			if (err) return console.log('> error sending password reset email');
+			if (err) return logger.error('> error sending password reset email');
 			options.html = html;
 			delete options.template;		// Remove options.template to prevent rejection by certain nodemailer transport plugins.
 			var Email = Admin.app.models.Email;
@@ -715,7 +715,7 @@ module.exports = function (Admin) {
 			}
 
 			function handleAfterSend(err, email) {
-				if (err) return console.log('> error sending password reset email');
+				if (err) return logger.error('> error sending password reset email');
 				//cb(null, {email: email});
 			}
 		});

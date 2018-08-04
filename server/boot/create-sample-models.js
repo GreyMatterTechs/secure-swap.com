@@ -1,6 +1,7 @@
 'use strict';
 
-var async		= require('async');
+var async	= require('async');
+var logger	= reqlocal('/server/boot/winston.js').logger;
 
 var db;
 var dbName;
@@ -126,7 +127,7 @@ function updateAdmins(cb) {
 		Promise.all(promises).then(function(users) {
 			return cb(null, users);
 		}, function(err) {
-			console.log(err);
+			logger.error(err);
 			return cb(err);
 		});
 	}
@@ -170,20 +171,20 @@ function updateAdmins(cb) {
 function create(db, lbMigrateTables) {
 	db.automigrate(lbMigrateTables, function(err) {
 		if (err) throw err;
-		console.log('Loopback tables [' + lbMigrateTables + '] created in "' + dbName + '" database');
+		logger.info('Loopback tables [' + lbMigrateTables + '] created in "' + dbName + '" database');
 	});
 }
 
 function update(db, lbUpdateTables) {
 	db.autoupdate(lbUpdateTables, function(err) {
 		if (err) throw err;
-		console.log('Loopback tables [' + lbUpdateTables + '] created in "' + dbName + '" database');
+		logger.info('Loopback tables [' + lbUpdateTables + '] created in "' + dbName + '" database');
 		//create all models
 
 		async.series([updateRole, updateICO, updateAdmins],
 			function(err, result) {
 				if (err) throw err;
-				console.log('> tables updated sucessfully');
+				logger.info('> tables updated sucessfully');
 			}
 		);
 	});	

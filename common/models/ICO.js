@@ -8,6 +8,7 @@ var app			= require('../../server/server');
 var CryptoJS	= require('crypto-js');
 var sha3		= require('crypto-js/sha3');
 var moment		= require('moment');
+var logger		= reqlocal('/server/boot/winston.js').logger;
 
 /**
  * Checks if the given string is an ETH address
