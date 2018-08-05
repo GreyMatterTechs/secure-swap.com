@@ -349,16 +349,16 @@
 
 				$('.team-member').hover(function() {
 					$(this).next('.team-description').show();
-					$(this).parent().css('z-index', 1);
+					$(this).parent().addClass('team-hover');
 					var $p;
-					// TODO: récupérer les valeurs de width à partir de la config bootstratp...
+					// TODO: récupérer les valeurs de width à partir de la config bootstrap...
 					if (window.matchMedia('(min-width: 576px)').matches) { console.log('576'); $p = $(this).parent().next(); }
 					if (window.matchMedia('(min-width: 768px)').matches) { console.log('768'); $p = $p.next(); }
 					if (window.matchMedia('(min-width: 992px)').matches) { console.log('992'); $p = $p.next(); }
 					$p.css('visibility', 'hidden');
 				}, function() {
 					$('.team-description').hide();
-					$('.team-profile > div > div').css('z-index', 0).css('visibility', 'inherit');
+					$('.team-profile > div > div').removeClass('team-hover').css('visibility', 'inherit');
 				});
 
 				//--------------------------------------------------------------------------------------------------------------
