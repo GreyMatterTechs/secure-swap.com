@@ -10,6 +10,7 @@
 	"navbar.item.about":				"Présentation",
 	"navbar.item.problem":				"Solutions",
 	"navbar.item.whitepaper":			"Livre blanc",
+	"navbar.item.competitors":			"Concurents",
 	"navbar.item.token":				"Jetons",
 	"navbar.item.roadmap":				"Roadmap",
 	"navbar.item.more":					"Plus...",
@@ -67,6 +68,13 @@
 	"solution-area.solutions.p2.li4":	"ergonomie inspirée des meilleurs logiciels de trading boursiers",
 	"solution-area.solutions.p2.li5":	"capacité de montée en charge (réseau P2P) garantissant la disponibilité du service",
 	"solution-area.solutions.p3":		"La sécurité et l’atomicité des échanges sont assurés par une application DApp ETH dédiée à cette tâche. Elle sera portée sur d’autres blockchains supportant les smart contrats tels que EOS, afin d’assurer l'interopérabilité et l'atomicité des échanges sur ces dernières, et d’augmenter le nombre de transactions par seconde réalisables, par agrégation des capacités d’exécution de chaque blockchain.",
+
+	"-------------- SECTION COMPETOTORS --------------":"",
+	"competitors-area.subhead":			"Concurrents",
+	"competitors-area.head": 			"Nos avantages",
+	"competitors-area.desc1":			"Les principaux avantages de $1 par rapport à ses concurrents",
+	"competitors-area.desc2":			"$nbsp;",
+
 
 	"-------------- SECTION WHITEPAPER --------------":"",
 	"whitepaper-area.subhead":			"Documents",

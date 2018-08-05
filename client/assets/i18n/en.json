@@ -11,6 +11,7 @@
 	"navbar.item.about":				"What is $1",
 	"navbar.item.problem":				"Solutions",
 	"navbar.item.whitepaper":			"Whitepaper",
+	"navbar.item.competitors":			"Competitors",
 	"navbar.item.token":				"Token Sale",
 	"navbar.item.roadmap":				"Roadmap",
 	"navbar.item.more":					"More",
@@ -68,6 +69,12 @@
 	"solution-area.solutions.p2.li4":	"ergonomics inspired by the best stock trading software",
 	"solution-area.solutions.p2.li5":	"scalability (P2P network) guaranteeing service availability",
 	"solution-area.solutions.p3":		"The security and atomicity of the exchanges are ensured by a DApp ETH application dedicated to this task. It will be carried on other blockchains supporting smart contracts such as EOS, in order to ensure interoperability and atomicity of exchanges on the latter, and to increase the number of transactions per second feasible, by aggregating the execution capabilities of each blockchain.",
+
+	"-------------- SECTION COMPETOTORS --------------":"",
+	"competitors-area.subhead":			"Competitors",
+	"competitors-area.head": 			"Our advantages",
+	"competitors-area.desc1":			"Main advantages of $1 over its competitors",
+	"competitors-area.desc2":			"$nbsp;",
 
 	"-------------- SECTION WHITEPAPER --------------":"",
 	"whitepaper-area.subhead":			"Documents",
