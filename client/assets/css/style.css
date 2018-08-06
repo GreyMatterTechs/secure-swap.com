@@ -128,6 +128,33 @@ header .navbar.navbar-fixed
     background-color: white;
 }
 
+/* -- competitors ------------------------------------------------------------------- */
+@media (min-width: 992px)
+{
+    #competitors > .container
+    {
+        padding-left: 4rem;
+    }
+}
+
+.competitors .advantage-title
+{
+    font-size: 1.125rem;
+    font-weight: 700;
+
+    color: #fff;
+}
+
+.competitors .advantage-desc
+{
+    font-size: 1.125rem;
+    font-weight: 300;
+
+    padding: 10px 10px 10px 15px;
+
+    color: #fff;
+}
+
 /* -- problems & solutions ------------------------------------------------------------------- */
 @media (min-width: 992px)
 {

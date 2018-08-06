@@ -10,7 +10,7 @@
 	"navbar.item.about":				"Présentation",
 	"navbar.item.problem":				"Solutions",
 	"navbar.item.whitepaper":			"Livre blanc",
-	"navbar.item.competitors":			"Concurents",
+	"navbar.item.competitors":			"Points Forts",
 	"navbar.item.token":				"Jetons",
 	"navbar.item.roadmap":				"Roadmap",
 	"navbar.item.more":					"Plus...",
@@ -71,9 +71,9 @@
 
 	"-------------- SECTION COMPETOTORS --------------":"",
 	"competitors-area.subhead":			"Concurrents",
-	"competitors-area.head": 			"Nos avantages",
+	"competitors-area.head": 			"Nos Points Forts",
 	"competitors-area.desc1":			"Les principaux avantages de $1 par rapport à ses concurrents",
-	"competitors-area.desc2":			"$nbsp;",
+	"competitors-area.desc2":			"&nbsp;",
 
 
 	"-------------- SECTION WHITEPAPER --------------":"",

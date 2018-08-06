@@ -77,9 +77,9 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 // Increase logging level in DEBUG mode
-if (process.env.DEBUG) {
-	winston.level = 'debug';
-	logger.debug('The Winston debug mode is switched on.');
-}
+//if (process.env.DEBUG) {
+//	winston.level = 'debug';
+//	logger.debug('The Winston debug mode is switched on.');
+//}
 
 module.exports.logger = logger;
