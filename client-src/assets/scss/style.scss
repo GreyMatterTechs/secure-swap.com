@@ -126,23 +126,20 @@ header{
     border-radius: 50%;
 }
 
-/* -- competitors ------------------------------------------------------------------- */
+/* -- Key Strengths ------------------------------------------------------------------- */
 
-#competitors > .container {
+#key-strengths > .container {
 	@include media-breakpoint-up(lg) { padding-left: 4rem; }
 }
 
-.competitors {
+.key-strengths {
 	.advantage-title {
 		font-size: 1.125rem;
 		font-weight: 700;
 		color: #fff;
 	}
 	.advantage-desc {
-		font-size: 1.125rem;
-		font-weight: 300;
 		padding: 10px 10px 10px 15px;
-		color: #fff;
 	}
 }
 

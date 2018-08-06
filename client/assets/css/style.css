@@ -128,16 +128,16 @@ header .navbar.navbar-fixed
     background-color: white;
 }
 
-/* -- competitors ------------------------------------------------------------------- */
+/* -- Key Strengths ------------------------------------------------------------------- */
 @media (min-width: 992px)
 {
-    #competitors > .container
+    #key-strengths > .container
     {
         padding-left: 4rem;
     }
 }
 
-.competitors .advantage-title
+.key-strengths .advantage-title
 {
     font-size: 1.125rem;
     font-weight: 700;
@@ -145,14 +145,9 @@ header .navbar.navbar-fixed
     color: #fff;
 }
 
-.competitors .advantage-desc
+.key-strengths .advantage-desc
 {
-    font-size: 1.125rem;
-    font-weight: 300;
-
     padding: 10px 10px 10px 15px;
-
-    color: #fff;
 }
 
 /* -- problems & solutions ------------------------------------------------------------------- */

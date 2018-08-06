@@ -11,7 +11,7 @@
 	"navbar.item.about":				"Ce este $1",
 	"navbar.item.problem":				"Soluții",
 	"navbar.item.whitepaper":			"Vânzarea token",
-	"navbar.item.competitors":			"Key Strengths",
+	"navbar.item.key-strengths":		"Key Strengths",
 	"navbar.item.token":				"Foaie de parcurs",
 	"navbar.item.roadmap":				"Roadmap",
 	"navbar.item.more":					"Mai mult",
@@ -71,10 +71,10 @@
 	"solution-area.solutions.p3":		"The security and atomicity of the exchanges are ensured by a DApp ETH application dedicated to this task. It will be carried on other blockchains supporting smart contracts such as EOS, in order to ensure interoperability and atomicity of exchanges on the latter, and to increase the number of transactions per second feasible, by aggregating the execution capabilities of each blockchain.",
 
 	"-------------- SECTION COMPETOTORS --------------":"",
-	"competitors-area.subhead":			"Competitors",
-	"competitors-area.head": 			"Our Key Strengths",
-	"competitors-area.desc1":			"Main advantages of $1 over its competitors",
-	"competitors-area.desc2":			"&nbsp;",
+	"key-strengths-area.subhead":		"Competitors",
+	"key-strengths-area.head": 			"Our Key Strengths",
+	"key-strengths-area.desc1":			"Main advantages of $1 over its competitors",
+	"key-strengths-area.desc2":			"&nbsp;",
 
 	"-------------- SECTION WHITEPAPER --------------":"",
 	"whitepaper-area.subhead":			"Documents",
