@@ -4821,6 +4821,19 @@ p
     background: url('../../theme-assets/images/solutions-shape.png') no-repeat center right;
 }
 
+.key-strengths:before
+{
+    position: absolute;
+    right: 0;
+
+    width: 153px;
+    height: 556px; 
+
+    content: '';
+
+    background: url('../../theme-assets/images/contact-shape.png') no-repeat center right;
+}
+
 #token-sale-mobile-app
 {
     position: relative;

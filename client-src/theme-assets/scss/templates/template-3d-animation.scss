@@ -179,6 +179,18 @@ p {
     }
 }
 
+// Keystrengths section back image
+.key-strengths {
+    &:before {
+        content: "";
+        background: url('../../theme-assets/images/contact-shape.png') no-repeat center right;
+        width: 153px;
+        position: absolute;
+        right: 0;
+        height: 556px;
+    }
+}
+
 // Token Sale section back image
 #token-sale-mobile-app {
     position: relative;
