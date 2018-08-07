@@ -37,7 +37,7 @@ function updateICO(cb) {
 	var icoData = {
 		state: 1,
 		wallet: '0xC50E31926CAf2cd7C69547cB2C1Bb127cB782E30',
-		tokenName: 'SSWT',
+		tokenName: 'SSW',
 		tokenPriceUSD: 0.45,
 		tokenPriceETH: 0.15414,
 		softCap: 10000000,
