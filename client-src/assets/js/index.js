@@ -106,7 +106,8 @@
 		function refreshTokenPrices() {
 			tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
 			tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
-			$('#tokensale-eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+			// $('#tokensale-eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+			$('#tokensale-li7-val').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
 		}
 
 		function updateTokenSalesArea() {
@@ -352,9 +353,9 @@
 					$(this).parent().addClass('team-hover');
 					var $p;
 					// TODO: récupérer les valeurs de width à partir de la config bootstrap...
-					if (window.matchMedia('(min-width: 576px)').matches) { console.log('576'); $p = $(this).parent().next(); }
-					if (window.matchMedia('(min-width: 768px)').matches) { console.log('768'); $p = $p.next(); }
-					if (window.matchMedia('(min-width: 992px)').matches) { console.log('992'); $p = $p.next(); }
+					if (window.matchMedia('(min-width: 576px)').matches) { $p = $(this).parent().next(); }
+					if (window.matchMedia('(min-width: 768px)').matches) { $p = $p.next(); }
+					if (window.matchMedia('(min-width: 992px)').matches) { $p = $p.next(); }
 					$p.css('visibility', 'hidden');
 				}, function() {
 					$('.team-description').hide();
