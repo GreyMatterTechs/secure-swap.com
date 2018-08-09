@@ -508,6 +508,14 @@ select:-webkit-autofill
 {
     width: 100%;
 }
+.team-modal .modal-content form .token-qr
+{
+    text-align: center;
+}
+.team-modal .modal-content form .token-qr img
+{
+    width: 90%;
+}
 .team-modal .modal-content form p
 {
     font-size: 1.0rem;

@@ -318,5 +318,27 @@
 	"contact-area.error.message5":		"Sorry, message system is down. Error [0x3004].<br />Please retry later.",
 	"contact-area.error.message6":		"Sorry, message system is down. Error [0x3005].<br />Please retry later.",
 
+	"-------------- PURCHASE BOX --------------": "",
+	"purchasebox.title":				"$1 - $2 Tokens purchase",
+	"purchasebox.preico.intro":			"Ouverture de l'ICO le : $1.<br />Pour patienter, retrouvez-nous sur les réseaux sociaux,<br />ou laissez-nous un message via le formulaire de contact.",
+	"purchasebox.ico.legal.intro":		"Please accept the terms and conditions to continue:",
+	"purchasebox.ico.legal.wp":			"I confirm that I have read the <a href=\"#whitepaper\" data-dismiss=\"modal\" >Whitepaper</a> and that I have understood its technical details.",
+	"purchasebox.ico.legal.terms":		"I confirm that I am familiarized and I agree with the <a href=\"#\" >terms</a> and <a href=\"#\" >privacy policy</a>.",
+	"purchasebox.ico.legal.regul":		"I confirm that I am not resident of any jurisdiction which prohibits participation in the Token Sale (ICO)",
+	"purchasebox.ico.legal.laws":		"I confirm that by participating in the ICO and acquiring $1 tokens, I am not violating any applicable law in my country of residence.",
+	"purchasebox.ico.legal.err":		"You must agree and check this box before continuing.",
+	"purchasebox.ico.legal.continue":	"Continue",
+	"purchasebox.ico.legal.note":		"Do note that the $1 team will never send you a private message for contribution of funds, nor change the contribution address. Beware of scammers!",
+	"purchasebox.ico.address.intro":	"To buy $1 tokens, send your ETH here",
+	"purchasebox.ico.address.copy":		"Copy",
+	"purchasebox.ico.address.p1":		"• We accept only ETH.",
+	"purchasebox.ico.address.p2":		"• <span class=\"text-danger\">Attention!</span> Don’t use any cryptocurrency exchange wallet addresses like Coinbase, Binance, Bittrex, Poloniex, Kraken, Globitex, Coinomi etc.<br />Transferring ETH from these wallets will result in an <b>irreversible loss of your money!</b><br /><span class=\"text-success\">Compatible wallets: MyEtherWallet, Mist, MetaMask or other ERC20 token standard wallet.</span>",
+	"purchasebox.ico.address.p3":		"• Minimum amount = 0.1 ETH",
+	"purchasebox.ico.address.p4":		"• $1 Contract will automatically send $1 tokens to your sending address after receiving ETH.",
+	"purchasebox.ico.address.p5":		"• Set the Gas limit to 300,000, Gwei 60",
+	"purchasebox.ico.address.p6":		"• <a target=\"_blank\" href=\"https://etherscan.io/address/0xc23CD20c3C60A4e416A5DC573d348cc774E5fE6e\">Click to see the smart-contract of crowd sale</a>",
+	"purchasebox.ico.address.conv.title":"$1 - ETH converter",
+	"purchasebox.postico.intro":		"Trop tard :(. Contactez nous.",
+
 	"last": ""
 }

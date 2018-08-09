@@ -38,7 +38,7 @@ function updateRole(cb) {
 function updateICO(cb) {
 
 	var icoData = {
-		state: 2,
+		state: 1,
 		wallet: '0xC50E31926CAf2cd7C69547cB2C1Bb127cB782E30',
 		tokenName: config.tokenName,
 		tokenPriceUSD: 0.45,
@@ -47,8 +47,8 @@ function updateICO(cb) {
 		hardCap: 80000000,
 		tokensTotal: 100000000,
 		ethReceived: 0,
-		ethTotal: 13653,
-		tokensSold: 60000000,
+		ethTotal: 0,
+		tokensSold: 0,
 		dateStart: new Date(2018, 8, 2).getTime(),
 		dateEnd: new Date(2018, 11, 31).getTime()
 	};

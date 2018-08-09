@@ -442,6 +442,12 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		border-radius: .35rem;
 		form {
 			width: 100%;
+			.token-qr {
+				text-align: center;
+				img {
+					width: 90%;
+				}
+			}
 			p {
 				font-size: 1.0rem;
 			}
