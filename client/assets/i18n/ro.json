@@ -119,7 +119,7 @@
 	"tokensale-area.li5":				"Minimal transaction amount",
 	"tokensale-area.li5.value":			"1 ETH, 1 BTC, 1 LTC",
 	"tokensale-area.li6":				"Number of tokens for sale",
-	"tokensale-area.li6.value":			"100,000,000 SSW",
+	"tokensale-area.li6.value":			"100,000,000",
 
 	"-------------- SECTION APP --------------": "",
 	"app-area.subhead":					"$1 App",

@@ -136,7 +136,7 @@ header{
 #problem-solution ul {
 	list-style: circle;
 	li {
-		   color: #c7b8ff;
+		color: #c7b8ff;
 	}
 }
 .problems-img-inline, .solutions-img-inline {
@@ -242,8 +242,13 @@ $dot-size: 12px;
 	pointer-events: auto;
 }
 
-.token-sale .note {
-	font-size: 0.75rem;
+.token-sale {
+	&:before {
+		content: none;
+	}
+	.note {
+		font-size: 0.75rem;
+	}
 }
 
 .ico-ended {
@@ -283,11 +288,20 @@ $dot-size: 12px;
 }
 
 
-/* -- Token ------------------------------------------------------------------- */
-
-
 /* -- Token distribution ------------------------------------------------------------------- */
 
+.token-distribution {
+	.token-img {
+		text-align: center;
+		margin-bottom: 26rem;
+		img {
+			width: 395px;
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
+	}
+}
 #sales-pie-labels {
     position: absolute;
     top: 0;
@@ -300,24 +314,24 @@ $dot-size: 12px;
 	}
 }
 #sales-pie-labels-crowdsale {
-    top: 89px;
-    left: 119px;
+	top: 81px;
+	left: 94px;
 }
 #sales-pie-labels-team {
-    top: 234px;
-    left: 414px;
+	top: 187px;
+	left: 341px;
 }
 #sales-pie-labels-airdrop {
-	top: 312px;
-    left: 378px;
+	top: 246px;
+	left: 305px;
 }
 #sales-pie-labels-advisors {
-	top: 365px;
-    left: 321px;
+	top: 286px;
+	left: 242px;
 }
 #sales-pie-labels-marketing {
-    top: 388px;
-    left: 213px;
+	top: 320px;
+	left: 162px;
 }
 
 /* -- page team ------------------------------------------------------------------- */
@@ -332,9 +346,7 @@ $dot-size: 12px;
 	z-index: 1;
 	border: 1px solid #fff;
 	border-bottom: none;
-	-webkit-border-radius: 8px 8px 0 0;
-	   -moz-border-radius: 8px 8px 0 0;
-			border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
 	padding-top: 0px;
 	padding-left: 14px;
 }
@@ -351,18 +363,9 @@ $dot-size: 12px;
 	display: none;
 	border: 1px solid #fff;
 	border-top: none;
-	-webkit-border-radius: 0 0 8px 8px;
-	   -moz-border-radius: 0 0 8px 8px;
-            border-radius: 0 0 8px 8px;
-	-webkit-box-shadow: #111 0px 2px 3px;
-	   -moz-box-shadow: #111 0px 2px 3px;
-			box-shadow: #111 0px 2px 3px;
-			
-	background: -moz-linear-gradient(top, rgba(125,185,232,0) 3%, rgba(30,87,153,1) 95%);
-	background: -webkit-linear-gradient(top, rgba(125,185,232,0) 3%,rgba(30,87,153,1) 95%);
+    border-radius: 0 0 8px 8px;
+	box-shadow: #111 0px 2px 3px;
 	background: linear-gradient(to bottom, rgba(125,185,232,0) 3%,rgba(30,87,153,1) 95%);
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#1e5799',GradientType=0 );
-
 }
 
 /* -- page faq ------------------------------------------------------------------- */
@@ -425,6 +428,59 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	letter-spacing: 1px; 
 }
 
+/* -- Purchase modal popup -------------------------------------- */
+.team-modal {
+	background: linear-gradient(45deg, rgba($modal-gradient1, 0.85), rgba($modal-gradient2, 0.85));
+	.modal-header {
+		/*background: linear-gradient(32deg, #ff4137, #fdc800);*/
+		border-bottom: 1px solid #eee;
+		.modal-title {
+			font-weight: 700;
+		}
+	}
+	.modal-content {
+		border-radius: .35rem;
+		form {
+			width: 100%;
+			p {
+				font-size: 1.0rem;
+			}
+			label {
+				color: #7d7d7d;
+			}
+			.note {
+				font-size: 0.8rem;
+			}
+			.right-content {
+				font-size: 0.8rem;
+			}
+			.alert {
+				.sub-title,
+				.swap-box {
+					text-align: center;
+				}
+			}
+			.form-control {
+				font-size: 1rem;
+				line-height: 1.5;
+				display: block;
+				padding: .8rem 1.5rem;
+				-webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+				-moz-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+				-o-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+				transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+				transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+				transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+				color: #495057;
+				border: 1px solid #ced4da;
+				border-radius: .25rem;
+				background-color: #fff;
+				background-clip: padding-box;
+			}
+		}
+	}
+}
+
 /* -- Responsiveness -------------------------------------- */
 
 // Extra small devices (portrait phones, less than 576px)
@@ -439,19 +495,23 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
                 text-align: center;
             }
             h1 {
-                font-size: 1.2rem;
-                line-height: 1.8rem;
+				font-size: 1.0rem;	//1.2rem;
+                line-height: 1.4rem;	//1.8rem;
             }
             h3 {
                 margin-top: 2rem !important;
-                font-size: 0.9rem;
-                line-height: 1.4rem;
+                font-size: 0.7rem;	//0.9rem;
+                line-height: 1.0rem;	//1.4rem;
             }
             .btn {
                 padding: 0.8rem !important;
                 font-size: 0.8rem;
             }
-        }
+		}
+		#svg-animation {
+			margin-left: 10%;
+			margin-right: 10%;
+		}
     }
     .section-padding {
         padding: 3rem 0 !important;
@@ -497,17 +557,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     .whitepaper-img {
         text-align: center;
         margin-bottom: 3rem;
-    }
-    .token-distribution {
-        .token-img {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-    }
-    .token-sale {
-        &:before {
-            content: none;
-        }
     }
     .roadmap {
         .timestamp {
@@ -650,6 +699,34 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 // Small devices (landscape phones, 576px and less than 768px)
 @include media-breakpoint-only(sm) {
+	.token-distribution {
+		.token-img {
+			margin-bottom: 30rem;
+			img {
+				width: 540px;
+			}
+		}
+	}
+	#sales-pie-labels-crowdsale {
+		top: 115px;
+		left: 119px;
+	}
+	#sales-pie-labels-team {
+		top: 261px;
+		left: 440px;
+	}
+	#sales-pie-labels-airdrop {
+		top: 343px;
+		left: 395px;
+	}
+	#sales-pie-labels-advisors {
+		top: 393px;
+		left: 321px;
+	}
+	#sales-pie-labels-marketing {
+		top: 424px;
+		left: 222px;
+	}
 }
 
 // Small devices (landscape phones, 576px and wider)
@@ -662,6 +739,34 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 // Medium devices (tablets, 768px and less than 992px)
 @include media-breakpoint-only(md) {
+	.token-distribution {
+		.token-img {
+			margin-bottom: 39rem;
+			img {
+				width: 690px;
+			}
+		}
+	}
+	#sales-pie-labels-crowdsale {
+		top: 158px;
+		left: 158px;
+	}
+	#sales-pie-labels-team {
+		top: 348px;
+		left: 552px;
+	}
+	#sales-pie-labels-airdrop {
+		top: 440px;
+		left: 486px;
+	}
+	#sales-pie-labels-advisors {
+		top: 495px;
+		left: 400px;
+	}
+	#sales-pie-labels-marketing {
+		top: 532px;
+		left: 297px;
+	}
 }
 
 // Medium devices (tablets, 768px and wider)
@@ -677,10 +782,12 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	.problems-img-inline {
 		margin-left: 1rem;
 		margin-bottom: 1rem;
+		float: right;
 	}
 	.solutions-img-inline {
 		margin-right: 1rem;
 		margin-bottom: 1rem;
+		float: left;
 	}
 	.problems-img-row, .solutions-img-row {
 		display: none;
@@ -696,6 +803,34 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 @include media-breakpoint-only(lg) {
 	.flip-clock-dot {
 		left: -1px !important;
+	}
+	.token-distribution {
+		.token-img {
+			margin-bottom: 7rem;
+			img {
+				width: 419px;
+			}
+		}
+	}
+	#sales-pie-labels-crowdsale {
+		top: 95px;
+		left: 89px;
+	}
+	#sales-pie-labels-team {
+		top: 210px;
+		left: 362px;
+	}
+	#sales-pie-labels-airdrop {
+		top: 272px;
+		left: 321px;
+	}
+	#sales-pie-labels-advisors {
+		top: 320px;
+		left: 261px;
+	}
+	#sales-pie-labels-marketing {
+		top: 350px;
+		left: 177px;
 	}
 }
 
@@ -716,6 +851,34 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 // XLarge devices (desktops, 1200px and less than 1500px)
 @include media-breakpoint-only(xl) {
+	.token-distribution {
+		.token-img {
+			margin-bottom: 0rem;
+			img {
+				width: 509px;
+			}
+		}
+	}
+	#sales-pie-labels-crowdsale {
+		top: 115px;
+		left: 109px;
+	}
+	#sales-pie-labels-team {
+		top: 242px;
+		left: 409px;
+	}
+	#sales-pie-labels-airdrop {
+		top: 321px;
+		left: 367px;
+	}
+	#sales-pie-labels-advisors {
+		top: 378px;
+		left: 299px;
+	}
+	#sales-pie-labels-marketing {
+		top: 402px;
+		left: 204px;
+	}
 }
 
 // XLarge devices (desktops, 1200px and wider)

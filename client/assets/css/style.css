@@ -253,6 +253,11 @@ header .navbar.navbar-fixed
     pointer-events: auto;
 }
 
+.token-sale:before
+{
+    content: none;
+}
+
 .token-sale .note
 {
     font-size: .75rem;
@@ -287,8 +292,22 @@ header .navbar.navbar-fixed
     text-align: left;
 }
 
-/* -- Token ------------------------------------------------------------------- */
 /* -- Token distribution ------------------------------------------------------------------- */
+.token-distribution .token-img
+{
+    margin-bottom: 26rem; 
+
+    text-align: center;
+}
+.token-distribution .token-img img
+{
+    position: absolute;
+    top: 0;
+    left: 0; 
+
+    width: 395px;
+}
+
 #sales-pie-labels
 {
     position: absolute;
@@ -308,32 +327,32 @@ header .navbar.navbar-fixed
 
 #sales-pie-labels-crowdsale
 {
-    top: 89px;
-    left: 119px;
+    top: 81px;
+    left: 94px;
 }
 
 #sales-pie-labels-team
 {
-    top: 234px;
-    left: 414px;
+    top: 187px;
+    left: 341px;
 }
 
 #sales-pie-labels-airdrop
 {
-    top: 312px;
-    left: 378px;
+    top: 246px;
+    left: 305px;
 }
 
 #sales-pie-labels-advisors
 {
-    top: 365px;
-    left: 321px;
+    top: 286px;
+    left: 242px;
 }
 
 #sales-pie-labels-marketing
 {
-    top: 388px;
-    left: 213px;
+    top: 320px;
+    left: 162px;
 }
 
 /* -- page team ------------------------------------------------------------------- */
@@ -377,15 +396,13 @@ header .navbar.navbar-fixed
     border: 1px solid #fff;
     border-top: none;
     border-radius: 0 0 8px 8px;
-    background:    -moz-linear-gradient(top, rgba(125, 185, 232, 0) 3%, #1e5799 95%);
-    background: -webkit-linear-gradient(top, rgba(125, 185, 232, 0) 3%, #1e5799 95%);
     background: -webkit-gradient(linear, left top, left bottom, color-stop(3%, rgba(125, 185, 232, 0)), color-stop(95%, #1e5799));
+    background: -webkit-linear-gradient(top, rgba(125, 185, 232, 0) 3%, #1e5799 95%);
+    background:    -moz-linear-gradient(top, rgba(125, 185, 232, 0) 3%, #1e5799 95%);
     background:      -o-linear-gradient(top, rgba(125, 185, 232, 0) 3%, #1e5799 95%);
-    background:         linear-gradient(to bottom, rgba(125, 185, 232, 0) 3%, #1e5799 95%);
+    background:         linear-gradient(to bottom, rgba(125, 185, 232, 0) 3%, #1e5799 95%); 
     -webkit-box-shadow: #111 0 2px 3px;
             box-shadow: #111 0 2px 3px;
-
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#007db9e8', endColorstr='#1e5799',GradientType=0 );
 }
 
 /* -- page faq ------------------------------------------------------------------- */
@@ -466,6 +483,76 @@ select:-webkit-autofill
     background-color: #cc5757;
 }
 
+/* -- Purchase modal popup -------------------------------------- */
+.team-modal
+{
+    background: -webkit-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+    background:    -moz-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+    background:      -o-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+    background:         linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+}
+.team-modal .modal-header
+{
+    /*background: linear-gradient(32deg, #ff4137, #fdc800);*/
+    border-bottom: 1px solid #eee;
+}
+.team-modal .modal-header .modal-title
+{
+    font-weight: 700;
+}
+.team-modal .modal-content
+{
+    border-radius: .35rem;
+}
+.team-modal .modal-content form
+{
+    width: 100%;
+}
+.team-modal .modal-content form p
+{
+    font-size: 1.0rem;
+}
+.team-modal .modal-content form label
+{
+    color: #7d7d7d;
+}
+.team-modal .modal-content form .note
+{
+    font-size: .8rem;
+}
+.team-modal .modal-content form .right-content
+{
+    font-size: .8rem;
+}
+.team-modal .modal-content form .alert .sub-title,
+.team-modal .modal-content form .alert .swap-box
+{
+    text-align: center;
+}
+.team-modal .modal-content form .form-control
+{
+    font-size: 1rem;
+    line-height: 1.5;
+
+    display: block;
+
+    padding: .8rem 1.5rem;
+
+    -webkit-transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+       -moz-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+         -o-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            transition: border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+}
+
 /* -- Responsiveness -------------------------------------- */
 @media (max-width: 575.98px)
 {
@@ -481,13 +568,13 @@ select:-webkit-autofill
     }
     .head-area .head-content h1
     {
-        font-size: 1.2rem;
-        line-height: 1.8rem;
+        font-size: 1.0rem;
+        line-height: 1.4rem;
     }
     .head-area .head-content h3
     {
-        font-size: .9rem;
-        line-height: 1.4rem; 
+        font-size: .7rem;
+        line-height: 1.0rem; 
 
         margin-top: 2rem !important;
     }
@@ -496,6 +583,11 @@ select:-webkit-autofill
         font-size: .8rem; 
 
         padding: .8rem !important;
+    }
+    .head-area #svg-animation
+    {
+        margin-right: 10%; 
+        margin-left: 10%;
     }
     .section-padding
     {
@@ -552,16 +644,6 @@ select:-webkit-autofill
         margin-bottom: 3rem; 
 
         text-align: center;
-    }
-    .token-distribution .token-img
-    {
-        margin-bottom: 3rem; 
-
-        text-align: center;
-    }
-    .token-sale:before
-    {
-        content: none;
     }
     .roadmap .timestamp.active span:after
     {
@@ -698,6 +780,80 @@ select:-webkit-autofill
     }
 }
 
+@media (min-width: 576px) and (max-width: 767.98px)
+{
+    .token-distribution .token-img
+    {
+        margin-bottom: 30rem;
+    }
+    .token-distribution .token-img img
+    {
+        width: 540px;
+    }
+    #sales-pie-labels-crowdsale
+    {
+        top: 115px;
+        left: 119px;
+    }
+    #sales-pie-labels-team
+    {
+        top: 261px;
+        left: 440px;
+    }
+    #sales-pie-labels-airdrop
+    {
+        top: 343px;
+        left: 395px;
+    }
+    #sales-pie-labels-advisors
+    {
+        top: 393px;
+        left: 321px;
+    }
+    #sales-pie-labels-marketing
+    {
+        top: 424px;
+        left: 222px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px)
+{
+    .token-distribution .token-img
+    {
+        margin-bottom: 39rem;
+    }
+    .token-distribution .token-img img
+    {
+        width: 690px;
+    }
+    #sales-pie-labels-crowdsale
+    {
+        top: 158px;
+        left: 158px;
+    }
+    #sales-pie-labels-team
+    {
+        top: 348px;
+        left: 552px;
+    }
+    #sales-pie-labels-airdrop
+    {
+        top: 440px;
+        left: 486px;
+    }
+    #sales-pie-labels-advisors
+    {
+        top: 495px;
+        left: 400px;
+    }
+    #sales-pie-labels-marketing
+    {
+        top: 532px;
+        left: 297px;
+    }
+}
+
 @media (min-width: 768px)
 {
     /* -- problems & solutions ---------------------------- */
@@ -713,11 +869,15 @@ select:-webkit-autofill
     }
     .problems-img-inline
     {
-        margin-bottom: 1rem; 
+        float: right; 
+
+        margin-bottom: 1rem;
         margin-left: 1rem;
     }
     .solutions-img-inline
     {
+        float: left; 
+
         margin-right: 1rem;
         margin-bottom: 1rem;
     }
@@ -734,6 +894,39 @@ select:-webkit-autofill
     {
         left: -1px !important;
     }
+    .token-distribution .token-img
+    {
+        margin-bottom: 7rem;
+    }
+    .token-distribution .token-img img
+    {
+        width: 419px;
+    }
+    #sales-pie-labels-crowdsale
+    {
+        top: 95px;
+        left: 89px;
+    }
+    #sales-pie-labels-team
+    {
+        top: 210px;
+        left: 362px;
+    }
+    #sales-pie-labels-airdrop
+    {
+        top: 272px;
+        left: 321px;
+    }
+    #sales-pie-labels-advisors
+    {
+        top: 320px;
+        left: 261px;
+    }
+    #sales-pie-labels-marketing
+    {
+        top: 350px;
+        left: 177px;
+    }
 }
 
 @media (min-width: 992px)
@@ -743,6 +936,43 @@ select:-webkit-autofill
     p.solution-align2
     {
         margin-left: 17rem;
+    }
+}
+
+@media (min-width: 1200px)
+{
+    .token-distribution .token-img
+    {
+        margin-bottom: 0rem;
+    }
+    .token-distribution .token-img img
+    {
+        width: 509px;
+    }
+    #sales-pie-labels-crowdsale
+    {
+        top: 115px;
+        left: 109px;
+    }
+    #sales-pie-labels-team
+    {
+        top: 242px;
+        left: 409px;
+    }
+    #sales-pie-labels-airdrop
+    {
+        top: 321px;
+        left: 367px;
+    }
+    #sales-pie-labels-advisors
+    {
+        top: 378px;
+        left: 299px;
+    }
+    #sales-pie-labels-marketing
+    {
+        top: 402px;
+        left: 204px;
     }
 }
 

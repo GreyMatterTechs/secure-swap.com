@@ -67,7 +67,8 @@
 		var	coinMarketCapUSD = 477;
 		var tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
 		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
-		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal;
+		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet;
+		var purchaseboxLegal = false;
 
 		// --- private methods
 
@@ -101,6 +102,40 @@
 					'</div>' +
 					'</div>'
 			});
+		}
+
+		function buildPurchaseBoxContent() {
+			var html = null;
+			switch (icoState) {
+			case 1:
+				html = $.i18n('purchasebox.preico.intro', moment(dateStart).format('LL'));
+				break;
+			case 2:
+				break;
+			case 3:
+				html = $.i18n('purchasebox.postico.intro');
+				break;
+			}
+			// html = messageBoxReplace(html, params);
+			return html;
+		}
+
+		function updatePurchaseBoxContent() {
+			var $box = $('#purchase-modal');
+			if ($box.length === 1) {
+				var html = buildPurchaseBoxContent();
+				if (html) {
+					$box.find('.modal-body').html(html);
+				}
+			}
+		}
+
+		function closePurchaseBox() {
+			var $box = $('#purchase-modal');
+			if ($box.length === 1) {
+			//	$box.find('.modal-body').html('');
+				$box.removeClass('open');
+			}
 		}
 
 		function refreshTokenPrices() {
@@ -143,8 +178,9 @@
 			$('.ico-ended').hide();
 //			$('.loading-bar').css('margin-top', '0');
 			// refresh translations
-			$('#btn-purchase-sale').addClass('disabled');
+		//	$('#btn-purchase-sale').addClass('disabled');
 			updateTokenSalesArea();
+			updatePurchaseBoxContent(ico.state);
 		}
 		function setStateICO(ico) {
 			// set timer to remaining time until ICO ends
@@ -153,8 +189,9 @@
 			$('.ico-ended').hide();
 //			$('.loading-bar').css('margin-top', '0');
 			// refresh translations
-			$('#btn-purchase-sale').removeClass('disabled');
+		//	$('#btn-purchase-sale').removeClass('disabled');
 			updateTokenSalesArea();
+			updatePurchaseBoxContent(ico.state);
 		}
 		function setStateEndICO(ico) {
 			// remove flipclock
@@ -163,8 +200,9 @@
 			$('.ico-ended').show();
 //			$('.loading-bar').css('margin-top', '10rem');
 			// refresh translations
-			$('#btn-purchase-sale').addClass('disabled');
+		//	$('#btn-purchase-sale').addClass('disabled');
 			updateTokenSalesArea();
+			updatePurchaseBoxContent(ico.state);
 		}
 
 		function updateICO() {
@@ -177,6 +215,7 @@
 						dateEnd				= ico.dateEnd;
 						dateStart			= ico.dateStart;
 						tokensTotal			= ico.tokensTotal;
+						wallet				= ico.wallet;
 						if (ico.state !== icoState) {
 							icoState = ico.state;
 							switch (ico.state) {
@@ -288,7 +327,7 @@
 				//--------------------------------------------------------------------------------------------------------------
 
 				/* On button click, Smooth Scrolling */
-				$('.head-content a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
+				$('.head-content a[href*="#"]').not('[href="#"]').not('[href="#0"]').unbind('click').bind('click', function(event) {
 					if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
 						var target = $(this.hash);
 						target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
@@ -309,6 +348,59 @@
 						}
 					}
 				});
+				/*
+				$('#purchase-modal').off('click').on('click', '#legal-submit', function(e) {
+					// $('#kyc').toggleClass('section-2-box');
+					$('.section-1').hide();
+					$('.section-2').show();
+					event.preventDefault();
+					purchaseboxLegal = true;
+					//updatePurchaseBoxContent();
+				});
+				*/
+				$('#purchase-modal').on('show.bs.modal', function() {
+					updatePurchaseBoxContent();
+				});
+
+				// Fetch all the forms we want to apply custom Bootstrap validation styles to
+				var forms = document.getElementsByClassName('legal-form');
+				// Loop over them and prevent submission
+				var validation = Array.prototype.filter.call(forms, function(form) {
+					form.addEventListener('submit', function(event) {
+						if (form.checkValidity() === false) {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+						form.classList.add('was-validated');
+						$('.section-1').hide();
+						$('.section-2').show();
+						event.preventDefault();
+						purchaseboxLegal = true;
+					}, false);
+				});
+
+				function myFunctionCopy() {
+					/* Get the text field */
+					var copyText = document.getElementById('SSW');
+					/* Select the text field */
+					copyText.select();
+					/* Copy the text inside the text field */
+					document.execCommand('Copy');
+					/* Alert the copied text */
+					alert('Copied the text: ' + copyText.value);
+				}
+
+				var currencyFrom = $('.currencyValueFrom');
+				var currencyTo = $('.currencyValueTo');
+				currencyFrom.on('input', function() {
+					var amount = $(this).val();
+					currencyTo.val(amount * coinMarketCapUSD / tokenPriceUSD);
+				});
+				currencyTo.on('input', function() {
+					var amount = $(this).val();
+					currencyFrom.val(amount * tokenPriceUSD / coinMarketCapUSD);
+				});
+
 
 				//--------------------------------------------------------------------------------------------------------------
 				// FlipClock Counter

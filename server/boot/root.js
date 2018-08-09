@@ -105,6 +105,7 @@ module.exports = function(server) {
 	router.get('/', function(req, res) {
 		res.render('index', {
 			appName: config.appName,
+			tokenName: config.tokenName,
 			err: null
 		});
 	});
