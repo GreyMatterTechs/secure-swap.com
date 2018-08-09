@@ -107,7 +107,7 @@ function isString(val) {
  * @return {Boolean} true if the val is a Date
  */
 function isDate(val) { // 2018-07-08T20:37:22.102Z
-	return moment(val, moment.ISO_8601, true).isValid();
+	return moment(val).isValid();
 }
 
 /**
@@ -274,15 +274,15 @@ module.exports = function(ICO) {
 		if (params.tokensTotal)		{ if (!isInteger(params.tokensTotal) || params.tokensTotal < 0)				return cb(e2, null); }
 		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					return cb(e2, null); }
 		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				return cb(e2, null); }
-		if (params.dateStart)		{ if (!isString(params.dateStart) || !isDate(params.dateStart))				return cb(e2, null); }
-		if (params.dateEnd)			{ if (!isString(params.dateEnd) || !isDate(params.dateEnd))					return cb(e2, null); }
+		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))				return cb(e2, null); }
+		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))					return cb(e2, null); }
 		if (params.dateStart && params.dateEnd) {
-			var start = moment(params.dateStart, moment.ISO_8601, true);
-			var end = moment(params.dateEnd, moment.ISO_8601, true);
+			var start = moment(params.dateStart);
+			var end = moment(params.dateEnd);
 			var now = moment();
 			if (end.isBefore(start)) return cb(e2, null);
-			if (start.isBefore(now)) return cb(e2, null);
-			if (end.isBefore(now)) return cb(e2, null);
+//			if (start.isBefore(now)) return cb(e2, null);
+//			if (end.isBefore(now)) return cb(e2, null);
 		}
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
