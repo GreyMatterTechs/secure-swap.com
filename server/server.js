@@ -1,15 +1,33 @@
+/**
+ * Module for Express HTTP Server.
+ *
+ * @module server
+ * @file   This file defines the server module.
+ *
+ * @author Philippe Aubessard
+ * Copyright Grey Matter Technologies, 2018. All Rights Reserved.
+ */
+
 'use strict';
+
+// ------------------------------------------------------------------------------------------------------
+// globals
+// ------------------------------------------------------------------------------------------------------
 
 global.reqlocal		= require('app-root-path').require;
 
-var loopback		= require('loopback');
-var boot			= require('loopback-boot');
-var path			= require('path');
-var helmet			= require('helmet');
-var cookieParser	= require('cookie-parser');
-var bodyParser		= require('body-parser');
-var logger			= reqlocal('/server/boot/winston.js').logger;
-var config			= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
+
+const loopback		= require('loopback');
+const boot			= require('loopback-boot');
+const path			= require('path');
+const helmet		= require('helmet');
+const cookieParser	= require('cookie-parser');
+const bodyParser	= require('body-parser');
+const logger		= reqlocal('/server/boot/winston.js').logger;
+const config		= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
 
 // $$$ TODO : etudier tous ces liens pour le login :
@@ -27,8 +45,15 @@ var config			= require(path.join(__dirname, 'config' + (process.env.NODE_ENV ===
 // https://github.com/strongloop/loopback-example-user-management
 // test
 
+// ------------------------------------------------------------------------------------------------------
+// Local Vars
+// ------------------------------------------------------------------------------------------------------
 
 var app = module.exports = loopback();
+
+// ------------------------------------------------------------------------------------------------------
+// Main program
+// ------------------------------------------------------------------------------------------------------
 
 // configure view handler
 app.set('view engine', 'ejs');

@@ -1,18 +1,20 @@
 /**
- * Landpage.js
  * App for SecureSwap ICO website.
  *
- * Includes all of the following: Tools.js, I18n.js
- *
+ * @requires	Include all of the following: Tools.js, I18n.js
+ * @file		Landpage.js
  * @version:	1.0.0
- * @author:		Philippe Aubessard, philippe@aubessard.net
- * @url         http://secureswap.com
- * @license:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
+ * @author:		Philippe Aubessard
+ * @link        http://secureswap.com
+ * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
  * @namespace:	ss_ico
- *
  */
+
 'use strict';
 
+/**
+ * 
+ */
 (function(window, undefined) {
 
 	window.ss_ico = window.ss_ico || {};	// NameSpace
@@ -151,7 +153,7 @@
 			case 2:	$('#tokensale-title').text($.i18n('tokensale-area.info.ends'));		break;
 			case 3:	$('#tokensale-title').text($.i18n('tokensale-area.info.ended'));	break;
 			}
-			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent));
+			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent + (purchaseSoldPercent * 0.25)));
 			$('#token-sale-mobile-app div.progress > div').css('width', purchaseSoldPercent + '%');
 			refreshTokenPrices();
 			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));

@@ -1,14 +1,32 @@
+/**
+ * Module for Admin database table related features.
+ *
+ * @module Admin
+ * @file   This file defines the Admin module.
+ *
+ * @author Philippe Aubessard
+ * @copyright Grey Matter Technologies, 2018. All Rights Reserved.
+ */
+
 'use strict';
 
-var path		= require('path');
-var async		= require('async');
-var passGen		= require('password-generator');
-var uuidV1		= require('uuid/v1');
-var g			= require('../../node_modules/loopback/lib/globalize');
-var loopback	= require('../../node_modules/loopback/lib/loopback');
-var utils		= require('../../node_modules/loopback/lib/utils');
-var config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-var logger		= reqlocal('/server/boot/winston.js').logger;
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
+
+const path		= require('path');
+const async		= require('async');
+const passGen	= require('password-generator');
+const uuidV1	= require('uuid/v1');
+const g			= require('../../node_modules/loopback/lib/globalize');
+const loopback	= require('../../node_modules/loopback/lib/loopback');
+const utils		= require('../../node_modules/loopback/lib/utils');
+const config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger	= reqlocal('/server/boot/winston.js').logger;
+
+// ------------------------------------------------------------------------------------------------------
+// Local Vars
+// ------------------------------------------------------------------------------------------------------
 
 var bcrypt;
 try {
@@ -23,14 +41,17 @@ try {
 	bcrypt = require('bcryptjs');
 }
 
-var SALT_WORK_FACTOR = 10;
-var MAX_PASSWORD_LENGTH = 72;
-var HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
-var DAY_IN_MILLISECONDS = HOUR_IN_MILLISECONDS * 24;
-var MONTH_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 30; 
-var YEAR_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 365;
+const SALT_WORK_FACTOR		= 10;
+const MAX_PASSWORD_LENGTH	= 72;
+const HOUR_IN_MILLISECONDS	= 1000 * 60 * 60;
+const DAY_IN_MILLISECONDS	= HOUR_IN_MILLISECONDS * 24;
+const MONTH_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 30; 
+const YEAR_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 365;
 
 
+// ------------------------------------------------------------------------------------------------------
+// Private Methods
+// ------------------------------------------------------------------------------------------------------
 
 function makeOptions() {
 	var options			= {};
@@ -86,7 +107,17 @@ function getUser(tokenId, thisUser, cb) {
 }
 
 
+// ------------------------------------------------------------------------------------------------------
+// Exports
+// ------------------------------------------------------------------------------------------------------
 
+/**
+ * Module export
+ *
+ * @public
+ * @param {Object} Admin Model
+ * @api public
+ */
 module.exports = function (Admin) {
 
 	

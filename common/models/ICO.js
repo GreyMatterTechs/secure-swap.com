@@ -1,22 +1,47 @@
+/**
+ * Module for ICO database table related features.
+ *
+ * @module		ICO
+ * @file		This file defines the ICO module.
+ * @author		Philippe Aubessard
+ * @link        http://secureswap.com
+ * @copyright	Copyright (c) 2018, GreyMatterTechs.com. All Rights Reserved.
+ */
+
 'use strict';
 
-var path		= require('path');
-var debug		= require('debug')('ss_ico:ico');
-var config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-var g			= require('../../node_modules/loopback/lib/globalize');
-var app			= require('../../server/server');
-var CryptoJS	= require('crypto-js');
-var sha3		= require('crypto-js/sha3');
-var moment		= require('moment');
-var logger		= reqlocal('/server/boot/winston.js').logger;
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
+
+const path		= require('path');
+const debug		= require('debug')('ss_ico:ico');
+const config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const g			= require('../../node_modules/loopback/lib/globalize');
+const app		= require('../../server/server');
+const CryptoJS	= require('crypto-js');
+const sha3		= require('crypto-js/sha3');
+const moment	= require('moment');
+const logger	= reqlocal('/server/boot/winston.js').logger;
+
+
+// ------------------------------------------------------------------------------------------------------
+// Local Vars
+// ------------------------------------------------------------------------------------------------------
+
+
+// ------------------------------------------------------------------------------------------------------
+// Private Methods
+// ------------------------------------------------------------------------------------------------------
 
 /**
  * Checks if the given string is an ETH address
  *
  * @method isETHAddress
  * @private
- * @param {String} address the given HEX adress
- * @return {Boolean}
+ * @param  {String} address The given HEX adress
+ *
+ * @return {Boolean} True if address is an ETH address
 */
 function isETHAddress(address) {
 	if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) { // check if it has the basic requirements of an address
@@ -26,15 +51,16 @@ function isETHAddress(address) {
 	} else { // Otherwise check each case
 		return isChecksumAddress(address);
 	}
-};
+}
 
 /**
  * Checks if the given string is a checksummed address
  *
  * @method isChecksumAddress
  * @private
- * @param {String} address the given HEX adress
- * @return {Boolean}
+ * @param {String} address The given HEX adress
+ *
+ * @return {Boolean} True if address is a checksummed address
 */
 function isChecksumAddress(address) {
 	// Check each case
@@ -47,15 +73,16 @@ function isChecksumAddress(address) {
 		}
 	}
 	return true;
-};
+}
 
 /**
  * Check if val is a Number
  *
  * @method isNumber
  * @private
- * @param {String} val
- * @return {Boolean} true if the val is a Number
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is a Number
  */
 function isNumber(val) {
 	return isFloat(val) || isInteger(val);
@@ -66,8 +93,9 @@ function isNumber(val) {
  *
  * @method isFloat
  * @private
- * @param {String} val
- * @return {Boolean} true if the val is a Float
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is a Float
  */
 function isFloat(val) {
 	return !isNaN(val) && val.toString().indexOf('.') !== -1;
@@ -78,8 +106,9 @@ function isFloat(val) {
  *
  * @method isInteger
  * @private
- * @param {String} val
- * @return {Boolean} true if the val is an Integer
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is an Integer
  */
 function isInteger(val) {
 	return !isNaN(val) && val.toString().indexOf('.') === -1;
@@ -90,8 +119,9 @@ function isInteger(val) {
  *
  * @method isString
  * @private
- * @param {String} val
- * @return {Boolean} true if the val is a String
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is a String
  */
 function isString(val) {
 	return Object.prototype.toString.call(val) === '[object String]';
@@ -103,11 +133,12 @@ function isString(val) {
  *
  * @method isDate
  * @private
- * @param {String} val
- * @return {Boolean} true if the val is a Date
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is a Date
  */
-function isDate(val) { // 2018-07-08T20:37:22.102Z
-	return moment(val, moment.ISO_8601, true).isValid();
+function isDate(val) { // 2018-07-08T20:37:22.102Z or Timestamp
+	return moment(val).isValid();
 }
 
 /**
@@ -115,10 +146,10 @@ function isDate(val) { // 2018-07-08T20:37:22.102Z
  *
  * @method checkToken
  * @private
- * @param {String} tokenId token id got from call to /login
- * @callback {Function} cb Callback function
- * @param {Error} err Error information
- * @param {Boolean} granted if true, access token granted
+ * @param    {String}   tokenId The token ID got from call to /login
+ * @callback {Function} cb      Callback function
+ * @param    {Error}    err     Error information
+ * @param    {Boolean}  granted True if access is granted
  */
 function checkToken(tokenId, cb) {
 	var mAdmin = app.models.Admin;
@@ -155,10 +186,10 @@ function checkToken(tokenId, cb) {
  *
  * @method getICO
  * @private
- * @param {Number} icoId id of the ICO database record (should be 1)
- * @callback {Function} cb Callback function
- * @param {Error} err Error information
- * @return {Object} ico ICO record from database
+ * @param    {Number}   icoId The ID of the ICO database record (should be 1)
+ * @callback {Function} cb    Callback function
+ * @param    {Error}    err   Error information
+ * @return   {Object}   ico   The ICO record from database
  */
 function getICO(icoId, cb) {
 	var mICO = app.models.ICO;
@@ -173,6 +204,17 @@ function getICO(icoId, cb) {
 }
 
 
+// ------------------------------------------------------------------------------------------------------
+// Exports
+// ------------------------------------------------------------------------------------------------------
+
+/**
+ * Module export
+ *
+ * @public
+ * @param {Object} ICO Model
+ * @api public
+ */
 module.exports = function(ICO) {
 
 	ICO.validatesInclusionOf('state', {in: [1, 2, 3]});
@@ -202,9 +244,9 @@ module.exports = function(ICO) {
 	 *
 	 * @method getICOData
 	 * @public
-	 * @callback {Function} cb Callback function
- 	 * @param {Error} err Error information
- 	 * @return {Object} ico ICO record from database
+	 * @callback {Function} cb  Callback function
+ 	 * @param    {Error}    err Error information
+	 * @return   {Object}   ico The ICO record from database
 	 */
 	ICO.getICOData = function(cb) {
 		getICO(1, function(err, ico) {
@@ -219,9 +261,9 @@ module.exports = function(ICO) {
 	 *
 	 * @method getPurchase
 	 * @public
-	 * @callback {Function} cb Callback function
- 	 * @param {Error} err Error information
-	 * @return {Object} purchase data
+	 * @callback {Function} cb       Callback function
+ 	 * @param    {Error}    err      Error information
+	 * @return   {Object}   purchase Purchase data
 	 */
 	ICO.getPurchase = function(cb) {
 		getICO(1, function(err, ico) {
@@ -252,10 +294,10 @@ module.exports = function(ICO) {
 	 *
 	 * @method setParams
 	 * @public
-	 * @param {String} tokenId token id got from call to /login
-	 * @param {Object} params ICO's parameters
-	 * @callback {Function} cb Callback function
- 	 * @param {Error} err Error information
+	 * @param    {String}   tokenId The token ID got from call to /login
+	 * @param    {Object}   params  ICO's parameters
+	 * @callback {Function} cb      Callback function
+	 * @param    {Error}    err     Error information
 	 */
 	ICO.setParams = function(tokenId, params, cb) {
 		var e = new Error(g.f('Invalid Access Token'));
@@ -316,10 +358,11 @@ module.exports = function(ICO) {
 	 *
 	 * @method setState
 	 * @public
-	 * @param {String} tokenId token id got from call to /login
-	 * @param {Object} params ICO's state (1=preICO, 2=ICO, 3=ICO ended)
-	 * @callback {Function} cb Callback function
- 	 * @param {Error} err Error information
+	 * @param    {String}   tokenId      The token ID got from call to /login
+	 * @param    {Object}   params       Parameters
+	 * @param    {Number}   params.state ICO's state (1=preICO, 2=ICO, 3=ICO ended)
+	 * @callback {Function} cb           Callback function
+ 	 * @param    {Error}    err          Error information
 	 */
 	ICO.setState = function(tokenId, params, cb) {
 		var e = new Error(g.f('Invalid Access Token'));
@@ -350,10 +393,10 @@ module.exports = function(ICO) {
 	 *
 	 * @method setReceivedEth
 	 * @public
-	 * @param {String} tokenId token id got from call to /login
-	 * @param {Object} params Purchase's parameters
-	 * @callback {Function} cb Callback function
- 	 * @param {Error} err Error information
+	 * @param    {String}   tokenId The token ID got from call to /login
+	 * @param    {Object}   params  Purchase's parameters
+	 * @callback {Function} cb      Callback function
+ 	 * @param    {Error}    err     Error information
 	 */
 	ICO.setReceivedEth = function(tokenId, params, cb) {
 		var e = new Error(g.f('Invalid Access Token'));

@@ -1,11 +1,36 @@
+/**
+ * Module for i18N database table related features.
+ *
+ * @module i18N
+ * @file   This file defines the i18N module.
+ *
+ * @author Philippe Aubessard
+ * @copyright Grey Matter Technologies, 2018. All Rights Reserved.
+ */
+
 'use strict';
 
-var path	= require('path');
-var fs		= require('fs');
-var config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-var logger	= reqlocal('/server/boot/winston.js').logger;
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
+
+const path		= require('path');
+const fs		= require('fs');
+const config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger	= reqlocal('/server/boot/winston.js').logger;
 
 
+// ------------------------------------------------------------------------------------------------------
+// Exports
+// ------------------------------------------------------------------------------------------------------
+
+/**
+ * Module export
+ *
+ * @public
+ * @param {Object} I18n Model
+ * @api public
+ */
 module.exports = function(I18n) {
 
 	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
@@ -33,9 +58,9 @@ module.exports = function(I18n) {
 	 *
 	 * @method getSupportedLanguages
 	 * @public
-	 * @callback {Function} cb Callback function
- 	 * @param {Error} err Error information
- 	 * @return {Object} items Array of languages names
+	 * @callback {Function} cb    Callback function
+ 	 * @param    {Error}    err   Error information
+ 	 * @return   {Object}   items Array of languages names
 	 */
 	I18n.getSupportedLanguages = function(cb) {
 		fs.readdir('client/assets/i18n', function (err, items) {

@@ -1,10 +1,28 @@
+/**
+ * Module for database initialisation.
+ *
+ * @module CreateSampleModels
+ * @file   This file defines the CreateSampleModels module.
+ *
+ * @author Philippe Aubessard
+ * @copyright Grey Matter Technologies, 2018. All Rights Reserved.
+ */
+
 'use strict';
+
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
 
 const async		= require('async');
 const appRoot	= require('app-root-path');
 const path		= require('path');
 const config	= require(path.join(`${appRoot}`, 'server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const logger	= reqlocal('/server/boot/winston.js').logger;
+
+// ------------------------------------------------------------------------------------------------------
+// Local Vars
+// ------------------------------------------------------------------------------------------------------
 
 var db;
 var dbName;
@@ -13,27 +31,37 @@ var mICO;
 var mRole;
 var mRoleMapping;
 
-var HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
-var DAY_IN_MILLISECONDS = HOUR_IN_MILLISECONDS * 24;
-var MONTH_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 30; 
-var YEAR_IN_MILLISECONDS = DAY_IN_MILLISECONDS * 365;
+const HOUR_IN_MILLISECONDS	= 1000 * 60 * 60;
+const DAY_IN_MILLISECONDS	= HOUR_IN_MILLISECONDS * 24;
+const MONTH_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 30; 
+const YEAR_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 365;
 
 var hour = 1;
 
 
+// ------------------------------------------------------------------------------------------------------
+// Private Methods
+// ------------------------------------------------------------------------------------------------------
 
 function updateRole(cb) {
-	mRole.find({where: {name: 'admin'}}, function(err, roles) {
-		if (err) return cb(err);
-		if (roles && roles.length === 1) return cb(null, roles[0]);
-		mRole.create({
-			name: 'admin'
-		 }, function(err, role) {
-			if (err) return cb(err);
-			return cb(null, role);
+	var roles = ['admin', 'developer', 'animator', 'node'];
+	async.forEachOf(roles, function(value, key, callback) {
+		mRole.find({where: {name: value}}, function(err, roles) {
+			if (err) return callback(err);
+			if (roles && roles.length === 1) return callback();
+			mRole.create({
+				name: value
+			 }, function(err, role) {
+				if (err) return callback(err);
+				return callback();
+			});
 		});
+	}, function(err) {
+		if (err) return cb(err);
+		return cb();
 	});
 }
+
 
 function updateICO(cb) {
 
@@ -72,25 +100,30 @@ function updateICO(cb) {
 
 function updateAdmins(cb) {
 
-	function createRole(user, cb) {
-		mRole.find({where: {name: 'admin'}}, function(err, roles) {
-			if (err) return cb(err);
-			if (roles && roles.length === 1) {
-				var mPrincipals = roles[0].principals;
-				mPrincipals.find({where: {principalId: user.id}}, function(err, principals) {
-					if (err) return cb(err);
-					if (principals && principals.length === 1) return cb(null, principals[0]);
-					mPrincipals.create({
-						principalType: mRoleMapping.USER,
-						principalId: user.id
-					}, function(err, principal) {
-						if (err) return cb(err);
-						return cb(null, principal);
+	function createRoles(user, roles, cb) {
+		async.forEachOf(roles, function(role, key, callback) {
+			mRole.find({where: {name: role}}, function(err, roles) {
+				if (err) return callback(err);
+				if (roles && roles.length === 1) {
+					var mPrincipals = roles[0].principals;
+					mPrincipals.find({where: {principalId: user.id}}, function(err, principals) {
+						if (err) return callback(err);
+						if (principals && principals.length === 1) return callback();
+						mPrincipals.create({
+							principalType: mRoleMapping.USER,
+							principalId: user.id
+						}, function(err, principal) {
+							if (err) return callback(err);
+							return callback();
+						});
 					});
-				});
-			} else {
-				return cb('Can\'t find Role admin');
-			}
+				} else {
+					return callback('Can\'t find Role admin');
+				}
+			});
+		}, function(err) {
+			if (err) return cb(err);
+			return cb();
 		});
 	}
 
@@ -99,14 +132,14 @@ function updateAdmins(cb) {
 			mAdmin.findOne({where: {email: account.userdata.email}}, function(err, inst) {
 				if (err) return reject(err);
 				if (inst) {
-					createRole(inst, function(err, principal) {
+					createRoles(inst, account.userdata.roles, function(err, principal) {
 						if (err) return reject(err);
 						return resolve(inst);
-					});	
+					});
 				} else {
 					mAdmin.create(account.userdata, function(err, user) {
 						if (err) return reject(err);
-						createRole(user, function(err, principal) {
+						createRoles(user, account.userdata.roles, function(err, principal) {
 							if (err) return reject(err);
 							return resolve(user);
 						});	
@@ -115,14 +148,14 @@ function updateAdmins(cb) {
 			});
 		}.bind(null, account));
 	}
-	
+
 	function addUsers(accounts) {
 		var now = new Date().getTime();
 		for (var d = 0; d < accounts.length; d++) {
 			var account = accounts[d];
 			account.userdata.dateCreated = account.userdata.dateLastUpdated = account.userdata.dateLastVisit = now;
 			account.userdata.updatedBy = 'installer';
-		}	
+		}
 		var promises = [];
 		for (var i = 0; i < accounts.length; i++) {
 			promises.push(findOrCreate(accounts[i]));
@@ -136,39 +169,41 @@ function updateAdmins(cb) {
 	}
 
 	addUsers([{
-			userdata: {
-				username: 'Aubessard',
-				password: 'p',
-				email: 'philippe@greymattertechs.com',
-				active: true,
-				accessVerified: true,
-				verificationToken: null,
-				emailVerified: true,
-				onlineStatus: 'offline'
-			}
-		}, {
-			userdata: {
-				username: 'Saffray',
-				password: 'a',
-				email: 'alain@greymattertechs.com',	
-				active: true,
-				accessVerified: true,
-				verificationToken: null,
-				emailVerified: true,
-				onlineStatus: 'offline'
-			}
-		}, {
-			userdata: {
-				username: 'sswp',
-				password: 's',
-				email: 'sswp@greymattertechs.com',
-				active: true,
-				accessVerified: true,
-				verificationToken: null,
-				emailVerified: true
-			}
+		userdata: {
+			username: 'Aubessard',
+			password: 'p',
+			email: 'philippe@greymattertechs.com',
+			active: true,
+			accessVerified: true,
+			verificationToken: null,
+			emailVerified: true,
+			onlineStatus: 'offline',
+			roles: ['admin', 'animator', 'developer']
 		}
-	]);
+	}, {
+		userdata: {
+			username: 'Saffray',
+			password: 'a',
+			email: 'alain@greymattertechs.com',	
+			active: true,
+			accessVerified: true,
+			verificationToken: null,
+			emailVerified: true,
+			onlineStatus: 'offline',
+			roles: ['admin', 'animator', 'developer']
+		}
+	}, {
+		userdata: {
+			username: 'sswp',
+			password: 's',
+			email: 'sswp@greymattertechs.com',
+			active: true,
+			accessVerified: true,
+			verificationToken: null,
+			emailVerified: true,
+			roles: ['node']
+		}
+	}]);
 }
 
 function create(db, lbMigrateTables) {
@@ -182,17 +217,26 @@ function update(db, lbUpdateTables) {
 	db.autoupdate(lbUpdateTables, function(err) {
 		if (err) throw err;
 		logger.info('Loopback tables [' + lbUpdateTables + '] created in "' + dbName + '" database');
-		//create all models
+		// create all models
 
-		async.series([updateRole, updateICO, updateAdmins],
-			function(err, result) {
-				if (err) throw err;
-				logger.info('> tables updated sucessfully');
-			}
-		);
-	});	
+		async.series([updateRole, updateICO, updateAdmins], function(err, result) {
+			if (err) throw err;
+			logger.info('> tables updated sucessfully');
+		});
+	});
 }
 
+// ------------------------------------------------------------------------------------------------------
+// Exports
+// ------------------------------------------------------------------------------------------------------
+
+/**
+ * Module export
+ *
+ * @public
+ * @param {Object} app Express App
+ * @api public
+ */
 module.exports = function (app) {
 
 	db = app.dataSources.db;

@@ -1,13 +1,31 @@
+/**
+ * Module for Contact database table related features.
+ *
+ * @module Contact
+ * @file   This file defines the Contact module.
+ *
+ * @author Philippe Aubessard
+ * @copyright Grey Matter Technologies, 2018. All Rights Reserved.
+ */
+
 'use strict';
 
-var path		= require('path');
-var config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-var datasources	= require(path.join(__dirname, '../../server/datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-var loopback	= require('../../node_modules/loopback/lib/loopback');
-var validator	= require('validator');
-var xssFilters	= require('xss-filters');
-var app			= require('../../server/server');
-var logger		= reqlocal('/server/boot/winston.js').logger;
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
+
+const path			= require('path');
+const config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const datasources	= require(path.join(__dirname, '../../server/datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const loopback		= require('../../node_modules/loopback/lib/loopback');
+const validator		= require('validator');
+const xssFilters	= require('xss-filters');
+const app			= require('../../server/server');
+const logger		= reqlocal('/server/boot/winston.js').logger;
+
+// ------------------------------------------------------------------------------------------------------
+// Private Methods
+// ------------------------------------------------------------------------------------------------------
 
 function sendMail(data, mEmail, cb) {
 
@@ -66,6 +84,17 @@ function sendMail(data, mEmail, cb) {
 	});
 }
 
+// ------------------------------------------------------------------------------------------------------
+// Exports
+// ------------------------------------------------------------------------------------------------------
+
+/**
+ * Module export
+ *
+ * @public
+ * @param {Object} Contact Model
+ * @api public
+ */
 module.exports = function(Contact) {
 
 	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html

@@ -138,7 +138,7 @@ $(window).on('load', function() {
 
 	// Initialize Swiper
 	var swiper = new Swiper('.swiper-container', {
-		slidesPerView: 5,
+		slidesPerView: 4,
 		grabCursor: true,
 		navigation: {
 			nextEl: '.next-slide',
