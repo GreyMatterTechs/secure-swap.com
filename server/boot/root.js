@@ -39,7 +39,7 @@ var mContact;
  * @method isString
  * @private
  * @param   {*}       val The string to check
- * 
+ *
  * @returns {Boolean} True if val is a String
  */
 function isString(val) {
@@ -53,7 +53,7 @@ function isString(val) {
  * @private
  * @param   {String} str     The String to shorten
  * @param   {Number} [len=5] Optional. Max length
- * 
+ *
  * @returns {String} The shortened string
  */
 function shorten(str, len) {

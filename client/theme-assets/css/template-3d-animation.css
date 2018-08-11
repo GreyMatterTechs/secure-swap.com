@@ -3099,8 +3099,13 @@ header .navbar.navbar-shadow
 {
     .navbar ul.navbar-nav li .nav-link
     {
-        padding-right: .55rem; 
-        padding-left: .55rem;
+        padding-right: .45rem; 
+        padding-left: .45rem;
+    }
+    .navbar .dropdown a
+    {
+        padding-right: .45rem; 
+        padding-left: .45rem;
     }
 }
 
@@ -3128,6 +3133,10 @@ header .navbar.navbar-shadow
     .main-menu.navbar div.navbar-nav .dropdown
     {
         padding: 0 !important;
+    }
+    .main-menu.navbar div.navbar-nav .dropdown a
+    {
+        padding: 0 .65rem;
     }
     .main-menu.navbar div.navbar-nav .nav-link
     {
@@ -5372,6 +5381,8 @@ p
     }
     .main-menu.navbar .dropdown-menu
     {
+        margin-top: 0rem; 
+
         background: #14387b;
         -webkit-box-shadow: none !important;
                 box-shadow: none !important;
@@ -5379,6 +5390,10 @@ p
     .main-menu.navbar .dropdown-menu a
     {
         color: #fff;
+    }
+    .navbar .dropdown .dropdown-menu a.dropdown-item
+    {
+        color: white;
     }
 }
 

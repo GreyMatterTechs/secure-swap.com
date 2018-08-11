@@ -710,12 +710,21 @@ p {
         .dropdown-menu {
             background: $section-gradient2;
             box-shadow: none !important;
-
+			margin-top: 0rem;
             a {
                 color: $white;
             }
         }
-    }
+	}
+	.navbar {
+		.dropdown {
+			.dropdown-menu {
+				a.dropdown-item {
+					color: white;
+				}
+			}
+		}
+	}
 }
 
 // Large devices (desktops, 992px and up)

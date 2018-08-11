@@ -150,9 +150,15 @@ header{
 
 /* Medium devices (tablets, 768px and up) */
 @include media-breakpoint-down(lg) {
-	.navbar ul.navbar-nav li .nav-link{
-		padding-left: 0.55rem;
-		padding-right: 0.55rem;
+	.navbar {
+		ul.navbar-nav li .nav-link {
+			padding-left: 0.45rem;
+			padding-right: 0.45rem;
+		}
+		.dropdown a {
+			padding-left: 0.45rem;
+			padding-right: 0.45rem;
+		}
 	}
 }
 
@@ -173,6 +179,9 @@ header{
 			padding: 1rem 1.5rem;
 			.dropdown {
 				padding: 0 !important;
+				a {
+					padding: 0px 0.65rem;
+				}
 			}
 			.nav-link {
 				padding: 0.40rem 0.65rem;
