@@ -165,6 +165,7 @@
 			var now = new Date();
 			var dif = Math.max(0, (date.getTime() - now.getTime()) / 1000);
 			if (clock) {
+				console.log('clock dif: ' + dif);
 				clock.stop();
 				clock.setTime(dif);
 				clock.start();
@@ -416,7 +417,7 @@
 					'minutes': '<span data-i18n="tokensale-area.flipclock.minutes"></span>',
 					'seconds': '<span data-i18n="tokensale-area.flipclock.seconds"></span>'
 				};
-				var countdown = 10 * 24 * 60 * 60;
+				var countdown = 100 * 24 * 60 * 60;
 				clock = $('.clock').FlipClock(countdown, {
 					clockFace: 'DailyCounter',
 					countdown: true,

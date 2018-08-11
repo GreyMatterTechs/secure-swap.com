@@ -190,7 +190,7 @@ header .navbar.navbar-fixed
 
 .clock-counter .flip-clock-divider.days .flip-clock-label
 {
-    right: -56px;
+    right: -81px;
 }
 
 .clock-counter .flip-clock-divider.hours .flip-clock-label
@@ -772,19 +772,19 @@ select:-webkit-autofill
     }
     .token-details .clock-counter .flip-clock-divider.days .flip-clock-label
     {
-        left: -20px;
+        left: 60px;
     }
     .token-details .clock-counter .flip-clock-divider.hours .flip-clock-label
     {
-        left: -8px;
+        left: 35px;
     }
     .token-details .clock-counter .flip-clock-divider.minutes .flip-clock-label
     {
-        left: -7px;
+        left: 32px;
     }
     .token-details .clock-counter .flip-clock-divider.seconds .flip-clock-label
     {
-        left: 0;
+        left: 28px;
     }
 }
 
