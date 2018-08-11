@@ -1,18 +1,20 @@
 /**
- * Landpage.js
  * App for SecureSwap ICO website.
  *
- * Includes all of the following: Tools.js, I18n.js
- *
+ * @requires	Include all of the following: Tools.js, I18n.js
+ * @file		Landpage.js
  * @version:	1.0.0
- * @author:		Philippe Aubessard, philippe@aubessard.net
- * @url         http://secureswap.com
- * @license:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
+ * @author:		Philippe Aubessard
+ * @link        http://secureswap.com
+ * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
  * @namespace:	ss_ico
- *
  */
+
 'use strict';
 
+/**
+ * 
+ */
 (function(window, undefined) {
 
 	window.ss_ico = window.ss_ico || {};	// NameSpace
@@ -104,28 +106,26 @@
 			});
 		}
 
-		function buildPurchaseBoxContent() {
-			var html = null;
-			switch (icoState) {
-			case 1:
-				html = $.i18n('purchasebox.preico.intro', moment(dateStart).format('LL'));
-				break;
-			case 2:
-				break;
-			case 3:
-				html = $.i18n('purchasebox.postico.intro');
-				break;
-			}
-			// html = messageBoxReplace(html, params);
-			return html;
-		}
-
 		function updatePurchaseBoxContent() {
 			var $box = $('#purchase-modal');
 			if ($box.length === 1) {
-				var html = buildPurchaseBoxContent();
-				if (html) {
-					$box.find('.modal-body').html(html);
+				switch (icoState) {
+				case 1:
+					$('#purchase-modal-state-preico').removeClass('d-none');
+					$('#purchase-modal-state-ico').addClass('d-none');
+					$('#purchase-modal-state-postico').addClass('d-none');
+					$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
+					break;
+				case 2:
+					$('#purchase-modal-state-preico').addClass('d-none');
+					$('#purchase-modal-state-ico').removeClass('d-none');
+					$('#purchase-modal-state-postico').addClass('d-none');
+					break;
+				case 3:
+					$('#purchase-modal-state-preico').addClass('d-none');
+					$('#purchase-modal-state-ico').addClass('d-none');
+					$('#purchase-modal-state-postico').removeClass('d-none');
+					break;
 				}
 			}
 		}
@@ -216,16 +216,16 @@
 						dateStart			= ico.dateStart;
 						tokensTotal			= ico.tokensTotal;
 						wallet				= ico.wallet;
-						if (ico.state !== icoState) {
+					//	if (ico.state !== icoState) {
 							icoState = ico.state;
 							switch (ico.state) {
 							case 1:	setStatePreICO(ico);	break;
 							case 2:	setStateICO(ico);		break;
 							case 3:	setStateEndICO(ico);	break;
 							}
-						} else {
-							updateTokenSalesArea();
-						}
+					//	} else {
+					//		updateTokenSalesArea();
+					//	}
 					}
 				})
 				.fail(function(err) {
@@ -265,11 +265,11 @@
 					if (purchase) {
 						notify(purchase.ethReceived);
 						purchaseSoldPercent	= Math.round(purchase.tokensSold * 100 / tokensTotal);
-						if (purchase.state !== icoState) {
+					//	if (purchase.state !== icoState) {
 							updateICO();
-						} else {
-							updateTokenSalesArea();
-						}
+					//	} else {
+					//		updateTokenSalesArea();
+					//	}
 					}
 				})
 				.fail(function(err) {
@@ -361,7 +361,8 @@
 				$('#purchase-modal').on('show.bs.modal', function() {
 					updatePurchaseBoxContent();
 				});
-
+				updatePurchaseBoxContent();
+				
 				// Fetch all the forms we want to apply custom Bootstrap validation styles to
 				var forms = document.getElementsByClassName('legal-form');
 				// Loop over them and prevent submission
