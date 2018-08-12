@@ -292,6 +292,14 @@ header .navbar.navbar-fixed
     text-align: left;
 }
 
+/* -- Token ------------------------------------------------------------------- */
+.token-trade-img-inline,
+.token-fuel-img-inline,
+.token-yield-img-inline
+{
+    display: none;
+}
+
 /* -- Token distribution ------------------------------------------------------------------- */
 .token-distribution .token-img
 {
@@ -647,6 +655,12 @@ select:-webkit-autofill
     {
         width: 250px;
     }
+    .token-trade-img-inline,
+    .token-fuel-img-inline,
+    .token-yield-img-inline
+    {
+        width: 250px;
+    }
     .whitepaper-img
     {
         margin-bottom: 3rem; 
@@ -891,6 +905,35 @@ select:-webkit-autofill
     }
     .problems-img-row,
     .solutions-img-row
+    {
+        display: none;
+    }
+    .token-trade-img-inline,
+    .token-fuel-img-inline,
+    .token-yield-img-inline
+    {
+        display: block;
+    }
+    .token-trade-img-inline,
+    .token-yield-img-inline
+    {
+        float: right; 
+
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+    }
+    .token-fuel-img-inline
+    {
+        float: left;
+
+        margin-top: -3rem;
+        margin-right: 1rem;
+        margin-bottom: 1rem;
+        margin-left: -2rem;
+    }
+    .token-trade-img-row,
+    .token-fuel-img-row,
+    .token-yield-img-row
     {
         display: none;
     }

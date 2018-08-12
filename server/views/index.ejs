@@ -145,12 +145,14 @@
 								</div>
 							</li>
 							<li class="nav-item animated" data-animation="fadeInDown" data-animation-delay="1.6s">
-								<a class="nav-link" href="#token-sale-mobile-app" data-i18n="navbar.item.token" >Token Sale</a>
+								<a class="nav-link" href="#token-sale-mobile-app" data-i18n="navbar.item.token" >Sale</a>
 							</li>
 							<li class="dropdown show mr-2 px-2 animated" data-animation="fadeInDown" data-animation-delay="1.7s">
 								<a class="dropdown-toggle white" href="#" role="button" id="more" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-i18n="navbar.item.more" >More</a>
 								<div class="dropdown-menu" aria-labelledby="more">
 									<a class="dropdown-item" href="#roadmap" data-i18n="navbar.item.roadmap" >Roadmap</a>
+									<a class="dropdown-item" href="#token-ssw" data-i18n="navbar.item.token-ssw" >Token SSW</a>
+									<a class="dropdown-item" href="#token-distribution" data-i18n="navbar.item.token-distribution" >Token distribution</a>
 									<a class="dropdown-item" href="#team" data-i18n="navbar.item.team" >Team</a>
 									<a class="dropdown-item" href="#faq" data-i18n="navbar.item.faq" >FAQ</a>
 									<a class="dropdown-item" href="#contact" data-i18n="navbar.item.contact" >Contact</a>
@@ -1311,35 +1313,64 @@
 				</section>
 				<!--/ Roadmap -->
 				<!-- Our Coin -->
-				<section id="our-coin" class="our-coin section-padding ">
+				<section id="token-ssw" class="token-ssw section-padding ">
 					<div class="container">
 						<div class="heading social-margin text-center">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-								<h6 class="sub-title" data-i18n="token-area.subhead, <%= tokenName %> ">About token</h6>
+								<h6 class="sub-title" data-i18n="token-area.subhead, <%= tokenName %>">About token</h6>
 								<h2 class="title"data-i18n="token-area.head">Our Token</h2>
 							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
-								<span data-i18n="token-area.desc1">Decentralized cryptocurrency is produced by the entire cryptocurrency system collectively</span>
+								<span data-i18n="token-area.desc1, <%= tokenName %>">Decentralized cryptocurrency is produced by the entire cryptocurrency system collectively</span>
 								<br class="d-none d-xl-block">
-								<span data-i18n="token-area.desc2">at a rate which is defined when the system is created and which is publicly known. </span>
+								<span data-i18n="token-area.desc2, <%= tokenName %>, <%= appName %>">at a rate which is defined when the system is created and which is publicly known. </span>
 							</p>
 						</div>
 						<div class="row social-margin">
-							<div class="col-lg-5 col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
-								<div class="coin-img">
-									<img class="img-fluid" src="theme-assets/images/our-coin.png" alt="Coin Image">
-								</div>
-							</div>
-							<div class="col-lg-7 col-md-12">
+							<div class="col-md-12">
+								<img src="assets/images/token-trading.png" class="mt-5 pull-right token-trade-img token-trade-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="trading-graphic">
 								<div class="heading mb-4">
-									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="token-area.title1, <%= tokenName %>"><%= tokenName %> Token</h4>
+									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="token-area.title1, <%= tokenName %>"></h4>
 								</div>
 								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="token-area.p1, <%= tokenName %>"></p>
-								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="token-area.p2, <%= tokenName %>"></p>
-								<div class="heading mb-4">
-									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="token-area.title2, <%= tokenName %>"><%= tokenName %> Token</h4>
+							</div>
+							<div class="col-md-12 text-center token-trade-img-row">
+								<img src="assets/images/token-trading.png" class="token-trade-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="trading-graphic">
+							</div>
+							<div class="col-md-12 mt-5">
+								<img src="assets/images/token-fuel.png" class="pull-left token-fuel-img token-fuel-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="trading-graphic">
+								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="token-area.p2, <%= tokenName %>, <%= appName %>"></p>
+								<div class="col-md-12 text-center token-fuel-img-row">
+									<img src="assets/images/token-fuel.png" class="token-fuel-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="token-graphic">
 								</div>
-								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" data-i18n="token-area.p3, <%= tokenName %>"></p>
+								<p class="animated mt-5" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="token-area.p3, <%= tokenName %>"></p>
+								<div class="col-md-12 text-center token-bet-img-row">
+									<div id="svg-animation">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240" preserveAspectRatio="xMidYMid meet" style="width: 50%;height: 50%;">
+												<g clip-path="url(#svg_animation_mask)">
+													<g transform="matrix(1,0,0,1,0,0)" opacity="1">
+														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="1s" width="320px" height="240px" preserveAspectRatio="xMidYMid slice" xlink:href="assets/images/svg/token-example.svg"></image>
+													</g>
+													<defs>
+													<clipPath id="svg_animation_mask">
+														<rect width="320" height="240" x="0" y="0"></rect>
+													</clipPath>
+												</defs>
+											</svg>
+									</div>
+
+								</div>
+							</div>
+							
+							<div class="col-md-12">
+								<div class="heading mb-4">
+									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="token-area.title2, <%= tokenName %>"></h4>
+								</div>
+								<img src="assets/images/token-yield.png" class="pull-right token-yield-img token-yield-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="trading-graphic">
+								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="token-area.p4, <%= tokenName %>"></p>
+							</div>
+							<div class="col-md-12 text-center token-yield-img-row">
+								<img src="assets/images/token-yield.png" class="token-yield-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="yield-graphic">
 							</div>
 						</div>
 					</div>
@@ -1384,9 +1415,9 @@
 									<div id="sales-pie-labels" class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.7s">
 										<h4 id="sales-pie-labels-crowdsale">80%<br /><small>Crowdsale</small></h4>
 										<h4 id="sales-pie-labels-team">10%<br /><small>Team</small></h4>
-										<h4 id="sales-pie-labels-airdrop">3%<br /><small>Airdrop</small></h4>
+										<h4 id="sales-pie-labels-airdrop">3%<br /><small>Animators</small></h4>
 										<h4 id="sales-pie-labels-advisors">3%<br /><small>Advisors</small></h4>
-										<h4 id="sales-pie-labels-marketing">4%<br /><small>Marketing</small></h4>
+										<h4 id="sales-pie-labels-marketing">4%<br /><small>Partners</small></h4>
 									</div>
 								</div>
 							</div>

@@ -4865,7 +4865,7 @@ p
     color: #c7b8ff;
 }
 
-#our-coin:before
+#token-ssw:before
 {
     position: absolute;
     right: 0;
@@ -4875,7 +4875,7 @@ p
 
     content: '';
 
-    background: url('../../theme-assets/images/our-coin-shape.png') no-repeat center right;
+    background: url('../../theme-assets/images/token-shape.png') no-repeat center right;
 }
 
 #token-distribution h6.content-title

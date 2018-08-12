@@ -212,11 +212,11 @@ p {
     }
 }
 
-// Our Coin section back image
-#our-coin {
+// Our Token section back image
+#token-ssw {
     &:before {
         content: "";
-        background: url('../../theme-assets/images/our-coin-shape.png') no-repeat center right;
+        background: url('../../theme-assets/images/token-shape.png') no-repeat center right;
         width: 213px;
         position: absolute;
         right: 0;

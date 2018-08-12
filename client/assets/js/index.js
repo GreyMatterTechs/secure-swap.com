@@ -165,7 +165,6 @@
 			var now = new Date();
 			var dif = Math.max(0, (date.getTime() - now.getTime()) / 1000);
 			if (clock) {
-				console.log('clock dif: ' + dif);
 				clock.stop();
 				clock.setTime(dif);
 				clock.start();
