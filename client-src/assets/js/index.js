@@ -434,6 +434,165 @@
 				});
 
 				//--------------------------------------------------------------------------------------------------------------
+				// Token Yield
+				//--------------------------------------------------------------------------------------------------------------
+
+			/*	var tokenSliderVolume = document.getElementById('token-slider-volume');
+				var tokenSliderFee = document.getElementById('token-slider-fee');
+				var tokenSliderTokens = document.getElementById('token-slider-tokens');
+				var tokenSliderCost = document.getElementById('token-slider-cost');
+				noUiSlider.create(tokenSliderVolume, {
+					start: [10000000],
+					behaviour: 'drag',
+					connect: [true, false],
+					tooltips: [{
+						to: function(value) {
+						  return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+						}
+					  }],
+					step: 1000000,
+					range: {
+						'min': [0],
+						'max': [100000000]
+					}
+				});
+				noUiSlider.create(tokenSliderTokens, {
+					start: [50],
+					behaviour: 'drag',
+					step: 1,
+					tooltips: [{
+						to: function(value) {
+						  return value + '%';
+						}
+					}],
+					range: {
+						'min': [0],
+						'max': [100]
+					}
+				});
+				noUiSlider.create(tokenSliderCost, {
+					start: [0.45],
+					behaviour: 'drag',
+					step: 0.01,
+					tooltips: [{
+						to: function(value) {
+							return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2});
+						}
+					}],
+					range: {
+						'min': [0],
+						'max': [1.00]
+					}
+				});
+				*/
+
+				function filterVE(value, type) {
+					return value === 3000000 ? 1 : (value === 10000000 ? 1 : value === 20000000 ? 1 : 0);
+				}
+				function filterPX(value, type) {
+					return value === 0.45 ? 1 : 0;
+				}
+				function clickOnPip(e) {
+					var noUiSlider = this.noUiSlider;
+					var value = Number(this.getAttribute('data-value'));
+					noUiSlider.set(value);
+				}
+				var VEindex = 0;
+				var FTAPindex = 1;
+				var PXindex = 2;
+				var sliders = document.getElementsByClassName('token-slider');
+				var slidersData = [{
+					value: 10000000,
+					config: {
+						start: [10000000],
+						behaviour: 'tap-drag',
+						connect: [true, false],
+						tooltips: [{
+							to: function(value) {
+								return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+							}
+						}],
+						step: 1000000,
+						range: {
+							'min': [0],
+							'max': [50000000]
+						},
+						pips: {
+							mode: 'steps',
+							density: 3,
+							filter: filterVE,
+							format: {
+								to: function(value) {
+									return value === 3000000 ? 'Top 100' : (value === 10000000 ? 'Top 75' : value === 20000000 ? 'Top 50' : '');
+									
+								}
+							}
+						}
+					}
+				}, {
+					value: 50,
+					config: {
+						start: [50],
+						behaviour: 'tap-drag',
+						connect: [true, false],
+						step: 1,
+						tooltips: [{
+							to: function(value) {
+								return value.toFixed(0) + '%';
+							}
+						}],
+						range: {
+							'min': [1],
+							'max': [100]
+						}
+					}
+				}, {
+					value: 0.45,
+					config: {
+						start: [0.45],
+						behaviour: 'tap-drag',
+						connect: [true, false],
+						step: 0.01,
+						tooltips: [{
+							to: function(value) {
+								return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2});
+							}
+						}],
+						range: {
+							'min': [0.01],
+							'max': [1.00]
+						},
+						pips: {
+							mode: 'steps',
+							density: 3,
+							filter: filterPX,
+							format: {
+								to: function(value) {
+									return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (ICO Price)';
+								}
+							}
+						}
+					}
+				}];
+
+				[].slice.call(sliders).forEach(function(slider, index) {
+					noUiSlider.create(slider, slidersData[index].config);
+					slider.noUiSlider.on('update', function() {
+						slidersData[index].value = slider.noUiSlider.get();
+						var result = ((((365 * slidersData[VEindex].value) * 0.0015) / (100000000 * (slidersData[FTAPindex].value / 100))) / slidersData[PXindex].value) * 100;
+						$('.token-simu-percent').text(result.toFixed(0) + '%');
+					});
+					if (index === VEindex || index === PXindex) {
+						var pips = sliders[index].querySelectorAll('.noUi-value');
+						for (var i = 0; i < pips.length; i++) {
+							pips[i].style.cursor = 'pointer';
+							pips[i].noUiSlider = sliders[index].noUiSlider;
+							pips[i].addEventListener('click', clickOnPip);
+						}
+					}
+				});
+
+				//--------------------------------------------------------------------------------------------------------------
 				// Token distribution
 				//--------------------------------------------------------------------------------------------------------------
 

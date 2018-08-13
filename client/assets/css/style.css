@@ -300,6 +300,157 @@ header .navbar.navbar-fixed
     display: none;
 }
 
+.simulator-container
+{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display:    -moz-box;
+    display: -ms-flexbox;
+    display:         flex;
+
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row wrap;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+            justify-content: space-between;
+    /*
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+	align-items: flex-start;
+	*/
+}
+
+.simulator-labels
+{
+    -webkit-box-ordinal-group: 1;
+    -webkit-order: 0;
+       -moz-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+            order: 0;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+       -moz-box-flex: 0;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+            align-self: auto;
+}
+
+.simulator-sliders
+{
+    margin-right: 2rem; 
+    margin-left: 2rem;
+
+    -webkit-box-ordinal-group: 1;
+    -webkit-order: 0;
+       -moz-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+            order: 0;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1 1 auto;
+       -moz-box-flex: 1;
+        -ms-flex: 1 1 auto;
+            flex: 1 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+            align-self: auto;
+}
+.simulator-sliders #token-slider-volume .noUi-connect
+{
+    background: #da525f;
+}
+.simulator-sliders #token-slider-tokens .noUi-connect
+{
+    background: #24b081;
+}
+.simulator-sliders #token-slider-cost .noUi-connect
+{
+    background: #0062d1;
+}
+
+.simulator-result
+{
+    min-width: 7rem; 
+
+    -webkit-box-ordinal-group: 1;
+    -webkit-order: 0;
+       -moz-box-ordinal-group: 1;
+    -ms-flex-order: 0;
+            order: 0;
+    -webkit-box-flex: 0;
+    -webkit-flex: 0 1 auto;
+       -moz-box-flex: 0;
+        -ms-flex: 0 1 auto;
+            flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+            align-self: auto;
+}
+
+.simulator-container > hr
+{
+    display: block; 
+
+    width: 100%;
+
+    content: '';
+}
+
+.token-simu-percent
+{
+    font-size: 3rem;
+    line-height: 3rem;
+
+    margin-top: -1rem;
+}
+
+.token-simu-percent-label
+{
+    font-size: 1.25rem;
+    line-height: 1.25rem;
+}
+
+#token-slider-volume .noUi-pips
+{
+    top: -33px;
+}
+#token-slider-volume .noUi-pips .noUi-value
+{
+    top: -25px;
+}
+
+.noUi-tooltip
+{
+    display: none;
+}
+
+.noUi-active .noUi-tooltip
+{
+    display: block;
+}
+
+.noUi-marker,
+.noUi-value
+{
+    color: #c7b8ff;
+}
+
+.noUi-marker-normal
+{
+    display: none;
+}
+
 /* -- Token distribution ------------------------------------------------------------------- */
 .token-distribution .token-img
 {
@@ -837,6 +988,10 @@ select:-webkit-autofill
         top: 424px;
         left: 222px;
     }
+    .simulator-result
+    {
+        min-width: 8rem;
+    }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px)
@@ -933,6 +1088,26 @@ select:-webkit-autofill
     .token-trade-img-row,
     .token-fuel-img-row,
     .token-yield-img-row
+    {
+        display: none;
+    }
+    .simulator-result
+    {
+        min-width: 10rem;
+    }
+    .token-simu-percent
+    {
+        font-size: 4rem;
+        line-height: 4rem;
+
+        margin-top: -1rem;
+    }
+    .token-simu-percent-label
+    {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+    }
+    .simulator-container > hr
     {
         display: none;
     }

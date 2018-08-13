@@ -294,7 +294,86 @@ $dot-size: 12px;
 	display: none;
 }
 
+.simulator-container {
+    display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	/*
+	display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-content: stretch;
+	align-items: flex-start;
+	*/
+    }
 
+.simulator-labels {
+    order: 0;
+    flex: 0 1 auto;
+    align-self: auto;
+    }
+
+.simulator-sliders {
+    order: 0;
+    flex: 1 1 auto;
+	align-self: auto;
+	margin-left: 2rem;
+	margin-right: 2rem;
+	#token-slider-volume .noUi-connect {
+		background: #da525f;
+	}
+	#token-slider-tokens .noUi-connect {
+		background: #24b081;
+	}
+	#token-slider-cost .noUi-connect {
+		background: #0062d1;
+	}
+}
+
+.simulator-result {
+    order: 0;
+    flex: 0 1 auto;
+	align-self: auto;
+	min-width: 7rem;
+}
+
+.simulator-container > hr {
+	width: 100%;
+	content: '';
+	display: block;
+}
+
+.token-simu-percent {
+	font-size: 3rem;
+	line-height: 3rem;
+	margin-top: -1rem;
+}
+.token-simu-percent-label {
+	font-size: 1.25rem;
+	line-height: 1.25rem;
+}
+
+#token-slider-volume .noUi-pips {
+	top: -33px;
+	.noUi-value {
+		top: -25px;
+	}
+}
+
+.noUi-tooltip {
+    display: none;
+}
+.noUi-active .noUi-tooltip {
+    display: block;
+}
+.noUi-marker,
+.noUi-value {
+    color: #c7b8ff;
+}
+.noUi-marker-normal {
+	display: none;
+}
 
 /* -- Token distribution ------------------------------------------------------------------- */
 
@@ -746,10 +825,15 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		top: 424px;
 		left: 222px;
 	}
+	.simulator-result {
+		min-width: 8rem;
+	}
+
 }
 
 // Small devices (landscape phones, 576px and wider)
 @include media-breakpoint-up(sm) {
+
 }
 
 // Small devices (landscape phones, 576px and smaller)
@@ -786,6 +870,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		top: 532px;
 		left: 297px;
 	}
+	
 }
 
 // Medium devices (tablets, 768px and wider)
@@ -832,11 +917,25 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	.token-trade-img-row, .token-fuel-img-row, .token-yield-img-row {
 		display: none;
 	}
+	.simulator-result {
+		min-width: 10rem;
+	}
+	.token-simu-percent {
+		font-size: 4rem;
+		line-height: 4rem;
+		margin-top: -1rem;
+	}
+	.token-simu-percent-label {
+		font-size: 1.5rem;
+		line-height: 1.5rem;
+	}
+	.simulator-container > hr {
+		display: none;
+	}
 }
 
 // Medium devices (tablets, 768px and smaller)
 @include media-breakpoint-down(md) {
-	
 }
 
 // Large devices (desktops, 992px and less than 1200px)

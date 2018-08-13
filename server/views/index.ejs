@@ -1367,10 +1367,33 @@
 									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="token-area.title2, <%= tokenName %>"></h4>
 								</div>
 								<img src="assets/images/token-yield.png" class="pull-right token-yield-img token-yield-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="trading-graphic">
-								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="token-area.p4, <%= tokenName %>"></p>
+								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="token-area.p4, <%= tokenName %>, <%= appName %>"></p>
 							</div>
 							<div class="col-md-12 text-center token-yield-img-row">
 								<img src="assets/images/token-yield.png" class="token-yield-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" alt="yield-graphic">
+							</div>
+							<div class="col-md-12">
+								<div class="heading mb-4">
+									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="token-area.title3"></h4>
+								</div>
+								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="token-area.p5, <%= tokenName %>"></p>
+							</div>
+							<div class="col-md-12 simulator-container mt-5">
+								<div class="simulator-labels">
+									<p class="mb-2">Volume d'échange annuel</p>
+									<p class="mb-2">Tokens affectés à ce node</p>
+									<p class="mb-2">Prix d'achat du token</p>
+								</div>
+								<div class="simulator-sliders">
+									<div id="token-slider-volume" class="token-slider mb-3"></div>
+									<div id="token-slider-tokens" class="token-slider mb-3"></div>
+									<div id="token-slider-cost" class="token-slider mb-3"></div>
+								</div>
+								<hr>
+								<div class="simulator-result text-center">
+									<p class="mb-0 token-simu-percent">54 %</p>
+									<p class="mb-0 token-simu-percent-label">Rendement<br />annuel</p>
+								</div>
 							</div>
 						</div>
 					</div>
