@@ -389,7 +389,7 @@
 	"-------------- PURCHASE BOX --------------": "",
 	"purchasebox.title":				"$1 - Achats de jetons $2",
 	"purchasebox.preico.title":			"Restez à l'écoute. L'ICO va bientôt ouvrir !",
-	"purchasebox.preico.intro":			"Ouverture de l'ICO le : $1. Get Ready For the ICO opening.",
+	"purchasebox.preico.intro":			"Ouverture de l'ICO le : <b>$1</b>. Tenez-vous prêts pour l'ouverture de l'ICO.",
 	"purchasebox.preico.footer":		"Pour patienter, retrouvez-nous sur les réseaux sociaux,<br />ou laissez-nous un message via le formulaire de contact.",
 	"purchasebox.ico.legal.title":		"Convention",
 	"purchasebox.ico.legal.intro":		"Veuillez vérifier les points suivants pour indiquer que vous avez lu et que vous êtes d'accord avec ces termes.",

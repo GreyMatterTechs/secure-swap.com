@@ -370,7 +370,7 @@
 	"-------------- PURCHASE BOX --------------": "",
 	"purchasebox.title":				"$1 - $2 tokens purchase",
 	"purchasebox.preico.title":			"Stay Tuned. ICO Starting Soon!",
-	"purchasebox.preico.intro":			"ICO opening on: $1. Get Ready For the ICO opening.",
+	"purchasebox.preico.intro":			"ICO opening on: <b>$1</b>. Get Ready For the ICO opening.",
 	"purchasebox.preico.footer":		"To be patient, find us on social networks,<br /> or leave us a message via the contact form.",
 	"purchasebox.ico.legal.title":		"Agreement",
 	"purchasebox.ico.legal.intro":		"Please check the followings to indicate that you have read and agree to these sentences.",
