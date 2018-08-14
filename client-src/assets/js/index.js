@@ -69,7 +69,7 @@
 		var	coinMarketCapUSD = 477;
 		var tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
 		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
-		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet;
+		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold;
 		var purchaseboxLegal = false;
 
 		// --- private methods
@@ -121,11 +121,6 @@
 					$('#purchase-modal-state-ico').removeClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
 					break;
-				case 3:
-					$('#purchase-modal-state-preico').addClass('d-none');
-					$('#purchase-modal-state-ico').addClass('d-none');
-					$('#purchase-modal-state-postico').removeClass('d-none');
-					break;
 				}
 			}
 		}
@@ -134,7 +129,7 @@
 			var $box = $('#purchase-modal');
 			if ($box.length === 1) {
 			//	$box.find('.modal-body').html('');
-				$box.removeClass('open');
+				$box.modal('hide');
 			}
 		}
 
@@ -179,6 +174,8 @@
 			$('.ico-ended').hide();
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
+			$('#btn-purchase-sale').show();
+			$('.loading-bar').show();
 		}
 		function setStateICO(ico) {
 			// set timer to remaining time until ICO ends
@@ -187,6 +184,8 @@
 			$('.ico-ended').hide();
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
+			$('#btn-purchase-sale').show();
+			$('.loading-bar').show();
 		}
 		function setStateEndICO(ico) {
 			// remove flipclock
@@ -194,7 +193,13 @@
 			$('.clock-counter').hide();
 			$('.ico-ended').show();
 			updateTokenSalesArea();
-			updatePurchaseBoxContent(ico.state);
+			closePurchaseBox();
+			$('#btn-purchase-sale').hide();
+			$('.loading-bar').hide();
+			var usd = numeral(tokensSold * tokenPriceUSD).format('($ 0.00a)');
+			var tok = numeral(tokensSold).format('0a');
+			$('#tokensale-icoended-usd').text($.i18n('tokensale-area.info.icoended.li1', usd));
+			$('#tokensale-icoended-token').text($.i18n('tokensale-area.info.icoended.li2', tok));
 		}
 
 		function updateICO() {
@@ -207,6 +212,7 @@
 						dateEnd				= ico.dateEnd;
 						dateStart			= ico.dateStart;
 						tokensTotal			= ico.tokensTotal;
+						tokensSold			= ico.tokensSold;
 						wallet				= ico.wallet;
 						icoState = ico.state;
 						switch (ico.state) {
@@ -297,6 +303,22 @@
 			return valid;
 		}
 
+		function commarize(min) {
+			min = min || 1e3;
+			// Alter numbers larger than 1k
+			if (this >= min) {
+				var units = ["k", "M", "B", "T"];
+				var order = Math.floor(Math.log(this) / Math.log(1000));
+				var unitname = units[(order - 1)];
+				var num = Math.floor(this / 1000 * order);
+				// output number remainder + unitname
+				return num + unitname;
+			}
+			// return formatted original number
+			// return this.toLocaleString();
+			return this.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+		}
+
 
 		// --- public methods
 
@@ -305,6 +327,13 @@
 			init: function() {
 
 				i18n = window.ssw.I18n.getInstance();
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Add method to prototype. this allows you to use this function on numbers and strings directly
+				//--------------------------------------------------------------------------------------------------------------
+				
+			//	Number.prototype.commarize = commarize
+			//	String.prototype.commarize = commarize
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Call to action buttons

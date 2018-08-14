@@ -263,6 +263,20 @@ header .navbar.navbar-fixed
     font-size: .75rem;
 }
 
+.token-sale .ico-ended
+{
+    display: none;
+}
+.token-sale .ico-ended li
+{
+    font-size: 1.25rem; 
+    font-weight: 700;
+
+    text-align: center;
+
+    color: #fff;
+}
+
 .ico-ended
 {
     display: none;
@@ -611,10 +625,26 @@ select:-webkit-autofill
 .team-modal .modal-header .modal-title
 {
     font-weight: 700;
+
+    color: #fff;
+}
+.team-modal .close
+{
+    color: #fff;
 }
 .team-modal .modal-content
 {
-    border-radius: .35rem;
+    border: 2px solid #fff; 
+    border-radius: 1.0rem;
+    background-image: -webkit-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+    background-image:    -moz-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+    background-image:      -o-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+    background-image:         linear-gradient(70deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+}
+.team-modal .modal-content .brand-text,
+.team-modal .modal-content p
+{
+    color: #fff;
 }
 .team-modal .modal-content form
 {
@@ -634,7 +664,7 @@ select:-webkit-autofill
 }
 .team-modal .modal-content form label
 {
-    color: #7d7d7d;
+    color: #fff;
 }
 .team-modal .modal-content form .note
 {

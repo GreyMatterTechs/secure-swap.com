@@ -979,15 +979,25 @@
 							<div class="row social-margin align-items-center">
 								<div class="col-xl-6 col-lg-6 col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
 									<div class="token-sale-counter">
-										<h5 id="tokensale-title" data-i18n="tokensale-area.info.start" >ICO will start in</h5>
+										<h5 id="tokensale-title" data-i18n="tokensale-area.info.start" >ICO will start in:</h5>
 										<div class="token-details text-center">
 											<!-- ICO Counter -->
 											<div class="clock-counter mb-4">
 												<div class="clock ml-0 mt-5 d-flex justify-content-center"></div>
 												<div class="message"></div>
 											</div>
-											<div class="ico-ended mb-4">
-												<img src="assets/images/finger.png" alt="">
+											<div class="ico-ended text-center mb-4">
+												<h5 class="mb-4">
+													<span  data-i18n="tokensale-area.info.icoended.p1, <%= tokenName %>">The <%= tokenName %> token sale has ended successfully.</span>
+													<span  data-i18n="tokensale-area.info.icoended.p2">Thank you to all our supporters and participants!</span>
+												</h5>
+												<h5 class="title mb-4" >
+													<ul>
+														<li id="tokensale-icoended-usd" data-i18n="tokensale-area.info.icoended.li1, 33">Over $22M USD Raised</li>
+														<li id="tokensale-icoended-token" data-i18n="tokensale-area.info.icoended.li2, 22 222 000">55 000 000 tokens sold</li>
+													</ul>
+												</h5>
+												<h5 class="title" data-i18n="tokensale-area.info.icoended.p3">Connect with us via Telegram or our Social Media Channels to keep up to date with the latest announcements!</h5>
 											</div>
 											<!-- ICO Counter -->
 											<!-- Progressbar -->
@@ -2461,14 +2471,16 @@
 					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h5 class="modal-title" data-i18n="purchasebox.title, <%= appName %>, <%= tokenName %>">, <%= appName %> , <%= tokenName %> token purchase</h5>
+								<h5 class="modal-title" ><img src="assets/images/logo.png" alt="<%= appName %> Logo" /> <span data-i18n="purchasebox.title, <%= appName %>, <%= tokenName %>"><%= appName %> - <%= tokenName %> tokens purchase</span></h5>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
 							</div>
 							<div class="modal-body">
-								<div id="purchase-modal-state-preico" class="d-none" >
-									<p data-i18n="purchasebox.preico.intro" ></p>
+								<div id="purchase-modal-state-preico" class="d-none text-center" >
+									<h4 class="title" data-i18n="purchasebox.preico.title" >Stay Tuned. ICO Starting Soon!</h4>
+									<p class="" data-i18n="purchasebox.preico.intro" >ICO opening on: $1. Get Ready For the ICO opening.</p>
+									<p class="" data-i18n="purchasebox.preico.footer" >To be patient, find us on social networks,<br /> or leave us a message via the contact form.</p>
 								</div>
 								<div id="purchase-modal-state-ico" class="d-none" >
 									<div class="container-fluid">
@@ -2558,9 +2570,6 @@
 										</div>
 									</div>
 								</div>
-								<div id="purchase-modal-state-postico" class="d-none" >
-									<p data-i18n="purchasebox.postico.intro" ></p>
-								</div>								
 							</div>
 						</div>
 					</div>
@@ -2683,6 +2692,7 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<script src="assets/vendors/vendors.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN I18N JS-->
 	<script src="assets/jquery-i18n/CLDRPluralRuleParser.js"></script>

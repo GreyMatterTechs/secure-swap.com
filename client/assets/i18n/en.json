@@ -120,7 +120,12 @@
 	"tokensale-area.btn.purchase":		"Purchase tokens",
 	"tokensale-area.info.start":		"ICO will start in:",
 	"tokensale-area.info.ends":			"ICO will end in:",
-	"tokensale-area.info.ended":		"HardCap reached. Thanks a lot, Bye !!!",
+	"tokensale-area.info.ended":		"Token Sale Is Now CLOSED",
+	"tokensale-area.info.icoended.p1":	"The $1 token sale has ended successfully",
+	"tokensale-area.info.icoended.p2":	"Thank you to all our supporters and participants!",
+	"tokensale-area.info.icoended.li1":	"Over $1 USD Raised",
+	"tokensale-area.info.icoended.li2":	"$1 tokens sold",
+	"tokensale-area.info.icoended.p3":	"Connect with us via Telegram or our Social Media Channels to keep up to date with the latest announcements!",
 	"tokensale-area.info.softcap":		"Soft Cap",
 	"tokensale-area.info.hardcap":		"Hard Cap",
 	"tokensale-area.info.percent":		"$1 % target raised",
@@ -363,8 +368,10 @@
 	"contact-area.error.message6":		"Sorry, message system is down. Error [0x3005].<br />Please retry later.",
 
 	"-------------- PURCHASE BOX --------------": "",
-	"purchasebox.title":				"$1 - $2 Tokens purchase",
-	"purchasebox.preico.intro":			"Ouverture de l'ICO le : $1.<br />Pour patienter, retrouvez-nous sur les réseaux sociaux,<br />ou laissez-nous un message via le formulaire de contact.",
+	"purchasebox.title":				"$1 - $2 tokens purchase",
+	"purchasebox.preico.title":			"Stay Tuned. ICO Starting Soon!",
+	"purchasebox.preico.intro":			"ICO opening on: $1. Get Ready For the ICO opening.",
+	"purchasebox.preico.footer":		"To be patient, find us on social networks,<br /> or leave us a message via the contact form.",
 	"purchasebox.ico.legal.title":		"Agreement",
 	"purchasebox.ico.legal.intro":		"Please check the followings to indicate that you have read and agree to these sentences.",
 	"purchasebox.ico.legal.wp":			"I confirm that I have read the <a href=\"#whitepaper\" data-dismiss=\"modal\" >Whitepaper</a> and that I have understood its technical details.",
@@ -384,7 +391,6 @@
 	"purchasebox.ico.address.p5":		"• Set the Gas limit to 300,000, Gwei 60",
 	"purchasebox.ico.address.p6":		"• <a target=\"_blank\" href=\"https://etherscan.io/address/0xc23CD20c3C60A4e416A5DC573d348cc774E5fE6e\">Click to see the smart-contract of crowd sale</a>",
 	"purchasebox.ico.address.conv.title":"$1 - ETH converter",
-	"purchasebox.postico.intro":		"Trop tard :(. Contactez nous.",
 
 	"last": ""
 }
