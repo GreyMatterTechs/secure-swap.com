@@ -7,7 +7,7 @@
  * @author:		Philippe Aubessard
  * @link        http://secureswap.com
  * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
- * @namespace:	ss_ico
+ * @namespace:	ssw
  */
 
 'use strict';
@@ -17,22 +17,22 @@
  */
 (function(window, undefined) {
 
-	window.ss_ico = window.ss_ico || {};	// NameSpace
+	window.ssw = window.ssw || {};	// NameSpace
 
-	if (window.ss_ico.Tools === undefined) { throw new Error('Please load Tools.js'); }
-	if (window.ss_ico.I18n === undefined) { throw new Error('Please load I18n.js'); }
+	if (window.ssw.Tools === undefined) { throw new Error('Please load Tools.js'); }
+	if (window.ssw.I18n === undefined) { throw new Error('Please load I18n.js'); }
 
 	// ---------- class Landpage
 
 	// --- public static
 
 	// constructeur public static
-	window.ss_ico.Landpage = function() {
+	window.ssw.Landpage = function() {
 		throw new Error('Please use getInstance');
 	};
 
 	// singleton factory public static
-	window.ss_ico.Landpage.getInstance = function() {
+	window.ssw.Landpage.getInstance = function() {
 		if (instance) { return instance; }
 		instance = new Landpage();
 		return instance;
@@ -143,6 +143,7 @@
 			tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
 			// $('#tokensale-eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
 			$('#tokensale-li7-val').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+			$('#token-distribution-data').text($.i18n('token-dist-area.data3.text', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
 		}
 
 		function updateTokenSalesArea() {
@@ -176,9 +177,6 @@
 			setTimerClock(ico.dateStart);
 			$('.clock-counter').show();
 			$('.ico-ended').hide();
-//			$('.loading-bar').css('margin-top', '0');
-			// refresh translations
-		//	$('#btn-purchase-sale').addClass('disabled');
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
 		}
@@ -187,9 +185,6 @@
 			setTimerClock(ico.dateEnd);
 			$('.clock-counter').show();
 			$('.ico-ended').hide();
-//			$('.loading-bar').css('margin-top', '0');
-			// refresh translations
-		//	$('#btn-purchase-sale').removeClass('disabled');
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
 		}
@@ -198,9 +193,6 @@
 			if (clock) { clock.stop(); }
 			$('.clock-counter').hide();
 			$('.ico-ended').show();
-//			$('.loading-bar').css('margin-top', '10rem');
-			// refresh translations
-		//	$('#btn-purchase-sale').addClass('disabled');
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
 		}
@@ -216,16 +208,12 @@
 						dateStart			= ico.dateStart;
 						tokensTotal			= ico.tokensTotal;
 						wallet				= ico.wallet;
-					//	if (ico.state !== icoState) {
-							icoState = ico.state;
-							switch (ico.state) {
-							case 1:	setStatePreICO(ico);	break;
-							case 2:	setStateICO(ico);		break;
-							case 3:	setStateEndICO(ico);	break;
-							}
-					//	} else {
-					//		updateTokenSalesArea();
-					//	}
+						icoState = ico.state;
+						switch (ico.state) {
+						case 1:	setStatePreICO(ico);	break;
+						case 2:	setStateICO(ico);		break;
+						case 3:	setStateEndICO(ico);	break;
+						}
 					}
 				})
 				.fail(function(err) {
@@ -265,11 +253,7 @@
 					if (purchase) {
 						notify(purchase.ethReceived);
 						purchaseSoldPercent	= Math.round(purchase.tokensSold * 100 / tokensTotal);
-					//	if (purchase.state !== icoState) {
-							updateICO();
-					//	} else {
-					//		updateTokenSalesArea();
-					//	}
+						updateICO();
 					}
 				})
 				.fail(function(err) {
@@ -320,7 +304,7 @@
 
 			init: function() {
 
-				i18n = window.ss_ico.I18n.getInstance();
+				i18n = window.ssw.I18n.getInstance();
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Call to action buttons
@@ -362,7 +346,7 @@
 					updatePurchaseBoxContent();
 				});
 				updatePurchaseBoxContent();
-				
+
 				// Fetch all the forms we want to apply custom Bootstrap validation styles to
 				var forms = document.getElementsByClassName('legal-form');
 				// Loop over them and prevent submission
@@ -437,55 +421,6 @@
 				// Token Yield
 				//--------------------------------------------------------------------------------------------------------------
 
-			/*	var tokenSliderVolume = document.getElementById('token-slider-volume');
-				var tokenSliderFee = document.getElementById('token-slider-fee');
-				var tokenSliderTokens = document.getElementById('token-slider-tokens');
-				var tokenSliderCost = document.getElementById('token-slider-cost');
-				noUiSlider.create(tokenSliderVolume, {
-					start: [10000000],
-					behaviour: 'drag',
-					connect: [true, false],
-					tooltips: [{
-						to: function(value) {
-						  return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
-						}
-					  }],
-					step: 1000000,
-					range: {
-						'min': [0],
-						'max': [100000000]
-					}
-				});
-				noUiSlider.create(tokenSliderTokens, {
-					start: [50],
-					behaviour: 'drag',
-					step: 1,
-					tooltips: [{
-						to: function(value) {
-						  return value + '%';
-						}
-					}],
-					range: {
-						'min': [0],
-						'max': [100]
-					}
-				});
-				noUiSlider.create(tokenSliderCost, {
-					start: [0.45],
-					behaviour: 'drag',
-					step: 0.01,
-					tooltips: [{
-						to: function(value) {
-							return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2});
-						}
-					}],
-					range: {
-						'min': [0],
-						'max': [1.00]
-					}
-				});
-				*/
-
 				function filterVE(value, type) {
 					return value === 3000000 ? 1 : (value === 10000000 ? 1 : value === 20000000 ? 1 : 0);
 				}
@@ -524,7 +459,6 @@
 							format: {
 								to: function(value) {
 									return value === 3000000 ? 'Top 100' : (value === 10000000 ? 'Top 75' : value === 20000000 ? 'Top 50' : '');
-									
 								}
 							}
 						}
@@ -671,6 +605,9 @@
 					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale file is loaded , we can start other inits that needs i18n ready
 					$('input[placeholder]').i18n();
+					$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
+					$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
+					$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
 				};
 
 				var i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
@@ -678,13 +615,10 @@
 					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale is changed, we can update each moduel that needs i18n strings
 					$('input[placeholder]').i18n();
-					$('tokensale-area.flipclock.years').i18n();
-					$('tokensale-area.flipclock.months').i18n();
-					$('tokensale-area.flipclock.days').i18n();
-					$('tokensale-area.flipclock.hours').i18n();
-					$('tokensale-area.flipclock.minutes').i18n();
-					$('tokensale-area.flipclock.seconds').i18n();
 					updateTokenSalesArea();
+					$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
+					$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
+					$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
 				};
 
 				i18n.init();
@@ -702,12 +636,12 @@
 
 		}; // end of return
 
-	}; // end of ss_ico.Landpage = function() {
+	}; // end of ssw.Landpage = function() {
 
 	// ---------- End class Landpage
 
 }(window));
 
-window.ss_ico.Tools.getInstance().addEventHandler(document, 'DOMContentLoaded', window.ss_ico.Landpage.getInstance().init(), false);
+window.ssw.Tools.getInstance().addEventHandler(document, 'DOMContentLoaded', window.ssw.Landpage.getInstance().init(), false);
 
 // EOF

@@ -3,7 +3,8 @@
 		"FlipClock": true,
 		"moment": true,
 		"Swiper": true,
-		"reqlocal": true
+		"reqlocal": true,
+		"noUiSlider": true
 	},
 	"rules": {
 		"no-console": 0,

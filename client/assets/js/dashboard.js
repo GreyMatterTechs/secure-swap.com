@@ -8,16 +8,15 @@
  * @author:		Philippe Aubessard, philippe@aubessard.net
  * @url         http://secureswap.com
  * @license:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
- * @namespace:	ss_ico
- *
+ * @namespace:	ssw
  */
 
 ( function( window, undefined ) {
 	'use strict';
 	
-	window.ss_ico = window.ss_ico || {};	// NameSpace
+	window.ssw = window.ssw || {};	// NameSpace
 
-	if ( window.ss_ico.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
+	if ( window.ssw.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
 
 
 	// ---------- class Dashboard
@@ -25,12 +24,12 @@
 	// --- public static
 
 	// constructeur public static
-	window.ss_ico.Dashboard = function() {
+	window.ssw.Dashboard = function() {
 		throw new Error( 'Please use getInstance' );
 	};
 
 	// singleton factory public static
-	window.ss_ico.Dashboard.getInstance = function() {
+	window.ssw.Dashboard.getInstance = function() {
 		if ( instance ) { return instance; }
 		instance = new Dashboard();
 		return instance;
@@ -100,12 +99,12 @@
 
 		}; // end of return
 
-	}; // end of ss_ico.Dashboard = function() {
+	}; // end of ssw.Dashboard = function() {
 
 	// ---------- End class Dashboard
 
 }(window));
 
-window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.Dashboard.getInstance().init(), false );
+window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Dashboard.getInstance().init(), false );
 
 // EOF

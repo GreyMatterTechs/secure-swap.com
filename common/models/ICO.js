@@ -15,7 +15,7 @@
 // ------------------------------------------------------------------------------------------------------
 
 const path		= require('path');
-const debug		= require('debug')('ss_ico:ico');
+const debug		= require('debug')('ssw:ico');
 const config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const g			= require('../../node_modules/loopback/lib/globalize');
 const app		= require('../../server/server');

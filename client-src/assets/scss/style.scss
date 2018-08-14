@@ -389,37 +389,6 @@ $dot-size: 12px;
 		}
 	}
 }
-#sales-pie-labels {
-    position: absolute;
-    top: 0;
-    left: 0;
-    color: #fff;
-	text-align: center;
-	h4 {
-		line-height: 1.1rem;	
-		position: absolute;
-	}
-}
-#sales-pie-labels-crowdsale {
-	top: 81px;
-	left: 94px;
-}
-#sales-pie-labels-team {
-	top: 187px;
-	left: 341px;
-}
-#sales-pie-labels-airdrop {
-	top: 246px;
-	left: 305px;
-}
-#sales-pie-labels-advisors {
-	top: 286px;
-	left: 242px;
-}
-#sales-pie-labels-marketing {
-	top: 320px;
-	left: 162px;
-}
 
 /* -- page team ------------------------------------------------------------------- */
 
@@ -805,26 +774,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 			}
 		}
 	}
-	#sales-pie-labels-crowdsale {
-		top: 115px;
-		left: 119px;
-	}
-	#sales-pie-labels-team {
-		top: 261px;
-		left: 440px;
-	}
-	#sales-pie-labels-airdrop {
-		top: 343px;
-		left: 395px;
-	}
-	#sales-pie-labels-advisors {
-		top: 393px;
-		left: 321px;
-	}
-	#sales-pie-labels-marketing {
-		top: 424px;
-		left: 222px;
-	}
 	.simulator-result {
 		min-width: 8rem;
 	}
@@ -850,27 +799,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 			}
 		}
 	}
-	#sales-pie-labels-crowdsale {
-		top: 158px;
-		left: 158px;
-	}
-	#sales-pie-labels-team {
-		top: 348px;
-		left: 552px;
-	}
-	#sales-pie-labels-airdrop {
-		top: 440px;
-		left: 486px;
-	}
-	#sales-pie-labels-advisors {
-		top: 495px;
-		left: 400px;
-	}
-	#sales-pie-labels-marketing {
-		top: 532px;
-		left: 297px;
-	}
-	
 }
 
 // Medium devices (tablets, 768px and wider)
@@ -951,26 +879,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 			}
 		}
 	}
-	#sales-pie-labels-crowdsale {
-		top: 95px;
-		left: 89px;
-	}
-	#sales-pie-labels-team {
-		top: 210px;
-		left: 362px;
-	}
-	#sales-pie-labels-airdrop {
-		top: 272px;
-		left: 321px;
-	}
-	#sales-pie-labels-advisors {
-		top: 320px;
-		left: 261px;
-	}
-	#sales-pie-labels-marketing {
-		top: 350px;
-		left: 177px;
-	}
 }
 
 // Large devices (desktops, 992px and wider)
@@ -997,26 +905,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 				width: 509px;
 			}
 		}
-	}
-	#sales-pie-labels-crowdsale {
-		top: 115px;
-		left: 109px;
-	}
-	#sales-pie-labels-team {
-		top: 242px;
-		left: 409px;
-	}
-	#sales-pie-labels-airdrop {
-		top: 321px;
-		left: 367px;
-	}
-	#sales-pie-labels-advisors {
-		top: 378px;
-		left: 299px;
-	}
-	#sales-pie-labels-marketing {
-		top: 402px;
-		left: 204px;
 	}
 }
 

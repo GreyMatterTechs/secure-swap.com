@@ -7,7 +7,7 @@
  * @author:		Philippe Aubessard
  * @link        http://secureswap.com
  * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
- * @namespace:	ss_ico
+ * @namespace:	ssw
  */
 
 'use strict';
@@ -17,21 +17,21 @@
  */
 (function(window, undefined) {
 
-	window.ss_ico = window.ss_ico || {};	// NameSpace
+	window.ssw = window.ssw || {};	// NameSpace
 
-	if (window.ss_ico.Tools === undefined ) { throw new Error('Please load Tools.js'); }
+	if (window.ssw.Tools === undefined ) { throw new Error('Please load Tools.js'); }
 
 	// ---------- class Login
 
 	// --- public static
 
 	// constructeur public static
-	window.ss_ico.Login = function() {
+	window.ssw.Login = function() {
 		throw new Error('Please use getInstance');
 	};
 
 	// singleton factory public static
-	window.ss_ico.Login.getInstance = function() {
+	window.ssw.Login.getInstance = function() {
 		if (instance) { return instance; }
 		instance = new Login();
 		return instance;
@@ -108,12 +108,12 @@
 
 		}; // end of return
 
-	}; // end of ss_ico.Login = function() {
+	}; // end of ssw.Login = function() {
 
 	// ---------- End class Login
 
 }(window));
 
-// window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.Login.getInstance().init(), false );
+// window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Login.getInstance().init(), false );
 
 // EOF

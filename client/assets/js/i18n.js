@@ -8,26 +8,27 @@
  * @author:		Philippe Aubessard, philippe@aubessard.net
  * @url         http://secureswap.com
  * @license:	Copyright (c) 2018, GreyMattersTechs. All rights reserved.
+ * @namespace:	ssw
  */
 'use strict';
 
 (function(window, undefined) {
 
-	window.ss_ico = window.ss_ico || {};	// NameSpace
+	window.ssw = window.ssw || {};	// NameSpace
 
-	if ( window.ss_ico.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
+	if ( window.ssw.Tools === undefined ) { throw new Error( 'Please load Tools.js' ); }
 
 	// ---------- class I18n
 
 	// --- public static
 
 	// constructeur public static
-	window.ss_ico.I18n = function() {
+	window.ssw.I18n = function() {
 		throw new Error( 'Please use getInstance' );
 	};
 
 	// singleton factory public static
-	window.ss_ico.I18n.getInstance = function() {
+	window.ssw.I18n.getInstance = function() {
 		if ( instance ) { return instance; }
 		instance = new I18n();
 		return instance;
@@ -578,7 +579,7 @@
 
 			init : function() {
 
-				tools = window.ss_ico.Tools.getInstance();
+				tools = window.ssw.Tools.getInstance();
 				
 				$i18n = $.i18n();
 		
@@ -657,12 +658,12 @@
 
 		}; // end of return
 
-	}; // end of ss_ico.I18n = function() {
+	}; // end of ssw.I18n = function() {
 
 	// ---------- End class I18n
 
 }(window));
 
-//window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.I18n.getInstance().init(), false );
+//window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.I18n.getInstance().init(), false );
 
 // EOF

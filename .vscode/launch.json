@@ -10,7 +10,7 @@
 			"name": "Launch Program",
 			"program": "${workspaceFolder}/server/server.js",
 			"env": {
-                "DEBUG": "ss_ico_site:*"
+                "DEBUG": "ssw:*"
 			},
 			"outputCapture": "std"
 		}

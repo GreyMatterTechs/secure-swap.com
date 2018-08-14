@@ -8,26 +8,26 @@
  * @author:		Philippe Aubessard, philippe@aubessard.net
  * @url         http://secureswap.com
  * @license:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
- * @namespace:	ss_ico
+ * @namespace:	ssw
  *
  */
 
 ( function( window, undefined ) {
 	'use strict';
 
-	window.ss_ico = window.ss_ico || {}; // NameSpace
+	window.ssw = window.ssw || {}; // NameSpace
 
 	// ---------- class Tools
 
 	// --- public static
 
 	// constructeur public static
-	window.ss_ico.Tools = function() {
+	window.ssw.Tools = function() {
 		throw new Error( 'Please use getInstance' );
 	};
 
 	// singleton factory public static
-	window.ss_ico.Tools.getInstance = function() {
+	window.ssw.Tools.getInstance = function() {
 		if ( instance ) { return instance; }
 		instance = new Tools();
 		return instance;

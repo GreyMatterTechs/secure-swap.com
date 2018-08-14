@@ -621,7 +621,7 @@
 		<script src="assets/js/i18n.js"></script>
 		<script src="assets/js/login.js"></script>
 		<script type="text/javascript">
-			window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.Login.getInstance().init(null, '<%- JSON.stringify(err) %>'), false );
+			window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Login.getInstance().init(null, '<%- JSON.stringify(err) %>'), false );
 		</script>
 		<!-- END Custom JS-->
 	<% } else { %>
@@ -649,7 +649,7 @@
 		<script src="assets/js/dashboard.js"></script>
 		<!-- END Custom JS-->
 		<script type="text/javascript">
-			window.ss_ico.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ss_ico.Dashboard.getInstance().init('<%- JSON.stringify(err) %>'), false );
+			window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Dashboard.getInstance().init('<%- JSON.stringify(err) %>'), false );
 		</script>
 		<!-- END Custom JS-->
 	<% } %>
