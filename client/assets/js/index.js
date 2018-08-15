@@ -303,20 +303,110 @@
 			return valid;
 		}
 
-		function commarize(min) {
-			min = min || 1e3;
-			// Alter numbers larger than 1k
-			if (this >= min) {
-				var units = ["k", "M", "B", "T"];
-				var order = Math.floor(Math.log(this) / Math.log(1000));
-				var unitname = units[(order - 1)];
-				var num = Math.floor(this / 1000 * order);
-				// output number remainder + unitname
-				return num + unitname;
+		/**
+		 * Checks if the given string is a checksummed address
+		 *
+		 * @method isChecksumAddress
+		 * @private
+		 * @param {String} address The given HEX adress
+		 *
+		 * @return {Boolean} True if address is a checksummed address
+		*/
+		function isChecksumAddress(address, cb) {
+			$.ajax({
+				type: 'POST',
+				url: 'api/ICOs/isChecksumAddress',
+				data: {address: address},
+				success: function(result) {
+					if (result.err)
+						return cb(false);
+					return cb(true);
+				},
+				error: function() {
+					return cb(false);
+				}
+			});
+		}
+
+		/**
+		 * Checks if the given string is an ETH address
+		 *
+		 * @method isETHAddress
+		 * @private
+		 * @param  {String} address The given HEX adress
+		 *
+		 * @return {Boolean} True if address is an ETH address
+		*/
+		function isETHAddress(address, cb) {
+			if (!/^(0x)?[0-9a-f]{40}$/i.test(address)) { // check if it has the basic requirements of an address
+				return cb(false);
+			} else if (/^(0x)?[0-9a-f]{40}$/.test(address) || /^(0x)?[0-9A-F]{40}$/.test(address)) { // If it's all small caps or all all caps, return true
+				return cb(true);
+			} else { // Otherwise check each case
+				isChecksumAddress(address, function(result) {
+					return cb(result);
+				});
 			}
-			// return formatted original number
-			// return this.toLocaleString();
-			return this.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+		}
+
+		function RFValidate(cb) {
+			var $inputs = $('#referralbox-form input[type=text]');
+			async.eachOf($inputs, function($input, index, callback) {
+				var val = $($input).val();
+				if (index == 0) {
+					if (val == null || val == '') {
+						$('#referralbox-form').find('input:eq(' + index + ')').addClass('required-error');
+						callback('empty');
+					} else {
+						isETHAddress(val, function(isETH) {
+							if (isETH) {
+								$('#referralbox-form').find('input:eq(' + index + ')').removeClass('required-error');
+								callback();
+							} else {
+								$('#referralbox-form').find('input:eq(' + index + ')').addClass('required-error');
+								callback('wrong');
+							}
+						});
+					}
+				} else if (index >= 1) {
+					if (val == null || val == '') {
+						callback();
+					} else {
+						isETHAddress(val, function(isETH) {
+							if (isETH) {
+								$('#referralbox-form').find('input:eq(' + index + ')').removeClass('required-error');
+								callback();
+							} else {
+								$('#referralbox-form').find('input:eq(' + index + ')').addClass('required-error');
+								callback('wrong');
+							}
+						});
+					}
+				}
+			}, function(err) {
+				if (err) {
+					cb(false);
+				} else {
+					cb(true);
+				}
+			});
+		}
+
+		function sameAddresses(addresses) {
+			var same = false;
+			addresses.some(function(row1, index1) {
+				addresses.some(function(row2, index2) {
+					if (index1 !== index2) {
+						if (row1 === row2) {
+							same = true;
+							$('#referralbox-form').find('input:eq(' + index1 + ')').addClass('required-error');
+							$('#referralbox-form').find('input:eq(' + index2 + ')').addClass('required-error');
+							return true;
+						}
+					}
+				});
+			});
+			return same;
 		}
 
 
@@ -327,13 +417,6 @@
 			init: function() {
 
 				i18n = window.ssw.I18n.getInstance();
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Add method to prototype. this allows you to use this function on numbers and strings directly
-				//--------------------------------------------------------------------------------------------------------------
-				
-			//	Number.prototype.commarize = commarize
-			//	String.prototype.commarize = commarize
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Call to action buttons
@@ -584,7 +667,8 @@
 				$('#contact-success-alert').hide();
 				$('#contact-error-alert').hide();
 				$('#contact-debug-alert').hide();
-				$('#contact-submit').click(function() {
+				$('#contact-submit').unbind('click').bind('click', function(e) {
+					e.preventDefault();
 					var valid = CFValidate();
 					if (valid) {
 						var ser = $('#contact-form').serialize();
@@ -624,6 +708,82 @@
 				$('#name, #mail, #message').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Referral Form
+				//--------------------------------------------------------------------------------------------------------------
+
+				$('#referralbox-success-alert').hide();
+				$('#referralbox-error-alert').hide();
+				$('#referralbox-debug-alert').hide();
+				$('#referralbox-submit').off('click.referralsubmit').on('click.referralsubmit', function(e) {
+					e.preventDefault();
+					RFValidate(function(valid) {
+						if (valid) {
+							var list = $('#referralbox-form').serialize().split('&');
+							var referrer = list.filter(function(address) { return address.startsWith('referrer'); });
+							var referrals = list.filter(function(address) { return address.startsWith('referral'); });
+							var addresses = list.map(function(el) { return el.split('=').pop(); });
+							referrer = referrer.map(function(el) { return el.split('=').pop(); });
+							referrals = referrals.map(function(el) { return el.split('=').pop(); });
+							if (!sameAddresses(addresses)) {
+								$('#referralbox-debug-alert').hide();
+								$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
+								$.ajax({
+									type: 'POST',
+									url: '/referral',
+									data: {referrer: referrer, referrals: referrals},
+									success: function(result) {
+										// var res = JSON.parse(result);
+										if (result.err) {
+											$('#referralbox-error-alert').html($.i18n(result.err));
+											$('#referralbox-error-alert').fadeIn('slow');
+											$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+										} else if (result.success) {
+											$('#referralbox-form input[type=text]').val('');
+											$('#referralbox-success-alert').html($.i18n(result.success));
+											$('#referralbox-success-alert').fadeIn('slow');
+											$('#referralbox-success-alert').delay(5000).fadeOut('slow');
+										}
+										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+									},
+									error: function() {
+										$('#referralbox-error-alert').html($.i18n('referralbox.error.message2'));
+										$('#referralbox-error-alert').fadeIn('slow');
+										$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+									}
+								});
+							}
+						}
+					});
+				});
+				$('[id^=referr]').on('input change', function(e) {
+					$('[id^=referr]').removeClass('required-error');
+				});
+				var nbReferrals = 1;
+				$('#referralbox-form').off('click.referraladd').on('click.referraladd', '#referralbox-add', function(e) {
+					e.preventDefault();
+					// supprimer ce bouton
+					$('#referralbox-add').remove();
+					// créer un nouvel input group
+					nbReferrals++;
+					$('.referrals-extent').append(
+						'<div class="form-group">' +
+						'	<div class="row">' +
+						'		<div class="col-10">' +
+						'			<input type="text" class="form-control" id="referral-' + nbReferrals + '" name="referral-' + nbReferrals + '" data-i18n="[placeholder]referralbox.placeholder.referral" placeholder="' + $.i18n('referralbox.placeholder.referral') + '">' +
+						'		</div>' +
+						'		<div class="col-1">' +
+						'			<a id="referralbox-add" class="btn btn-sm btn-gradient-blue my-2 my-sm-0 mt-3" href="#" ><i class="fas fa-lg fa-plus" data-fa-transform="grow-20 down-6"></i></a>' +
+						'		</div>' +
+						'	</div>' +
+						'</div>'
+					);
+					$('#referral-modal').modal('handleUpdate');
+				});
+
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Starts i18n, and run all scripts that requires localisation

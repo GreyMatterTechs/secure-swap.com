@@ -427,4 +427,28 @@ module.exports = function(ICO) {
 		});
 	};
 
+
+	/**
+	 * Check if the given string is a checksumed ETH address
+	 * Usually called by secureswap website
+	 *
+	 * @method isChecksumAddress
+	 * @public
+	 * @param    {String}   address The ETH address to valid
+	 * @callback {Function} cb      Callback function
+ 	 * @param    {Error}    err     Error information
+	 */
+	ICO.isChecksumAddress = function(address, cb) {
+		var e = new Error(g.f('Invalid address'));
+		e.status = e.statusCode = 401;
+		e.code = 'INVALID_ADDRESS';
+		if (!isString(address))
+			return cb(e, null);
+		if (isChecksumAddress(address)) {
+			return cb(null, true);
+		} else {
+			return cb(e, false);
+		}
+	};
+
 };

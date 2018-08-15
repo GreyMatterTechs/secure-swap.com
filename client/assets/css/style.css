@@ -127,35 +127,78 @@ header .navbar.navbar-fixed
 }
 
 /* -- problems & solutions ------------------------------------------------------------------- */
-#problem-solution ul
-{
-    list-style: circle;
-}
-#problem-solution ul li
-{
-    color: #c7b8ff;
-}
-
-.problems-img-inline,
-.solutions-img-inline
+.problem-solution .problems img.problems-img-inline
 {
     display: none;
 }
 
+.problem-solution .problems ul
+{
+    list-style: circle;
+}
+.problem-solution .problems ul li
+{
+    color: #c7b8ff;
+}
+
+.problem-solution .solutions img.solutions-img-inline
+{
+    display: none;
+}
+
+.problem-solution .solutions ul
+{
+    list-style: circle;
+}
+.problem-solution .solutions ul li
+{
+    color: #c7b8ff;
+}
+
 /* -- whitepaper ------------------------------------------------------------------- */
-#onepager.section-padding,
-#referral.section-padding
+.onepager.section-padding
 {
     padding-top: 0rem;
 }
-
-.onepager .onepager-languages img,
-.referral .referral-languages img
+.onepager.section-padding .onepager-languages img
 {
     border: 8px solid white;
     border-radius: 50%;
     -webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
             box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+}
+
+.referral ul.referral-steps
+{
+    font-size: .875rem;
+
+    padding-left: 8px;
+}
+.referral ul.referral-steps li
+{
+    padding: .1rem 0; 
+
+    color: #c7b8ff;
+}
+.referral ul.referral-steps li:before
+{
+    font-family: 'themify';
+    font-size: 1.125rem;
+
+    position: absolute;
+    left: -3px;
+
+    margin-top: -4px;
+    margin-right: 10px;
+
+    content: '\e65d';
+
+    color: #fff;
+}
+
+.referral .note
+{
+    font-size: .75rem;
 }
 
 /* -- token sale ------------------------------------------------------------------- */
@@ -573,7 +616,8 @@ select:-webkit-autofill
     border-bottom: 2px solid #be2e1b !important;
 }
 
-#contact-success-alert
+#contact-success-alert,
+#referralbox-success-alert
 {
     font-size: 11px;
 
@@ -591,7 +635,8 @@ select:-webkit-autofill
     background-color: #57cc65;
 }
 
-#contact-error-alert
+#contact-error-alert,
+#referralbox-error-alert
 {
     font-size: 11px;
 
@@ -609,7 +654,8 @@ select:-webkit-autofill
     background-color: #cc5757;
 }
 
-#contact-debug-alert
+#contact-debug-alert,
+#referralbox-debug-alert
 {
     font-size: 11px;
 
@@ -627,29 +673,39 @@ select:-webkit-autofill
 }
 
 /* -- Purchase modal popup -------------------------------------- */
-.team-modal
+/* -- Referral modal popup -------------------------------------- */
+.purchase-modal
 {
     background: -webkit-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
     background:    -moz-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
     background:      -o-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
     background:         linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
 }
-.team-modal .modal-header
+.purchase-modal .close
+{
+    position: absolute;
+    z-index: 9; 
+    top: 1rem;
+    right: 1rem;
+
+    color: #fff;
+}
+.purchase-modal p
+{
+    color: #7d7d7d;
+}
+.purchase-modal .modal-header
 {
     /*background: linear-gradient(32deg, #ff4137, #fdc800);*/
     border-bottom: 1px solid #eee;
 }
-.team-modal .modal-header .modal-title
+.purchase-modal .modal-header .modal-title
 {
     font-weight: 700;
 
     color: #fff;
 }
-.team-modal .close
-{
-    color: #fff;
-}
-.team-modal .modal-content
+.purchase-modal .modal-content
 {
     border: 2px solid #fff; 
     border-radius: 1.0rem;
@@ -658,45 +714,45 @@ select:-webkit-autofill
     background-image:      -o-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
     background-image:         linear-gradient(70deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
 }
-.team-modal .modal-content .brand-text,
-.team-modal .modal-content p
+.purchase-modal .modal-content .brand-text,
+.purchase-modal .modal-content p
 {
     color: #fff;
 }
-.team-modal .modal-content form
+.purchase-modal .modal-content form
 {
     width: 100%;
 }
-.team-modal .modal-content form .token-qr
+.purchase-modal .modal-content form .token-qr
 {
     text-align: center;
 }
-.team-modal .modal-content form .token-qr img
+.purchase-modal .modal-content form .token-qr img
 {
     width: 90%;
 }
-.team-modal .modal-content form p
+.purchase-modal .modal-content form p
 {
     font-size: 1.0rem;
 }
-.team-modal .modal-content form label
+.purchase-modal .modal-content form label
 {
     color: #fff;
 }
-.team-modal .modal-content form .note
+.purchase-modal .modal-content form .note
 {
     font-size: .8rem;
 }
-.team-modal .modal-content form .right-content
+.purchase-modal .modal-content form .right-content
 {
     font-size: .8rem;
 }
-.team-modal .modal-content form .alert .sub-title,
-.team-modal .modal-content form .alert .swap-box
+.purchase-modal .modal-content form .alert .sub-title,
+.purchase-modal .modal-content form .alert .swap-box
 {
     text-align: center;
 }
-.team-modal .modal-content form .form-control
+.purchase-modal .modal-content form .form-control
 {
     font-size: 1rem;
     line-height: 1.5;
@@ -718,6 +774,93 @@ select:-webkit-autofill
     background-color: #fff;
     -webkit-background-clip: padding-box;
             background-clip: padding-box;
+}
+
+.referral-modal
+{
+    background: -webkit-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+    background:    -moz-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+    background:      -o-linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+    background:         linear-gradient(45deg, rgba(20, 14, 56, .85), rgba(20, 56, 123, .85));
+}
+.referral-modal .close
+{
+    position: absolute;
+    z-index: 9; 
+    top: 1rem;
+    right: 1rem;
+
+    color: #fff;
+}
+.referral-modal p
+{
+    color: #7d7d7d;
+}
+.referral-modal .modal-header
+{
+    border-bottom: 1px solid #eee;
+}
+.referral-modal .modal-header .modal-title
+{
+    font-weight: 700;
+
+    color: #fff;
+}
+.referral-modal .modal-content
+{
+    border: 2px solid #fff; 
+    border-radius: 1.0rem;
+    background-image: -webkit-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+    background-image:    -moz-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+    background-image:      -o-linear-gradient(20deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+    background-image:         linear-gradient(70deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387b 65%, #140e38 99%, #140e38 100%);
+}
+.referral-modal .modal-content .brand-text,
+.referral-modal .modal-content p
+{
+    color: #fff;
+}
+.referral-modal .modal-content form
+{
+    width: 100%;
+}
+.referral-modal .modal-content form p
+{
+    font-size: 1.0rem;
+}
+.referral-modal .modal-content form label
+{
+    color: #fff;
+}
+.referral-modal .modal-content form .note
+{
+    font-size: .8rem;
+}
+.referral-modal .modal-content form .right-content
+{
+    font-size: .8rem;
+}
+.referral-modal .modal-content form .alert .sub-title,
+.referral-modal .modal-content form .alert .swap-box
+{
+    text-align: center;
+}
+.referral-modal .modal-content form .referrals-extent .form-group
+{
+    margin-bottom: 0;
+}
+.referral-modal .modal-content form .referrals-extent .form-group input
+{
+    margin-bottom: .2rem;
+    padding: .2rem .5rem;
+}
+.referral-modal .modal-content form .referrals-extent .form-group input:focus
+{
+    color: #fff;
+}
+.referral-modal .modal-content form a
+{
+    padding: .5rem .5rem .3rem .5rem;
 }
 
 /* -- Responsiveness -------------------------------------- */

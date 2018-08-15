@@ -8,4 +8,4 @@ Disallow:
 
 
 # Sitemap
-Sitemap: https://secureswap.com/sitmemap.xml
+Sitemap: https://secure-swap.com/sitmemap.xml

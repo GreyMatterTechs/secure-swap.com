@@ -895,66 +895,56 @@
 				<section id="referral" class="referral section-padding">
 					<div class="container">
 						<div class="heading social-margin text-center">
-							<h2 class="title" data-i18n="referral-area.head">Referral</h2>
+							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
+								<h6 class="sub-title" data-i18n="referral-area.subhead">Referral Campaign</h6>
+								<h2 class="title" data-i18n="referral-area.head, <%= tokenName %>">Get your free <%= tokenName %> tokens now!</h2>
+							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
-								<span data-i18n="referral-area.desc1">Do you want to know more?</span>
+								<span data-i18n="referral-area.desc1, <%= tokenName %>">Participate in our referral program and get free <%= tokenName %> tokens,</span>
 								<br class="d-none d-xl-block">
-								<span data-i18n="referral-area.desc2, <%= appName %>">Read the Referral to learn more about <%= appName %> and the opportunities available.</span>
+								<span data-i18n="referral-area.desc2, <%= appName %>">up to 10% of your referrals investments!</span>
 							</p>
 						</div>
 						<div class="row social-margin">
-							<div class="col-lg-5 col-md-12">
+							<div class="col-lg-4 col-md-12">
 								<div class="referral-img">
-									<img class="img-fluid animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" src="theme-assets/images/referral.png"
-									 alt="referral">
+									<img class="img-fluid animated" data-animation="fadeInRightShorter" data-animation-delay="1.0s" src="theme-assets/images/referral.png"  alt="referral">
 								</div>
 							</div>
-							<div class="col-lg-7 col-md-12">
+							<div class="col-lg-6 col-md-12">
 								<div class="content-area">
-									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="referral-area.read">Read Referral</h4>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="referral-area.read.p1, <%= appName %>">Learn more about the vision of <%= appName %> and fully understand why the decentralization of exchanges platforms is the future of digital currencies trading.</p>
-									<!--p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="referral-area.read.p2"></p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="referral-area.read.p3"></p-->
-									<div class="referral-languages">
-										<div class="row">
-											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
-												<a href="#" title="English">
-													<img src="theme-assets/images/flag-1.png" alt="English">
-													<div class="lang-text">
-														<span class="icon ti-download mr-1"></span>
-														<span class="language">English</span>
-													</div>
-												</a>
-											</div>
-											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s">
-												<a href="#" title="Japanese">
-													<img src="theme-assets/images/flag-2.png" alt="English">
-													<div class="lang-text">
-														<span class="icon ti-download mr-1"></span>
-														<span class="language">Japanese</span>
-													</div>
-												</a>
-											</div>
-											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s">
-												<a href="#" title="Russian">
-													<img src="theme-assets/images/flag-3.png" alt="English">
-													<div class="lang-text">
-														<span class="icon ti-download mr-1"></span>
-														<span class="language">Russian</span>
-													</div>
-												</a>
-											</div>
-											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s">
-												<a href="#" title="Chinese">
-													<img src="theme-assets/images/flag-4.png" alt="English">
-													<div class="lang-text">
-														<span class="icon ti-download mr-1"></span>
-														<span class="language">Chinese</span>
-													</div>
-												</a>
-											</div>
-										</div>
+									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" data-i18n="referral-area.title">Distribute the flyer!</h4>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" data-i18n="referral-area.p1, <%= appName %>">All you need to do is to get as many friends as possible to invest in the <%= appName %> project.</p>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="referral-area.p2, <%= tokenName %>">Each participant who managed to convince referrals to buy <%= tokenName %> Tokens will receive free tokens:</p>
+									<div class="col-12 pr-0">
+										<ul class="referral-steps animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s">
+											<li><span data-i18n="referral-area.li1">From 1 to 9 investors : 5% of the investor transactions</span></li>
+											<li><span data-i18n="referral-area.li2">From 10 investors: 10% of investor transactions</span></li>
+										</ul>
 									</div>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" data-i18n="referral-area.p3, <%= tokenName %>">Example: You have three friends who bought 1000 <%= tokenName %> tokens each. You will receive 150 tokens. You have 10 friends? The tenth bought 5000 tokens? You will receive 500 new tokens!</p>
+								</div>
+							</div>
+							<div class="col-12">
+								<div class="content-area">
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" data-i18n="referral-area.p4">You just have to follow these 4 steps:</p>
+									<div class="col-12 pr-0">
+										<ul class="referral-steps animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s">
+											<li><span data-i18n="referral-area.li3">Click the</span> <span data-i18n="referral-area.but.register">Register referrals</span> <span data-i18n="referral-area.li3end">button below</span></li>
+											<li><span data-i18n="referral-area.li4">Insert your address of the Ethereum wallet where you want to receive free tokens</span></li>
+											<li><span data-i18n="referral-area.li5, <%= appName %>">Insert the addresses of the Ethereum wallets of the investors that are interested to invest in <%= appName %></span></li>
+											<li><span data-i18n="referral-area.li6">Click the</span> <span data-i18n="referralbox.button.register">Register</span> <span data-i18n="referral-area.li6end">button</span></li>
+										</ul>
+									</div>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="1.2s" ><i class="fas fa-exclamation-triangle text-danger mr-3" aria-hidden="true"></i><span data-i18n="referral-area.p5">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span></p>
+									<p class="animated note" data-animation="fadeInUpShorter" data-animation-delay="1.3s" data-i18n="referral-area.p6">In case the transaction is done before the referrals wallets are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address: Only early address provided participant will be rewarded!</p>
+									<p>
+										<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="1.4s" data-i18n="referral-area.p7">Good luck and let the games begin!</h4>
+										<a href="#" id="btn-referral-area.register" 
+												data-toggle="modal" data-target="#referral-modal"
+												class="btn btn-lg btn-gradient-purple btn-glow ml-5 animated" data-animation="fadeInLeftShorter" data-animation-delay="1.5s" 
+												data-i18n="referral-area.but.register">Register referrals</a>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -2487,7 +2477,7 @@
 				</section-->
 				<!--/ Exchange Listing Area -->
 				<!-- Purchase Modal -->
-				<div class="modal team-modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal purchase-modal fade" id="purchase-modal" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -2595,6 +2585,61 @@
 					</div>
 				</div>
 				<!-- End Purchase Modal -->
+				<!-- Referral Modal -->
+				<div class="modal referral-modal fade" id="referral-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"><img src="assets/images/logo.png" alt="<%= appName %> Logo" /> <span data-i18n="referralbox.title, <%= appName %>"><%= appName %> - Referral Campaign</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							</div>							
+							<div class="modal-body">
+								<div class="container-fluid">
+									<form class="form-horizontal text-left mt-5" id="referralbox-form" name="referralbox" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" >
+										<div class="form-group">
+											<div class="row">
+												<label class="col-12 control-label " for="referrer" data-i18n="referralbox.label.referrer">As a referrer, issue your own Wallet address where to receive your free tokens:</label>
+												<div class="col-12">
+													<input type="text" class="form-control " id="referrer" name="referrer" data-i18n="[placeholder]referralbox.placeholder.referrer" placeholder="Your Wallet address">
+												</div>
+											</div>
+										</div>
+										<div class="referrals-extent mb-5">
+											<div class="form-group">
+												<div class="row">
+													<label for="referral-1" class="col-12 control-label " data-i18n="referralbox.label.referrals">Issue your referrals wallets addresses:</label>
+													<div class="col-10">
+														<input type="text" class="form-control " id="referral-1" name="referral-1" data-i18n="[placeholder]referralbox.placeholder.referral" placeholder="Referral Wallet address">
+													</div>
+													<div class="col-1">
+														<a id="referralbox-add" class="btn btn-sm btn-gradient-blue my-2 my-sm-0 mt-3 " href="#" ><i class="fas fa-lg fa-plus" data-fa-transform="grow-20 down-6"></i></a>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-offset-2 col-sm-10">
+												<button id="referralbox-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInRight" data-animation-delay="0.4s" data-i18n="referralbox.button.register" >Register</button>
+											</div>
+										</div>
+									</form>
+									<div id="referralbox-success-alert"></div>
+									<div id="referralbox-error-alert"></div>
+									<div id="referralbox-debug-alert"></div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<p class="col-12 small note"  >
+									<i class="fas fa-exclamation-triangle text-danger mr-3" aria-hidden="true"></i>
+									<span class="small" data-i18n="referral-area.p5">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span>
+									<br /> 
+									<span class="small" data-i18n="referral-area.p6">In case the transaction is done before the referrals wallets are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address: Only early address provided participant will be rewarded!</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Referral Modal -->
 				<!-- ICO Video Modal -->
 				<div class="modal ico-modal fade" id="ico-modal" tabindex="-1" role="dialog" aria-hidden="true">
 					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -2703,6 +2748,7 @@
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<script src="assets/vendors/vendors.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+	<script src="assets/async.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN I18N JS-->
 	<script src="assets/jquery-i18n/CLDRPluralRuleParser.js"></script>

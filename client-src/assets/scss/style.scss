@@ -133,28 +133,66 @@ header{
 
 /* -- problems & solutions ------------------------------------------------------------------- */
 
-#problem-solution ul {
-	list-style: circle;
-	li {
-		color: #c7b8ff;
+.problem-solution {
+	.problems {
+		img.problems-img-inline {
+			display: none;
+		}		
+		ul {
+			list-style: circle;
+			li {
+				color: #c7b8ff;
+			}
+		}
+	}
+	.solutions {
+		img.solutions-img-inline {
+			display: none;
+		}		
+		ul {
+			list-style: circle;
+			li {
+				color: #c7b8ff;
+			}
+		}
 	}
 }
-.problems-img-inline, .solutions-img-inline {
-	display: none;
-}
+
 
 /* -- whitepaper ------------------------------------------------------------------- */
 
-#onepager.section-padding,
-#referral.section-padding {
+.onepager.section-padding {
     padding-top: 0rem;
+	.onepager-languages img {
+		border: 8px solid white;
+		border-radius: 50%;
+		-webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+		box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+	}
 }
-.onepager .onepager-languages img,
-.referral .referral-languages img {
-    border: 8px solid white;
-    border-radius: 50%;
-    -webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
-    box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+
+.referral {
+    ul.referral-steps {
+		font-size: .875rem;
+   		padding-left: 8px;
+        li {
+			color: $dark-bg-color1;
+			padding: 0.1rem 0;
+			&:before {
+				font-family: 'themify';
+				font-size: 1.125rem;
+				position: absolute;
+				left: -3px;
+				margin-top: -4px;
+				margin-right: 10px;
+				content: '\e65d';
+				color: #fff;
+			}
+		}
+	}
+	.note {
+		font-size: .75rem;
+	}
 }
 
 /* -- token sale ------------------------------------------------------------------- */
@@ -467,7 +505,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 .required-error { border-bottom: 2px solid rgba(190,46,27,1)!important; }
 
-#contact-success-alert {
+#contact-success-alert,
+#referralbox-success-alert {
 	text-align: center; 
 	background-color: #57cc65; 
 	border: 2px solid #57cc65; 
@@ -480,7 +519,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	text-transform: uppercase; 
 }
 
-#contact-error-alert {
+#contact-error-alert,
+#referralbox-error-alert {
 	text-align: center; 
 	background-color: #cc5757; 
 	border: 2px solid #cc5757; 
@@ -493,7 +533,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	text-transform: uppercase; 
 }
 
-#contact-debug-alert {
+#contact-debug-alert,
+#referralbox-debug-alert {
 	text-align: center; 
 	background-color: #cc5757; 
 	border: 2px solid #cc5757; 
@@ -506,8 +547,20 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 /* -- Purchase modal popup -------------------------------------- */
-.team-modal {
+/* -- Referral modal popup -------------------------------------- */
+
+.purchase-modal {
 	background: linear-gradient(45deg, rgba($modal-gradient1, 0.85), rgba($modal-gradient2, 0.85));
+	.close{
+		color: #fff;
+		position: absolute;
+	    right: 1rem;
+	    top: 1rem;
+	    z-index: 9;
+	}
+	p {
+        color: $light-bg-font-color;
+	}
 	.modal-header {
 		/*background: linear-gradient(32deg, #ff4137, #fdc800);*/
 		border-bottom: 1px solid #eee;
@@ -515,9 +568,6 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 			font-weight: 700;
 			color: #fff;
 		}
-	}
-	.close {
-		color: #fff;
 	}
 	.modal-content {
 		border-radius: 1.0rem;
@@ -573,6 +623,73 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 		}
 	}
 }
+
+.referral-modal {
+	background: linear-gradient(45deg, rgba($modal-gradient1, 0.85), rgba($modal-gradient2, 0.85));
+	.close{
+		color: #fff;
+		position: absolute;
+	    right: 1rem;
+	    top: 1rem;
+	    z-index: 9;
+	}
+	p {
+        color: $light-bg-font-color;
+	}
+	.modal-header {
+		border-bottom: 1px solid #eee;
+		.modal-title {
+			font-weight: 700;
+			color: #fff;
+		}
+	}
+	.modal-content {
+		border-radius: 1.0rem;
+		background-image: linear-gradient(70deg, #140e38 0%, #140e38 1%, #14387b 35%, #14387B 65%, #140e38 99%, #140e38 100%);
+		border: 2px solid #fff;
+		.brand-text, 
+		p {
+			color: #fff;
+		}
+		form {
+			width: 100%;
+			p {
+				font-size: 1.0rem;
+			}
+			label {
+				color: #fff;
+			}
+			.note {
+				font-size: 0.8rem;
+			}
+			.right-content {
+				font-size: 0.8rem;
+			}
+			.alert {
+				.sub-title,
+				.swap-box {
+					text-align: center;
+				}
+			}
+			.referrals-extent {
+				.form-group {
+					margin-bottom: 0;
+					input {
+						margin-bottom: .2rem;
+						padding: .2rem .5rem;
+						&:focus {
+							color: #fff;
+						}
+					}
+				}
+			}
+			a {
+				padding: .5rem 0.5rem 0.3rem 0.5rem;
+			}
+		}
+	}
+}
+
 
 /* -- Responsiveness -------------------------------------- */
 

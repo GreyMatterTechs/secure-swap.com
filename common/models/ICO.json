@@ -127,6 +127,21 @@
 		"http": {
 		  "verb": "post"
 		}
+	},
+	"isChecksumAddress": {
+		"accepts": {
+			"arg": "address",
+			"type": "String",
+			"root": true
+		},
+		"returns": {
+			"arg": "valid",
+			"type": "Boolean",
+			"root": true
+		  },
+		"http": {
+		  "verb": "post"
+		}
 	}
   }
 }
