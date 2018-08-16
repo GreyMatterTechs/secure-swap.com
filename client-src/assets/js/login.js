@@ -5,7 +5,7 @@
  * @file		Login.js
  * @version:	1.0.0
  * @author:		Philippe Aubessard
- * @link        http://secureswap.com
+ * @link        http://secure-swap.com
  * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
  * @namespace:	ssw
  */

@@ -6,7 +6,7 @@
  * 
  * @version:	1.0.0
  * @author:		Philippe Aubessard, philippe@aubessard.net
- * @url         http://secureswap.com
+ * @url         http://secure-swap.com
  * @license:	Copyright (c) 2018, GreyMattersTechs. All rights reserved.
  * @namespace:	ssw
  */

@@ -5,7 +5,7 @@
  * @file		Landpage.js
  * @version:	1.0.0
  * @author:		Philippe Aubessard
- * @link        http://secureswap.com
+ * @link        http://secure-swap.com
  * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
  * @namespace:	ssw
  */
@@ -51,6 +51,7 @@
 
 		var i18n = null;
 		var clock = null;
+		var ssURI = null;
 		var updateICOIntervalDefault = 3000;
 		var updateICOInterval = updateICOIntervalDefault;
 		var updateICOIntervalId = null;
@@ -214,6 +215,7 @@
 						tokensTotal			= ico.tokensTotal;
 						tokensSold			= ico.tokensSold;
 						wallet				= ico.wallet;
+						ssURI				= ico.ssURI;
 						icoState = ico.state;
 						switch (ico.state) {
 						case 1:	setStatePreICO(ico);	break;
@@ -719,45 +721,52 @@
 				$('#referralbox-debug-alert').hide();
 				$('#referralbox-submit').off('click.referralsubmit').on('click.referralsubmit', function(e) {
 					e.preventDefault();
-					RFValidate(function(valid) {
-						if (valid) {
-							var list = $('#referralbox-form').serialize().split('&');
-							var referrer = list.filter(function(address) { return address.startsWith('referrer'); });
-							var referrals = list.filter(function(address) { return address.startsWith('referral'); });
-							var addresses = list.map(function(el) { return el.split('=').pop(); });
-							referrer = referrer.map(function(el) { return el.split('=').pop(); });
-							referrals = referrals.map(function(el) { return el.split('=').pop(); });
-							if (!sameAddresses(addresses)) {
-								$('#referralbox-debug-alert').hide();
-								$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
-								$.ajax({
-									type: 'POST',
-									url: '/referral',
-									data: {referrer: referrer, referrals: referrals},
-									success: function(result) {
-										// var res = JSON.parse(result);
-										if (result.err) {
-											$('#referralbox-error-alert').html($.i18n(result.err));
+					if (!ssURI) {
+						$('#referralbox-error-alert').html($.i18n('referralbox.error.message5'));
+						$('#referralbox-error-alert').fadeIn('slow');
+						$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+						$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+					} else {
+						RFValidate(function(valid) {
+							if (valid) {
+								var list = $('#referralbox-form').serialize().split('&');
+								var referrer = list.filter(function(address) { return address.startsWith('referrer'); });
+								var referrals = list.filter(function(address) { return address.startsWith('referral'); });
+								var addresses = list.map(function(el) { return el.split('=').pop(); });
+								referrer = referrer.map(function(el) { return el.split('=').pop(); });
+								referrals = referrals.map(function(el) { return el.split('=').pop(); });
+								if (!sameAddresses(addresses)) {
+									$('#referralbox-debug-alert').hide();
+									$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
+									$.ajax({
+										type: 'POST',
+										url: ssURI + '/register',
+										data: {referrer: referrer, referrals: referrals},
+										success: function(result) {
+											// var res = JSON.parse(result);
+											if (result.err) {
+												$('#referralbox-error-alert').html($.i18n(result.err));
+												$('#referralbox-error-alert').fadeIn('slow');
+												$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+											} else if (result.success) {
+												$('#referralbox-form input[type=text]').val('');
+												$('#referralbox-success-alert').html($.i18n(result.success));
+												$('#referralbox-success-alert').fadeIn('slow');
+												$('#referralbox-success-alert').delay(5000).fadeOut('slow');
+											}
+											$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+										},
+										error: function() {
+											$('#referralbox-error-alert').html($.i18n('referralbox.error.message2'));
 											$('#referralbox-error-alert').fadeIn('slow');
 											$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-										} else if (result.success) {
-											$('#referralbox-form input[type=text]').val('');
-											$('#referralbox-success-alert').html($.i18n(result.success));
-											$('#referralbox-success-alert').fadeIn('slow');
-											$('#referralbox-success-alert').delay(5000).fadeOut('slow');
+											$('#referralbox-submit').text($.i18n('referralbox.button.register'));
 										}
-										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
-									},
-									error: function() {
-										$('#referralbox-error-alert').html($.i18n('referralbox.error.message2'));
-										$('#referralbox-error-alert').fadeIn('slow');
-										$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
-									}
-								});
+									});
+								}
 							}
-						}
-					});
+						});
+					}
 				});
 				$('[id^=referr]').on('input change', function(e) {
 					$('[id^=referr]').removeClass('required-error');

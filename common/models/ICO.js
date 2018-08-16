@@ -4,7 +4,7 @@
  * @module		ICO
  * @file		This file defines the ICO module.
  * @author		Philippe Aubessard
- * @link        http://secureswap.com
+ * @link        http://secure-swap.com
  * @copyright	Copyright (c) 2018, GreyMatterTechs.com. All Rights Reserved.
  */
 
@@ -249,6 +249,7 @@ module.exports = function(ICO) {
 	 */
 	ICO.getICOData = function(cb) {
 		getICO(1, function(err, ico) {
+			ico.ssURI = config.ssURI;
 			if (err) return cb(err, null);
 			return cb(null, ico);
 		});

@@ -1,21 +1,32 @@
-// Require the modules.
+/**
+ * Gulp tasks and watches.
+ *
+ * @file		This file defines Gulp tasks.
+ * @author		Philippe Aubessard
+ * @link        http://secure-swap.com
+ * @copyright	Copyright (c) 2018, GreyMatterTechs.com. All Rights Reserved.
+ */
 
 'use strict';
 
-const gulp = require('gulp'),
-	sass = require('gulp-sass'),
-	autoprefixer = require('gulp-autoprefixer'),
-	cssnano = require('gulp-cssnano'),
-//	jshint = require('gulp-jshint'),
-	uglify = require('gulp-uglify'),
-//	imagemin = require('gulp-imagemin'),
-	rename = require('gulp-rename'),
-	concat = require('gulp-concat'),
-	notify = require('gulp-notify'),
-	cache = require('gulp-cache'),
-	livereload = require('gulp-livereload'),
-	del = require('del'),
-	config	= require('./gulpconfig.json');
+// ------------------------------------------------------------------------------------------------------
+// includes
+// ------------------------------------------------------------------------------------------------------
+
+const gulp			= require('gulp'),
+	  sass			= require('gulp-sass'),
+	  autoprefixer	= require('gulp-autoprefixer'),
+	  cssnano		= require('gulp-cssnano'),
+	  // jshint		= require('gulp-jshint'),
+	  uglify		= require('gulp-uglify'),
+	  // imagemin	= require('gulp-imagemin'),
+	  rename		= require('gulp-rename'),
+	  concat		= require('gulp-concat'),
+	  notify		= require('gulp-notify'),
+	  cache			= require('gulp-cache'),
+	  livereload	= require('gulp-livereload'),
+	  del			= require('del'),
+	  config		= require('./gulpconfig.json');
 
 
 // ------------------------------------------

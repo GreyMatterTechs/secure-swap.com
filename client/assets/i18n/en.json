@@ -436,7 +436,7 @@
 	"referralbox.placeholder.referrer":	"Your Wallet address",
 	"referralbox.label.referrals":		"Issue your referrals wallets addresses:",
 	"referralbox.placeholder.referral":	"Referral Wallet address",
-	"referralbox.button.register":			"Register",
+	"referralbox.button.register":		"Register",
 	"referralbox.button.sending":		"Sending...",
 	"referralbox.success.message":		"Message successfully sent. You can now inform your investors that they can complete their transaction.",
 	"referralbox.error.message1":		"Please wait 2 minutes between registrations. Thank you.",
