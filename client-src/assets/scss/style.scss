@@ -163,18 +163,24 @@ header{
 
 /* -- onepager ------------------------------------------------------------------- */
 
-.onepager.section-padding {
-    padding-top: 0rem;
-	.onepager-languages {
-		.lang-text .language {
-			font-size: 0.875rem;
-			color: #fff;
-		}
-		img {
-			border: 8px solid white;
-			border-radius: 50%;
-			-webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
-			box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+#navigation > ul > li:nth-child(5) > div > a:nth-child(2) {
+	display: none;
+}
+.onepager {
+	display: none;
+	&.section-padding {
+   		padding-top: 0rem;
+		.onepager-languages {
+			.lang-text .language {
+				font-size: 0.875rem;
+				color: #fff;
+			}
+			img {
+				border: 8px solid white;
+				border-radius: 50%;
+				-webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+				box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+			}
 		}
 	}
 }
