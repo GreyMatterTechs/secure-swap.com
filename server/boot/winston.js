@@ -14,12 +14,12 @@
 // includes
 // ------------------------------------------------------------------------------------------------------
 
+const path				= require('path');
+const appRoot			= require('app-root-path');
 const winston			= require('winston');
 const DailyRotateFile	= require('winston-daily-rotate-file');
-const appRoot			= require('app-root-path');
-const path				= require('path');
 const moment			= require('moment');
-const config			= require(path.join(`${appRoot}`, 'server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config			= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
@@ -54,7 +54,7 @@ const logger = winston.createLogger({
 			prepend: true,
 			timestamp: timeFormatFn,
 			formatter: function(options) {
-				return options.timestamp() + '-' + process.env.NODE_ENV + '- message:' + (options.message ? options.message : '')
+				return options.timestamp() + '-' + process.env.NODE_ENV + '- message:' + (options.message ? options.message : '');
 			}
 		}),
 		// - Write to all logs with level `info` and below to `combined.log`
@@ -74,7 +74,7 @@ const logger = winston.createLogger({
 			prepend: true,
 			timestamp: true,
 			formatter: function(options) {
-				return options.timestamp() + '-' + process.env.NODE_ENV + '- message:' + (options.message ? options.message : '')
+				return options.timestamp() + '-' + process.env.NODE_ENV + '- message:' + (options.message ? options.message : '');
 			}
 		})
 	]

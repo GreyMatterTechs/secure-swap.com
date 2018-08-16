@@ -15,14 +15,13 @@
 // ------------------------------------------------------------------------------------------------------
 
 const path		= require('path');
-const debug		= require('debug')('ssw:ico');
-const config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const g			= require('../../node_modules/loopback/lib/globalize');
 const app		= require('../../server/server');
 const CryptoJS	= require('crypto-js');
 const sha3		= require('crypto-js/sha3');
 const moment	= require('moment');
-const logger	= reqlocal('/server/boot/winston.js').logger;
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 
 // ------------------------------------------------------------------------------------------------------
@@ -323,8 +322,6 @@ module.exports = function(ICO) {
 			var end = moment(params.dateEnd);
 			var now = moment();
 			if (end.isBefore(start)) return cb(e2, null);
-//			if (start.isBefore(now)) return cb(e2, null);
-//			if (end.isBefore(now)) return cb(e2, null);
 		}
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);

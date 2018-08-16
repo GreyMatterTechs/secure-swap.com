@@ -161,17 +161,40 @@ header{
 
 /* -- whitepaper ------------------------------------------------------------------- */
 
+/* -- onepager ------------------------------------------------------------------- */
+
 .onepager.section-padding {
     padding-top: 0rem;
-	.onepager-languages img {
-		border: 8px solid white;
-		border-radius: 50%;
-		-webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
-		box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+	.onepager-languages {
+		.lang-text .language {
+			font-size: 0.875rem;
+			color: #fff;
+		}
+		img {
+			border: 8px solid white;
+			border-radius: 50%;
+			-webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+			box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+		}
 	}
 }
 
-.referral {
+/* -- referral ------------------------------------------------------------------- */
+
+.referral.section-padding {
+	padding-top: 0rem;
+	.referral-languages {
+		.lang-text .language {
+			font-size: 0.875rem;
+			color: #fff;
+		}
+		img {
+			border: 8px solid white;
+			border-radius: 50%;
+			-webkit-box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+			box-shadow: 0 0 20px 0 rgba(103, 103, 103, .5);
+		}
+	}
     ul.referral-steps {
 		font-size: .875rem;
    		padding-left: 8px;
@@ -691,7 +714,17 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 }
 
 
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
 /* -- Responsiveness -------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
 
 // Extra small devices (portrait phones, less than 576px)
 @include media-breakpoint-only(xs) {
@@ -956,15 +989,14 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 	p.solution-align2 {
 		margin-left: 17rem;
 	}
-	.problems-img-inline, .solutions-img-inline {
-		display: block;
-	}
 	.problems-img-inline {
+		display: block !important;
 		margin-left: 1rem;
 		margin-bottom: 1rem;
 		float: right;
 	}
 	.solutions-img-inline {
+		display: block !important;
 		margin-right: 1rem;
 		margin-bottom: 1rem;
 		float: left;

@@ -20,14 +20,14 @@ global.reqlocal		= require('app-root-path').require;
 // includes
 // ------------------------------------------------------------------------------------------------------
 
+const path			= require('path');
 const loopback		= require('loopback');
 const boot			= require('loopback-boot');
-const path			= require('path');
 const helmet		= require('helmet');
 const cookieParser	= require('cookie-parser');
 const bodyParser	= require('body-parser');
-const logger		= reqlocal('/server/boot/winston.js').logger;
-const config		= require(path.join(__dirname, 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 
 // $$$ TODO : etudier tous ces liens pour le login :

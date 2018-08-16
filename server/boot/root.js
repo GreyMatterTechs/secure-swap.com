@@ -14,11 +14,11 @@
 // includes
 // ------------------------------------------------------------------------------------------------------
 
+const path		= require('path');
 const requestIp	= require('request-ip');
 const geoip		= require('geoip-lite');
-const path		= require('path');
-const config	= require(path.join(__dirname, '../config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-const logger	= reqlocal('/server/boot/winston.js').logger;
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
 // Local Vars

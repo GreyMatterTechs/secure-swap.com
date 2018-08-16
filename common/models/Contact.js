@@ -15,13 +15,13 @@
 // ------------------------------------------------------------------------------------------------------
 
 const path			= require('path');
-const config		= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-const datasources	= require(path.join(__dirname, '../../server/datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-const loopback		= require('../../node_modules/loopback/lib/loopback');
 const validator		= require('validator');
 const xssFilters	= require('xss-filters');
 const app			= require('../../server/server');
-const logger		= reqlocal('/server/boot/winston.js').logger;
+const datasources	= reqlocal(path.join('server', 'datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const loopback		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
+const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
@@ -98,42 +98,42 @@ function sendMail(data, mEmail, cb) {
 module.exports = function(Contact) {
 
 	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
-	Contact.disableRemoteMethodByName('upsert');                               // disables PATCH /Contacts
-	Contact.disableRemoteMethodByName('find');                                 // disables GET /Contacts
-	Contact.disableRemoteMethodByName('replaceOrCreate');                      // disables PUT /Contacts
-	Contact.disableRemoteMethodByName('create');                               // disables POST /Contacts
+	Contact.disableRemoteMethodByName('upsert');								// disables PATCH /Contacts
+	Contact.disableRemoteMethodByName('find');									// disables GET /Contacts
+	Contact.disableRemoteMethodByName('replaceOrCreate');						// disables PUT /Contacts
+	Contact.disableRemoteMethodByName('create');								// disables POST /Contacts
 
-	Contact.disableRemoteMethodByName('prototype.updateAttributes');           // disables PATCH /Contacts/{id}
-	Contact.disableRemoteMethodByName('findById');                             // disables GET /Contacts/{id}
-	Contact.disableRemoteMethodByName('exists');                               // disables HEAD /Contacts/{id}
-	Contact.disableRemoteMethodByName('replaceById');                          // disables PUT /Contacts/{id}
-	Contact.disableRemoteMethodByName('deleteById');                           // disables DELETE /Contacts/{id}
+	Contact.disableRemoteMethodByName('prototype.updateAttributes');			// disables PATCH /Contacts/{id}
+	Contact.disableRemoteMethodByName('findById');								// disables GET /Contacts/{id}
+	Contact.disableRemoteMethodByName('exists');								// disables HEAD /Contacts/{id}
+	Contact.disableRemoteMethodByName('replaceById');							// disables PUT /Contacts/{id}
+	Contact.disableRemoteMethodByName('deleteById');							// disables DELETE /Contacts/{id}
 
-	Contact.disableRemoteMethodByName('prototype.__get__accessTokens');        // disable GET /Contacts/{id}/accessTokens
-	Contact.disableRemoteMethodByName('prototype.__create__accessTokens');     // disable POST /Contacts/{id}/accessTokens
-	Contact.disableRemoteMethodByName('prototype.__delete__accessTokens');     // disable DELETE /Contacts/{id}/accessTokens
+	Contact.disableRemoteMethodByName('prototype.__get__accessTokens');			// disable GET /Contacts/{id}/accessTokens
+	Contact.disableRemoteMethodByName('prototype.__create__accessTokens');		// disable POST /Contacts/{id}/accessTokens
+	Contact.disableRemoteMethodByName('prototype.__delete__accessTokens');		// disable DELETE /Contacts/{id}/accessTokens
 
-	Contact.disableRemoteMethodByName('prototype.__findById__accessTokens');   // disable GET /Contacts/{id}/accessTokens/{fk}
-	Contact.disableRemoteMethodByName('prototype.__updateById__accessTokens'); // disable PUT /Contacts/{id}/accessTokens/{fk}
-	Contact.disableRemoteMethodByName('prototype.__destroyById__accessTokens');// disable DELETE /Contacts/{id}/accessTokens/{fk}
+	Contact.disableRemoteMethodByName('prototype.__findById__accessTokens');	// disable GET /Contacts/{id}/accessTokens/{fk}
+	Contact.disableRemoteMethodByName('prototype.__updateById__accessTokens');	// disable PUT /Contacts/{id}/accessTokens/{fk}
+	Contact.disableRemoteMethodByName('prototype.__destroyById__accessTokens');	// disable DELETE /Contacts/{id}/accessTokens/{fk}
 
-	Contact.disableRemoteMethodByName('prototype.__count__accessTokens');      // disable  GET /Contacts/{id}/accessTokens/count
+	Contact.disableRemoteMethodByName('prototype.__count__accessTokens');		// disable  GET /Contacts/{id}/accessTokens/count
 
-	Contact.disableRemoteMethodByName('prototype.verify');                     // disable POST /Contacts/{id}/verify
-	Contact.disableRemoteMethodByName('changePassword');                       // disable POST /Contacts/change-password
-	Contact.disableRemoteMethodByName('createChangeStream');                   // disable GET and POST /Contacts/change-stream
+	Contact.disableRemoteMethodByName('prototype.verify');						// disable POST /Contacts/{id}/verify
+	Contact.disableRemoteMethodByName('changePassword');						// disable POST /Contacts/change-password
+	Contact.disableRemoteMethodByName('createChangeStream');					// disable GET and POST /Contacts/change-stream
 
-	Contact.disableRemoteMethodByName('confirm');                              // disables GET /Contacts/confirm
-	Contact.disableRemoteMethodByName('count');                                // disables GET /Contacts/count
-	Contact.disableRemoteMethodByName('findOne');                              // disables GET /Contacts/findOne
+	Contact.disableRemoteMethodByName('confirm');								// disables GET /Contacts/confirm
+	Contact.disableRemoteMethodByName('count');									// disables GET /Contacts/count
+	Contact.disableRemoteMethodByName('findOne');								// disables GET /Contacts/findOne
 
-	//Contact.disableRemoteMethodByName('login');                                // disables POST /Contacts/login
-	//Contact.disableRemoteMethodByName('logout');                               // disables POST /Contacts/logout
+	// Contact.disableRemoteMethodByName('login');                                // disables POST /Contacts/login
+	// Contact.disableRemoteMethodByName('logout');                               // disables POST /Contacts/logout
 
-	Contact.disableRemoteMethodByName('resetPassword');                        // disables POST /Contacts/reset
-	Contact.disableRemoteMethodByName('setPassword');                          // disables POST /Contacts/reset-password
-	Contact.disableRemoteMethodByName('update');                               // disables POST /Contacts/update
-	Contact.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Contacts/upsertWithWhere
+	Contact.disableRemoteMethodByName('resetPassword');							// disables POST /Contacts/reset
+	Contact.disableRemoteMethodByName('setPassword');							// disables POST /Contacts/reset-password
+	Contact.disableRemoteMethodByName('update');								// disables POST /Contacts/update
+	Contact.disableRemoteMethodByName('upsertWithWhere');						// disables POST /Contacts/upsertWithWhere
 
 	Contact.contact = function(req, cb) {
 

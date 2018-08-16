@@ -1,39 +1,34 @@
 {
-  "html": "html",
-        "assets": "client/assets",
-        "theme_assets": "client/theme-assets",
-        "assets_path": "../../../assets",
-        "theme_assets_path": "../../../theme-assets",
-  "assets_source": {
-    "path": "client-src/assets",
-	  "js":   "client-src/assets/js",
-	  "sass": "client-src/assets/scss",
-    "vendor": "client-src/assets/vendors"
-  },
-  "assets_dest": {
-    "css": "client/assets/css",
-    "js":  "client/assets/js",
-    "vendor": "client/assets/vendors"
-  },
-  "theme_assets_source": {
-    "path":   "client-src/theme-assets",
-    "js":     "client-src/theme-assets/js",
-    "sass":   "client-src/theme-assets/scss",
-    "vendor": "client-src/theme-assets/vendors"
-  },
-  "theme_assets_dest": {
-    "css":    "client/theme-assets/css",
-    "js":     "client/theme-assets/js",
-    "vendor": "client/theme-assets/vendors"
-  },
-  "autoprefixerBrowsers": [
-    "Android 2.3",
-    "Android >= 4",
-    "Chrome >= 25",
-    "Firefox >= 15",
-    "Explorer >= 9",
-    "iOS >= 6",
-    "Opera >= 12",
-    "Safari >= 6"
-  ]
+	"html": "html",
+	"assets": "client/assets",
+	"theme_assets": "client/theme-assets",
+	"assets_path": "../../../assets",
+	"theme_assets_path": "../../../theme-assets",
+	"assets_source": {
+		"path": "client-src/assets",
+		"js": "client-src/assets/js",
+		"sass": "client-src/assets/scss",
+		"vendor": "client-src/assets/vendors"
+	},
+	"assets_dest": {
+		"path": "client/assets/**",
+		"css": "client/assets/css",
+		"js": "client/assets/js",
+		"vendor": "client/assets/vendors"
+	},
+	"theme_assets_source": {
+		"path": "client-src/theme-assets",
+		"js": "client-src/theme-assets/js",
+		"sass": "client-src/theme-assets/scss",
+		"vendor": "client-src/theme-assets/vendors"
+	},
+	"theme_assets_dest": {
+		"path": "client/theme-assets/**",
+		"css": "client/theme-assets/css",
+		"js": "client/theme-assets/js",
+		"vendor": "client/theme-assets/vendors"
+	},
+	"esp": { 
+		"path": "server/views/**"
+	}
 }

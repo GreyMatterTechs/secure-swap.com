@@ -18,11 +18,11 @@ const path		= require('path');
 const async		= require('async');
 const passGen	= require('password-generator');
 const uuidV1	= require('uuid/v1');
-const g			= require('../../node_modules/loopback/lib/globalize');
-const loopback	= require('../../node_modules/loopback/lib/loopback');
-const utils		= require('../../node_modules/loopback/lib/utils');
-const config	= require(path.join(__dirname, '../../server/config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-const logger	= reqlocal('/server/boot/winston.js').logger;
+const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
+const loopback	= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
+const utils		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'utils'));
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
 // Local Vars
@@ -45,7 +45,7 @@ const SALT_WORK_FACTOR		= 10;
 const MAX_PASSWORD_LENGTH	= 72;
 const HOUR_IN_MILLISECONDS	= 1000 * 60 * 60;
 const DAY_IN_MILLISECONDS	= HOUR_IN_MILLISECONDS * 24;
-const MONTH_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 30; 
+const MONTH_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 30;
 const YEAR_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 365;
 
 
@@ -57,14 +57,14 @@ function makeOptions() {
 	var options			= {};
 	options.type		= 'email';
 	options.protocol	= 'http';
-	options.host		= config.nginxhost;	//(app && app.get('host')) || 'localhost';
-	options.port		= config.nginxport;	//(app && app.get('port')) || 3000;
+	options.host		= config.nginxhost;	// (app && app.get('host')) || 'localhost';
+	options.port		= config.nginxport;	// (app && app.get('port')) || 3000;
 	options.displayPort = (
 		(options.protocol === 'http' && options.port == '80') ||
 		(options.protocol === 'https' && options.port == '443')
 	) ? '' : ':' + options.port;
 	options.from		= config.mailProvider.auth.user;
-	//options.redirect= '/verified';
+	// options.redirect= '/verified';
 	options.appName		= config.appName;
 	options.headers		= options.headers || {};
 	return options;
@@ -118,9 +118,8 @@ function getUser(tokenId, thisUser, cb) {
  * @param {Object} Admin Model
  * @api public
  */
-module.exports = function (Admin) {
+module.exports = function(Admin) {
 
-	
 	Admin.validatesInclusionOf('onlineStatus', {in: ['online', 'away', 'offline']});
 
 	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
@@ -162,14 +161,14 @@ module.exports = function (Admin) {
 	Admin.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Admins/upsertWithWhere
 
 
-	Admin.setOnlineStatus = function (accessToken, status, cb) {
-		Admin.findById(accessToken.userId, function (err, user) {
+	Admin.setOnlineStatus = function(accessToken, status, cb) {
+		Admin.findById(accessToken.userId, function(err, user) {
 			if (err && (typeof cb === 'function')) return cb(err, null);
 			if (user) {
 				user.updateAttributes({
 					dateLastVisit: new Date().getTime(),
 					onlineStatus: status
-				}, function (err, user) {
+				}, function(err, user) {
 					if (err && (typeof cb === 'function')) return cb(err, null);
 					if (typeof cb === 'function') return cb(null, user);
 				});
@@ -181,14 +180,14 @@ module.exports = function (Admin) {
 		});
 	};
 
-	Admin.setOnlineStatusById = function (userId, status, cb) {
-		Admin.findById(userId, function (err, user) {
+	Admin.setOnlineStatusById = function(userId, status, cb) {
+		Admin.findById(userId, function(err, user) {
 			if (err && (typeof cb === 'function')) return cb(err, null);
 			if (user) {
 				user.updateAttributes({
 					dateLastVisit: new Date().getTime(),
 					onlineStatus: status
-				}, function (err) {
+				}, function(err) {
 					if (err && (typeof cb === 'function')) return cb(err, null);
 					if (typeof cb === 'function') return cb(null, user);
 				});
@@ -200,7 +199,7 @@ module.exports = function (Admin) {
 		});
 	};
 
-	Admin.setOnlineStatusByTokenId = function (tokenId, status, cb) {
+	Admin.setOnlineStatusByTokenId = function(tokenId, status, cb) {
 		var mAccessToken = Admin.app.models.AccessToken;
 		mAccessToken.findById(tokenId, function(err, accessToken) {
 			if (err) {
@@ -212,7 +211,7 @@ module.exports = function (Admin) {
 						user.updateAttributes({
 							dateLastVisit: new Date().getTime(),
 							onlineStatus: status
-						}, function (err) {
+						}, function(err) {
 							if (err && (typeof cb === 'function')) return cb(err, null);
 							if (typeof cb === 'function') return cb(null, user);
 						});
@@ -232,16 +231,16 @@ module.exports = function (Admin) {
 		});
 	}
 
-	Admin.getOnlineStatus = function (userId, cb) {
-		Admin.findById(userId, function (err, user) {
+	Admin.getOnlineStatus = function(userId, cb) {
+		Admin.findById(userId, function(err, user) {
 			if (err) cb(err, null);
 			if (user) {
 				var status = user.onlineStatus;
-				if (status ==='online') {
+				if (status === 'online') {
 					if (user.dateLastVisit ) {
 						var dateLastVisit = new Date(user.dateLastVisit).getTime();
 						var now = new Date().getTime();
-						if (now > dateLastVisit + 1000*60 )
+						if (now > dateLastVisit + 1000 * 60)
 							status = 'away';
 					}
 				}
@@ -268,11 +267,11 @@ module.exports = function (Admin) {
 			process.nextTick(fn, err);
 			return fn.promise;
 		}
-		Admin.find({}, function (err, users) {
+		Admin.find({}, function(err, users) {
 			if (err) return fn(err);
 			var statuses = {};
 			var now = new Date().getTime();
-			users.forEach(function(user){
+			users.forEach(function(user) {
 				var status = user.onlineStatus;
 				if (status ==='online') {
 					if (user.dateLastVisit ) {
@@ -287,10 +286,10 @@ module.exports = function (Admin) {
 		return fn.promise;
 	};
 
-    Admin.remoteMethod( 'getOnlineStatuses', {
+    Admin.remoteMethod('getOnlineStatuses', {
 		description: 'Reports online status of this user',
 		accepts: [
-					{arg: 'access_token', type: 'string', http: function(ctx) {
+					{ arg: 'access_token', type: 'string', http: function(ctx) {
 						var req = ctx && ctx.req;
 						var accessToken = req && req.accessToken;
 						var tokenID = accessToken ? accessToken.id : undefined;
@@ -305,12 +304,12 @@ module.exports = function (Admin) {
 	});	
 
 
-	Admin.getDashboard = function (accessToken, cb) {
+	Admin.getDashboard = function(accessToken, cb) {
 		var Robot = User.app.models.Robot;
 		var Strategy = User.app.models.Strategy;
 		var Message = User.app.models.Message;
 
-		Admin.findById(accessToken.userId, function (err, user) {
+		Admin.findById(accessToken.userId, function(err, user) {
 			if (err) return cb(err, null);
 			var settings = user.settings || {};
 			settings.currentMenu = 'profile';
@@ -318,25 +317,25 @@ module.exports = function (Admin) {
 			if (user.isAdmin) {
 				//return res.redirect('/dashboard-adm?access_token='+token.id);
 				async.parallel({
-					user: function (acb) {
-						User.find({ where: { id: user.id }, include: { relation: 'robots', scope: { include: { relation: 'strategies' } } } }, function (err, users) {
+					user: function(acb) {
+						User.find({ where: { id: user.id }, include: { relation: 'robots', scope: { include: { relation: 'strategies' } } } }, function(err, users) {
 							if (err) return acb(err, null);
 							acb(null, users);
 						});
 					},
-					users: function (acb) {
-						User.find({}, function (err, users) {
+					users: function(acb) {
+						User.find({}, function(err, users) {
 							if (err) return acb(err, null);
 							acb(null, users);
 						});
 					},
-					strategies: function (acb) {
-						Strategy.find({}, function (err, strategies) {
+					strategies: function(acb) {
+						Strategy.find({}, function(err, strategies) {
 							if (err) return acb(err, null);
 							acb(null, strategies);
 						});
 					}
-				}, function (err, results) {
+				}, function(err, results) {
 					if (err) return cb(err, null);
 					cb(null, 'dashboard', {
 						admin: true,
@@ -350,13 +349,13 @@ module.exports = function (Admin) {
 			} else {
 				//return res.redirect('/dashboard?access_token='+token.id);
 				async.parallel({
-					user: function (acb) {
-						User.find({ where: { id: user.id }, include: { relation: 'robots', scope: { include: { relation: 'strategies' } } } }, function (err, users) {
+					user: function(acb) {
+						User.find({ where: { id: user.id }, include: { relation: 'robots', scope: { include: { relation: 'strategies' } } } }, function(err, users) {
 							if (err) return acb(err, null);
 							acb(null, users);
 						});
 					}
-				}, function (err, results) {
+				}, function(err, results) {
 					if (err) return cb(err, null);
 					cb(null, 'dashboard', {
 						admin: false,
@@ -373,7 +372,7 @@ module.exports = function (Admin) {
 	
 
 	
-	Admin.setActive = function (tokenId, userId, active, fn) {
+	Admin.setActive = function(tokenId, userId, active, fn) {
 		fn = fn || utils.createPromiseCallback();
 		var err;
 		if (!tokenId) {
@@ -391,7 +390,7 @@ module.exports = function (Admin) {
 
 				Admin.setOnlineStatus(accessToken, 'online');
 
-				Admin.findById(userId, function (err, user) { // <= the customer who has the active state changed
+				Admin.findById(userId, function(err, user) { // <= the customer who has the active state changed
 					if (err) {
 						debug('An error is reported from setActive: %j', err);
 						fn(err, null);
@@ -420,7 +419,7 @@ module.exports = function (Admin) {
 
 							user.updateAttributes({
 								active: active
-							}, function (err, user) {
+							}, function(err, user) {
 								if (err) {
 									debug('An error is reported from setActive: %j', err);
 									fn(err, null);
@@ -483,7 +482,7 @@ module.exports = function (Admin) {
 	var NUMBER_RE = /([\d])/g;
 	var SPECIAL_CHAR_RE = /([\?\.\/\§\,\;\:\!\-])/g;
 	var NON_REPEATING_CHAR_RE = /([\w\d\?\.\/\§\,\;\:\!\-])\1{2,}/g;
-	Admin.checkPassword = function (password) {
+	Admin.checkPassword = function(password) {
 	//function isStrongEnough(password) {
 		var uc = password.match(UPPERCASE_RE);
 		var lc = password.match(LOWERCASE_RE);
@@ -511,7 +510,7 @@ module.exports = function (Admin) {
 	}
 
 
-	Admin.createPassword = function () {
+	Admin.createPassword = function() {
 		var password = '';
 		var randomLength = Math.floor(Math.random() * (config.passwordStrength.maxLength - config.passwordStrength.minLength)) + config.passwordStrength.minLength;
 		do {
@@ -524,13 +523,13 @@ module.exports = function (Admin) {
 	/*!
 	 * Hash the plain password
 	 */
-	Admin.hashPassword = function (plain) {
+	Admin.hashPassword = function(plain) {
 		this.validatePassword(plain);
 		var salt = bcrypt.genSaltSync(this.settings.saltWorkFactor || SALT_WORK_FACTOR);
 		return bcrypt.hashSync(plain, salt);
 	};
 
-	Admin.validatePassword = function (plain) {
+	Admin.validatePassword = function(plain) {
 		var err;
 		if (plain && typeof plain === 'string' && plain.length <= MAX_PASSWORD_LENGTH) {
 			return true;
@@ -553,8 +552,8 @@ module.exports = function (Admin) {
 		on checke le token pour envoyer une réponse jolie
 		au lieu d'une erreur (loopback/comon/model/user.js#882)
 	*/
-	Admin.beforeRemote('confirm', function (context, user, next) {
-		Admin.findById(context.args.uid, function (err, user) {
+	Admin.beforeRemote('confirm', function(context, user, next) {
+		Admin.findById(context.args.uid, function(err, user) {
 			if (err) return next(err);
 			if (user && user.verificationToken === context.args.token) {
 				return next();
@@ -577,10 +576,10 @@ module.exports = function (Admin) {
 		On a reçu la confirmation du mail d'enregistrement du user.
 		On active son compte
 	*/
-	Admin.afterRemote('confirm', function (context, user, next) {
+	Admin.afterRemote('confirm', function(context, user, next) {
 		// user is undefined
 
-		Admin.findById(context.args.uid, function (err, usr) {
+		Admin.findById(context.args.uid, function(err, usr) {
 			if (err) return next(err);
 
 			var pass = usr.repassword;	//User.createPassword();
@@ -594,7 +593,7 @@ module.exports = function (Admin) {
 				usr.updateAttributes({
 					active: true,
 					repassword: ''
-				}, function (err, user) {
+				}, function(err, user) {
 					if (err) throw err;	
 					
 				});
@@ -604,7 +603,7 @@ module.exports = function (Admin) {
 
 				usr.updateAttributes({
 					repassword: ''
-				}, function (err, user) {
+				}, function(err, user) {
 					
 				});
 
@@ -639,7 +638,7 @@ module.exports = function (Admin) {
 					subject: '[' + config.appName + '] New user registered: ' + usr.prenom + ' ' + usr.nom,
 				//	text: text,
 					html: text
-				}, function (err, mail) {
+				}, function(err, mail) {
 					if (err) {
 						return next(err);
 					}
@@ -651,13 +650,13 @@ module.exports = function (Admin) {
 		});
 	});
 
-	Admin.register = function (res, req, next) {
+	Admin.register = function(res, req, next) {
 		if (req.body.nom === '') { return res.send({ err: 'Firstname empty' }); }
 		if (req.body.prenom === '') { return res.send({ err: 'Lastname empty' }); }
 		if (req.body.password === '') { return res.send({ err: 'Password empty' }); }
 		if (req.body.password !== req.body.repassword) { return res.send({ err: 'Passwords do not match.' }); }
 
-	//	User.checkAccessKey(req.body.accessname, req.body.accesskey, function (access) {
+	//	User.checkAccessKey(req.body.accessname, req.body.accesskey, function(access) {
 		var access = false;
 		
 		Admin.create({
@@ -673,7 +672,7 @@ module.exports = function (Admin) {
 				dateLastVisit: new Date().getTime()
 			},
 				{},
-				function (err, user) {
+				function(err, user) {
 					if (err) {
 						var cause;
 						if (err.details.codes.email) {
@@ -702,7 +701,7 @@ module.exports = function (Admin) {
 						verifyOptions.host		= config.nginxhost;	//(app && app.get('host')) || 'localhost';
 				    	verifyOptions.port		= config.nginxport;	//(app && app.get('port')) || 3000;
 
-						user.verify(verifyOptions, function (err, response) {
+						user.verify(verifyOptions, function(err, response) {
 							if (err) {
 								Admin.deleteById(user.id);
 								return next(err);
@@ -712,7 +711,7 @@ module.exports = function (Admin) {
 								content: 'Merci de vérifier votre boite email, et de cliquer sur le lien de vérification. Une fois votre adresse email vérifiée, vous recevrez un nouveau mail de confirmation lorsque votre compte aura été activé.' ,
 								redirectTo: '/login',
 								redirectToLinkText: 'Connexion'
-							}, function (err, html) {
+							}, function(err, html) {
 								res.send(html);
 							});
 						});
@@ -727,7 +726,7 @@ module.exports = function (Admin) {
 	//send password reset link when requested
 	// je fais une version de User.prototype.verify() sans connaitre le user.
 	// je n'ai que son email et un token temporaire...
-	Admin.on('resetPasswordRequest', function (info) {
+	Admin.on('resetPasswordRequest', function(info) {
 		var options			= makeOptions();
 		options.template	= path.resolve(__dirname, '../../server/views/password_email.ejs');
 		options.to			= info.email;

@@ -14,11 +14,11 @@
 // includes
 // ------------------------------------------------------------------------------------------------------
 
+const path		= require('path');
 const async		= require('async');
 const appRoot	= require('app-root-path');
-const path		= require('path');
-const config	= require(path.join(`${appRoot}`, 'server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
-const logger	= reqlocal('/server/boot/winston.js').logger;
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
 // Local Vars
@@ -33,7 +33,7 @@ var mRoleMapping;
 
 const HOUR_IN_MILLISECONDS	= 1000 * 60 * 60;
 const DAY_IN_MILLISECONDS	= HOUR_IN_MILLISECONDS * 24;
-const MONTH_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 30; 
+const MONTH_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 30;
 const YEAR_IN_MILLISECONDS	= DAY_IN_MILLISECONDS * 365;
 
 var hour = 1;
@@ -142,7 +142,7 @@ function updateAdmins(cb) {
 						createRoles(user, account.userdata.roles, function(err, principal) {
 							if (err) return reject(err);
 							return resolve(user);
-						});	
+						});
 					});
 				}
 			});
@@ -184,7 +184,7 @@ function updateAdmins(cb) {
 		userdata: {
 			username: 'Saffray',
 			password: 'a',
-			email: 'alain@greymattertechs.com',	
+			email: 'alain@greymattertechs.com',
 			active: true,
 			accessVerified: true,
 			verificationToken: null,
@@ -237,7 +237,7 @@ function update(db, lbUpdateTables) {
  * @param {Object} app Express App
  * @api public
  */
-module.exports = function (app) {
+module.exports = function(app) {
 
 	db = app.dataSources.db;
 	dbName = db.settings.host ? db.settings.host : db.settings.file;
@@ -249,7 +249,7 @@ module.exports = function (app) {
 	var lbMigrateTables;
 	var lbUpdateTables;
 
-	if (process.env.NODE_ENV==='production') {
+	if (process.env.NODE_ENV === 'production') {
 		// on touche à rien
 	} else {
 		lbMigrateTables = ['ACL', 'RoleMapping'];
