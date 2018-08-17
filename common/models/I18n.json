@@ -1,13 +1,22 @@
 {
-  "name": "I18n",
-  "base": "Model",
-  "idInjection": true,
-  "properties": {},
-  "methods": {
-    "getSupportedLanguages": {
-      "accepts": [],
-      "returns": { "arg": "languages", "type": "array" },
-      "http": { "verb": "get" }
-    }
-  }
+	"name": "I18n",
+	"base": "PersistedModel",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
+	},
+	"properties": {},
+	"methods": {
+		"getSupportedLanguages": {
+			"accepts": [],
+			"returns": {
+				"arg": "languages",
+				"type": "array"
+			},
+			"http": {
+				"verb": "get"
+			},
+			"documented": false
+		}
+	}
 }

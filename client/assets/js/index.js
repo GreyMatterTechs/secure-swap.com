@@ -51,7 +51,6 @@
 
 		var i18n = null;
 		var clock = null;
-		var ssURI = null;
 		var updateICOIntervalDefault = 3000;
 		var updateICOInterval = updateICOIntervalDefault;
 		var updateICOIntervalId = null;
@@ -215,7 +214,6 @@
 						tokensTotal			= ico.tokensTotal;
 						tokensSold			= ico.tokensSold;
 						wallet				= ico.wallet;
-						ssURI				= ico.ssURI;
 						icoState = ico.state;
 						switch (ico.state) {
 						case 1:	setStatePreICO(ico);	break;
@@ -394,16 +392,27 @@
 			});
 		}
 
+		/**
+		 * Check if the array contains duplicate ETH addresses
+		 *
+		 * @method sameAddresses
+		 * @private
+		 * @param {String[]} addresses array of addresses
+		 *
+		 * @return {Boolean} True if duplicates found
+		 */
 		function sameAddresses(addresses) {
 			var same = false;
 			addresses.some(function(row1, index1) {
 				addresses.some(function(row2, index2) {
 					if (index1 !== index2) {
-						if (row1 === row2) {
-							same = true;
-							$('#referralbox-form').find('input:eq(' + index1 + ')').addClass('required-error');
-							$('#referralbox-form').find('input:eq(' + index2 + ')').addClass('required-error');
-							return true;
+						if (row1 !== '' && row2 !== '') {
+							if (row1 === row2) {
+								same = true;
+								$('#referralbox-form').find('input:eq(' + index1 + ')').addClass('required-error');
+								$('#referralbox-form').find('input:eq(' + index2 + ')').addClass('required-error');
+								return true;
+							}
 						}
 					}
 				});
@@ -721,52 +730,42 @@
 				$('#referralbox-debug-alert').hide();
 				$('#referralbox-submit').off('click.referralsubmit').on('click.referralsubmit', function(e) {
 					e.preventDefault();
-					if (!ssURI) {
-						$('#referralbox-error-alert').html($.i18n('referralbox.error.message5'));
-						$('#referralbox-error-alert').fadeIn('slow');
-						$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-						$('#referralbox-submit').text($.i18n('referralbox.button.register'));
-					} else {
-						RFValidate(function(valid) {
-							if (valid) {
-								var list = $('#referralbox-form').serialize().split('&');
-								var referrer = list.filter(function(address) { return address.startsWith('referrer'); });
-								var referrals = list.filter(function(address) { return address.startsWith('referral'); });
-								var addresses = list.map(function(el) { return el.split('=').pop(); });
-								referrer = referrer.map(function(el) { return el.split('=').pop(); });
-								referrals = referrals.map(function(el) { return el.split('=').pop(); });
-								if (!sameAddresses(addresses)) {
-									$('#referralbox-debug-alert').hide();
-									$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
-									$.ajax({
-										type: 'POST',
-										url: ssURI + '/register',
-										data: {referrer: referrer, referrals: referrals},
-										success: function(result) {
-											// var res = JSON.parse(result);
-											if (result.err) {
-												$('#referralbox-error-alert').html($.i18n(result.err));
-												$('#referralbox-error-alert').fadeIn('slow');
-												$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-											} else if (result.success) {
-												$('#referralbox-form input[type=text]').val('');
-												$('#referralbox-success-alert').html($.i18n(result.success));
-												$('#referralbox-success-alert').fadeIn('slow');
-												$('#referralbox-success-alert').delay(5000).fadeOut('slow');
-											}
-											$('#referralbox-submit').text($.i18n('referralbox.button.register'));
-										},
-										error: function() {
-											$('#referralbox-error-alert').html($.i18n('referralbox.error.message2'));
+					$('[id^=referr]').removeClass('required-error');
+					RFValidate(function(valid) {
+						if (valid) {
+							var ser = $('#referralbox-form').serialize();
+							var list = ser.split('&');
+							var addresses = list.map(function(el) { return el.split('=').pop(); });
+							if (!sameAddresses(addresses)) {
+								$('#referralbox-debug-alert').hide();
+								$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
+								$.ajax({
+									type: 'POST',
+									url: 'api/ICOs/register',
+									data: {ser: ser},
+									success: function(result) {
+										if (result.err) {
+											$('#referralbox-error-alert').html($.i18n('referralbox.error.message2', result.err));
 											$('#referralbox-error-alert').fadeIn('slow');
 											$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-											$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+										} else {
+											$('#referralbox-form input[type=text]').val('');
+											$('#referralbox-success-alert').html($.i18n('referralbox.success.message'));
+											$('#referralbox-success-alert').fadeIn('slow');
+											$('#referralbox-success-alert').delay(5000).fadeOut('slow');
 										}
-									});
-								}
+										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+									},
+									error: function(err) {
+										$('#referralbox-error-alert').html($.i18n('referralbox.error.message2', (err.responseJSON.error.code ? err.responseJSON.error.code : '0x1001')));
+										$('#referralbox-error-alert').fadeIn('slow');
+										$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+									}
+								});
 							}
-						});
-					}
+						}
+					});
 				});
 				$('[id^=referr]').on('input change', function(e) {
 					$('[id^=referr]').removeClass('required-error');

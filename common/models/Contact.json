@@ -1,13 +1,24 @@
 {
-  "name": "Contact",
-  "base": "Model",
-  "idInjection": true,
-  "properties": {},
-  "methods": {
-    "contact": {
-      "accepts": { "arg": "req", "type": "Object" },
-      "returns": { "arg": "result", "type": "Object" },
-      "http": { "verb": "post" }
-    }
-  }
+	"name": "Contact",
+	"base": "PersistedModel",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
+	},
+	"properties": {},
+	"methods": {
+		"contact": {
+			"accepts": {
+				"arg": "req",
+				"type": "Object"
+			},
+			"returns": {
+				"arg": "result",
+				"type": "Object"
+			},
+			"http": {
+				"verb": "post"
+			}
+		}
+	}
 }

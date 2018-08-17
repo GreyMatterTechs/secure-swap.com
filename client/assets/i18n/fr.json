@@ -443,18 +443,15 @@
 
 	"-------------- REFERRAL BOX --------------":"",
 	"referralbox.title":				"$1 - Parrainage",
-	"referralbox.label.referrer":		"En tant que parrain, entrez votre propre adresse de portefeuilles où recevoir vos jetons gratuits :",
+	"referralbox.label.referrer":		"En tant que parrain, entrez votre propre adresse de portefeuille où recevoir vos jetons gratuits :",
 	"referralbox.placeholder.referrer":	"Votre adresse portefeuilles",
 	"referralbox.label.referrals":		"Entrez les adresses des portefeuilles des investisseurs :",
 	"referralbox.placeholder.referral":	"Adresse portefeuilles de l'investisseur",
 	"referralbox.button.register":		"Enregistrer",
 	"referralbox.button.sending":		"Envoi en cours...",
-	"referralbox.success.message":		"Enregistrement réalisé avec succès. Vous pouvez maintenant informer vos investisseurs qu'ils peuvent effectuer leur transaction.",
+	"referralbox.success.message":		"Enregistrement réalisé avec succès.<br />Vous pouvez maintenant informer vos investisseurs qu'ils peuvent effectuer leur transaction.",
 	"referralbox.error.message1":		"Veuillez patienter 2 minutes entre chaque enregistrement. Merci",
-	"referralbox.error.message2":		"Désolé, il semble que le système d'enregistrement est hors service. Erreur [0x4001].<br />Merci de bien vouloir réessayer plus tard.",
-	"referralbox.error.message4":		"Le format de cette adresse eMail semble invalide. Merci de vérifier.",
-	"referralbox.error.message5":		"Désolé, il semble que le système d'enregistrement est hors service. Erreur [0x3004].<br />Merci de bien vouloir réessayer plus tard.",
-	"referralbox.error.message6":		"Désolé, il semble que le système d'enregistrement est hors service. Erreur [0x3005].<br />Merci de bien vouloir réessayer plus tard.",
+	"referralbox.error.message2":		"Désolé, il semble que le système d'enregistrement soit hors service. Erreur [$1].<br />Merci de bien vouloir réessayer plus tard.",
 
 	"last": ""
 }

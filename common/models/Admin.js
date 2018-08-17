@@ -122,44 +122,45 @@ module.exports = function(Admin) {
 
 	Admin.validatesInclusionOf('onlineStatus', {in: ['online', 'away', 'offline']});
 
-	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
-	Admin.disableRemoteMethodByName('upsert');                               // disables PATCH /Admins
-	Admin.disableRemoteMethodByName('find');                                 // disables GET /Admins
-	Admin.disableRemoteMethodByName('replaceOrCreate');                      // disables PUT /Admins
-	Admin.disableRemoteMethodByName('create');                               // disables POST /Admins
+	if (process.env.NODE_ENV !== undefined) {
+		// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
+		Admin.disableRemoteMethodByName('upsert');                               // disables PATCH /Admins
+		Admin.disableRemoteMethodByName('find');                                 // disables GET /Admins
+		Admin.disableRemoteMethodByName('replaceOrCreate');                      // disables PUT /Admins
+		Admin.disableRemoteMethodByName('create');                               // disables POST /Admins
 
-	Admin.disableRemoteMethodByName('prototype.updateAttributes');           // disables PATCH /Admins/{id}
-	Admin.disableRemoteMethodByName('findById');                             // disables GET /Admins/{id}
-	Admin.disableRemoteMethodByName('exists');                               // disables HEAD /Admins/{id}
-	Admin.disableRemoteMethodByName('replaceById');                          // disables PUT /Admins/{id}
-	Admin.disableRemoteMethodByName('deleteById');                           // disables DELETE /Admins/{id}
+		Admin.disableRemoteMethodByName('prototype.updateAttributes');           // disables PATCH /Admins/{id}
+		Admin.disableRemoteMethodByName('findById');                             // disables GET /Admins/{id}
+		Admin.disableRemoteMethodByName('exists');                               // disables HEAD /Admins/{id}
+		Admin.disableRemoteMethodByName('replaceById');                          // disables PUT /Admins/{id}
+		Admin.disableRemoteMethodByName('deleteById');                           // disables DELETE /Admins/{id}
 
-	Admin.disableRemoteMethodByName('prototype.__get__accessTokens');        // disable GET /Admins/{id}/accessTokens
-	Admin.disableRemoteMethodByName('prototype.__create__accessTokens');     // disable POST /Admins/{id}/accessTokens
-	Admin.disableRemoteMethodByName('prototype.__delete__accessTokens');     // disable DELETE /Admins/{id}/accessTokens
+		Admin.disableRemoteMethodByName('prototype.__get__accessTokens');        // disable GET /Admins/{id}/accessTokens
+		Admin.disableRemoteMethodByName('prototype.__create__accessTokens');     // disable POST /Admins/{id}/accessTokens
+		Admin.disableRemoteMethodByName('prototype.__delete__accessTokens');     // disable DELETE /Admins/{id}/accessTokens
 
-	Admin.disableRemoteMethodByName('prototype.__findById__accessTokens');   // disable GET /Admins/{id}/accessTokens/{fk}
-	Admin.disableRemoteMethodByName('prototype.__updateById__accessTokens'); // disable PUT /Admins/{id}/accessTokens/{fk}
-	Admin.disableRemoteMethodByName('prototype.__destroyById__accessTokens');// disable DELETE /Admins/{id}/accessTokens/{fk}
+		Admin.disableRemoteMethodByName('prototype.__findById__accessTokens');   // disable GET /Admins/{id}/accessTokens/{fk}
+		Admin.disableRemoteMethodByName('prototype.__updateById__accessTokens'); // disable PUT /Admins/{id}/accessTokens/{fk}
+		Admin.disableRemoteMethodByName('prototype.__destroyById__accessTokens');// disable DELETE /Admins/{id}/accessTokens/{fk}
 
-	Admin.disableRemoteMethodByName('prototype.__count__accessTokens');      // disable  GET /Admins/{id}/accessTokens/count
+		Admin.disableRemoteMethodByName('prototype.__count__accessTokens');      // disable  GET /Admins/{id}/accessTokens/count
 
-	Admin.disableRemoteMethodByName('prototype.verify');                     // disable POST /Admins/{id}/verify
-	Admin.disableRemoteMethodByName('changePassword');                       // disable POST /Admins/change-password
-	Admin.disableRemoteMethodByName('createChangeStream');                   // disable GET and POST /Admins/change-stream
+		Admin.disableRemoteMethodByName('prototype.verify');                     // disable POST /Admins/{id}/verify
+		Admin.disableRemoteMethodByName('changePassword');                       // disable POST /Admins/change-password
+		Admin.disableRemoteMethodByName('createChangeStream');                   // disable GET and POST /Admins/change-stream
 
-	Admin.disableRemoteMethodByName('confirm');                              // disables GET /Admins/confirm
-	Admin.disableRemoteMethodByName('count');                                // disables GET /Admins/count
-	Admin.disableRemoteMethodByName('findOne');                              // disables GET /Admins/findOne
+		Admin.disableRemoteMethodByName('confirm');                              // disables GET /Admins/confirm
+		Admin.disableRemoteMethodByName('count');                                // disables GET /Admins/count
+		Admin.disableRemoteMethodByName('findOne');                              // disables GET /Admins/findOne
 
-	//Admin.disableRemoteMethodByName('login');                                // disables POST /Admins/login
-	//Admin.disableRemoteMethodByName('logout');                               // disables POST /Admins/logout
+		//Admin.disableRemoteMethodByName('login');                                // disables POST /Admins/login
+		//Admin.disableRemoteMethodByName('logout');                               // disables POST /Admins/logout
 
-	Admin.disableRemoteMethodByName('resetPassword');                        // disables POST /Admins/reset
-	Admin.disableRemoteMethodByName('setPassword');                          // disables POST /Admins/reset-password
-	Admin.disableRemoteMethodByName('update');                               // disables POST /Admins/update
-	Admin.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Admins/upsertWithWhere
-
+		Admin.disableRemoteMethodByName('resetPassword');                        // disables POST /Admins/reset
+		Admin.disableRemoteMethodByName('setPassword');                          // disables POST /Admins/reset-password
+		Admin.disableRemoteMethodByName('update');                               // disables POST /Admins/update
+		Admin.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Admins/upsertWithWhere
+	}
 
 	Admin.setOnlineStatus = function(accessToken, status, cb) {
 		Admin.findById(accessToken.userId, function(err, user) {

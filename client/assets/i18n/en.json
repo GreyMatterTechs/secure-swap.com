@@ -439,12 +439,9 @@
 	"referralbox.placeholder.referral":	"Referral Wallet address",
 	"referralbox.button.register":		"Register",
 	"referralbox.button.sending":		"Sending...",
-	"referralbox.success.message":		"Message successfully sent. You can now inform your investors that they can complete their transaction.",
+	"referralbox.success.message":		"Wallets successfully registered.<br />You can now inform your investors that they can complete their transaction.",
 	"referralbox.error.message1":		"Please wait 2 minutes between registrations. Thank you.",
-	"referralbox.error.message2":		"Sorry, registering system sounds down. Error [0x4001].<br />Please retry later.",
-	"referralbox.error.message4":		"This Email format looks invalid. Please check.",
-	"referralbox.error.message5":		"Sorry, registering system is down. Error [0x3004].<br />Please retry later.",
-	"referralbox.error.message6":		"Sorry, registering system is down. Error [0x3005].<br />Please retry later.",
+	"referralbox.error.message2":		"Sorry, registering system sounds down. Error [$1].<br />Please retry later.",
 
 	"last": ""
 }

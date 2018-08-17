@@ -20,6 +20,7 @@ const app		= require('../../server/server');
 const CryptoJS	= require('crypto-js');
 const sha3		= require('crypto-js/sha3');
 const moment	= require('moment');
+const request	= require('superagent');
 const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
@@ -141,6 +142,53 @@ function isDate(val) { // 2018-07-08T20:37:22.102Z or Timestamp
 }
 
 /**
+ * Check if obj is an Object
+ *
+ * @method isObject
+ * @private
+ * @param {*} obj The object to check
+ *
+ * @return {Boolean} True if obj is a literal Object
+ *
+ * @example
+ * console.log(isObject(        )); // false
+ * console.log(isObject(    null)); // false
+ * console.log(isObject(    true)); // false
+ * console.log(isObject(       1)); // false
+ * console.log(isObject(   'str')); // false
+ * console.log(isObject(      [])); // false
+ * console.log(isObject(new Date)); // false
+ * console.log(isObject(      {})); // true
+ */
+function isObject(obj) {
+	return (!!obj) && (obj.constructor === Object);
+}
+
+/**
+ * Check if the array contains duplicate ETH addresses
+ *
+ * @method sameAddresses
+ * @private
+ * @param {String[]} addresses array of addresses
+ *
+ * @return {Boolean} True if duplicates found
+ */
+function sameAddresses(addresses) {
+	var same = false;
+	addresses.some(function(row1, index1) {
+		addresses.some(function(row2, index2) {
+			if (index1 !== index2) {
+				if (row1 === row2) {
+					same = true;
+					return true;
+				}
+			}
+		});
+	});
+	return same;
+}
+
+/**
  * Check access token validity
  *
  * @method checkToken
@@ -218,24 +266,27 @@ module.exports = function(ICO) {
 
 	ICO.validatesInclusionOf('state', {in: [1, 2, 3]});
 
-	// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
-	ICO.disableRemoteMethodByName('upsert');								// disables PATCH /ICOs
-	ICO.disableRemoteMethodByName('find');									// disables GET /ICOs
-	ICO.disableRemoteMethodByName('replaceOrCreate');						// disables PUT /ICOs
-	ICO.disableRemoteMethodByName('create');								// disables POST /ICOs
-	ICO.disableRemoteMethodByName('prototype.updateAttributes');			// disables PATCH /ICOs/{id}
-	ICO.disableRemoteMethodByName('findById');								// disables GET /ICOs/{id}
-	ICO.disableRemoteMethodByName('exists');								// disables HEAD /ICOs/{id}
-	ICO.disableRemoteMethodByName('replaceById');							// disables PUT /ICOs/{id}
-	ICO.disableRemoteMethodByName('deleteById');							// disables DELETE /ICOs/{id}
-	ICO.disableRemoteMethodByName('prototype.__findById__accessTokens');	// disable GET /ICOs/{id}/accessTokens/{fk}
-	ICO.disableRemoteMethodByName('prototype.__updateById__accessTokens');	// disable PUT /ICOs/{id}/accessTokens/{fk}
-	ICO.disableRemoteMethodByName('prototype.__destroyById__accessTokens');	// disable DELETE /ICOs/{id}/accessTokens/{fk}
-	ICO.disableRemoteMethodByName('prototype.__count__accessTokens');		// disable  GET /ICOs/{id}/accessTokens/count
-	ICO.disableRemoteMethodByName('count');									// disables GET /ICOs/count
-	ICO.disableRemoteMethodByName('findOne');								// disables GET /ICOs/findOne
-	ICO.disableRemoteMethodByName('update');								// disables POST /ICOs/update
-	ICO.disableRemoteMethodByName('upsertWithWhere');						// disables POST /I18ns/upsertWithWhere
+	if (process.env.NODE_ENV !== undefined) {
+		// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
+		ICO.disableRemoteMethodByName('upsert');								// disables PATCH /ICOs
+		ICO.disableRemoteMethodByName('find');									// disables GET /ICOs
+		ICO.disableRemoteMethodByName('replaceOrCreate');						// disables PUT /ICOs
+		ICO.disableRemoteMethodByName('create');								// disables POST /ICOs
+		ICO.disableRemoteMethodByName('prototype.updateAttributes');			// disables PATCH /ICOs/{id}
+		ICO.disableRemoteMethodByName('findById');								// disables GET /ICOs/{id}
+		ICO.disableRemoteMethodByName('exists');								// disables HEAD /ICOs/{id}
+		ICO.disableRemoteMethodByName('replaceById');							// disables PUT /ICOs/{id}
+		ICO.disableRemoteMethodByName('deleteById');							// disables DELETE /ICOs/{id}
+		ICO.disableRemoteMethodByName('prototype.__findById__accessTokens');	// disable GET /ICOs/{id}/accessTokens/{fk}
+		ICO.disableRemoteMethodByName('prototype.__updateById__accessTokens');	// disable PUT /ICOs/{id}/accessTokens/{fk}
+		ICO.disableRemoteMethodByName('prototype.__destroyById__accessTokens');	// disable DELETE /ICOs/{id}/accessTokens/{fk}
+		ICO.disableRemoteMethodByName('prototype.__count__accessTokens');		// disable  GET /ICOs/{id}/accessTokens/count
+		ICO.disableRemoteMethodByName('createChangeStream');					// disables POST /ICOs/change-stream
+		ICO.disableRemoteMethodByName('count');									// disables GET /ICOs/count
+		ICO.disableRemoteMethodByName('findOne');								// disables GET /ICOs/findOne
+		ICO.disableRemoteMethodByName('update');								// disables POST /ICOs/update
+		ICO.disableRemoteMethodByName('upsertWithWhere');						// disables POST /I18ns/upsertWithWhere
+	}
 
 	/**
 	 * Get all ICO params from database
@@ -249,7 +300,6 @@ module.exports = function(ICO) {
 	 */
 	ICO.getICOData = function(cb) {
 		getICO(1, function(err, ico) {
-			ico.ssURI = config.ssURI;
 			if (err) return cb(err, null);
 			return cb(null, ico);
 		});
@@ -447,6 +497,57 @@ module.exports = function(ICO) {
 		} else {
 			return cb(e, false);
 		}
+	};
+
+
+	/**
+	 * Transmit referral wallets to ICO server for registration
+	 * Usually called by website
+	 *
+	 * @method register
+	 * @public
+	 * @param    {String}   ser      Referrals Form data
+	 * @callback {Function} cb       Callback function
+ 	 * @param    {Error}    err      Error information
+	 */
+	ICO.register = function(ser, cb) {
+		var e = new Error(g.f('Invalid Param'));
+		e.status = e.statusCode = 401;
+		e.code = '0x1000';
+
+		if (!isString(ser)) return cb(e, null);
+
+		var list = ser.split('&'); // All referrals' wallets addresses ({referrer: {String}referrer, referrals: {String[]}referrals})
+		if (list.length < 2) return cb(e, null);
+
+		var referrer = list.filter(function(address) { return address.startsWith('referrer'); });
+		var referrals = list.filter(function(address) { return address.startsWith('referral'); });
+		if (referrer.length !== 1) return cb(e, null);
+		if (referrals.length < 1) return cb(e, null);
+
+		var addresses = list.map(function(el) { return el.split('=').pop(); });
+		addresses = addresses.filter(function(address) { return address !== ''; });
+		if (sameAddresses(addresses)) return cb(e, null);
+
+		referrer = referrer.map(function(el) { return el.split('=').pop(); });
+		referrer = referrer[0];
+		referrals = referrals.map(function(el) { return el.split('=').pop(); });
+		referrals = referrals.filter(function(address) { return address !== ''; });
+
+		if (!isETHAddress(referrer)) return cb(e, null);
+		for (var i = 0; i < referrals.length; i++) {
+			if (!isETHAddress(referrals[i])) {
+				return cb(e, null);
+			}
+		}
+
+		request
+			.post(config.ssURI + '/api/Referrers/register')
+			.send({wallets: {referrer: referrer, referrals: referrals}})
+			.end((err, res) => {
+				if (err) return cb(err);
+				return cb(null, '');
+			});
 	};
 
 };
