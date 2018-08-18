@@ -1,6 +1,6 @@
 /**
  * I18n.js
- * App for SecureSwap website.
+ * App for SecureSwap ICO website.
  * 
  * Includes all of the following: Tools.js
  * 

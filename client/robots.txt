@@ -4,8 +4,50 @@
 User-Agent: *
 
 # Disallow crawling of sub folders
-Disallow: 
+Crawl-delay: 600
 
+# but allow only important bots
+#User-agent: Googlebot
+#User-agent: Googlebot-Image
+#User-agent: Mediapartners-Google
+#User-agent: msnbot
+#User-agent: msnbot-media
+#User-agent: Slurp
+#User-agent: Yahoo-Blogs
+#User-agent: Yahoo-MMCrawler
+# Directories
+Disallow: /home/
+Disallow: /obelix/
+Disallow: /zenboard/
+Disallow: /zencrypto/
+Disallow: /zencare/
+Disallow: /zennews/
+Disallow: /.cache/
+Disallow: /.npm/
+Disallow: /.pm2/
+# Files
+Disallow: /ecosystem.config.js
+Disallow: /.bashrc
+Disallow: /.bash_logout
+Disallow: /.bash_history
+Disallow: /.profile
+Disallow: /package.json
+# Paths (clean URLs)
+#Disallow: /admin/
+#Disallow: /comment/reply/
+#Disallow: /contact/
+#Disallow: /logout/
+#Disallow: /node/add/
+# Paths (no clean URLs)
+Disallow: /?q=admin/
+Disallow: /?q=comment/reply/
+Disallow: /?q=contact/
+Disallow: /?q=logout/
+Disallow: /?q=node/add/
+Disallow: /?q=search/
+Disallow: /?q=user/password/
+Disallow: /?q=user/register/
+Disallow: /?q=user/login/
 
 # Sitemap
 Sitemap: https://secure-swap.com/sitmemap.xml

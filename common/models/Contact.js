@@ -35,7 +35,7 @@ function sendMail(data, mEmail, cb) {
 		options.cc = config.mailRecipient.cc;
 		options.bcc = config.mailRecipient.cci;
 		options.replyTo = data.mail;
-		options.subject = '[SecureSwap] Contact from ' + data.name;
+		options.subject = '[Secure-Swap] Contact from ' + data.name;
 		options.type = 'email';
 		options.protocol = 'http';
 		options.host = config.nginxhost;
@@ -136,7 +136,7 @@ module.exports = function(Contact) {
 		Contact.disableRemoteMethodByName('update');								// disables POST /Contacts/update
 		Contact.disableRemoteMethodByName('upsertWithWhere');						// disables POST /Contacts/upsertWithWhere
 	}
-	
+
 	Contact.contact = function(req, cb) {
 
 		// Filter bad requests
@@ -144,7 +144,7 @@ module.exports = function(Contact) {
 			return cb({err: 'bad request'}, null);
 		}
 		// Check referers
-		var validReferers = ['secureswap.com', 'http://localhost:3000/'];
+		var validReferers = ['secure-swap.com', 'http://localhost:3000/'];
 		var referer = req.get('Referrer');
 		referer = referer.replace(/www/i, '');
 		if (!validReferers.includes(referer)) {

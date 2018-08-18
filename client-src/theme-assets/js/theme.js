@@ -12,9 +12,9 @@
 // Preloader
 $(window).on('load', function() {
 
-	setTimeout(function() {
-		$('body').addClass('loaded');
-	}, 200);
+	// setTimeout(function() {
+	$('body').addClass('loaded');
+	// }, 1);
 
 	// Vertical Nav with social icons + telegram
 	$('nav.vertical-social').midnight();
