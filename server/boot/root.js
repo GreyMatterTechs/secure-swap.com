@@ -124,8 +124,8 @@ function login(req, cb) {
  * @api public
  */
 module.exports = function(server) {
-	server.locals.env		= process.env.NODE_ENV;
-	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : server.dataSources.db.settings.file;
+	server.locals.env		= process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV;
+	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : 'local';
 	mAdmin					= server.models.Admin;
 	mContact				= server.models.Contact;
 	var router				= server.loopback.Router();

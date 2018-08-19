@@ -62,6 +62,38 @@ input.noscript-closing-trick {
 .nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
   visibility: hidden; }
 
+/* -- corner-ribbon ------------------------------------------------------------------- */
+.corner-ribbon {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  line-height: 20px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  font-size: 14px;
+  z-index: 9999; }
+  .corner-ribbon.sticky {
+    position: fixed; }
+  .corner-ribbon.shadow {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
+  .corner-ribbon.top-left {
+    top: 25px;
+    left: -50px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  .corner-ribbon.top-right {
+    top: 25px;
+    right: -50px;
+    left: auto;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg); }
+
 /* -- head ------------------------------------------------------------------- */
 header .navbar.navbar-fixed {
   padding: 0; }
