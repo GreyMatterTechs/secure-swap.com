@@ -301,7 +301,18 @@ module.exports = function(ICO) {
 	ICO.getICOData = function(cb) {
 		getICO(1, function(err, ico) {
 			if (err) return cb(err, null);
-			return cb(null, ico);
+			var received = ico.ethReceived;
+			if (received > 0) {
+				ico.updateAttributes({
+					ethReceived: 0
+				}, function(err) {
+					if (err) return cb(err, null);
+					ico.ethReceived = received;
+					return cb(null, ico);
+				});
+			} else {
+				return cb(null, ico);
+			}
 		});
 	};
 
@@ -453,20 +464,14 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	return cb(e2, null); }
 		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)				return cb(e2, null); }
-		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					return cb(e2, null); }
-		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				return cb(e2, null); }
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
 			getICO(1, function(err, ico) {
 				if (err) return cb(err, null);
 				ico.updateAttributes({
-					state:			params.state,
-					ethReceived: 	params.ethReceived,
-					ethTotal:	 	params.ethTotal,
-					tokensSold: 	params.tokensSold
+					ethReceived: 	params.ethReceived
 				}, function(err) {
 					if (err) return cb(err, null);
 					return cb(null);

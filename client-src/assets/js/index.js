@@ -51,15 +51,21 @@
 
 		var i18n = null;
 		var clock = null;
+		
 		var updateICOIntervalDefault = 3000;
 		var updateICOInterval = updateICOIntervalDefault;
 		var updateICOIntervalId = null;
+		
 		var ethIntervalDefault = 60000;
 		var ethInterval = ethIntervalDefault;
 		var ethIntervalId = null;
+		
+		/*
 		var purchaseIntervalDefault = 3000;
 		var purchaseInterval = purchaseIntervalDefault;
 		var purchaseIntervalId = null;
+		*/
+
 		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
 
@@ -206,6 +212,7 @@
 			$.get('/api/ICOs/GetICOData')
 				.done(function(ico) {
 					updateICOInterval = updateICOIntervalDefault;
+					/* purchaseInterval = purchaseIntervalDefault; */
 					if (ico) {
 						tokenPriceUSD		= ico.tokenPriceUSD;
 						purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / ico.tokensTotal);
@@ -220,6 +227,10 @@
 						case 2:	setStateICO(ico);		break;
 						case 3:	setStateEndICO(ico);	break;
 						}
+						if (ico.ethReceived) {
+							notify(ico.ethReceived);
+							purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / tokensTotal);
+						}
 					}
 				})
 				.fail(function(err) {
@@ -231,6 +242,28 @@
 			updateICO();
 			updateICOIntervalId = setInterval(updateICOTimer, updateICOInterval);
 		}
+
+		/*
+		function updatePurchase() {
+			$.get('/api/ICOs/getPurchase')
+				.done(function(purchase) {
+					purchaseInterval = purchaseIntervalDefault;
+					if (purchase) {
+						notify(purchase.ethReceived);
+						purchaseSoldPercent	= Math.round(purchase.tokensSold * 100 / tokensTotal);
+						updateICO();
+					}
+				})
+				.fail(function(err) {
+					if (purchaseInterval < purchaseIntervalDefault * 100) purchaseInterval *= 2;
+				});
+		}
+		function updatePurchaseTimer() {
+			if (purchaseIntervalId) clearInterval(purchaseIntervalId);
+			updatePurchase();
+			purchaseIntervalId = setInterval(updatePurchaseTimer, purchaseInterval);
+		}
+		*/
 
 		function updateETH() {
 			$.get('https://api.coinmarketcap.com/v2/ticker/1027/?convert=EUR')
@@ -251,27 +284,6 @@
 			updateETH();
 			ethIntervalId = setInterval(updateETHTimer, ethInterval);
 		}
-
-		function updatePurchase() {
-			$.get('/api/ICOs/getPurchase')
-				.done(function(purchase) {
-					purchaseInterval = purchaseIntervalDefault;
-					if (purchase) {
-						notify(purchase.ethReceived);
-						purchaseSoldPercent	= Math.round(purchase.tokensSold * 100 / tokensTotal);
-						updateICO();
-					}
-				})
-				.fail(function(err) {
-					if (purchaseInterval < purchaseIntervalDefault * 100) purchaseInterval *= 2;
-				});
-		}
-		function updatePurchaseTimer() {
-			if (purchaseIntervalId) clearInterval(purchaseIntervalId);
-			updatePurchase();
-			purchaseIntervalId = setInterval(updatePurchaseTimer, purchaseInterval);
-		}
-
 
 		function CFValidate() {
 			var valid = true;
@@ -825,9 +837,11 @@
 					updateICOTimer();
 					updateETHTimer();
 				}, 200);
+				/*
 				setTimeout(function() {
 					updatePurchaseTimer();
 				}, 2000);
+				*/
 
 			} // end of init:function
 
