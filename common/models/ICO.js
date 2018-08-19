@@ -335,23 +335,23 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	return cb(e2, null); }
-		if (params.wallet)			{ if (!isString(params.wallet) || !isETHAddress(params.wallet))				return cb(e2, null); }
-		if (params.tokenName)		{ if (!isString(params.tokenName))											return cb(e2, null); }
-		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)			return cb(e2, null); }
-		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)			return cb(e2, null); }
-		if (params.softCap)			{ if (!isInteger(params.softCap) || params.softCap < 0)						return cb(e2, null); }
-		if (params.hardCap)			{ if (!isInteger(params.hardCap) || params.hardCap < 0)						return cb(e2, null); }
-		if (params.tokensTotal)		{ if (!isInteger(params.tokensTotal) || params.tokensTotal < 0)				return cb(e2, null); }
-		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					return cb(e2, null); }
-		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				return cb(e2, null); }
-		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))				return cb(e2, null); }
-		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))					return cb(e2, null); }
+		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setParams() bad state: ' + params.state); return cb(e2, null); } }
+		if (params.wallet)			{ if (!isString(params.wallet) || !isETHAddress(params.wallet))				{ logger.info('ICO.setParams() bad wallet: ' + params.wallet); return cb(e2, null); } }
+		if (params.tokenName)		{ if (!isString(params.tokenName))											{ logger.info('ICO.setParams() bad tokenName: ' + params.tokenName); return cb(e2, null); } }
+		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)			{ logger.info('ICO.setParams() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
+		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)			{ logger.info('ICO.setParams() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
+		if (params.softCap)			{ if (!isInteger(params.softCap) || params.softCap < 0)						{ logger.info('ICO.setParams() bad softCap: ' + params.softCap); return cb(e2, null); } }
+		if (params.hardCap)			{ if (!isInteger(params.hardCap) || params.hardCap < 0)						{ logger.info('ICO.setParams() bad hardCap: ' + params.hardCap); return cb(e2, null); } }
+		if (params.tokensTotal)		{ if (!isInteger(params.tokensTotal) || params.tokensTotal < 0)				{ logger.info('ICO.setParams() bad tokensTotal: ' + params.tokensTotal); return cb(e2, null); } }
+		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					{ logger.info('ICO.setParams() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
+		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				{ logger.info('ICO.setParams() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
+		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))				{ logger.info('ICO.setParams() bad dateStart: ' + params.dateStart); return cb(e2, null); } }
+		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))					{ logger.info('ICO.setParams() bad dateEnd: ' + params.dateEnd); return cb(e2, null); } }
 		if (params.dateStart && params.dateEnd) {
 			var start = moment(params.dateStart);
 			var end = moment(params.dateEnd);
 			var now = moment();
-			if (end.isBefore(start)) return cb(e2, null);
+			if (end.isBefore(start)) { logger.info('ICO.setParams() bad dates. dateStart:' + params.dateStart + ' dateEnd:' + params.dateEnd); return cb(e2, null); }
 		}
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
@@ -398,7 +398,7 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	return cb(e2, null);
+		if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setState() bad state: ' + params.state); return cb(e2, null); } }
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
@@ -432,7 +432,7 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)				return cb(e2, null); }
+		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)				{ logger.info('ICO.setReceivedEth() bad ethReceived: ' + params.ethReceived); return cb(e2, null); } }
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
@@ -463,8 +463,7 @@ module.exports = function(ICO) {
 		var e = new Error(g.f('Invalid address'));
 		e.status = e.statusCode = 401;
 		e.code = 'INVALID_ADDRESS';
-		if (!isString(address))
-			return cb(e, null);
+		if (!isString(address)) { logger.info('ICO.isChecksumAddress() bad address: ' + address); return cb(e, null); }
 		if (isChecksumAddress(address)) {
 			return cb(null, true);
 		} else {
@@ -488,29 +487,29 @@ module.exports = function(ICO) {
 		e.status = e.statusCode = 401;
 		e.code = '0x1000';
 
-		if (!isString(ser)) return cb(e, null);
+		if (!isString(ser)) { logger.info('ICO.register() bad ser: ' + ser); return cb(e, null); }
 
 		var list = ser.split('&'); // All referrals' wallets addresses ({referrer: {String}referrer, referrals: {String[]}referrals})
-		if (list.length < 2) return cb(e, null);
+		if (list.length < 2) { logger.info('ICO.register() bad ser: ' + ser); return cb(e, null); }
 
 		var referrer = list.filter(function(address) { return address.startsWith('referrer'); });
 		var referrals = list.filter(function(address) { return address.startsWith('referral'); });
-		if (referrer.length !== 1) return cb(e, null);
-		if (referrals.length < 1) return cb(e, null);
+		if (referrer.length !== 1) { logger.info('ICO.register() bad ser: ' + ser); return cb(e, null); }
+		if (referrals.length < 1) { logger.info('ICO.register() bad ser: ' + ser); return cb(e, null); }
 
 		var addresses = list.map(function(el) { return el.split('=').pop(); });
 		addresses = addresses.filter(function(address) { return address !== ''; });
-		if (sameAddresses(addresses)) return cb(e, null);
+		if (sameAddresses(addresses)) { logger.info('ICO.register() bad ser: ' + ser); return cb(e, null); }
 
 		referrer = referrer.map(function(el) { return el.split('=').pop(); });
 		referrer = referrer[0];
 		referrals = referrals.map(function(el) { return el.split('=').pop(); });
 		referrals = referrals.filter(function(address) { return address !== ''; });
 
-		if (!isETHAddress(referrer)) return cb(e, null);
+		if (!isETHAddress(referrer)) { logger.info('ICO.register() not ETH address: ' + ser); return cb(e, null); }
 		for (var i = 0; i < referrals.length; i++) {
 			if (!isETHAddress(referrals[i])) {
-				return cb(e, null);
+				{ logger.info('ICO.register() not ETH address: ' + ser); return cb(e, null); }
 			}
 		}
 

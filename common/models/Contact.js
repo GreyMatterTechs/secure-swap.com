@@ -144,10 +144,11 @@ module.exports = function(Contact) {
 			return cb({err: 'bad request'}, null);
 		}
 		// Check referers
-		var validReferers = ['secure-swap.com', 'http://localhost:3000/'];
+		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'http://localhost:3000/'];
 		var referer = req.get('Referrer');
 		referer = referer.replace(/www/i, '');
 		if (!validReferers.includes(referer)) {
+			logger.warn('Contact Form: Received an Ajax call to /contact from referer:' + referer);
 			return cb({err: 'bad request'}, null);
 		}
 		// check form data
@@ -166,6 +167,7 @@ module.exports = function(Contact) {
 				if (err) {
 					return cb(err);
 				}
+				logger.info('Contact Form: Sent contact message from ' + postData.mail);
 				return cb(null, successMessage);
 			});
 		} else {
