@@ -76,18 +76,6 @@
 			},
 			"documented": false
 		},
-		"getPurchase": {
-			"accepts": [],
-			"returns": {
-				"arg": "purchase",
-				"type": "Object",
-				"root": true
-			},
-			"http": {
-				"verb": "get"
-			},
-			"documented": false
-		},
 		"setParams": {
 			"accepts": [
 				{

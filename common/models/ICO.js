@@ -316,38 +316,6 @@ module.exports = function(ICO) {
 		});
 	};
 
-	/**
-	 * Check if a purchase just happend
-	 * Usually called by SecureSwap website
-	 *
-	 * @method getPurchase
-	 * @public
-	 * @callback {Function} cb       Callback function
- 	 * @param    {Error}    err      Error information
-	 * @return   {Object}   purchase Purchase data
-	 */
-	ICO.getPurchase = function(cb) {
-		getICO(1, function(err, ico) {
-			if (err) return cb(err, null);
-			var received = ico.ethReceived;
-			if (received > 0) {
-				ico.updateAttributes({
-					ethReceived: 0
-				}, function(err) {
-					if (err) return cb(err, null);
-					return cb(null, {
-						state:			ico.state,
-						ethReceived: 	received,
-						ethTotal:	 	ico.ethTotal,
-						tokensSold: 	ico.tokensSold
-					});
-				});
-			} else {
-				return cb(null, null);
-			}
-		});
-	};
-
 
 	/**
 	 * Set all ICO params to database
