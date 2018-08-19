@@ -398,7 +398,7 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setState() bad state: ' + params.state); return cb(e2, null); } }
+		if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setState() bad state: ' + params.state); return cb(e2, null); }
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
@@ -506,10 +506,14 @@ module.exports = function(ICO) {
 		referrals = referrals.map(function(el) { return el.split('=').pop(); });
 		referrals = referrals.filter(function(address) { return address !== ''; });
 
-		if (!isETHAddress(referrer)) { logger.info('ICO.register() not ETH address: ' + ser); return cb(e, null); }
+		if (!isETHAddress(referrer)) { 
+			logger.info('ICO.register() not ETH address: ' + ser);
+			return cb(e, null);
+		}
 		for (var i = 0; i < referrals.length; i++) {
 			if (!isETHAddress(referrals[i])) {
-				{ logger.info('ICO.register() not ETH address: ' + ser); return cb(e, null); }
+				logger.info('ICO.register() not ETH address: ' + ser);
+				return cb(e, null);
 			}
 		}
 
