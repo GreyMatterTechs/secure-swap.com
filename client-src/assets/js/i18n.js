@@ -572,22 +572,19 @@
 			}
 		};
 
-		
+
 		// --- public methods
 
 		return {
 
-			init : function() {
+			init: function() {
 
 				tools = window.ssw.Tools.getInstance();
-				
+
 				$i18n = $.i18n();
-		
 				$.i18n.fallbacks.en_GB = ['en'];
 				$.i18n.fallbacks.en_UK = ['en'];
-				
 				$.i18n.fallbacks.de_DE = ['de'];
-				
 				$.i18n.fallbacks.fr_FR = ['fr'];
 				$.i18n.fallbacks.fr_CA = ['fr'];
 				$.i18n.fallbacks.fr_BE = ['fr'];
@@ -595,53 +592,60 @@
 				$.i18n.fallbacks.fr_MC = ['fr'];
 				$.i18n.fallbacks.fr_CH = ['fr'];
 
-
 			}, // end of init:function
 
-			buildGUI: function(initCallback, updateCallback) {
+			buildGUI: function(initCallback, updateCallback, roles) {
 				// get supported languages
-				$.get( '/api/I18ns/getSupportedLanguages').done( function(data) { 
-					// Build language menu
-					for (var c = 0; c < data.languages.length; c++) {
-						var code = data.languages[c];
-						for (var l = 0; l < locales.length; l++) {
-							if ( locales[l].browser === code ) {
-								var flag = locales[l].flag;
-								var native = locales[l].native;
-								$('#i18n-menu').append('<a class="dropdown-item" href="#" data-i18n-locale="' + code + '"><span class="flag-icon flag-icon-' + flag + '"></span> ' + native + '</a>');
-								break;
-							}
-						}
-					}
-					// init default (browser) language
-					for (var c = 0; c < data.languages.length; c++) {
-						var code = data.languages[c];
-						if (browserLangLc === code) {
-							selectLanguage(browserLangLc, initCallback);
-							break;
-						}
-					}
-					if (c === data.languages.length) { // default browser language is not supported
-						// look for fallback
+				var url = '/api/I18ns/getSupportedLanguages';
+				if (roles)
+					url = url + '&roles=' + roles;
+				$.ajax({
+					type: 'POST',
+					url: 'api/I18ns/getSupportedLanguages',
+					data: {roles: roles},
+					success: function(data) {
+						// Build language menu
 						for (var c = 0; c < data.languages.length; c++) {
 							var code = data.languages[c];
-							if (code === browserLangLc.substring(0,2) ) {
-								selectLanguage(code, initCallback);
+							for (var l = 0; l < locales.length; l++) {
+								if (locales[l].browser === code) {
+									var flag = locales[l].flag;
+									var native = locales[l].native;
+									$('#i18n-menu').append('<a class="dropdown-item" href="#" data-i18n-locale="' + code + '"><span class="flag-icon flag-icon-' + flag + '"></span> ' + native + '</a>');
+									break;
+								}
+							}
+						}
+						// init default (browser) language
+						for (var c = 0; c < data.languages.length; c++) {
+							var code = data.languages[c];
+							if (browserLangLc === code) {
+								selectLanguage(browserLangLc, initCallback);
 								break;
 							}
 						}
-						if (c === data.languages.length) { // fallback not found
-							selectLanguage('en', initCallback);
+						if (c === data.languages.length) { // default browser language is not supported
+							// look for fallback
+							for (var c = 0; c < data.languages.length; c++) {
+								var code = data.languages[c];
+								if (code === browserLangLc.substring(0, 2)) {
+									selectLanguage(code, initCallback);
+									break;
+								}
+							}
+							if (c === data.languages.length) { // fallback not found
+								selectLanguage('en', initCallback);
+							}
 						}
+					},
+					error: function(err) {
+						selectLanguage('en', initCallback);
+						$('#i18n').html('');
 					}
-				})
-				.fail( function(err) {
-					selectLanguage('en', initCallback);
-					$('#i18n').html('');
 				});
 
 				// user select new language
-				$('#i18n-menu').off('click.lang').on('click.lang', 'a', function (e) {
+				$('#i18n-menu').off('click.lang').on('click.lang', 'a', function(e) {
 					e.preventDefault();
 					selectLanguage($(this).attr('data-i18n-locale'), updateCallback);
 					return false;
@@ -664,6 +668,6 @@
 
 }(window));
 
-//window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.I18n.getInstance().init(), false );
+// window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.I18n.getInstance().init(), false );
 
 // EOF

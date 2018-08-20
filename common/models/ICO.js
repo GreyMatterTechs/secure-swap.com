@@ -15,12 +15,12 @@
 // ------------------------------------------------------------------------------------------------------
 
 const path		= require('path');
-const g			= require('../../node_modules/loopback/lib/globalize');
-const app		= require('../../server/server');
 const CryptoJS	= require('crypto-js');
 const sha3		= require('crypto-js/sha3');
 const moment	= require('moment');
 const request	= require('superagent');
+const app		= reqlocal(path.join('server', 'server'));
+const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
 const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 

@@ -17,6 +17,7 @@
 const path		= require('path');
 const requestIp	= require('request-ip');
 const geoip		= require('geoip-lite');
+const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
 const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
@@ -28,6 +29,8 @@ const ONE_HOUR		= 60 * 60;
 const ONE_MINUTE	= 60;
 var mAdmin;
 var mContact;
+var mAccessToken;
+
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
@@ -74,10 +77,11 @@ function shorten(str, len) {
  *
  * @method login
  * @private
- * @param    {Object}   req Received HTTP request
- * @callback {Function} cb  Callback function
- * @param    {Error}    err Error information
- * @param    {String}   id  Token ID of logged in user
+ * @param    {Object}   req   Received HTTP request
+ * @callback {Function} cb    Callback function
+ * @param    {Error}    err   Error information
+ * @param    {String}   id    Token ID of logged in user
+ * @param    {String[]} roles Roles of the logged in user
  */
 function login(req, cb) {
 	if (!req.body) {
@@ -92,7 +96,7 @@ function login(req, cb) {
 		ttl: config.loginTTL === 'hour' ? ONE_HOUR : (config.loginTTL === 'minute' ? ONE_MINUTE : (ONE_MINUTE))
 	}, 'user', function(err, token) {
 		if (err) {
-			return cb(err.statusCode, token.id);
+			return cb(err.statusCode, null);
 		}
 		if (token.user) {
 			token.user(function(err, user) {
@@ -103,7 +107,7 @@ function login(req, cb) {
 					mAdmin.logout(token.id);
 					return cb(err.statusCode, token.id);
 				} else {
-					return cb(null, token.id);
+					return cb(null, token.id, user.roles);
 				}
 			});
 		} else {
@@ -111,6 +115,67 @@ function login(req, cb) {
 		}
 	});
 }
+
+
+/**
+ * Check access token validity
+ *
+ * @method checkToken
+ * @private
+ * @param    {String}   tokenId The token ID got from call to /login
+ * @callback {Function} cb      Callback function
+ * @param    {Error}    err     Error information
+ * @param    {Object}   user    Granted user
+ */
+function checkToken(tokenId, cb) {
+	var e = new Error(g.f('Invalid Access Token'));
+	e.status = e.statusCode = 401;
+	e.code = 'INVALID_TOKEN';
+	mAccessToken.findById(tokenId, function(err, accessToken) {
+		if (err) return cb(err, null);
+		if (accessToken) {
+			accessToken.validate(function(err, isValid) {	// check user ACL and token TTL
+				if (err) {
+					return cb(err, null);
+				} else if (isValid) {
+					mAdmin.findById(accessToken.userId, function(err, user) {	// check if user is active
+						if (err) return cb(err, null);
+						if (!user || !user.active) {
+							return cb(e, null);
+						}
+						return cb(null, user);
+					});
+				} else {
+					return cb(e, null);
+				}
+			});
+		} else {
+			return cb(e, null);
+		}
+	});
+}
+
+/**
+ * Log a user
+ *
+ * @method getUser
+ * @private
+ * @param    {Object}   req   Received HTTP request
+ * @callback {Function} cb    Callback function
+ * @param    {Error}    err   Error information
+ * @param    {String[]} roles Roles of the logged in user
+ */
+function getUser(req, cb) {
+	if (!req.query.access_token && !req.accessToken) {
+		return cb(403, null);
+	}
+	var token = req.query.access_token || req.accessToken;
+	checkToken(token.id, function(err, user) {
+		if (err) return cb(err, null);
+		return cb(null, user.roles);
+	});
+}
+
 
 // ------------------------------------------------------------------------------------------------------
 // Exports
@@ -128,6 +193,7 @@ module.exports = function(server) {
 	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : 'local';
 	mAdmin					= server.models.Admin;
 	mContact				= server.models.Contact;
+	mAccessToken			= server.models.AccessToken;
 	var router				= server.loopback.Router();
 
 	// ------------------------------------------------
@@ -158,21 +224,34 @@ module.exports = function(server) {
 	// index page
 	router.get('/', function(req, res) {
 		if (config.private === true) {
-			if (!req.query.access_token && !req.accessToken) {
-				return res.render('login', {
-					appName: config.appName,
-					err: null
-				});
-			} else {
-				// $$$ TODO: check if accessToken is legit.
-				return res.render('index', {	// render the index
+			if (!req.query.access_token && !req.accessToken) {		// not logged user, no login form data
+				return res.render('login', {						// render the login page, empty form
 					appName: config.appName,
 					tokenName: config.tokenName,
 					err: null
 				});
+			} else {
+				getUser(req, function(err, roles) {
+					if (err) {
+						return res.render('login', {				// accessToken invalid, render the login page, empty form
+							appName: config.appName,
+							tokenName: config.tokenName,
+							err: null
+						});
+					} else {										// logged user, accessToken granted
+						var token = req.query.access_token || req.accessToken;
+						mAdmin.setOnlineStatus(token, 'online');
+						return res.render('index', {				// render the index
+							appName: config.appName,
+							tokenName: config.tokenName,
+							roles: roles.split(','),
+							err: null
+						});
+					}
+				});
 			}
 		} else {
-			res.render('index', {
+			res.render('index', {									// not logged user, no login form data, but ok, website is public
 				appName: config.appName,
 				tokenName: config.tokenName,
 				err: null
@@ -182,30 +261,31 @@ module.exports = function(server) {
 	router.post('/', function(req, res) {
 		if (!req.body)
 			return res.sendStatus(403);
-		if (req.body.access_token) {
+		if (req.body.access_token) {								// logged user, accessToken granted
 			// $$$ TODO: check if accessToken is legit.
 			mAdmin.setOnlineStatus(req.body.access_token, 'online');
-			return res.render('index', {
+			return res.render('index', {							// render index
 				appName: config.appName,
 				tokenName: config.tokenName,
-				accessToken: req.body.access_token,
+				roles: req.body.roles.split(','),	//ok
 				err: null
 			});
+		} else {													// not logged user, login form credentials filled
+			login(req, (err, tokenId, roles) => {
+				if (err) {
+					return res.sendStatus(err);
+				} else {
+					mAdmin.setOnlineStatusByTokenId(tokenId, 'online');
+					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/" again
+						appName: config.appName,
+						tokenName: config.tokenName,
+						accessToken: tokenId,
+						roles: roles,	//ok
+						err: null
+					});
+				}
+			});
 		}
-		login(req, (err, tokenId) => {
-			if (err) {
-				mAdmin.setOnlineStatusByTokenId(tokenId, 'offline');
-				return res.sendStatus(err);
-			} else {
-				mAdmin.setOnlineStatusByTokenId(tokenId, 'online');
-				return res.send({
-					appName: config.appName,
-					err: null,
-					accessToken: tokenId,
-					login: false
-				});
-			}
-		});
 	});
 
 	router.get('/dashboard', function(req, res) {
@@ -272,6 +352,7 @@ module.exports = function(server) {
 			return res.sendStatus(403);
 		if (!req.accessToken)
 			return res.sendStatus(403);
+		mAdmin.setOnlineStatusByTokenId(req.accessToken.id, 'offline');
 		mAdmin.logout(req.accessToken.id, function(err) {
 			if (err) return res.sendStatus(403);
 			return res.redirect('/'); // on successful logout, redirect to home

@@ -85,6 +85,7 @@
 							} else {
 								//	$('.content-wrapper').html(data);
 								$('input[name="access_token"]').val(data.accessToken);
+								$('input[name="roles"]').val(data.roles);
 								$('form').submit();
 							}
 						})

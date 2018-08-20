@@ -8,13 +8,17 @@
 	"properties": {},
 	"methods": {
 		"getSupportedLanguages": {
-			"accepts": [],
+			"accepts": {
+				"arg": "roles",
+				"type": "array",
+				"root": true
+			},
 			"returns": {
 				"arg": "languages",
 				"type": "array"
 			},
 			"http": {
-				"verb": "get"
+				"verb": "post"
 			},
 			"documented": false
 		}

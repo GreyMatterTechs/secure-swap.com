@@ -41,7 +41,9 @@ const roles = {
 	animator:	'animator',
 	node:		'node',
 	manager:	'manager',
-	teammember:	'teammember'
+	teammember:	'teammember',
+	vip:		'vip',
+	guest:		'guest'
 };
 
 var hour = 1;
@@ -282,6 +284,24 @@ function updateAdmins(cb) {
 			username: 'team',				password: 'B2xW6mkG',			email: 'team@secure-swap.com',
 			active: true,					accessVerified: true,			verificationToken: null,
 			emailVerified: true,											roles: [roles.teammember]
+		}
+	}, {
+		userdata: {
+			username: 'VIP',				password: 'KO8Rn3HR',			email: 'VIP@secure-swap.com',
+			active: true,					accessVerified: true,			verificationToken: null,
+			emailVerified: true,											roles: [roles.vip]
+		}
+	}, {
+		userdata: {
+			username: 'vip',				password: 'KO8Rn3HR',			email: 'vip@secure-swap.com',
+			active: true,					accessVerified: true,			verificationToken: null,
+			emailVerified: true,											roles: [roles.vip]
+		}
+	}, {
+		userdata: {
+			username: 'guest',				password: 'W6c2UNSF',			email: 'guest@secure-swap.com',
+			active: true,					accessVerified: true,			verificationToken: null,
+			emailVerified: true,											roles: [roles.guest]
 		}
 	}]);
 }

@@ -169,7 +169,7 @@
 						<span id="slide-line"></span>
 						<!--form class="form-inline mt-2 mt-md-0">
 							<a class="btn btn-sm btn-gradient-purple btn-glow my-2 my-sm-0 animated" data-animation="fadeInDown" data-animation-delay="1.8s"
-							 href="https://secure-swap.com/login.html" target="_blank" data-i18n="navbar.item.login" >Sign in</a>
+							 href="https://secure-swap.com" target="_blank" data-i18n="navbar.item.login" >Sign in</a>
 						</form-->
 					</div>
 				</div>
@@ -1916,6 +1916,7 @@
 				</section>
 				<!--/ Team -->
 				<!-- Advisors -->
+				<% if (typeof roles === 'undefined' || (roles.indexOf('vip') < 0)) { %> 
 				<section id="advisor" class="advisor team section-padding">
 					<div class="container">
 						<div class="heading social-margin text-center">
@@ -2002,6 +2003,7 @@
 						</div>
 					</div>
 				</section>
+				<% } %>
 				<!--/ Advisors -->
 				<!-- FAQ -->
 				<section id="faq" class="faq section-padding">
@@ -2789,6 +2791,9 @@
 	<script src="assets/js/tools.js"></script>
 	<script src="assets/js/i18n.js"></script>
 	<script src="assets/js/index.js"></script>
+	<script type="text/javascript">
+		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Landpage.getInstance().init('<%- JSON.stringify(roles) %>'), false );
+	</script>
 	<!-- END Custom JS-->
 </body>
 

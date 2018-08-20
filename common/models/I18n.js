@@ -61,12 +61,17 @@ module.exports = function(I18n) {
 	 *
 	 * @method getSupportedLanguages
 	 * @public
+	 * @param    {String[]} roles List of roles
 	 * @callback {Function} cb    Callback function
  	 * @param    {Error}    err   Error information
  	 * @return   {Object}   items Array of languages names
 	 */
-	I18n.getSupportedLanguages = function(cb) {
-		fs.readdir('client/assets/i18n', function(err, items) {
+	I18n.getSupportedLanguages = function(roles, cb) {
+		var path = 'client/assets/i18n';
+		if (roles && (roles.indexOf('vip') > -1)) {
+			path = 'client/assets/i18n_vip';
+		}
+		fs.readdir(path, function(err, items) {
 			for (var i = 0; i < items.length; i++) {
 				items[i] = items[i].replace(/\.[^/.]+$/, '').toLowerCase();
 			}

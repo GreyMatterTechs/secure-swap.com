@@ -59,6 +59,7 @@
 		var ethIntervalId = null;
 		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
+		var roles = null;
 
 		var icoState = 0;
 		var tokenPriceUSD = 0.45;
@@ -406,7 +407,11 @@
 
 		return {
 
-			init: function() {
+			init: function(jroles) {
+
+				if (jroles) {
+					roles = JSON.parse(jroles);
+				}
 
 				i18n = window.ssw.I18n.getInstance();
 
@@ -436,16 +441,6 @@
 						}
 					}
 				});
-				/*
-				$('#purchase-modal').off('click').on('click', '#legal-submit', function(e) {
-					// $('#kyc').toggleClass('section-2-box');
-					$('.section-1').hide();
-					$('.section-2').show();
-					event.preventDefault();
-					purchaseboxLegal = true;
-					//updatePurchaseBoxContent();
-				});
-				*/
 				$('#purchase-modal').on('show.bs.modal', function() {
 					updatePurchaseBoxContent();
 				});
@@ -800,7 +795,7 @@
 				};
 
 				i18n.init();
-				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback);
+				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
 
 				setTimeout(function() {
 					updateICOTimer();
@@ -817,6 +812,6 @@
 
 }(window));
 
-window.ssw.Tools.getInstance().addEventHandler(document, 'DOMContentLoaded', window.ssw.Landpage.getInstance().init(), false);
+// window.ssw.Tools.getInstance().addEventHandler(document, 'DOMContentLoaded', window.ssw.Landpage.getInstance().init(), false);
 
 // EOF
