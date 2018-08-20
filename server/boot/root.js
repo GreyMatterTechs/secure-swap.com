@@ -201,12 +201,14 @@ module.exports = function(server) {
 	// ------------------------------------------------
 
 	router.get('/*', function(req, res, next) {
-		var ip = requestIp.getClientIp(req);
-		var geo = geoip.lookup(ip);
-		if (geo) {
-			logger.info('Received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (' + geo.city + ' ' + geo.zip + ' ' + geo.region + ' ' + geo.country + ')');
-		} else {
-			logger.info('Received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (machine locale)');
+		if (config.trackIP) {
+			var ip = requestIp.getClientIp(req);
+			var geo = geoip.lookup(ip);
+			if (geo) {
+				logger.info('Received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (' + geo.city + ' ' + geo.zip + ' ' + geo.region + ' ' + geo.country + ')');
+			} else {
+				logger.info('Received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (machine locale)');
+			}
 		}
 		if (req.url.indexOf('assets/images') >= 0 || req.url.indexOf('assets/css/') >= 0) {
 			res.setHeader('Cache-Control', 'public, max-age=2592000');
