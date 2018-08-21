@@ -418,6 +418,10 @@ header .navbar.navbar-fixed {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(3%, rgba(125, 185, 232, 0)), color-stop(95%, #1e5799));
   background: linear-gradient(to bottom, rgba(125, 185, 232, 0) 3%, #1e5799 95%); }
 
+.team .team-icon {
+  top: 85px;
+  bottom: inherit; }
+
 /* -- page faq ------------------------------------------------------------------- */
 /* -- footer ------------------------------------------------------------------- */
 .footer {
