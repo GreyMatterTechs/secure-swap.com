@@ -86,8 +86,8 @@ function updateICO(cb) {
 		ethReceived: 0,
 		ethTotal: 0,
 		tokensSold: 0,
-		dateStart: new Date(2018, 8, 2).getTime(),
-		dateEnd: new Date(2018, 11, 31).getTime()
+		dateStart: new Date(2018, 9, 1).getTime(),
+		dateEnd: new Date(2019, 0, 31).getTime()
 	};
 
 	mICO.findById(1, function(err, inst) {

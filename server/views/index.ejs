@@ -110,7 +110,7 @@
 	<header class="page-header">
 		<!-- Horizontal Menu Start-->
 		<nav class="main-menu static-top navbar-dark navbar navbar-expand-lg fixed-top mb-1">
-			<div class="container">
+			<div id="main-menu-container" class="container">
 				<a class="navbar-brand animated" data-animation="fadeInDown" data-animation-delay="1s" href="#head-area">
 					<img src="assets/images/logo.png" alt="<%= appName %> Logo" />
 					<span class="brand-text">
@@ -583,9 +583,15 @@
 									<div class="crypto-video animated text-center" data-animation="fadeInUpShorter" data-animation-delay="1.7s">
 										<img src="assets/images/video-banner.png" class="video-img img-fluid" alt="What is <%= appName %>">
 										<div class="play-video text-center">
-											<a href="#" class="play rounded-circle btn-gradient-orange video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/UXAJu3zS4bU" data-target="#ico-modal">
-												<i class="ti-control-play"></i>
-											</a>
+											<% if (typeof roles === 'undefined' || (roles.indexOf('vip') < 0)) { %> 
+												<a href="#" class="play rounded-circle btn-gradient-orange video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/UXAJu3zS4bU" data-target="#ico-modal">
+													<i class="ti-control-play"></i>
+												</a>
+											<% } else { %>
+												<a href="#" class="play rounded-circle btn-gradient-orange video-btn"  data-src="" >
+													<i class="ti-control-play"></i>
+												</a>
+											<% } %> 
 										</div>
 										<p class="mt-2 d-none d-md-block text-center" data-i18n="about-area.content.video.subtitle, <%= appName %>">Alain Saffray, our CEO, presents our <%= appName %> ecosystem.</p>
 									</div>
@@ -2696,19 +2702,19 @@
 							</div>
 							<ul class="social-buttons list-unstyled mb-5">
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
-									<a href="#" title="Facebook" class="btn font-medium"><i class="fab fa-facebook-f"></i></a>
+									<a href="#" class="btn font-medium"><i class="fab fa-facebook-f"></i></a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s">
-									<a href="#" title="Twitter" class="btn font-medium"><i class="fab fa-twitter"></i></a>
+									<a href="#" class="btn font-medium"><i class="fab fa-twitter"></i></a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s">
-									<a href="#" title="LinkedIn" class="btn font-medium"><i class="fab fa-linkedin-in"></i></a>
+									<a href="#" class="btn font-medium"><i class="fab fa-linkedin-in"></i></a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s">
-									<a href="#" title="GitHub" class="btn font-medium"><i class="fab fa-github"></i></a>
+									<a href="#" class="btn font-medium"><i class="fab fa-github"></i></a>
 								</li>
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s">
-									<a href="#" title="Pintrest" class="btn font-medium"><i class="fab fa-pinterest-p"></i></a>
+									<a href="#" class="btn font-medium"><i class="fab fa-pinterest-p"></i></a>
 								</li>
 							</ul>
 						</div>
@@ -2763,7 +2769,7 @@
 
 	<!-- BEGIN VENDOR JS-->
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<script src="assets/vendors/vendors.min.js"></script>

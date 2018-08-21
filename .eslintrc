@@ -5,7 +5,8 @@
 		"Swiper": true,
 		"reqlocal": true,
 		"noUiSlider": true,
-		"async": true
+		"async": true,
+		"Popper": true
 	},
 	"rules": {
 		"no-console": 0,

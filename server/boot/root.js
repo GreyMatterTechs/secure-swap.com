@@ -233,7 +233,7 @@ module.exports = function(server) {
 					err: null
 				});
 			} else {
-				getUser(req, function(err, roles) {
+				getUser(req, function(err, roles) {					// also check if accessToken is legit.
 					if (err) {
 						return res.render('login', {				// accessToken invalid, render the login page, empty form
 							appName: config.appName,
@@ -264,13 +264,23 @@ module.exports = function(server) {
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {								// logged user, accessToken granted
-			// $$$ TODO: check if accessToken is legit.
-			mAdmin.setOnlineStatus(req.body.access_token, 'online');
-			return res.render('index', {							// render index
-				appName: config.appName,
-				tokenName: config.tokenName,
-				roles: req.body.roles.split(','),	//ok
-				err: null
+			checkToken(req.body.access_token, function(err, user) {
+				if (err) {
+					mAdmin.setOnlineStatus(req.body.access_token, 'offline');
+					return res.render('login', {					// accessToken invalid, render the login page, empty form
+						appName: config.appName,
+						tokenName: config.tokenName,
+						err: null
+					});
+				} else {
+					mAdmin.setOnlineStatus(req.body.access_token, 'online');
+					return res.render('index', {							// render index
+						appName: config.appName,
+						tokenName: config.tokenName,
+						roles: req.body.roles.split(','),
+						err: null
+					});
+				}
 			});
 		} else {													// not logged user, login form credentials filled
 			login(req, (err, tokenId, roles) => {
@@ -282,7 +292,7 @@ module.exports = function(server) {
 						appName: config.appName,
 						tokenName: config.tokenName,
 						accessToken: tokenId,
-						roles: roles,	//ok
+						roles: roles,
 						err: null
 					});
 				}
