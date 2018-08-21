@@ -19,6 +19,8 @@ node_modules
 npm-debug.log
 .vscode
 mydata.json
+client-src
+resources
 server/datasources*.json
 server/config*.json
 logs/*
