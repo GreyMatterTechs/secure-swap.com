@@ -225,6 +225,7 @@ module.exports = function(server) {
 
 	// index page
 	router.get('/', function(req, res) {
+		logger.info('route get /');
 		if (config.private === true) {
 			if (!req.query.access_token && !req.accessToken) {		// not logged user, no login form data
 				return res.render('login', {						// render the login page, empty form
@@ -261,6 +262,7 @@ module.exports = function(server) {
 		}
 	});
 	router.post('/', function(req, res) {
+		logger.info('route post /');
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {								// logged user, accessToken granted
@@ -320,6 +322,7 @@ module.exports = function(server) {
 
 
 	router.post('/login', function(req, res) {
+		logger.info('route post /login');
 		login(req, (err, tokenId) => {
 			if (err) {
 				res.sendStatus(err);
@@ -372,6 +375,7 @@ module.exports = function(server) {
 	});
 
 	router.post('/contact', function(req, res, next) {
+		logger.info('route post /contact');
 		if (!req.cookies.sent) {
 			mContact.contact(req, function(err, result) {
 				if (err) {

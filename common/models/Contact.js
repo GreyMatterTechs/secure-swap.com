@@ -138,6 +138,7 @@ module.exports = function(Contact) {
 	}
 
 	Contact.contact = function(req, cb) {
+		logger.info('Contact.contact()');
 
 		// Filter bad requests
 		if (!req) {

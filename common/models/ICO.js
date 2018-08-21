@@ -299,6 +299,7 @@ module.exports = function(ICO) {
 	 * @return   {Object}   ico The ICO record from database
 	 */
 	ICO.getICOData = function(cb) {
+		logger.info('ICO.getICOData()');
 		getICO(1, function(err, ico) {
 			if (err) return cb(err, null);
 			var received = ico.ethReceived;
@@ -329,6 +330,7 @@ module.exports = function(ICO) {
 	 * @param    {Error}    err     Error information
 	 */
 	ICO.setParams = function(tokenId, params, cb) {
+		logger.info('ICO.setParams()');
 		var e = new Error(g.f('Invalid Access Token'));
 		e.status = e.statusCode = 401;
 		e.code = 'INVALID_TOKEN';
@@ -392,6 +394,7 @@ module.exports = function(ICO) {
  	 * @param    {Error}    err          Error information
 	 */
 	ICO.setState = function(tokenId, params, cb) {
+		logger.info('ICO.setState()');
 		var e = new Error(g.f('Invalid Access Token'));
 		e.status = e.statusCode = 401;
 		e.code = 'INVALID_TOKEN';
@@ -426,6 +429,7 @@ module.exports = function(ICO) {
  	 * @param    {Error}    err     Error information
 	 */
 	ICO.setReceivedEth = function(tokenId, params, cb) {
+		logger.info('ICO.setReceivedEth()');
 		var e = new Error(g.f('Invalid Access Token'));
 		e.status = e.statusCode = 401;
 		e.code = 'INVALID_TOKEN';
@@ -460,6 +464,7 @@ module.exports = function(ICO) {
  	 * @param    {Error}    err     Error information
 	 */
 	ICO.isChecksumAddress = function(address, cb) {
+		logger.info('ICO.isChecksumAddress()');
 		var e = new Error(g.f('Invalid address'));
 		e.status = e.statusCode = 401;
 		e.code = 'INVALID_ADDRESS';
@@ -483,6 +488,7 @@ module.exports = function(ICO) {
  	 * @param    {Error}    err      Error information
 	 */
 	ICO.register = function(ser, cb) {
+		logger.info('ICO.register()');
 		var e = new Error(g.f('Invalid Param'));
 		e.status = e.statusCode = 401;
 		e.code = '0x1000';
