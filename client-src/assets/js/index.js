@@ -135,8 +135,14 @@
 			tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
 			tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
 			// $('#tokensale-eth').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
-			$('#tokensale-li7-val').text($.i18n('tokensale-area.info.eth', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
-			$('#token-distribution-data').text($.i18n('token-dist-area.data3.text', tokenPriceUSD.toFixed(2), tokenPriceEUR.toFixed(3), tokenPriceETH.toFixed(8)));
+			$('#tokensale-li7-val').text($.i18n('tokensale-area.info.eth',
+				tokenPriceUSD.toLocaleString(undefined, {style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2, maximumFractionDigits: 2}),
+				tokenPriceEUR.toLocaleString(undefined, {style: 'currency', currency: 'EUR', currencyDisplay: 'symbol', minimumFractionDigits: 3, maximumFractionDigits: 3}),
+				tokenPriceETH.toLocaleString(undefined, {style: 'decimal', minimumFractionDigits: 8, maximumFractionDigits: 8})));
+			$('#token-distribution-data').text($.i18n('token-dist-area.data3.text',
+				tokenPriceUSD.toLocaleString(undefined, {style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2, maximumFractionDigits: 2}),
+				tokenPriceEUR.toLocaleString(undefined, {style: 'currency', currency: 'EUR', currencyDisplay: 'symbol', minimumFractionDigits: 3, maximumFractionDigits: 3}),
+				tokenPriceETH.toLocaleString(undefined, {style: 'decimal', minimumFractionDigits: 8, maximumFractionDigits: 8})));
 		}
 
 		function updateTokenSalesArea() {
@@ -150,7 +156,7 @@
 			refreshTokenPrices();
 			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
 			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(dateStart).format('LL')));
-			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', tokensTotal));
+			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
 		}
 
 		function setTimerClock(icoDate) {

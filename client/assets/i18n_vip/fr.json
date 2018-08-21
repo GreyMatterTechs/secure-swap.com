@@ -176,7 +176,7 @@
 	"tokensale-area.li5":				"Montant minimal de la transaction : ",
 	"tokensale-area.li5.value":			"0,1 ETH",
 	"tokensale-area.li6":				"Nombre de jetons à vendre : ",
-	"tokensale-area.li6.value":			"100 000 000",
+	"tokensale-area.li6.value":			"$1",
 	"tokensale-area.li7":				"La valeur d'un token $1 est égale à :",
 	"tokensale-area.li7.value":			"0.45$",
 
