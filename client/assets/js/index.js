@@ -147,11 +147,11 @@
 
 		function updateTokenSalesArea() {
 			switch (icoState) {
-			case 1:	$('#tokensale-title').text($.i18n('tokensale-area.info.start'));	break;
-			case 2:	$('#tokensale-title').text($.i18n('tokensale-area.info.ends'));		break;
-			case 3:	$('#tokensale-title').text($.i18n('tokensale-area.info.ended'));	break;
+			case 1:	$('#tokensale-title').html($.i18n('tokensale-area.info.start'));	break;
+			case 2:	$('#tokensale-title').html($.i18n('tokensale-area.info.ends'));		break;
+			case 3:	$('#tokensale-title').html($.i18n('tokensale-area.info.ended'));	break;
 			}
-			$('#tokensale-percent').text($.i18n('tokensale-area.info.percent', purchaseSoldPercent + (purchaseSoldPercent * 0.25)));
+			$('#tokensale-percent').html($.i18n('tokensale-area.info.percent', purchaseSoldPercent + (purchaseSoldPercent * 0.25)));
 			$('#token-sale-mobile-app div.progress > div').css('width', purchaseSoldPercent + '%');
 			refreshTokenPrices();
 			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
