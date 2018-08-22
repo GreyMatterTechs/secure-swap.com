@@ -56,10 +56,10 @@
 	  ]
 	},
 	"final": {
-	  "loopback#urlNotFound": {}
+		"./middleware/urlNotFoundHandler": {}
 	},
 	"final:after": {
-		"./middleware/error-logger": {},
+		"./middleware/errorsHandler": {},
     	"strong-error-handler": {}
     }
   }

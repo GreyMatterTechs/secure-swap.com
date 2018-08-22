@@ -67,7 +67,7 @@ module.exports = function(I18n) {
  	 * @return   {Object}   items Array of languages names
 	 */
 	I18n.getSupportedLanguages = function(roles, cb) {
-		logger.info('I18n.getSupportedLanguages()');
+		logger.debug('I18n.getSupportedLanguages()');
 		var path = 'client/assets/i18n';
 		if (roles && (roles.indexOf('vip') > -1)) {
 			path = 'client/assets/i18n_vip';

@@ -1,8 +1,8 @@
 /**
  * Module for Errors handling.
  *
- * @module error-logger
- * @file   This file defines the ErrorLogger module.
+ * @module errorsHandler
+ * @file   This file defines the errorsHandler module.
  *
  * @author Philippe Aubessard
  * @copyright Grey Matter Technologies, 2018. All Rights Reserved.
@@ -28,10 +28,9 @@ const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
  * Module export
  *
  * @public
- * @param {Object} options options... :)
  * @api public
  */
-module.exports = function(options) {
+module.exports = function() {
 	return function logError(err, req, res, next) {
 		if (err.status === 401 && err.statusCode === 401 && err.code === 'INVALID_TOKEN') {
 			return res.render('login', {						// render the login page, empty form
@@ -41,7 +40,7 @@ module.exports = function(options) {
 			});
 		} else {
 			logger.error(err.message);
+			next(err);
 		}
-		next(err);
 	};
 };
