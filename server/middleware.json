@@ -59,16 +59,17 @@
 	  "loopback#urlNotFound": {}
 	},
 	"final:after": {
-      "strong-error-handler": {
-		"params": {
-			"debug": true,
-			"log": true,
-			"includeStack": true,
-			"safeFields": [
-				"errorCode"
-			],
-			"defaultType": "html"
+		"./middleware/error-logger": {},
+    	"strong-error-handler": {
+    		"params": {
+    			"debug": true,
+				"log": false,
+				"includeStack": true,
+				"safeFields": [
+					"errorCode"
+				],
+				"defaultType": "html"
+			}
 		}
     }
-  }
 }

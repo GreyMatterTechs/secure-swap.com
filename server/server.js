@@ -86,14 +86,14 @@ app.start = function() {
 	return app.listen(function() {
 		app.emit('started');
 		var baseUrl = app.get('url').replace(/\/$/, '');
-		logger.info('Web server listening at: %s', baseUrl);
+		logger.info('Web server listening at: ' + baseUrl);
 		logger.info('Running Environment: ' + (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV));
 		logger.info('NodeJS server URL: ' + 'http://' + config.host + ':' + config.port);
 		logger.info('Nginx  server URL: ' + 'http://' + config.nginxhost + ':' + config.nginxport);
 
 		if (app.get('loopback-component-explorer')) {
 			var explorerPath = app.get('loopback-component-explorer').mountPath;
-			logger.info('Browse your REST API at %s%s', baseUrl, explorerPath);
+			logger.info('Browse your REST API at ' + baseUrl + explorerPath);
 		}
 	});
 };

@@ -14,7 +14,9 @@
 		"path": "client/assets/**",
 		"css": "client/assets/css",
 		"js": "client/assets/js",
-		"vendor": "client/assets/vendors"
+		"vendor": "client/assets/vendors",
+		"i18n": "client/assets/i18n",
+		"vip": "client/assets/i18n_vip"
 	},
 	"theme_assets_source": {
 		"path": "client-src/theme-assets",

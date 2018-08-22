@@ -92,12 +92,14 @@ if (process.env.NODE_ENV !== 'production') {
 			myFormat
 		)
 	}));
+} else {
+	console.log('Environment "production": The Winston outputs to Console are disabled.');
 }
 
 // Increase logging level in DEBUG mode
 if (process.env.DEBUG) {
 	winston.level = 'debug';
-	logger.debug('The Winston debug mode is switched on.');
+	logger.info('The Winston debug mode is switched on.');
 }
 
 // ------------------------------------------------------------------------------------------------------

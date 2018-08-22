@@ -10,6 +10,9 @@ NOTE:
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
 /* -- general -------------------------------------- */
+.condensed {
+  font-family: "Open Sans Condensed", "Roboto", "Helvetica Neue", Arial, sans-serif; }
+
 .balloon {
   cursor: help;
   border-bottom: 1px dotted; }
@@ -420,7 +423,15 @@ header .navbar.navbar-fixed {
 
 .team .team-icon {
   top: 85px;
-  bottom: inherit; }
+  bottom: auto; }
+
+.team-hover .team-icon {
+  top: 84px;
+  left: 134px; }
+
+.team .team-member .align-self-center {
+  -ms-flex-item-align: auto !important;
+  align-self: auto !important; }
 
 /* -- page faq ------------------------------------------------------------------- */
 /* -- footer ------------------------------------------------------------------- */

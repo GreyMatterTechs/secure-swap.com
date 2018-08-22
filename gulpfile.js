@@ -121,6 +121,15 @@ gulp.task('scripts-vendor-theme-assets', function() {
 		.pipe(notify({message: 'Vendors Theme-Assets Scripts task complete'}));
 });
 
+// ------------------------------------------
+// VIP Task.
+// ------------------------------------------
+
+gulp.task('vip-assets', function() {
+	return gulp.src(['en.json', 'fr.json', 'es.json'], {cwd: config.assets_dest.i18n})
+		.pipe(gulp.dest(config.assets_dest.vip))
+		.pipe(notify({message: 'VIP Assets task complete'}));
+});
 
 // ------------------------------------------
 // Cleaning Distribution Task.
@@ -156,6 +165,8 @@ gulp.task('watch', function() {
 	// Watch vendor files
 	gulp.watch(config.assets_source.vendor + '/**/*.*', ['styles-vendor-assets', 'scripts-vendor-assets']);
 	gulp.watch(config.theme_assets_source.vendor + '/**/*.*', ['styles-vendor-theme-assets', 'scripts-vendor-theme-assets']);
+	// Watch VIP files
+	gulp.watch(config.assets_dest.i18n + '/**/*.*', ['vip-assets']);
 
 	// Create LiveReload server
 	livereload.listen();
