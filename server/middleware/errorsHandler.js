@@ -33,7 +33,7 @@ const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 module.exports = function() {
 	return function logError(err, req, res, next) {
 		if (err.status === 401 && err.statusCode === 401 && err.code === 'INVALID_TOKEN') {
-			return res.render('login', {						// render the login page, empty form
+			return res.render('login', {					// render the login page, empty form
 				appName: config.appName,
 				tokenName: config.tokenName,
 				err: null
