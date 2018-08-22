@@ -199,11 +199,16 @@ function sameAddresses(addresses) {
  * @param    {Boolean}  granted True if access is granted
  */
 function checkToken(tokenId, cb) {
-	var mAdmin = app.models.Admin;
-	var mAccessToken = app.models.AccessToken;
+	const DEFAULT_TOKEN_LEN = 64; // taken from E:\DevGreyMatter\websites\secure-swap.com\node_modules\loopback\common\models\access-token.js
+	const mAdmin = app.models.Admin;
+	const mAccessToken = app.models.AccessToken;
 	var e = new Error(g.f('Invalid Access Token'));
 	e.status = e.statusCode = 401;
 	e.code = 'INVALID_TOKEN';
+
+	if (!isString(tokenId) || tokenId.length !== DEFAULT_TOKEN_LEN)
+		return cb(e, null);
+
 	mAccessToken.findById(tokenId, function(err, accessToken) {
 		if (err) return cb(err, null);
 		if (accessToken) {

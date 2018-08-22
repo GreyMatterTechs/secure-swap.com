@@ -46,7 +46,8 @@ var mAccessToken;
  * @returns {Boolean} True if val is a String
  */
 function isString(val) {
-	return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
+	return Object.prototype.toString.call(val) === '[object String]';
+	// return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
 }
 
 /**
@@ -128,9 +129,14 @@ function login(req, cb) {
  * @param    {Object}   user    Granted user
  */
 function checkToken(tokenId, cb) {
+	const DEFAULT_TOKEN_LEN = 64; // taken from E:\DevGreyMatter\websites\secure-swap.com\node_modules\loopback\common\models\access-token.js
 	var e = new Error(g.f('Invalid Access Token'));
 	e.status = e.statusCode = 401;
 	e.code = 'INVALID_TOKEN';
+
+	if (!isString(tokenId) || tokenId.length !== DEFAULT_TOKEN_LEN)
+		return cb(e, null);
+
 	mAccessToken.findById(tokenId, function(err, accessToken) {
 		if (err) return cb(err, null);
 		if (accessToken) {

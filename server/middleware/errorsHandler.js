@@ -32,14 +32,14 @@ const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
  */
 module.exports = function() {
 	return function logError(err, req, res, next) {
-		if (err.status === 401 && err.statusCode === 401 && err.code === 'INVALID_TOKEN') {
+		if (err.status === 401 && err.code === 'INVALID_TOKEN' && !req.path.startsWith(config.restApiRoot)) {
 			return res.render('login', {					// render the login page, empty form
 				appName: config.appName,
 				tokenName: config.tokenName,
 				err: null
 			});
 		} else {
-			logger.error(err.message);
+			logger.error(JSON.stringify(err) + ' req.path:' + req.path);
 			next(err);
 		}
 	};
