@@ -183,6 +183,20 @@ function getUser(req, cb) {
 }
 
 
+function hrtime2human(diff) {
+	const num = diff[0] * 1e9 + diff[1];
+	if (num < 1e3) {
+		return num + ' ns';
+	} else if (num >= 1e3 && num < 1e6) {
+		return num / 1e3 + ' µs';
+	} else if (num >= 1e6 && num < 1e9) {
+		return num / 1e6 + ' ms';
+	} else if (num >= 1e9) {
+		return num / 1e9 + ' s';
+	}
+};
+
+
 // ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
@@ -208,12 +222,14 @@ module.exports = function(server) {
 
 	router.get('/*', function(req, res, next) {
 		if (config.trackIP) {
-			var ip = requestIp.getClientIp(req);
-			var geo = geoip.lookup(ip);
+			const time = process.hrtime();
+			const ip = requestIp.getClientIp(req);
+			const geo = geoip.lookup(ip);
+			const diff = process.hrtime(time);
 			if (geo) {
-				logger.info('Received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (' + geo.city + ' ' + geo.zip + ' ' + geo.region + ' ' + geo.country + ')');
+				logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (' + geo.city + ',' + geo.region + ',' + geo.country + ') [geoip: ' + hrtime2human(diff) + ']');
 			} else {
-				logger.info('Received request: ' + shorten(req.url, 64) + ' from : ' + ip + ' (machine locale)');
+				logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (machine locale) [geoip: ' + hrtime2human(diff) + ']');
 			}
 		}
 		if (req.url.indexOf('assets/images') >= 0 || req.url.indexOf('assets/css/') >= 0) {
