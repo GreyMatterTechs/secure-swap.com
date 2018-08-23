@@ -83,7 +83,7 @@ const logger = winston.createLogger({
 
 // If we're not in production then log to the `console` with the format:
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-if (!config.logger2console) {
+if (config.logger2console) {
 	logger.add(new winston.transports.Console({
 		format: winston.format.combine(
 			winston.format.label({label: config.appName}),
