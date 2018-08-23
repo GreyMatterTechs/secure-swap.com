@@ -80,6 +80,8 @@ app.use(cookieParser());
 // https://www.nginx.com/resources/wiki/start/topics/examples/reverseproxycachingexample/
 // https://serversforhackers.com/c/nginx-caching
 
+var port = normalizePort(process.env.PORT || config.port);
+app.set('port', port);
 
 app.start = function() {
 	// start the web server
@@ -88,7 +90,7 @@ app.start = function() {
 		var baseUrl = app.get('url').replace(/\/$/, '');
 		logger.info('Web server listening at: ' + baseUrl);
 		logger.info('Running Environment: ' + (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV));
-		logger.info('NodeJS server URL: ' + 'http://' + config.host + ':' + config.port);
+		logger.info('NodeJS server URL: ' + 'http://' + config.host + ':' + port);
 		logger.info('Nginx  server URL: ' + 'http://' + config.nginxhost + ':' + config.nginxport);
 
 		if (app.get('loopback-component-explorer')) {
@@ -107,3 +109,11 @@ boot(app, __dirname, function(err) {
 	if (require.main === module)
 		app.start();
 });
+
+// Normalize a port into a number, string, or false.
+function normalizePort(val) {
+	var port = parseInt(val, 10);
+	if (isNaN(port)) { return val; }
+	if (port >= 0) { return port; }
+	return false;
+}
