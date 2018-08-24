@@ -415,7 +415,7 @@ module.exports = function(ICO) {
 		logger.warn('ICO.setState()');
 		var e = new Error(g.f('Invalid Access Token'));
 		e.status = e.statusCode = 401;
-		e.code = e2.errorCode = 'INVALID_TOKEN';
+		e.code = e.errorCode = 'INVALID_TOKEN';
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
