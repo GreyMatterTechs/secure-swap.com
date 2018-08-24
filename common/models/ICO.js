@@ -262,8 +262,15 @@ function getICO(icoId, cb) {
 	e.status = e.statusCode = 404;
 	e.code = 'NOT_FOUND';
 	mICO.findById(icoId, function(err, ico) {
-		if (err) return cb(err, null);
-		if (!ico) return cb(e, null);
+		if (err) {
+			logger.warn('ICO.getICO() findById() failed. err:' + err);
+			return cb(err, null);
+		}
+		if (!ico) {
+			logger.warn('ICO.getICO() ico==null. err:' + err);
+			return cb(e, null);
+		}
+		logger.warn('ICO.getICO() GOOD!!!.');
 		return cb(null, ico);
 	});
 }
@@ -431,11 +438,18 @@ module.exports = function(ICO) {
 			}
 			logger.warn('ICO.setState() getICO()');
 			getICO(1, function(err, ico) {
-				if (err) return cb(err, null);
+				if (err) {
+					logger.warn('ICO.setState() getICO() failed. err:'+err);
+					return cb(err, null);
+				}
 				ico.updateAttributes({
 					state: params.state
 				}, function(err) {
-					if (err) return cb(err, null);
+					if (err) {
+						logger.warn('ICO.setState() updateAttributes() failed. err:'+err);
+						return cb(err, null);
+					}
+					logger.warn('ICO.setState() updateAttributes() OK!!!');
 					return cb(null);
 				});
 			});
