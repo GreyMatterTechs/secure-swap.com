@@ -21,6 +21,4 @@ npm-debug.log
 mydata.json
 client-src
 resources
-server/datasources*.json
-server/config*.json
 logs/*
