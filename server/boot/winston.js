@@ -19,7 +19,7 @@ const appRoot			= require('app-root-path');
 const winston			= require('winston');
 const DailyRotateFile	= require('winston-daily-rotate-file');
 const moment			= require('moment');
-const config			= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config			= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods

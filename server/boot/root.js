@@ -18,7 +18,7 @@ const path		= require('path');
 const requestIp	= require('request-ip');
 const geoip		= require('geoip-lite');
 const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
-const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
@@ -209,7 +209,7 @@ function hrtime2human(diff) {
  * @api public
  */
 module.exports = function(server) {
-	server.locals.env		= process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV;
+	server.locals.env		= config.currentEnv;
 	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : 'local';
 	mAdmin					= server.models.Admin;
 	mContact				= server.models.Contact;
@@ -270,6 +270,7 @@ module.exports = function(server) {
 							appName: config.appName,
 							tokenName: config.tokenName,
 							roles: roles.split(','),
+							ajaxDelay: config.ajaxDelay,
 							err: null
 						});
 					}
@@ -279,6 +280,7 @@ module.exports = function(server) {
 			res.render('index', {									// not logged user, no login form data, but ok, website is public
 				appName: config.appName,
 				tokenName: config.tokenName,
+				ajaxDelay: config.ajaxDelay,
 				err: null
 			});
 		}
@@ -302,6 +304,7 @@ module.exports = function(server) {
 						appName: config.appName,
 						tokenName: config.tokenName,
 						roles: req.body.roles.split(','),
+						ajaxDelay: config.ajaxDelay,
 						err: null
 					});
 				}
@@ -317,6 +320,7 @@ module.exports = function(server) {
 						tokenName: config.tokenName,
 						accessToken: tokenId,
 						roles: roles,
+						ajaxDelay: config.ajaxDelay,
 						err: null
 					});
 				}

@@ -20,7 +20,7 @@ const xssFilters	= require('xss-filters');
 const app			= require('../../server/server');
 const datasources	= reqlocal(path.join('server', 'datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const loopback		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
-const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
@@ -28,6 +28,8 @@ const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 // ------------------------------------------------------------------------------------------------------
 
 function sendMail(data, mEmail, cb) {
+
+	var dsEmail = app.dataSources.emailDS;
 
 	function makeOptions() {
 		var options = {};
@@ -44,10 +46,11 @@ function sendMail(data, mEmail, cb) {
 			(options.protocol === 'http' && options.port == '80') ||
 			(options.protocol === 'https' && options.port == '443')
 		) ? '' : ':' + options.port;
-		options.from = config.mailProvider.auth.user;
+		// options.from = config.mailProvider.auth.user;
+		options.from = dsEmail.transports[0].auth.user;
 		options.headers = options.headers || {};
 		options.maildata = {
-			db: datasources.db.host ? datasources.db.host : datasources.db.file,
+			db: datasources.db.host || datasources.adapter.name || datasources.db.file,
 			env: (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV),
 			name: data.name,
 			mail: data.mail,

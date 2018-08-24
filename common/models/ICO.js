@@ -21,7 +21,7 @@ const moment	= require('moment');
 const request	= require('superagent');
 const app		= reqlocal(path.join('server', 'server'));
 const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
-const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 
@@ -529,7 +529,7 @@ module.exports = function(ICO) {
 		}
 
 		request
-			.post(config.ssURI + '/api/Referrers/register')
+			.post(config.icoURI + '/api/Referrers/register')
 			.send({wallets: {referrer: referrer, referrals: referrals}})
 			.end((err, res) => {
 				if (err) return cb(err);

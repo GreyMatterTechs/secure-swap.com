@@ -51,7 +51,7 @@
 
 		var i18n = null;
 		var clock = null;
-		var updateICOIntervalDefault = 3000;
+		var updateICOIntervalDefault;
 		var updateICOInterval = updateICOIntervalDefault;
 		var updateICOIntervalId = null;
 		var ethIntervalDefault = 60000;
@@ -60,6 +60,7 @@
 		var momentLocale = window.navigator.language;
 		var mailchimpLanguage = '';
 		var roles = null;
+		var ajaxDelay;
 
 		var icoState = 0;
 		var tokenPriceUSD = 0.45;
@@ -413,11 +414,13 @@
 
 		return {
 
-			init: function(jroles) {
+			init: function(jroles, jajaxDelay) {
 
 				if (jroles) {
 					roles = JSON.parse(jroles);
 				}
+				ajaxDelay = jajaxDelay || 5000;
+				updateICOIntervalDefault = ajaxDelay;
 
 				i18n = window.ssw.I18n.getInstance();
 

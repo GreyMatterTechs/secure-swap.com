@@ -17,15 +17,15 @@
 const path		= require('path');
 const async		= require('async');
 const appRoot	= require('app-root-path');
-const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
 // Local Vars
 // ------------------------------------------------------------------------------------------------------
 
-var db;
-var dbName;
+var ds;
+var dsName;
 var mAdmin;
 var mICO;
 var mRole;
@@ -57,7 +57,9 @@ function updateRole(cb) {
 	async.forEachOf(Object.values(roles), function(value, key, callback) {
 		mRole.find({where: {name: value}}, function(err, roles) {
 			if (err) return callback(err);
-			if (roles && roles.length === 1) return callback();
+			if (roles && roles.length === 1) {
+				return callback();
+			}
 			mRole.create({
 				name: value
 			}, function(err, role) {
@@ -172,7 +174,6 @@ function updateAdmins(cb) {
 		Promise.all(promises).then(function(users) {
 			return cb(null, users);
 		}, function(err) {
-			logger.error(err);
 			return cb(err);
 		});
 	}
@@ -306,22 +307,22 @@ function updateAdmins(cb) {
 	}]);
 }
 
-function create(db, lbMigrateTables) {
-	db.automigrate(lbMigrateTables, function(err) {
-		if (err) throw err;
-		logger.info('Loopback tables [' + lbMigrateTables + '] created in "' + dbName + '" database');
+function create(ds, tables, cb) {
+	ds.automigrate(tables, function(err) {
+		if (err) return cb(err);
+		logger.info('Loopback tables [' + tables + '] created in "' + dsName + '" database');
+		return cb();
 	});
 }
 
-function update(db, lbUpdateTables) {
-	db.autoupdate(lbUpdateTables, function(err) {
-		if (err) throw err;
-		logger.info('Loopback tables [' + lbUpdateTables + '] created in "' + dbName + '" database');
-		// create all models
-
+function update(ds, tables, cb) {
+	ds.autoupdate(tables, function(err) {
+		if (err) return cb(err);
+		logger.info('Updating Loopback tables [' + tables + '] in "' + dsName + '" database...');
 		async.series([updateRole, updateICO, updateAdmins], function(err, result) {
-			if (err) throw err;
-			logger.info('> tables updated sucessfully');
+			if (err) return cb(err);
+			logger.info('Loopback tables [' + tables + '] updated in "' + dsName + '" database.');
+			return cb();
 		});
 	});
 }
@@ -338,24 +339,23 @@ function update(db, lbUpdateTables) {
  * @api public
  */
 module.exports = function(app) {
+	if (process.env.NODE_ENV === 'production') return;	// on touche à rien
 
-	db = app.dataSources.db;
-	dbName = db.settings.host ? db.settings.host : db.settings.file;
+	ds = app.dataSources.db;
+	dsName = ds.settings.name || ds.adapter.name || ds.settings.file;
 	mAdmin = app.models.Admin;
 	mICO = app.models.ICO;
 	mRole = app.models.Role;
 	mRoleMapping = app.models.RoleMapping;
 
-	var lbMigrateTables;
-	var lbUpdateTables;
-
-	if (process.env.NODE_ENV === 'production') {
-		// on touche à rien
-	} else {
-		lbMigrateTables = ['ACL', 'RoleMapping'];
-		lbUpdateTables = ['AccessToken', 'Role', 'Admin', 'ICO'];
-		create(db, lbMigrateTables);
-		update(db, lbUpdateTables);
-	}
-
+	var lbMigrateTables = ['AccessToken', 'ACL', 'RoleMapping'];
+	var lbUpdateTables = ['Role', 'Admin', 'ICO'];	// no properties in Contact and I18n models
+	async.series([
+		function(cb) { create(ds, lbMigrateTables, cb); },
+		function(cb) { update(ds, lbUpdateTables, cb); }
+	], function(err) {
+		ds.disconnect();
+		if (err) throw err;
+		logger.info('Loopback tables ready.');
+	});
 };

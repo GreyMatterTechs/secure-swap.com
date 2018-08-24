@@ -5,7 +5,7 @@
   "author": "GreyMatterTechs",
   "repository": {
     "type": "git",
-    "url": "local"
+    "url": "https://github.com/GreyMatterTechs/secure-swap.com"
   },
   "engines": {
     "node": ">=4"

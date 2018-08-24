@@ -1,11 +1,12 @@
 /**
  * Module for Express HTTP Server.
  *
- * @module server
- * @file   This file defines the server module.
- *
- * @author Philippe Aubessard
- * Copyright Grey Matter Technologies, 2018. All Rights Reserved.
+ * @module:		server
+ * @file		server.js
+ * @version:	1.0.0
+ * @author		Philippe Aubessard
+ * @link        http://secure-swap.com
+ * @copyright:	Copyright (c) 2017, GreyMatterTechs.com. All rights reserved.
  */
 
 'use strict';
@@ -26,7 +27,7 @@ const boot			= require('loopback-boot');
 const helmet		= require('helmet');
 const cookieParser	= require('cookie-parser');
 const bodyParser	= require('body-parser');
-const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
+const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 
@@ -89,7 +90,7 @@ app.start = function() {
 		app.emit('started');
 		var baseUrl = app.get('url').replace(/\/$/, '');
 		logger.info('Web server listening at: ' + baseUrl);
-		logger.info('Running Environment: ' + (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV));
+		logger.info('Running Environment: ' + config.currentEnv);
 		logger.info('NodeJS server URL: ' + 'http://' + config.host + ':' + port);
 		logger.info('Nginx  server URL: ' + 'http://' + config.nginxhost + ':' + config.nginxport);
 
