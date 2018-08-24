@@ -148,7 +148,7 @@ module.exports = function(Contact) {
 			return cb({err: 'bad request'}, null);
 		}
 		// Check referers
-		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'http://localhost:3000/'];
+		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
 		var referer = req.get('Referrer');
 		referer = referer.replace(/www/i, '');
 		if (!validReferers.includes(referer)) {
