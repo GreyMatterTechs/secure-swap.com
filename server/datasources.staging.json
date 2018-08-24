@@ -1,0 +1,22 @@
+{
+	"db": {
+		"name": "db",
+		"connector": "memory"
+	},
+	"emailDS": {
+		"name": "emailDS",
+		"connector": "mail",
+		"transports": [
+			{
+				"type": "smtp",
+				"secure": true,
+				"port": 465,
+				"host": "${SMTP_HOST}",
+				"auth": {
+					"user": "${SMTP_USER}",
+					"pass": "${SMTP_PASS}"
+				}
+			}
+		]
+	}
+}
