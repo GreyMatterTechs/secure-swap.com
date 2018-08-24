@@ -47,10 +47,10 @@ function sendMail(data, mEmail, cb) {
 			(options.protocol === 'https' && options.port == '443')
 		) ? '' : ':' + options.port;
 		// options.from = config.mailProvider.auth.user;
-		options.from = dsEmail.transports[0].auth.user;
+		options.from = dsEmail.adapter.transports[0].options.auth.user;
 		options.headers = options.headers || {};
 		options.maildata = {
-			db: datasources.db.host || datasources.adapter.name || datasources.db.file,
+			db: datasources.db.host || datasources.db.name || datasources.db.file,
 			env: (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV),
 			name: data.name,
 			mail: data.mail,
