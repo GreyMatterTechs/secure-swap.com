@@ -444,12 +444,12 @@ module.exports = function(ICO) {
 				}
 				ico.updateAttributes({
 					state: params.state
-				}, function(err) {
+				}, function(err, instance) {
 					if (err) {
 						logger.warn('ICO.setState() updateAttributes() failed. err:'+err);
 						return cb(err, null);
 					}
-					logger.warn('ICO.setState() updateAttributes() OK!!!');
+					logger.warn('ICO.setState() updateAttributes() OK!!! state:' + instance.state);
 					return cb(null);
 				});
 			});
