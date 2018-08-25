@@ -576,6 +576,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
         border-radius: .25rem;
         background-color: #fff;
         background-clip: padding-box; }
+      .purchase-modal .modal-content form .converter {
+        background: linear-gradient(32deg, #ff4137, #fdc800);
+        border: none; }
 
 .referral-modal {
   background: linear-gradient(45deg, rgba(20, 14, 56, 0.85), rgba(20, 56, 123, 0.85)); }
