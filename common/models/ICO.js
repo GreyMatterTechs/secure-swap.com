@@ -207,40 +207,39 @@ function checkToken(tokenId, cb) {
 	e.code = e.errorCode = 'INVALID_TOKEN';
 
 	if (!isString(tokenId) || tokenId.length !== DEFAULT_TOKEN_LEN) {
-		logger.warn('ICO.checkToken() token !String. e:' + e);
+		logger.debug('ICO.checkToken() token !String. e:' + e);
 		return cb(e, null);
 	}
 
 	mAccessToken.findById(tokenId, function(err, accessToken) {
 		if (err) {
-			logger.warn('ICO.checkToken() mAccessToken.findById failed. err:' + err);
+			logger.debug('ICO.checkToken() mAccessToken.findById failed. err:' + err);
 			return cb(err, null);
 		}
 		if (accessToken) {
 			accessToken.validate(function(err, isValid) {	// check user ACL and token TTL
 				if (err) {
-					logger.warn('ICO.checkToken() validate failed. err:' + err);
+					logger.debug('ICO.checkToken() validate failed. err:' + err);
 					return cb(err, null);
 				} else if (isValid) {
 					mAdmin.findById(accessToken.userId, function(err, user) {	// check if user is active
 						if (err) {
-							logger.warn('ICO.checkToken() mAdmin.findById failed. err:' + err);
+							logger.debug('ICO.checkToken() mAdmin.findById failed. err:' + err);
 							return cb(err, null);
 						}
 						if (!user || !user.active) {
-							logger.warn('ICO.checkToken() (!user || !user.active). e:' + e);
+							logger.debug('ICO.checkToken() (!user || !user.active). e:' + e);
 							return cb(e, null);
 						}
-						logger.warn('ICO.checkToken() GOOD!');
 						return cb(null, true);
 					});
 				} else {
-					logger.warn('ICO.checkToken() !isValid. e:' + e);
+					logger.debug('ICO.checkToken() !isValid. e:' + e);
 					return cb(e, null);
 				}
 			});
 		} else {
-			logger.warn('ICO.checkToken() accessToken===null. e:' + e);
+			logger.debug('ICO.checkToken() accessToken===null. e:' + e);
 			return cb(e, null);
 		}
 	});
@@ -263,14 +262,13 @@ function getICO(icoId, cb) {
 	e.code = 'NOT_FOUND';
 	mICO.findById(icoId, function(err, ico) {
 		if (err) {
-			logger.warn('ICO.getICO() findById() failed. err:' + err);
+			logger.debug('ICO.getICO() findById() failed. err:' + err);
 			return cb(err, null);
 		}
 		if (!ico) {
-			logger.warn('ICO.getICO() ico==null. err:' + err);
+			logger.debug('ICO.getICO() ico==null. err:' + err);
 			return cb(e, null);
 		}
-		logger.warn('ICO.getICO() GOOD!!!.');
 		return cb(null, ico);
 	});
 }
@@ -419,7 +417,7 @@ module.exports = function(ICO) {
  	 * @param    {Error}    err          Error information
 	 */
 	ICO.setState = function(tokenId, params, cb) {
-		logger.warn('ICO.setState()');
+		logger.debug('ICO.setState()');
 		var e = new Error(g.f('Invalid Access Token'));
 		e.status = e.statusCode = 401;
 		e.code = e.errorCode = 'INVALID_TOKEN';
@@ -429,27 +427,25 @@ module.exports = function(ICO) {
 		if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setState() bad state: ' + params.state); return cb(e2, null); }
 		checkToken(tokenId, function(err, granted) {
 			if (err) {
-				logger.warn('ICO.setState() checkToken() err:' + err);
+				logger.debug('ICO.setState() checkToken() err:' + err);
 				return cb(err, null);
 			}
 			if (!granted) {
-				logger.warn('ICO.setState() checkToken() not granted. e:' + e);
+				logger.debug('ICO.setState() checkToken() not granted. e:' + e);
 				return cb(e, null);
 			}
-			logger.warn('ICO.setState() getICO()');
 			getICO(1, function(err, ico) {
 				if (err) {
-					logger.warn('ICO.setState() getICO() failed. err:'+err);
+					logger.debug('ICO.setState() getICO() failed. err:'+err);
 					return cb(err, null);
 				}
 				ico.updateAttributes({
 					state: params.state
 				}, function(err, instance) {
 					if (err) {
-						logger.warn('ICO.setState() updateAttributes() failed. err:'+err);
+						logger.debug('ICO.setState() updateAttributes() failed. err:'+err);
 						return cb(err, null);
 					}
-					logger.warn('ICO.setState() updateAttributes() OK!!! state:' + instance.state);
 					return cb(null);
 				});
 			});
