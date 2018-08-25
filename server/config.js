@@ -30,6 +30,7 @@ module.exports = {
 	loginTTL: 'hour',
 	private: true,
 	icoURI: process.env.ICO_URI,
+	cmcURI: process.env.CMC_URI,
 	trackIP: true,
 	logger2console: true,
 	ajaxDelay: 5000,

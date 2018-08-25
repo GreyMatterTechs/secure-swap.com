@@ -61,6 +61,7 @@
 		var mailchimpLanguage = '';
 		var roles = null;
 		var ajaxDelay;
+		var cmcURI;
 
 		var icoState = 0;
 		var tokenPriceUSD = 0.45;
@@ -242,19 +243,59 @@
 			updateICOIntervalId = setInterval(updateICOTimer, updateICOInterval);
 		}
 
-		function updateETH() {
-			$.get('https://api.coinmarketcap.com/v2/ticker/1027/?convert=EUR')
-				.done(function(eth) {
-					ethInterval = ethIntervalDefault;
-					if (eth) {
-						coinMarketCapEUR = eth.data.quotes.EUR.price;
-						coinMarketCapUSD = eth.data.quotes.USD.price;
-						refreshTokenPrices();
+		/**
+		 * Get crypto CoinMarketCap id
+		 */
+		function getCoinMarketCapId(cryptoName, cb) {
+			var url = cmcURI + '/listings/';
+			$.get(url)
+				.done(function(list) {
+					if (list) {
+						var id = -1;
+						list.data.some(function (element) {
+							if (element.name === cryptoName) {
+								id = Number(element.id);
+								return true;
+							}
+						});
+						return cb(null, id);
 					}
+					return cb('request() error. url:' + url, null);
 				})
 				.fail(function(err) {
-					if (ethInterval < ethIntervalDefault * 100) ethInterval *= 2;
+					return cb(err, null);
 				});
+		}
+
+		/**
+		 * Get crypto quote on CoinMarketCap, in USD and in EUR
+		 */
+		function getCotation(cryptoId, cb) {
+			var url = cmcURI + '/ticker/' + cryptoId + '/?convert=EUR';
+			$.get(url)
+				.done(function(cotation) {
+					if (cotation) return cb(null, cotation);
+					return cb('request() error. url:' + url, null);
+				})
+				.fail(function(err) {
+					return cb(err, null);
+				});
+		}
+
+		function updateETH() {
+			getCoinMarketCapId("Ethereum", function(err, id) {
+				if (id === null || id === -1) id = 1027;
+				getCotation(id, function(err, cotation) {
+					if (cotation) {
+						ethInterval = ethIntervalDefault;
+						coinMarketCapEUR = cotation.data.quotes.EUR.price;
+						coinMarketCapUSD = cotation.data.quotes.USD.price;
+						refreshTokenPrices();
+					} else	{
+						if (ethInterval < ethIntervalDefault * 100) ethInterval *= 2;
+					}
+				});				
+			});
 		}
 		function updateETHTimer() {
 			if (ethIntervalId) clearInterval(ethIntervalId);
@@ -414,12 +455,13 @@
 
 		return {
 
-			init: function(jroles, jajaxDelay) {
+			init: function(_roles, _ajaxDelay, _cmcURI) {
 
-				if (jroles) {
-					roles = JSON.parse(jroles);
+				if (_roles) {
+					roles = JSON.parse(_roles);
 				}
-				ajaxDelay = jajaxDelay || 5000;
+				ajaxDelay = _ajaxDelay || 5000;
+				cmcURI = _cmcURI || 'https://api.coinmarketcap.com/v2';
 				updateICOIntervalDefault = ajaxDelay;
 
 				i18n = window.ssw.I18n.getInstance();

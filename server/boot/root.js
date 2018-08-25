@@ -271,6 +271,7 @@ module.exports = function(server) {
 							tokenName: config.tokenName,
 							roles: roles.split(','),
 							ajaxDelay: config.ajaxDelay,
+							cmcURI: config.cmcURI,
 							err: null
 						});
 					}
@@ -281,6 +282,7 @@ module.exports = function(server) {
 				appName: config.appName,
 				tokenName: config.tokenName,
 				ajaxDelay: config.ajaxDelay,
+				cmcURI: config.cmcURI,
 				err: null
 			});
 		}
@@ -305,6 +307,7 @@ module.exports = function(server) {
 						tokenName: config.tokenName,
 						roles: req.body.roles.split(','),
 						ajaxDelay: config.ajaxDelay,
+						cmcURI: config.cmcURI,
 						err: null
 					});
 				}
