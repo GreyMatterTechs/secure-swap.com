@@ -2520,18 +2520,20 @@
 												</fieldset>
 											
 												<fieldset style="display: none;" class="section-2">
-													<label for="SSW" data-i18n="purchasebox.ico.address.intro, <%= tokenName %>" >To buy <%= tokenName %> tokens, send your ETH here</label>
+													<label for="walletAddress" data-i18n="purchasebox.ico.address.intro, <%= tokenName %>" >To buy <%= tokenName %> tokens, send your ETH here</label>
 													<div class="form-row">
 														<div class="col-10">
-															<input id="SSW" class="form-control" name="SSW" type="text" value="" readonly>
+															<input id="walletAddress" class="form-control" name="walletAddress" type="text" value="" readonly>
 														</div>
 														<div class="col-2">
-															<button type="button" class="btn" onclick="myFunctionCopy()"><span data-i18n="purchasebox.ico.address.copy">Copy</span></button>
+															<button id="btn-wallet-copy" data-clipboard-target="#walletAddress" type="button" class="btn click-to-copy" >
+																<span id="btn-wallet-copied-label" data-label="Copied" class="click-to-copy-label" data-i18n="purchasebox.ico.address.copy">Copy</span>
+															</button>
 														</div>
 													</div>
 													<div class="form-row">
 														<div class="col-lg-5 token-rq">
-															<img src="assets/images/ssw.png" alt="img">
+															<img id="qrcode" src="assets/images/qr/preico/en.png" alt="img">
 														</div>
 														<div class="col-lg-7 right-content">
 															<p data-i18n="purchasebox.ico.address.p1">• We accept only ETH.</p>

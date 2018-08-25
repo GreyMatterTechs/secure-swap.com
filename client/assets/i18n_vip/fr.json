@@ -434,6 +434,7 @@
 	"purchasebox.ico.address.title":	"Addresse du Smart Contract",
 	"purchasebox.ico.address.intro":	"Pour acheter des jetons $1, veuillez envoyer vos ETH à l'adresse Smart Contract suivante&nbsp;:",
 	"purchasebox.ico.address.copy":		"Copier",
+	"purchasebox.ico.address.copied":	"Copié",
 	"purchasebox.ico.address.p1":		"• Nous n'acceptons que les ETH.",
 	"purchasebox.ico.address.p2":		"• <span class=\"text-danger\">Attention!</span> N'utilisez pas les adresses des échangeurs de crypto-monnaies comme Coinbase, Binance, Bittrex, Poloniex, Kraken, Globitex, Coinomi etc, sinon <b>vous ne recevrez pas vos jetons $1</b>, et il en résultera <b>une perte irréversible de vos ETH !</b><br /><span class=\"text-success\">Vous devez utiliser l'un des portefeuille standard compatible ERC20 : MyEtherWallet, Mist, MetaMask, Parity, ...</span>",
 	"purchasebox.ico.address.p3":		"• Montant minimum = 0,1 ETH",

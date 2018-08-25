@@ -424,6 +424,7 @@
 	"purchasebox.ico.address.title":	"Smart Contract Address",
 	"purchasebox.ico.address.intro":	"To purchase $1 tokens, please send ETH to the following Smart Contract address:",
 	"purchasebox.ico.address.copy":		"Copy",
+	"purchasebox.ico.address.copied":	"Copied",
 	"purchasebox.ico.address.p1":		"• We accept only ETH.",
 	"purchasebox.ico.address.p2":		"• <span class=\"text-danger\">Attention!</span> Don’t use any cryptocurrency exchange wallet addresses like Coinbase, Binance, Bittrex, Poloniex, Kraken, Globitex, Coinomi etc, otherwise <b>you will not receive your $1 tokens</b>, and will result in an <b>irreversible loss of your money!</b><br /><span class=\"text-success\">You have to use one of the standard compatible ERC20 wallet tokens: MyEtherWallet, Mist, MetaMask, Parity, ...</span>",
 	"purchasebox.ico.address.p3":		"• Minimum amount = 0.1 ETH",

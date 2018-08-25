@@ -97,6 +97,39 @@ input.noscript-closing-trick {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg); }
 
+/* -- Click to copy ------------------------------------------------------------------- */
+@-webkit-keyframes floatup {
+  20% {
+    opacity: .999; }
+  100% {
+    -webkit-transform: translate3d(-50%, -17px, 0);
+    transform: translate3d(-50%, -17px, 0); } }
+@keyframes floatup {
+  20% {
+    opacity: .999; }
+  100% {
+    -webkit-transform: translate3d(-50%, -17px, 0);
+    transform: translate3d(-50%, -17px, 0); } }
+
+#btn-wallet-copy {
+  color: #000; }
+  #btn-wallet-copy.click-to-copy {
+    cursor: pointer; }
+    #btn-wallet-copy.click-to-copy .click-to-copy-label {
+      position: relative; }
+      #btn-wallet-copy.click-to-copy .click-to-copy-label::after {
+        content: attr(data-label);
+        color: #0069ff;
+        position: absolute;
+        left: 50%;
+        opacity: .001;
+        -webkit-transform: translate3d(-50%, 0, 0);
+        transform: translate3d(-50%, 0, 0);
+        white-space: nowrap; }
+    #btn-wallet-copy.click-to-copy.copying .click-to-copy-label::after {
+      -webkit-animation: floatup .5s ease-in-out;
+      animation: floatup .5s ease-in-out; }
+
 /* -- head ------------------------------------------------------------------- */
 header .navbar.navbar-fixed {
   padding: 0; }

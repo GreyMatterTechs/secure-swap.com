@@ -50,6 +50,7 @@
 		// --- private members
 
 		var i18n = null;
+		var locale;
 		var clock = null;
 		var updateICOIntervalDefault;
 		var updateICOInterval = updateICOIntervalDefault;
@@ -115,11 +116,21 @@
 					$('#purchase-modal-state-ico').addClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
 					$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
+					$('#walletAddress').val('');
+					$('#qrcode').attr('src', '');
 					break;
 				case 2:
 					$('#purchase-modal-state-preico').addClass('d-none');
 					$('#purchase-modal-state-ico').removeClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
+					$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
+					$('#walletAddress').val(wallet);
+
+
+// dire à alain de ne passer l'address wallet que avec state = 2
+// sinon string Vide
+
+
 					break;
 				}
 			}
@@ -283,7 +294,7 @@
 		}
 
 		function updateETH() {
-			getCoinMarketCapId("Ethereum", function(err, id) {
+			getCoinMarketCapId('Ethereum', function(err, id) {
 				if (id === null || id === -1) id = 1027;
 				getCotation(id, function(err, cotation) {
 					if (cotation) {
@@ -294,7 +305,7 @@
 					} else	{
 						if (ethInterval < ethIntervalDefault * 100) ethInterval *= 2;
 					}
-				});				
+				});
 			});
 		}
 		function updateETHTimer() {
@@ -844,10 +855,36 @@
 
 
 				//--------------------------------------------------------------------------------------------------------------
+				// Clipboard
+				//--------------------------------------------------------------------------------------------------------------
+
+				if (ClipboardJS.isSupported()) {
+					var clipboard = new ClipboardJS('#btn-wallet-copy', {
+						container: document.getElementById('purchase-modal')
+					});
+					clipboard.on('success', function(e) {
+						e.clearSelection();
+						$('#btn-wallet-copy')
+							.addClass('copying')
+							.one('animationend webkitAnimationEnd', function() {
+								$('#btn-wallet-copy').removeClass('copying');
+							});
+					});
+					clipboard.on('error', function(e) {
+						console.error('Action:', e.action);
+						console.error('Trigger:', e.trigger);
+					});
+				} else {
+					$('#btn-wallet-copy').hide();
+				}
+
+
+				//--------------------------------------------------------------------------------------------------------------
 				// Starts i18n, and run all scripts that requires localisation
 				//--------------------------------------------------------------------------------------------------------------
 
 				var i18nInitCallback = function(_locale, _mailchimpLanguage) {
+					locale = _locale;
 					moment.locale(_locale);
 					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale file is loaded , we can start other inits that needs i18n ready
@@ -855,9 +892,13 @@
 					$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
 					$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
 					$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
+					$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
+					var copied = $.i18n('purchasebox.ico.address.copied');
+					$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 				};
 
 				var i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
+					locale = _locale;
 					moment.locale(_locale);
 					mailchimpLanguage = _mailchimpLanguage;
 					// once the locale is changed, we can update each moduel that needs i18n strings
@@ -866,6 +907,9 @@
 					$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
 					$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
 					$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
+					$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
+					var copied = $.i18n('purchasebox.ico.address.copied');
+					$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 				};
 
 				i18n.init();
