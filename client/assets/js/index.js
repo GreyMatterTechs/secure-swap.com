@@ -232,7 +232,7 @@
 						tokensTotal			= ico.tokensTotal;
 						tokensSold			= ico.tokensSold;
 						wallet				= ico.wallet;
-						icoState = ico.state;
+						icoState			= ico.state;
 						switch (ico.state) {
 						case 1:	setStatePreICO(ico);	break;
 						case 2:	setStateICO(ico);		break;

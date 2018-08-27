@@ -472,13 +472,23 @@ module.exports = function(ICO) {
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
 		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)				{ logger.info('ICO.setReceivedEth() bad ethReceived: ' + params.ethReceived); return cb(e2, null); } }
+		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setReceivedEth() bad state: ' + params.state); return cb(e2, null); } }
+		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)			{ logger.info('ICO.setReceivedEth() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
+		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)			{ logger.info('ICO.setReceivedEth() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
+		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					{ logger.info('ICO.setReceivedEth() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
+		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				{ logger.info('ICO.setReceivedEth() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
 			getICO(1, function(err, ico) {
 				if (err) return cb(err, null);
 				ico.updateAttributes({
-					ethReceived: 	params.ethReceived
+					state:			params.state			? params.state			: ico.state,
+					tokenPriceUSD: 	params.tokenPriceUSD	? params.tokenPriceUSD	: ico.tokenPriceUSD,
+					tokenPriceETH:	params.tokenPriceETH	? params.tokenPriceETH	: ico.tokenPriceETH,
+					ethTotal: 		params.ethTotal			? params.ethTotal		: ico.ethTotal,
+					tokensSold: 	params.tokensSold		? params.tokensSold		: ico.tokensSold,
+					ethReceived: 	params.ethReceived		? params.ethReceived	: null
 				}, function(err) {
 					if (err) return cb(err, null);
 					return cb(null);
