@@ -322,7 +322,7 @@ module.exports = function(ICO) {
 	 * @return   {Object}   ico The ICO record from database
 	 */
 	ICO.getICOData = function(cb) {
-		logger.info('ICO.getICOData()');
+		logger.debug('ICO.getICOData()');
 		getICO(1, function(err, ico) {
 			if (err) return cb(err, null);
 			var received = ico.ethReceived;
