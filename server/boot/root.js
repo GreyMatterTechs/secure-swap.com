@@ -361,6 +361,24 @@ module.exports = function(server) {
 		});
 	});
 
+	router.get('/privacy', function(req, res) {
+		logger.info('route post /privacy');
+		return res.render('privacy', {
+			appName: config.appName,
+			tokenName: config.tokenName,
+			err: null
+		});
+	});
+
+	router.get('/terms', function(req, res) {
+		logger.info('route post /terms');
+		return res.render('terms', {
+			appName: config.appName,
+			tokenName: config.tokenName,
+			err: null
+		});
+	});
+
 	router.post('/dashboard', function(req, res) {
 		if (!req.body)
 			return res.sendStatus(403);
