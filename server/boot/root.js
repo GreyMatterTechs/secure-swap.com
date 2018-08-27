@@ -423,19 +423,19 @@ module.exports = function(server) {
 
 	router.post('/contact', function(req, res, next) {
 		logger.info('route post /contact');
-		if (!req.cookies.sent) {
-			mContact.contact(req, function(err, result) {
-				if (err) {
-					return res.send(err);
-				}
-				/* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */
-				res.cookie('sent', '', {maxAge: 120, expires: new Date(Date.now() + 120), httpOnly: false});
-				return res.send(result);
-			});
-		} else {
-			return res.send({err: 'contact-area.error.message1'});
-			// don't clear cookie --- res.clearCookie('sent');
-		}
+		// if (!req.cookies.sent) {
+		mContact.contact(req, function(err, result) {
+			if (err) {
+				return res.send(err);
+			}
+			// /* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */
+			// res.cookie('sent', '', {maxAge: 120, expires: new Date(Date.now() + 120), httpOnly: false});
+			return res.send(result);
+		});
+		// } else {
+		// 	return res.send({err: 'contact-area.error.message1'});
+		//	// don't clear cookie --- res.clearCookie('sent');
+		// }
 	});
 
 	server.use(router);

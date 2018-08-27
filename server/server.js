@@ -25,7 +25,7 @@ const path			= require('path');
 const loopback		= require('loopback');
 const boot			= require('loopback-boot');
 const helmet		= require('helmet');
-const cookieParser	= require('cookie-parser');
+// const cookieParser	= require('cookie-parser');
 const bodyParser	= require('body-parser');
 const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
@@ -69,7 +69,7 @@ app.use(helmet());
 app.set('trust proxy', 'loopback');
 
 // cookies
-app.use(cookieParser());
+// app.use(cookieParser());
 
 // $$$ TODO https://github.com/strongloop/loopback-example-ssl
 //          et passer en TLS
