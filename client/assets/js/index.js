@@ -468,8 +468,6 @@
 
 			init: function(_roles, _ajaxDelay, _cmcURI) {
 
-				console.log('DNT: ' + window.navigator.doNotTrack);
-
 				if (_roles) {
 					roles = JSON.parse(_roles);
 				}

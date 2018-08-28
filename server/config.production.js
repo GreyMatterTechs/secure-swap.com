@@ -38,5 +38,8 @@ module.exports = {
 		to: process.env.CONTACT_TO,
 		cc: process.env.CONTACT_CC,
 		cci: process.env.CONTACT_CCI
-	}
+	},
+	dntSupport: process.env.DNT_SUPPORT,
+	dntTrack: process.env.DNT_TRACK,
+	GA_KEY: process.env.GA_KEY
 };

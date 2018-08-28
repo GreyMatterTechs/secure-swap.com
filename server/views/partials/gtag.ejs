@@ -1,8 +1,26 @@
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-124565718-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'UA-124565718-1');
-</script>
+<!-- Google Analytics -->
+<% if (dntSupport === 'true') { %>
+	<script>
+		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+		ga('create', '<%- GA_KEY %>', 'auto');
+		ga('set', 'transport', 'beacon');
+		<% if (dntTrack === 'true') { %>
+			ga('require', 'ga-dnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
+		<% } else { %>
+			ga('require', 'ga-dnt');
+		<% } %>
+		ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<script async src="assets/js/ga-dnt.js"></script>
+<% } else { %>
+	<script>
+		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+		ga('create', '<%- GA_KEY %>', 'auto');
+		ga('set', 'transport', 'beacon');
+		ga('send', 'pageview');
+	</script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+<% } %>
+<!-- End Google Analytics -->
+

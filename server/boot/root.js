@@ -209,27 +209,36 @@ function hrtime2human(diff) {
  * @api public
  */
 module.exports = function(server) {
-	server.locals.env		= config.currentEnv;
-	server.locals.db		= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : 'local';
-	mAdmin					= server.models.Admin;
-	mContact				= server.models.Contact;
-	mAccessToken			= server.models.AccessToken;
-	var router				= server.loopback.Router();
+	server.locals.env			= config.currentEnv;
+	server.locals.db			= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : 'local';
+	server.locals.supportDNT	= config.supportDNT;
+	server.locals.dntSupport	= config.dntSupport;
+	server.locals.dntTrack		= config.dntTrack;
+	server.locals.GA_KEY		= config.GA_KEY;
+
+	mAdmin						= server.models.Admin;
+	mContact					= server.models.Contact;
+	mAccessToken				= server.models.AccessToken;
+	var router					= server.loopback.Router();
 
 	// ------------------------------------------------
 	// Add Expires header to /images and /stylesheets directories
 	// ------------------------------------------------
 
 	router.get('/*', function(req, res, next) {
-		if (config.trackIP) {
-			const time = process.hrtime();
-			const ip = requestIp.getClientIp(req);
-			const geo = geoip.lookup(ip);
-			const diff = process.hrtime(time);
-			if (geo) {
-				logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (' + geo.city + ',' + geo.region + ',' + geo.country + ') [geoip: ' + hrtime2human(diff) + ']');
-			} else {
-				logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (machine locale) [geoip: ' + hrtime2human(diff) + ']');
+		if (config.supportDNT && req.header('dnt') == 1) {
+			logger.info('Received request: ' + shorten(req.url, 64) + '. DNT enabled.');
+		} else {
+			if (config.trackIP) {
+				const time = process.hrtime();
+				const ip = requestIp.getClientIp(req);
+				const geo = geoip.lookup(ip);
+				const diff = process.hrtime(time);
+				if (geo) {
+					logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (' + geo.city + ',' + geo.region + ',' + geo.country + ') [geoip: ' + hrtime2human(diff) + ']');
+				} else {
+					logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (machine locale) [geoip: ' + hrtime2human(diff) + ']');
+				}
 			}
 		}
 		if (req.url.indexOf('assets/images') >= 0 || req.url.indexOf('assets/css/') >= 0) {
@@ -364,6 +373,15 @@ module.exports = function(server) {
 	router.get('/privacy', function(req, res) {
 		logger.info('route post /privacy');
 		return res.render('privacy', {
+			appName: config.appName,
+			tokenName: config.tokenName,
+			err: null
+		});
+	});
+
+	router.get('/do-not-track', function(req, res) {
+		logger.info('route post /do-not-track');
+		return res.render('do-not-track', {
 			appName: config.appName,
 			tokenName: config.tokenName,
 			err: null
