@@ -211,7 +211,6 @@ function hrtime2human(diff) {
 module.exports = function(server) {
 	server.locals.env			= config.currentEnv;
 	server.locals.db			= server.dataSources.db.settings.host ? server.dataSources.db.settings.host : 'local';
-	server.locals.supportDNT	= config.supportDNT;
 	server.locals.dntSupport	= config.dntSupport;
 	server.locals.dntTrack		= config.dntTrack;
 	server.locals.GA_KEY		= config.GA_KEY;
@@ -226,7 +225,7 @@ module.exports = function(server) {
 	// ------------------------------------------------
 
 	router.get('/*', function(req, res, next) {
-		if (config.supportDNT && req.header('dnt') == 1) {
+		if (config.dntSupport && req.header('dnt') == 1) {
 			logger.info('Received request: ' + shorten(req.url, 64) + '. DNT enabled.');
 		} else {
 			if (config.trackIP) {
