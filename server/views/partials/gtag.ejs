@@ -3,7 +3,7 @@
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 		ga('create', '<%- GA_KEY %>', 'auto');
-		ga('set', 'transport', 'beacon');
+		// ga('set', 'transport', 'beacon');
 		<% if (dntTrack === 'true') { %>
 			ga('require', 'ga-dnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
 		<% } else { %>
@@ -17,7 +17,7 @@
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
 		ga('create', '<%- GA_KEY %>', 'auto');
-		ga('set', 'transport', 'beacon');
+		// ga('set', 'transport', 'beacon');
 		ga('send', 'pageview');
 	</script>
 	<script async src='https://www.google-analytics.com/analytics.js'></script>
