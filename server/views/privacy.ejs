@@ -47,12 +47,12 @@
 
 <body class="page-animated svg-wrapper " >
 	<main>
-		<section class="" id="">
+		<section >
 			<div class="container mt-5">
 			
 				<p class="date">Effective date: August 25, 2018</p>
 				<h1>Privacy Policy</h1>
-				
+				<p></p>
 				<h2>Introduction</h2>
 				<p>Secure Swap is the cryto-currencies trading ecosystem developped by Grey Matter Technologies SpA company.</p>
 				<p>Grey Matter Technologies SpA ("us", "we", or "our") operates the <a href="https://secure-swap.com">Secure Swap</a> website (the "Service"). Grey Matter Technologies SpA is registered in Chile and can be contacted at the following:</p>
@@ -243,11 +243,17 @@
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
 	<script src="theme-assets/vendors/vendors.min.js"></script>
 	<script src="assets/vendors/vendors.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN THEME JS-->
 	<script src="theme-assets/js/theme.js"></script>
 	<!-- END THEME JS-->
+	<!-- BEGIN Custom JS-->
+	<script src="assets/js/tools.js"></script>
+	<script src="assets/js/privacy.js"></script>
+	<script type="text/javascript">
+		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Privacy.getInstance().init(), false );
+	</script>
+	<!-- END Custom JS-->
 </body>
 
 </html>

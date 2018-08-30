@@ -21,6 +21,16 @@ const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 
 // ------------------------------------------------------------------------------------------------------
+// Private Methods
+// ------------------------------------------------------------------------------------------------------
+
+function geo2str(geo) {
+	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
+	return ' (localhost)';
+}
+
+
+// ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
 
@@ -55,6 +65,12 @@ module.exports = function(I18n) {
 		I18n.disableRemoteMethodByName('upsertWithWhere');						// disables POST /I18ns/upsertWithWhere
 	}
 
+	I18n.beforeRemote('**', function(ctx, modelInstance, next) {
+		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo));
+		next();
+	});
+
+
 	/**
 	 * Get the list of supported languages for GUI translations
 	 * Usually called by SecureSwap website
@@ -67,7 +83,6 @@ module.exports = function(I18n) {
  	 * @return   {Object}   items Array of languages names
 	 */
 	I18n.getSupportedLanguages = function(roles, cb) {
-		logger.debug('I18n.getSupportedLanguages()');
 		var path = 'client/assets/i18n';
 		if (roles && (roles.indexOf('vip') > -1)) {
 			path = 'client/assets/i18n_vip';

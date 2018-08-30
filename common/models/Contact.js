@@ -87,6 +87,13 @@ function sendMail(data, mEmail, cb) {
 	});
 }
 
+
+function geo2str(geo) {
+	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
+	return ' (localhost)';
+}
+
+
 // ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
@@ -140,9 +147,14 @@ module.exports = function(Contact) {
 		Contact.disableRemoteMethodByName('upsertWithWhere');						// disables POST /Contacts/upsertWithWhere
 	}
 
-	Contact.contact = function(req, cb) {
-		logger.debug('Contact.contact()');
 
+	Contact.beforeRemote('**', function(ctx, modelInstance, next) {
+		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo));
+		next();
+	});
+
+
+	Contact.contact = function(req, cb) {
 		// Filter bad requests
 		if (!req) {
 			return cb({err: 'bad request'}, null);

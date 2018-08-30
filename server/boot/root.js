@@ -197,6 +197,12 @@ function hrtime2human(diff) {
 };
 
 
+function geo2str(geo) {
+	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
+	return ' (localhost)';
+}
+
+
 // ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
@@ -225,20 +231,15 @@ module.exports = function(server) {
 	// ------------------------------------------------
 
 	router.get('/*', function(req, res, next) {
-		if (config.dntSupport && req.header('dnt') == 1) {
-			logger.info('Received request: ' + shorten(req.url, 64) + '. DNT enabled.');
-		} else {
-			if (config.trackIP) {
-				const time = process.hrtime();
-				const ip = requestIp.getClientIp(req);
-				const geo = geoip.lookup(ip);
-				const diff = process.hrtime(time);
-				if (geo) {
-					logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (' + geo.city + ',' + geo.region + ',' + geo.country + ') [geoip: ' + hrtime2human(diff) + ']');
-				} else {
-					logger.info('Received request: ' + shorten(req.url, 64) + ' from: ' + ip + ' (machine locale) [geoip: ' + hrtime2human(diff) + ']');
-				}
+		if (config.trackIP) {
+			// const time = process.hrtime();
+			req.clientIP = requestIp.getClientIp(req);
+			req.geo = geoip.lookup(req.clientIP);
+			// const diff = process.hrtime(time);
+			if (config.dntSupport && req.header('dnt') == 1) {
+				req.clientIP = '[IP hidden]';
 			}
+			// logger.info('Received ' + req.method + ' request: ' + shorten(req.url, 64) + ' from: ' + req.clientIP + geo2str(req.geo) + ' [geoip: ' + hrtime2human(diff) + ']');
 		}
 		if (req.url.indexOf('assets/images') >= 0 || req.url.indexOf('assets/css/') >= 0) {
 			res.setHeader('Cache-Control', 'public, max-age=2592000');
@@ -251,11 +252,23 @@ module.exports = function(server) {
 
 		next();
 	});
-
+	router.post('/*', function(req, res, next) {
+		if (config.trackIP) {
+			// const time = process.hrtime();
+			req.clientIP = requestIp.getClientIp(req);
+			req.geo = geoip.lookup(req.clientIP);
+			// const diff = process.hrtime(time);
+			if (config.dntSupport && req.header('dnt') == 1) {
+				req.clientIP = '[IP hidden]';
+			}
+			// logger.info('Received ' + req.method + ' request: ' + shorten(req.url, 64) + ' from: ' + req.clientIP + geo2str(req.geo) + ' [geoip: ' + hrtime2human(diff) + ']');
+		}
+		next();
+	});
 
 	// index page
 	router.get('/', function(req, res) {
-		logger.info('route get /');
+		logger.info('route GET \"/\" from: ' + req.clientIP + geo2str(req.geo));
 		if (config.private === true) {
 			if (!req.query.access_token && !req.accessToken) {		// not logged user, no login form data
 				return res.render('login', {						// render the login page, empty form
@@ -296,7 +309,7 @@ module.exports = function(server) {
 		}
 	});
 	router.post('/', function(req, res) {
-		logger.info('route post /');
+		logger.info('route POST \"/\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {								// logged user, accessToken granted
@@ -339,7 +352,47 @@ module.exports = function(server) {
 		}
 	});
 
+	router.post('/login', function(req, res) {
+		logger.info('route POST \"/login\" from: ' + req.clientIP + geo2str(req.geo));
+		login(req, (err, tokenId) => {
+			if (err) {
+				res.sendStatus(err);
+			} else {
+				res.send({accessToken: tokenId});
+			}
+		});
+	});
+
+	router.get('/privacy', function(req, res) {
+		logger.info('route POST \"/privacy\" from: ' + req.clientIP + geo2str(req.geo));
+		return res.render('privacy', {
+			appName: config.appName,
+			tokenName: config.tokenName,
+			err: null
+		});
+	});
+
+	router.get('/do-not-track', function(req, res) {
+		logger.info('route POST \"/do-not-track\" from: ' + req.clientIP + geo2str(req.geo));
+		return res.render('do-not-track', {
+			appName: config.appName,
+			tokenName: config.tokenName,
+			err: null
+		});
+	});
+
+	router.get('/terms', function(req, res) {
+		logger.info('route POST \"/terms\" from: ' + req.clientIP + geo2str(req.geo));
+		return res.render('terms', {
+			appName: config.appName,
+			tokenName: config.tokenName,
+			err: null
+		});
+	});
+
+
 	router.get('/dashboard', function(req, res) {
+		logger.info('route GET \"/dashboard\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.query.access_token && !req.accessToken) {
 			return res.render('dashboard', {	// render the login form
 				appName: config.appName,
@@ -357,46 +410,8 @@ module.exports = function(server) {
 		}
 	});
 
-
-	router.post('/login', function(req, res) {
-		logger.info('route post /login');
-		login(req, (err, tokenId) => {
-			if (err) {
-				res.sendStatus(err);
-			} else {
-				res.send({accessToken: tokenId});
-			}
-		});
-	});
-
-	router.get('/privacy', function(req, res) {
-		logger.info('route post /privacy');
-		return res.render('privacy', {
-			appName: config.appName,
-			tokenName: config.tokenName,
-			err: null
-		});
-	});
-
-	router.get('/do-not-track', function(req, res) {
-		logger.info('route post /do-not-track');
-		return res.render('do-not-track', {
-			appName: config.appName,
-			tokenName: config.tokenName,
-			err: null
-		});
-	});
-
-	router.get('/terms', function(req, res) {
-		logger.info('route post /terms');
-		return res.render('terms', {
-			appName: config.appName,
-			tokenName: config.tokenName,
-			err: null
-		});
-	});
-
 	router.post('/dashboard', function(req, res) {
+		logger.info('route POST \"/dashboard\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {
@@ -427,6 +442,7 @@ module.exports = function(server) {
 
 	// log a user out
 	router.get('/logout', function(req, res, next) {
+		logger.info('route GET \"/logout\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.body)
 			return res.sendStatus(403);
 		if (!req.accessToken)
@@ -439,7 +455,7 @@ module.exports = function(server) {
 	});
 
 	router.post('/contact', function(req, res, next) {
-		logger.info('route post /contact');
+		logger.info('route POST \"/contact\" from: ' + req.clientIP + geo2str(req.geo));
 		// if (!req.cookies.sent) {
 		mContact.contact(req, function(err, result) {
 			if (err) {

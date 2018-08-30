@@ -110,6 +110,12 @@ function getUser(tokenId, thisUser, cb) {
 }
 
 
+function geo2str(geo) {
+	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
+	return ' (localhost)';
+}
+
+
 // ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
@@ -164,6 +170,13 @@ module.exports = function(Admin) {
 		Admin.disableRemoteMethodByName('update');                               // disables POST /Admins/update
 		Admin.disableRemoteMethodByName('upsertWithWhere');                      // disables POST /Admins/upsertWithWhere
 	}
+
+
+	Admin.beforeRemote('**', function(ctx, modelInstance, next) {
+		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo));
+		next();
+	});
+
 
 	Admin.setOnlineStatus = function(accessToken, status, cb) {
 		Admin.findById(accessToken.userId, function(err, user) {
