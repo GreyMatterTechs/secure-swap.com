@@ -87,7 +87,7 @@
 	"key-strengths-area.key2.desc":		"Highly redundant system, guaranteeing fault resistance and therefore high service availability, even under heavy loads.",
 	"key-strengths-area.key3.title":	"Controled and Operated by Community",
 	"key-strengths-area.key3.desc":		"Its distributed and community aspect, makes the service independent of the existence of the company that created it and does not need it to function.<br />An open system that allows everyone to control the code, operation and security.",
-	"key-strengths-area.key4.title":	"A Extensible Exchange",
+	"key-strengths-area.key4.title":	"An Extensible Exchange",
 	"key-strengths-area.key4.desc":		"Due to its open source and modular nature, NodeRunners can add new crypto-currency support to the exchanger and also crypto-currency to <span class=\"balloon\" data-balloon-pos=\"up\" data-balloon=\"State currency issued by central banks\">fiat</span> currency exchanges of their choice.",
 	"key-strengths-area.key5.title":	"Revenue Sharing for investors",
 	"key-strengths-area.key5.desc":		"Those who support the operation of the service (the NodeRunners), by running parts of the system (nodes), are rewarded by earning a portion of the fees paid by traders on exchanges.<br />Permits to initiate a professional activity of exchanging crypto-currency into fiat currencies wherever it is legal in the world (fiat currency conversion nodes).",

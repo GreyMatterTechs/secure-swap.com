@@ -738,7 +738,7 @@
 					});
 				});
 				*/
-				
+
 				$('#contact-success-alert').hide();
 				$('#contact-error-alert').hide();
 				$('#contact-debug-alert').hide();
@@ -913,6 +913,9 @@
 					$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
 					var copied = $.i18n('purchasebox.ico.address.copied');
 					$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
+					if ($('.page-animated').length > 0) {
+						InitWaypointAnimations();	// from theme.js
+					}
 				};
 
 				i18n.init();
