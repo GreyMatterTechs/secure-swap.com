@@ -279,6 +279,7 @@ module.exports = function(server) {
 				});
 			} else {
 				getUser(req, function(err, username, roles) {					// also check if accessToken is legit.
+					req.username = username;
 					if (err) {
 						return res.render('login', {				// accessToken invalid, render the login page, empty form
 							appName: config.appName,
@@ -286,7 +287,8 @@ module.exports = function(server) {
 							err: null
 						});
 					} else {										// logged user, accessToken granted
-						logger.info('route GET \"/\" from: ' + req.clientIP + geo2str(req.geo) + ' user: ' + username);
+						logger.info('route GET \"/\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + username + ']');
+						req.username = username;
 						var token = req.query.access_token || req.accessToken;
 						mAdmin.setOnlineStatus(token, 'online');
 						return res.render('index', {				// render the index
@@ -316,6 +318,7 @@ module.exports = function(server) {
 			return res.sendStatus(403);
 		if (req.body.access_token) {								// logged user, accessToken granted
 			checkToken(req.body.access_token, function(err, user) {
+				req.username = user.username;
 				if (err) {
 					mAdmin.setOnlineStatus(req.body.access_token, 'offline');
 					return res.render('login', {					// accessToken invalid, render the login page, empty form
@@ -325,7 +328,7 @@ module.exports = function(server) {
 					});
 				} else {
 					mAdmin.setOnlineStatus(req.body.access_token, 'online');
-					logger.info('route POST \"/\" from: ' + req.clientIP + geo2str(req.geo) + ' user: ' + user.username);
+					logger.info('route POST \"/\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
 					return res.render('index', {							// render index
 						appName: config.appName,
 						tokenName: config.tokenName,

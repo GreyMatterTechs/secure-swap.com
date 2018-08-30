@@ -149,7 +149,7 @@ module.exports = function(Contact) {
 
 
 	Contact.beforeRemote('**', function(ctx, modelInstance, next) {
-		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo));
+		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo) + ' [' + ctx.req.username + ']');
 		next();
 	});
 
