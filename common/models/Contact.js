@@ -17,11 +17,13 @@
 const path			= require('path');
 const validator		= require('validator');
 const xssFilters	= require('xss-filters');
-const app			= require('../../server/server');
+const request		= require('superagent');
+const app			= reqlocal(path.join('server', 'server'));
 const datasources	= reqlocal(path.join('server', 'datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const loopback		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
 const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
+
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
@@ -171,24 +173,49 @@ module.exports = function(Contact) {
 		if (!req.body.name || !req.body.mail || !req.body.message) {
 			return cb({err: 'bad request'}, null);
 		}
-		var postData = {
-			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.mail))),
-			name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.name))),
-			message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.message)))
-		};
-		if (validator.isEmail(postData.mail)) {
-			postData.mail = validator.normalizeEmail(postData.mail);
-			var mEmail = app.models.Email;
-			sendMail(postData, mEmail, function(err, successMessage) {
-				if (err) {
-					return cb(err);
-				}
-				logger.info('Contact Form: Sent contact message from ' + postData.mail);
-				return cb(null, successMessage);
-			});
-		} else {
-			return cb({err: 'contact-area.error.message4'}, null);
+
+		/*
+		// g-recaptcha-response is the key that browser will generate upon form submit.
+		// if its blank or null means user has not selected the captcha, so return the error.
+		if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+			return cb({err: {responseCode: 1, responseDesc: 'Please select captcha'}}, null);
 		}
+		// Put your secret key here.
+		var secretKey = '6LceZm0UAAAAAFPt30bkQW94rQIJMCZYjVCbTyPH';
+		// req.connection.remoteAddress will provide IP address of connected user.
+		var verificationUrl = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secretKey + '&response=' + req.body['g-recaptcha-response'] + '&remoteip=' + req.connection.remoteAddress;
+		// Hitting GET request to the URL, Google will respond with success or error scenario.
+		request
+			.get(verificationUrl)
+			.end((err, res) => {
+				if (err) return cb({err: {responseCode: 1, responseDesc: 'Failed captcha verification'}}, null);
+				var body = res;
+				if (body.success !== undefined && !body.success) {
+					return cb({err: {responseCode: 1, responseDesc: 'Failed captcha verification'}}, null);
+				}
+				*/
+
+				var postData = {
+					mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.mail))),
+					name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.name))),
+					message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.message)))
+				};
+				if (validator.isEmail(postData.mail)) {
+					postData.mail = validator.normalizeEmail(postData.mail);
+					var mEmail = app.models.Email;
+					sendMail(postData, mEmail, function(err, successMessage) {
+						if (err) {
+							return cb(err);
+						}
+						logger.info('Contact Form: Sent contact message from ' + postData.mail);
+						return cb(null, successMessage);
+					});
+				} else {
+					return cb({err: 'contact-area.error.message4'}, null);
+				}
+		/*		
+			});
+		*/
 	};
 
 };

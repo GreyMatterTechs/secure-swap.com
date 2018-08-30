@@ -125,12 +125,6 @@
 					$('#purchase-modal-state-postico').addClass('d-none');
 					$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
 					$('#walletAddress').val(wallet);
-
-
-// dire à alain de ne passer l'address wallet que avec state = 2
-// sinon string Vide
-
-
 					break;
 				}
 			}
@@ -263,7 +257,7 @@
 				.done(function(list) {
 					if (list) {
 						var id = -1;
-						list.data.some(function (element) {
+						list.data.some(function(element) {
 							if (element.name === cryptoName) {
 								id = Number(element.id);
 								return true;
@@ -736,6 +730,15 @@
 				// Contact Form
 				//--------------------------------------------------------------------------------------------------------------
 
+				/*
+				grecaptcha.ready(function() {
+					grecaptcha.execute('6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw', {action: 'social'})
+					.then(function(token) {
+						console.log('');
+					});
+				});
+				*/
+				
 				$('#contact-success-alert').hide();
 				$('#contact-error-alert').hide();
 				$('#contact-debug-alert').hide();

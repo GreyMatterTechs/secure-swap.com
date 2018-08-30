@@ -4,6 +4,7 @@
 <head>
 	<%- include('partials/gtag', {path: '/index'}); %>
 	<%- include('partials/head'); %>
+	<!--script src='https://www.google.com/recaptcha/api.js?render=6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw'></script-->
 </head>
 
 <body class=" 1-column undefined  page-animated svg-wrapper nojs loaded" data-menu-open="hover" data-menu="">
@@ -1604,54 +1605,6 @@
 									</div>
 									<div class="team-description" data-i18n="team-area.alicia.bio" ></div>
 								</div>
-								<% if (typeof roles !== 'undefined' && (roles.indexOf('vip') > -1)) { %> 
-								<div class="col-sm-12 col-md-6 col-lg-4 mb-5 animated" data-animation="flipInX" data-animation-delay="1.3s" data-toggle="modal" data-target="#teamUser13">
-									<div class="d-flex team-member">
-										<div class="team-img float-left mr-3">
-											<img src="assets/images/team/renaud.png" alt="team-profile-1" class="rounded-circle" width="128">
-										</div>
-										<div class="profile align-self-center">
-											<div class="name">Renaud Desportes</div>
-											<div class="role" data-i18n="team-area.renaud.role" >Business development Executive</div>
-											<div class="social-profile mt-3">
-												<a href="https://www.linkedin.com/in/renauddesportes/" title="Linkedin" class="font-medium grey-accent2 mr-2">
-													<i class="ti-linkedin"></i>
-												</a>
-												<!--a href="#" title="Twitter" class="font-medium grey-accent2 mr-2">
-													<i class="ti-twitter-alt"></i>
-												</a>
-												<a href="#" title="Github" class="font-medium grey-accent2">
-													<i class="ti-github"></i>
-												</a-->
-											</div>
-										</div>
-									</div>
-									<div class="team-description" data-i18n="team-area.renaud.bio" ></div>
-								</div>
-								<div class="col-sm-12 col-md-6 col-lg-4 mb-5 animated" data-animation="flipInX" data-animation-delay="1.3s" data-toggle="modal" data-target="#teamUser13">
-									<div class="d-flex team-member">
-										<div class="team-img float-left mr-3">
-											<img src="assets/images/team/edouard.png" alt="team-profile-1" class="rounded-circle" width="128">
-										</div>
-										<div class="profile align-self-center">
-											<div class="name">Edouard Enault</div>
-											<div class="role" data-i18n="team-area.edouard.role" >Social animator</div>
-											<div class="social-profile mt-3">
-												<a href="https://www.linkedin.com/in/edouard-enault-754871106/" title="Linkedin" class="font-medium grey-accent2 mr-2">
-													<i class="ti-linkedin"></i>
-												</a>
-												<!--a href="#" title="Twitter" class="font-medium grey-accent2 mr-2">
-													<i class="ti-twitter-alt"></i>
-												</a>
-												<a href="#" title="Github" class="font-medium grey-accent2">
-													<i class="ti-github"></i>
-												</a-->
-											</div>
-										</div>
-									</div>
-									<div class="team-description" data-i18n="team-area.edouard.bio" ></div>
-								</div>
-								<% } %> 
 								<div class="col-sm-12 col-md-6 col-lg-4 mb-5 animated" data-animation="flipInX" data-animation-delay="1.0s">
 									<div class="d-flex team-member">
 										<div class="team-img float-left mr-3" data-toggle="modal" data-target="#teamUser2">
@@ -1890,7 +1843,6 @@
 				</section>
 				<!--/ Team -->
 				<!-- Advisors -->
-				<% if (typeof roles === 'undefined' || (roles.indexOf('vip') < 0)) { %> 
 				<section id="advisor" class="advisor team section-padding">
 					<div class="container">
 						<div class="heading social-margin text-center">
@@ -1943,7 +1895,6 @@
 						</div>
 					</div>
 				</section>
-				<% } %>
 				<!--/ Advisors -->
 				<!-- FAQ -->
 				<section id="faq" class="faq section-padding">
@@ -2394,7 +2345,13 @@
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" id="name" name="name" data-i18n="[placeholder]contact-area.placeholder.name" placeholder="Your Name">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" id="mail" name="mail" data-i18n="[placeholder]contact-area.placeholder.mail" placeholder="Your Mail">
 									<input type="text" class="form-control animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" id="message" name="message" data-i18n="[placeholder]contact-area.placeholder.message" placeholder="Your Message">
-									<button id="contact-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInUpShorter" data-animation-delay="1.1s" data-i18n="contact-area.button.submit" >Send Message</button>
+									<button id="contact-submit" type="submit" 
+										class="btn btn-lg btn-gradient-purple btn-glow animated g-recaptcha"
+										data-animation="fadeInUpShorter" data-animation-delay="1.1s"
+										data-i18n="contact-area.button.submit" >
+										Send Message
+									</button>
+									
 								</form>
 								<div id="contact-success-alert"></div>
 								<div id="contact-error-alert"></div>
