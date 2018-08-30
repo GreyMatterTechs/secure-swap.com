@@ -66,7 +66,7 @@ module.exports = function(I18n) {
 	}
 
 	I18n.beforeRemote('**', function(ctx, modelInstance, next) {
-		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo) + ' [' + ctx.req.username + ']');
+		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo));
 		next();
 	});
 
