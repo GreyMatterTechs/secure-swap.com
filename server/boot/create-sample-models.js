@@ -77,7 +77,7 @@ function updateRole(cb) {
 function updateICO(cb) {
 
 	var icoData = {
-		state: 2,
+		state: 1,
 		wallet: '0xC50E31926CAf2cd7C69547cB2C1Bb127cB782E30',
 		tokenName: config.tokenName,
 		tokenPriceUSD: 0.45,
