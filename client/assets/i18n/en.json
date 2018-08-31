@@ -182,7 +182,7 @@
 	"tokensale-area.balance.decimals":			"18",
 	"tokensale-area.balance.li4":		"Click Save. After a little while, the data will refresh and you will see the tokens in your wallet.",
 	"tokensale-area.balance.warning":	"Warning!",
-	"tokensale-area.balance.warning2":	"This address is NOT a Sale Smart Contract, this is the ERC-20 Contract of $1 token.",
+	"tokensale-area.balance.warning2":	"This address is NOT a wallet address, this is the addres of the ERC-20 Contract of $1 token.",
 	"tokensale-area.balance.warning3":	"Do NOT send your Ether here.",
 	"tokensale-area.balance.warning4":	"To buy the $1 tokens, use the address provided by clicking on the \"Purchase tokens\" button above.",
 

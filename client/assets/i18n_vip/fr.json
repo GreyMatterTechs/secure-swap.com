@@ -191,7 +191,7 @@
 	"tokensale-area.balance.decimals":			"18",
 	"tokensale-area.balance.li4":		"Cliquez sur Enregistrer. Au bout d'un certain temps, les données se rafraîchiront et vous verrez les jetons dans votre portefeuille.",
 	"tokensale-area.balance.warning":	"Attention !",
-	"tokensale-area.balance.warning2":	"Cette adresse n'est PAS un Smart Contrat de vente, ceci est le contrat ERC-20 du jeton $1.",
+	"tokensale-area.balance.warning2":	"Cette adresse n'est PAS une adresse de wallet, ceci est l'adresse du contrat ERC-20 du jeton $1.",
 	"tokensale-area.balance.warning3":	"N'envoyez PAS vos Ether ici.",
 	"tokensale-area.balance.warning4":	"Pour acheter les jetons $1, utilisez l'adresse indiquée en cliquant sur le bouton \"Acheter des jetons\" ci-dessus.",
 
@@ -325,7 +325,7 @@
 	"team-area.pierre.role":			"Infrastructure Engineer",
 	"team-area.pierre.bio":				"bla bla bla",
 	"team-area.sonia.role":				"Social animator",
-	"team-area.sonia.bio":				"Quelle chance de participer à ce projet ambitieux et nécessaire : offrir une plateforme fiable et ergonomique pour enfin trader en toute confiance et à moindre coût les crypto-monaie.<br />SJe réponds à toutes vos questions.<br />À très vite sur les réseaux sociaux!",
+	"team-area.sonia.bio":				"Quelle chance de participer à ce projet ambitieux et nécessaire : offrir une plateforme fiable et ergonomique pour enfin trader en toute confiance et à moindre coût les crypto-monnaies.<br />Je réponds à toutes vos questions.<br />À très vite sur les réseaux sociaux !",
 	"team-area.kevin.role":				"Social animator Blockchain enthusiast",
 	"team-area.kevin.bio":				"Producteur de contenu digital depuis 2013, je m'informe et je participe à mon échelle à l'émancipation de la blockchain.",
 	"team-area.henry.role":				"Social animator",
