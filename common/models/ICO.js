@@ -383,7 +383,7 @@ module.exports = function(ICO) {
 		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)						{ logger.info('ICO.setParams() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
 		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))						{ logger.info('ICO.setParams() bad dateStart: ' + params.dateStart); return cb(e2, null); } }
 		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))							{ logger.info('ICO.setParams() bad dateEnd: ' + params.dateEnd); return cb(e2, null); } }
-		if (params.contractAddress)	{ if (!isString(params.contractAddress) || !isETHAddress(params.contractAddress))	{ logger.info('ICO.setParams() bad contractAddress: ' + params.contractAddress); return cb(e2, null); } }
+		if (params.contractAddress)	{ if (!isString(params.contractAddress))											{ logger.info('ICO.setParams() bad contractAddress: ' + params.contractAddress); return cb(e2, null); } }
 		if (params.dateStart && params.dateEnd) {
 			var start = moment(params.dateStart);
 			var end = moment(params.dateEnd);

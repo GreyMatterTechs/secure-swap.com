@@ -137,13 +137,13 @@ header .navbar.navbar-fixed {
 .navbar .dropdown a {
   line-height: 1.7rem; }
 
-.dropdown-toggle:after {
-  font-family: 'Font Awesome 5 Free';
-  content: "\f107"; }
-
 .navbar .dropdown .dropdown-menu a:before {
   font-family: 'Font Awesome 5 Free';
-  content: "\f105"; }
+  content: "\f054"; }
+
+.dropdown-toggle:after {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f078"; }
 
 /* -- about ------------------------------------------------------------------- */
 #about .play-video {
@@ -217,13 +217,14 @@ header .navbar.navbar-fixed {
       color: #c7b8ff;
       padding: 0.1rem 0; }
       .referral.section-padding ul.referral-steps li:before {
-        font-family: 'themify';
+        font-family: 'Font Awesome 5 Free';
+        content: '\f105';
+        font-weight: 900;
         font-size: 1.125rem;
         position: absolute;
         left: -3px;
         margin-top: -4px;
         margin-right: 10px;
-        content: '\e65d';
         color: #fff; }
   .referral.section-padding .note {
     font-size: .75rem; }
@@ -326,12 +327,13 @@ header .navbar.navbar-fixed {
     text-align: center;
     font-size: 1.25rem; }
 
+.token-sale ul.token-sale-info li::before {
+  font-family: 'Font Awesome 5 Free';
+  content: '\f105';
+  font-weight: 900; }
+
 .ico-ended {
   display: none; }
-
-.token-sale ul.token-sale-info li:before {
-  content: "\f35a";
-  font-family: 'Font Awesome 5 Free'; }
 
 /* -- App ------------------------------------------------------------------- */
 #mobile-app .mobile-button {
@@ -349,12 +351,16 @@ header .navbar.navbar-fixed {
   text-align: left; }
 
 .roadmap .prev-slide:before {
+  font-weight: 900;
   content: "\f053";
-  font-family: 'Font Awesome 5 Free'; }
+  font-family: 'Font Awesome 5 Free';
+  left: 10px; }
 
 .roadmap .next-slide:before {
+  font-weight: 900;
   content: "\f054";
-  font-family: 'Font Awesome 5 Free'; }
+  font-family: 'Font Awesome 5 Free';
+  left: 12px; }
 
 .roadmap .timestamp.completed span:before {
   content: "\f00c";
