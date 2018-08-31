@@ -137,7 +137,7 @@ header .navbar.navbar-fixed {
 .navbar .dropdown a {
   line-height: 1.7rem; }
 
-.dropdown-toggle::after {
+.dropdown-toggle:after {
   font-family: 'Font Awesome 5 Free';
   content: "\f107"; }
 
@@ -329,6 +329,10 @@ header .navbar.navbar-fixed {
 .ico-ended {
   display: none; }
 
+.token-sale ul.token-sale-info li:before {
+  content: "\f35a";
+  font-family: 'Font Awesome 5 Free'; }
+
 /* -- App ------------------------------------------------------------------- */
 #mobile-app .mobile-button {
   cursor: inherit;
@@ -343,6 +347,18 @@ header .navbar.navbar-fixed {
 
 .roadmap .swiper-slide:not(.active) .roadmap-info .status {
   text-align: left; }
+
+.roadmap .prev-slide:before {
+  content: "\f053";
+  font-family: 'Font Awesome 5 Free'; }
+
+.roadmap .next-slide:before {
+  content: "\f054";
+  font-family: 'Font Awesome 5 Free'; }
+
+.roadmap .timestamp.completed span:before {
+  content: "\f00c";
+  font-family: 'Font Awesome 5 Free'; }
 
 /* -- Token ------------------------------------------------------------------- */
 .token-trade-img-inline, .token-fuel-img-inline, .token-yield-img-inline {
@@ -496,6 +512,28 @@ header .navbar.navbar-fixed {
   align-self: auto !important; }
 
 /* -- page faq ------------------------------------------------------------------- */
+.faq .collapse-icon a[data-toggle="collapse"] .icon:after, .faq .collapse-icon a[data-toggle="collapse"] .icon:before {
+  font-family: 'Font Awesome 5 Free'; }
+
+.faq .collapse-icon a[data-toggle="collapse"]:after, .faq .collapse-icon a[data-toggle="collapse"]:before {
+  font-family: 'Font Awesome 5 Free'; }
+
+.faq .collapse-icon a[data-toggle="collapse"] .icon:after {
+  content: "\f068";
+  /* "\e622" ti-minus */ }
+
+.faq .collapse-icon a[data-toggle="collapse"] .icon:before {
+  content: "\f067";
+  /* "\e61a" ti-plus */ }
+
+.faq .collapse-icon a[data-toggle="collapse"]:after {
+  content: "\f106";
+  /* ti-angle-up */ }
+
+.faq .collapse-icon a[data-toggle="collapse"]:before {
+  content: "\f107";
+  /* ti-angle-dn */ }
+
 /* -- footer ------------------------------------------------------------------- */
 .footer {
   background: url(../../assets/images/footer-image2.png) no-repeat center top;

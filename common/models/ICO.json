@@ -13,7 +13,11 @@
 		},
 		"wallet": {
 			"type": "string",
-			"required": true
+			"required": false
+		},
+		"contractAddress": {
+			"type": "string",
+			"required": false
 		},
 		"tokenName": {
 			"type": "string",
