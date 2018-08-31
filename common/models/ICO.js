@@ -371,18 +371,19 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setParams() bad state: ' + params.state); return cb(e2, null); } }
-		if (params.wallet)			{ if (!isString(params.wallet) || !isETHAddress(params.wallet))				{ logger.info('ICO.setParams() bad wallet: ' + params.wallet); return cb(e2, null); } }
-		if (params.tokenName)		{ if (!isString(params.tokenName))											{ logger.info('ICO.setParams() bad tokenName: ' + params.tokenName); return cb(e2, null); } }
-		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)			{ logger.info('ICO.setParams() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
-		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)			{ logger.info('ICO.setParams() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
-		if (params.softCap)			{ if (!isInteger(params.softCap) || params.softCap < 0)						{ logger.info('ICO.setParams() bad softCap: ' + params.softCap); return cb(e2, null); } }
-		if (params.hardCap)			{ if (!isInteger(params.hardCap) || params.hardCap < 0)						{ logger.info('ICO.setParams() bad hardCap: ' + params.hardCap); return cb(e2, null); } }
-		if (params.tokensTotal)		{ if (!isInteger(params.tokensTotal) || params.tokensTotal < 0)				{ logger.info('ICO.setParams() bad tokensTotal: ' + params.tokensTotal); return cb(e2, null); } }
-		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					{ logger.info('ICO.setParams() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
-		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				{ logger.info('ICO.setParams() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
-		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))				{ logger.info('ICO.setParams() bad dateStart: ' + params.dateStart); return cb(e2, null); } }
-		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))					{ logger.info('ICO.setParams() bad dateEnd: ' + params.dateEnd); return cb(e2, null); } }
+		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))			{ logger.info('ICO.setParams() bad state: ' + params.state); return cb(e2, null); } }
+		if (params.wallet)			{ if (!isString(params.wallet) || !isETHAddress(params.wallet))						{ logger.info('ICO.setParams() bad wallet: ' + params.wallet); return cb(e2, null); } }
+		if (params.tokenName)		{ if (!isString(params.tokenName))													{ logger.info('ICO.setParams() bad tokenName: ' + params.tokenName); return cb(e2, null); } }
+		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)					{ logger.info('ICO.setParams() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
+		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)					{ logger.info('ICO.setParams() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
+		if (params.softCap)			{ if (!isInteger(params.softCap) || params.softCap < 0)								{ logger.info('ICO.setParams() bad softCap: ' + params.softCap); return cb(e2, null); } }
+		if (params.hardCap)			{ if (!isInteger(params.hardCap) || params.hardCap < 0)								{ logger.info('ICO.setParams() bad hardCap: ' + params.hardCap); return cb(e2, null); } }
+		if (params.tokensTotal)		{ if (!isInteger(params.tokensTotal) || params.tokensTotal < 0)						{ logger.info('ICO.setParams() bad tokensTotal: ' + params.tokensTotal); return cb(e2, null); } }
+		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)							{ logger.info('ICO.setParams() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
+		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)						{ logger.info('ICO.setParams() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
+		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))						{ logger.info('ICO.setParams() bad dateStart: ' + params.dateStart); return cb(e2, null); } }
+		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))							{ logger.info('ICO.setParams() bad dateEnd: ' + params.dateEnd); return cb(e2, null); } }
+		if (params.contractAddress)	{ if (!isString(params.contractAddress) || !isETHAddress(params.contractAddress))	{ logger.info('ICO.setParams() bad contractAddress: ' + params.contractAddress); return cb(e2, null); } }
 		if (params.dateStart && params.dateEnd) {
 			var start = moment(params.dateStart);
 			var end = moment(params.dateEnd);
@@ -395,18 +396,19 @@ module.exports = function(ICO) {
 			getICO(1, function(err, ico) {
 				if (err) return cb(err, null);
 				ico.updateAttributes({
-					state:			params.state			? params.state			: ico.state,
-					wallet: 		params.wallet			? params.wallet			: ico.wallet,
-					tokenName:		params.tokenName		? params.tokenName		: ico.tokenName,
-					tokenPriceUSD: 	params.tokenPriceUSD	? params.tokenPriceUSD	: ico.tokenPriceUSD,
-					tokenPriceETH:	params.tokenPriceETH	? params.tokenPriceETH	: ico.tokenPriceETH,
-					softCap: 		params.softCap			? params.softCap		: ico.softCap,
-					hardCap:		params.hardCap			? params.hardCap		: ico.hardCap,
-					tokensTotal: 	params.tokensTotal		? params.tokensTotal	: ico.tokensTotal,
-					ethTotal: 		params.ethTotal			? params.ethTotal		: ico.ethTotal,
-					tokensSold: 	params.tokensSold		? params.tokensSold		: ico.tokensSold,
-					dateStart: 		params.dateStart		? params.dateStart		: ico.dateStart,
-					dateEnd:		params.dateEnd			? params.dateEnd		: ico.dateEnd
+					state:				params.state			? params.state				: ico.state,
+					wallet: 			params.wallet			? params.wallet				: ico.wallet,
+					tokenName:			params.tokenName		? params.tokenName			: ico.tokenName,
+					tokenPriceUSD: 		params.tokenPriceUSD	? params.tokenPriceUSD		: ico.tokenPriceUSD,
+					tokenPriceETH:		params.tokenPriceETH	? params.tokenPriceETH		: ico.tokenPriceETH,
+					softCap: 			params.softCap			? params.softCap			: ico.softCap,
+					hardCap:			params.hardCap			? params.hardCap			: ico.hardCap,
+					tokensTotal: 		params.tokensTotal		? params.tokensTotal		: ico.tokensTotal,
+					ethTotal: 			params.ethTotal			? params.ethTotal			: ico.ethTotal,
+					tokensSold: 		params.tokensSold		? params.tokensSold			: ico.tokensSold,
+					dateStart: 			params.dateStart		? params.dateStart			: ico.dateStart,
+					dateEnd:			params.dateEnd			? params.dateEnd			: ico.dateEnd,
+					contractAddress:	params.contractAddress	? params.contractAddress	: ico.contractAddress
 				}, function(err) {
 					if (err) return cb(err, null);
 					return cb(null);

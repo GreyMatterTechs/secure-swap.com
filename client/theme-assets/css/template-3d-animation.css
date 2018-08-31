@@ -1847,6 +1847,7 @@ header .navbar.navbar-shadow {
   font-size: clac(0.65rem);
   background-image: -webkit-gradient(linear, left top, right top, from(#bf68e6), to(#9e48cd));
   background-image: linear-gradient(90deg, #bf68e6, #9e48cd);
+  -webkit-background-clip: text;
   background-clip: text;
   text-fill-color: transparent; }
 

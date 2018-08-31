@@ -137,12 +137,23 @@ header .navbar.navbar-fixed {
 .navbar .dropdown a {
   line-height: 1.7rem; }
 
+.dropdown-toggle::after {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f107"; }
+
+.navbar .dropdown .dropdown-menu a:before {
+  font-family: 'Font Awesome 5 Free';
+  content: "\f105"; }
+
 /* -- about ------------------------------------------------------------------- */
 #about .play-video {
   top: 30%;
   background-color: white;
   padding: 0.65rem;
   border-radius: 50%; }
+  #about .play-video .play i {
+    font-size: 2.2rem;
+    margin-left: 7px; }
 
 /* -- Key Strengths ------------------------------------------------------------------- */
 .key-strengths .advantage-title {
