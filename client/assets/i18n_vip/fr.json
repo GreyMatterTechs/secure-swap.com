@@ -179,7 +179,7 @@
 	"tokensale-area.li6.value":			"$1",
 	"tokensale-area.li7":				"La valeur d'un token $1 est égale à&nbsp;:",
 	"tokensale-area.li7.value":			"0.45$",
-	"tokensale-area.balance.title":		"Ajouter un jeton $1 dans votre portefeuille (en utilisant MyEtherWallet) :",
+	"tokensale-area.balance.title":		"Ajouter le jeton $1 dans votre portefeuille (en utilisant MyEtherWallet) :",
 	"tokensale-area.balance.li1":		"Authentifiez-vous dans votre portefeuille.",
 	"tokensale-area.balance.li2":		"Sur le côté droit de la section Balances de jetons (\"Token Balances\"), cliquez sur \"Ajouter un jeton personnalisé\" (\"Add Custom Token\").",
 	"tokensale-area.balance.li3":		"Remplissez les champs avec les informations suivantes :",

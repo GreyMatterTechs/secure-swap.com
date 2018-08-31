@@ -170,7 +170,7 @@
 	"tokensale-area.li6.value":			"$1",
 	"tokensale-area.li7":				"$1 Token value is equal to:",
 	"tokensale-area.li7.value":			"0.45$",
-	"tokensale-area.balance.title":		"Adding $1 token in your Wallet (using MyEtherWallet):",
+	"tokensale-area.balance.title":		"Adding the $1 token in your Wallet (using MyEtherWallet):",
 	"tokensale-area.balance.li1":		"You need to authorize yourself in your wallet.",
 	"tokensale-area.balance.li2":		"On the right side of the Token Balances section, click \"Add Custom Token\".",
 	"tokensale-area.balance.li3":		"Fill in the fields with the following information:",
