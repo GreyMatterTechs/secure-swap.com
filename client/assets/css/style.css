@@ -286,6 +286,24 @@ header .navbar.navbar-fixed {
 .token-sale:before {
   content: none; }
 
+.token-sale h5 {
+  color: inherit;
+  text-align: left; }
+  .token-sale h5#tokensale-title {
+    color: #fff;
+    text-align: center; }
+
+.token-sale .card-body p {
+  color: #7f7f7f; }
+
+.token-sale .card-body .list-group-item {
+  padding: 0.1rem 1.25rem; }
+  .token-sale .card-body .list-group-item dl {
+    margin-bottom: 0rem; }
+  .token-sale .card-body .list-group-item dd {
+    color: inherit;
+    margin-bottom: 0; }
+
 .token-sale .note {
   font-size: 0.75rem; }
 

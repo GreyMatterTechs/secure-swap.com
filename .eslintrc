@@ -6,7 +6,9 @@
 		"reqlocal": true,
 		"noUiSlider": true,
 		"async": true,
-		"Popper": true
+		"Popper": true,
+		"ClipboardJS": true,
+		"numeral": true
 	},
 	"rules": {
 		"no-console": 0,

@@ -70,7 +70,7 @@
 		var	coinMarketCapUSD = 477;
 		var tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
 		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
-		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold;
+		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
 		var purchaseboxLegal = false;
 
 		// --- private methods
@@ -164,6 +164,7 @@
 			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
 			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(dateStart).format('LL')));
 			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
+			$('#contractAddress').text(contractAddress);
 		}
 
 		function setTimerClock(icoDate) {
@@ -227,6 +228,7 @@
 						tokensSold			= ico.tokensSold;
 						wallet				= ico.wallet;
 						icoState			= ico.state;
+						contractAddress		= ico.contractAddress ? ico.contractAddress : $.i18n('tokensale-area.balance.address');
 						switch (ico.state) {
 						case 1:	setStatePreICO(ico);	break;
 						case 2:	setStateICO(ico);		break;
