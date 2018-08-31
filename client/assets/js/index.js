@@ -76,34 +76,30 @@
 		// --- private methods
 
 		function notify(ethReceived) {
-			// show notification about recent purchase
-			var time = 'Few seconds ago';
-			var icon = Math.floor(Math.random() * 16) + 1;
-			$.notify({
-				icon: 'assets/images/unknown_users/' + icon + '.png',
-				title: 'Thank you',
-				message: 'New purchase: <span class="blue">' + ethReceived.toFixed(5) + ' ETH</span> received.'
-			}, {
-				type: 'minimalist',
-				placement: {
-					from: 'bottom',
-					align: 'left'
-				},
-				animate: {
-					enter: 'animated fadeInLeftBig',
-					exit: 'animated fadeOutLeftBig'
-				},
-				icon_type: 'image',
-				template: '<div data-notify="container" class="alert alert-{0}" role="alert">' +
-					'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-					'<div id="image">' +
-					'<img data-notify="icon" class="rounded-circle float-left">' +
-					'</div><div id="text">' +
-					'<span data-notify="title">{1}</span>' +
-					'<span data-notify="message">{2}</span>' +
-					'<span data-notify="time">' + time + '</span>' +
-					'</div>' +
-					'</div>'
+			ethReceived.forEach(function(received) {
+				setTimeout(function() {
+					$.notify({
+						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 16) + 1) + '.png',
+						title:		'Thank you',
+						message:	'New purchase: <span class="blue">' + received.toFixed(5) + ' ETH</span> received.'
+					}, {
+						type:		'minimalist',
+						placement:	{from: 'bottom', align: 'left'},
+						animate:	{enter: 'animated fadeInLeftBig', exit: 'animated fadeOutLeftBig'},
+						icon_type:	'image',
+						template:	'<div data-notify="container" class="alert alert-{0}" role="alert">' +
+									'	<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+									'	<div id="image">' +
+									'		<img data-notify="icon" class="rounded-circle float-left" />' +
+									'	</div>' +
+									'	<div id="text">' +
+									'		<span data-notify="title">{1}</span>' +
+									'		<span data-notify="message">{2}</span>' +
+									'		<span data-notify="time">Few seconds ago</span>' +
+									'	</div>' +
+									'</div>'
+					});
+				}, Math.floor(Math.random() * 5000));
 			});
 		}
 
@@ -234,9 +230,9 @@
 						case 2:	setStateICO(ico);		break;
 						case 3:	setStateEndICO(ico);	break;
 						}
-						if (ico.ethReceived) {
+						if (ico.ethReceived.length > 0) {
 							notify(ico.ethReceived);
-							purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / tokensTotal);
+							// purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / tokensTotal);
 						}
 					}
 				})

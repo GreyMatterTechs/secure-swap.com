@@ -48,8 +48,8 @@
 			"required": true
 		},
 		"ethReceived": {
-			"type": "number",
-			"required": true
+			"type": "array",
+			"required": false
 		},
 		"ethTotal": {
 			"type": "number",

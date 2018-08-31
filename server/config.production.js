@@ -27,7 +27,7 @@ module.exports = {
 	nginxport: process.env.NGINX_PORT,
 	appName: 'Secure Swap',
 	tokenName: 'SSW',
-	loginTTL: 'minute',
+	loginTTL: 'hour',
 	private: true,
 	icoURI: process.env.ICO_URI,
 	cmcURI: process.env.CMC_URI,

@@ -338,9 +338,9 @@ module.exports = function(ICO) {
 		getICO(1, function(err, ico) {
 			if (err) return cb(err, null);
 			var received = ico.ethReceived;
-			if (received > 0) {
+			if (received.length > 0) {
 				ico.updateAttributes({
-					ethReceived: 0
+					ethReceived: []
 				}, function(err) {
 					if (err) return cb(err, null);
 					ico.ethReceived = received;
@@ -495,13 +495,18 @@ module.exports = function(ICO) {
 			if (!granted) return cb(e, null);
 			getICO(1, function(err, ico) {
 				if (err) return cb(err, null);
+
+				var ethReceived = ico.ethReceived;
+				if (params.ethReceived)
+					ethReceived.push(params.ethReceived);
+
 				ico.updateAttributes({
 					state:			params.state			? params.state			: ico.state,
 					tokenPriceUSD: 	params.tokenPriceUSD	? params.tokenPriceUSD	: ico.tokenPriceUSD,
 					tokenPriceETH:	params.tokenPriceETH	? params.tokenPriceETH	: ico.tokenPriceETH,
 					ethTotal: 		params.ethTotal			? params.ethTotal		: ico.ethTotal,
 					tokensSold: 	params.tokensSold		? params.tokensSold		: ico.tokensSold,
-					ethReceived: 	params.ethReceived		? params.ethReceived	: null
+					ethReceived: 	ethReceived
 				}, function(err) {
 					if (err) return cb(err, null);
 					return cb(null);
