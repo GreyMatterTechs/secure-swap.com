@@ -82,7 +82,7 @@
 					$.notify({
 						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 16) + 1) + '.png',
 						title:		'Thank you',
-						message:	'New purchase: <span class="blue">' + received.toFixed(5) + ' ETH</span> received.'
+						message:	'New purchase: <span class="blue">' + (+received).toFixed(5) + ' ETH</span> received.'
 					}, {
 						type:		'minimalist',
 						placement:	{from: 'bottom', align: 'left'},
