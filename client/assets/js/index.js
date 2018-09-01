@@ -13,7 +13,6 @@
 'use strict';
 
 /**
- * 
  */
 (function(window, undefined) {
 
@@ -63,6 +62,7 @@
 		var roles = null;
 		var ajaxDelay;
 		var cmcURI;
+		var grecKeyPub;
 
 		var icoState = 0;
 		var tokenPriceUSD = 0.45;
@@ -72,6 +72,7 @@
 		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
 		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
 		var purchaseboxLegal = false;
+
 
 		// --- private methods
 
@@ -493,13 +494,14 @@
 
 		return {
 
-			init: function(_roles, _ajaxDelay, _cmcURI) {
+			init: function(_roles, _ajaxDelay, _cmcURI, _grecKeyPub) {
 
 				if (_roles) {
 					roles = JSON.parse(_roles);
 				}
 				ajaxDelay = _ajaxDelay || 5000;
 				cmcURI = _cmcURI || 'https://api.coinmarketcap.com/v2';
+				grecKeyPub = _grecKeyPub;
 				updateICOIntervalDefault = ajaxDelay;
 
 				i18n = window.ssw.I18n.getInstance();
@@ -764,7 +766,7 @@
 				//--------------------------------------------------------------------------------------------------------------
 
 				grecaptcha.ready(function() {
-					grecaptcha.execute('6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw', {action: 'homepage'}).then(function(token) {
+					grecaptcha.execute(grecKeyPub, {action: 'homepage'}).then(function(token) {
 						$.ajax({
 							type: 'POST',
 							url: '/captcha',
@@ -787,7 +789,7 @@
 					var valid = CFValidate();
 					if (valid) {
 						grecaptcha.ready(function() {
-							grecaptcha.execute('6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw', {action: 'contact'}).then(function(token) {
+							grecaptcha.execute(grecKeyPub, {action: 'contact'}).then(function(token) {
 								$.ajax({
 									type: 'POST',
 									url: '/captcha',

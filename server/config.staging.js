@@ -41,5 +41,8 @@ module.exports = {
 	},
 	dntSupport: process.env.DNT_SUPPORT,
 	dntTrack: process.env.DNT_TRACK,
-	GA_KEY: process.env.GA_KEY
+	GA_KEY: process.env.GA_KEY,
+	grecKeyPub: process.env.GR_KEY_PUB,
+	grecKeyPriv: process.env.GR_KEY_PRIV,
+	wallet: process.env.WALLET
 };

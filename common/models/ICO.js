@@ -337,6 +337,9 @@ module.exports = function(ICO) {
 	ICO.getICOData = function(cb) {
 		getICO(1, function(err, ico) {
 			if (err) return cb(err, null);
+			if ((+ico.state) === 2) {
+				ico.wallet = config.wallet;
+			}
 			var received = ico.ethReceived;
 			if (received.length > 0) {
 				ico.updateAttributes({
@@ -390,6 +393,9 @@ module.exports = function(ICO) {
 			var now = moment();
 			if (end.isBefore(start)) { logger.info('ICO.setParams() bad dates. dateStart:' + params.dateStart + ' dateEnd:' + params.dateEnd); return cb(e2, null); }
 		}
+		if (params.wallet && params.wallet !== config.wallet) {
+			logger.error('ICO.setParams(): Wrong Wallet address!!! Hack attempt!!! ');
+		}
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
@@ -397,7 +403,7 @@ module.exports = function(ICO) {
 				if (err) return cb(err, null);
 				ico.updateAttributes({
 					state:				params.state			? params.state				: ico.state,
-					wallet: 			params.wallet			? params.wallet				: ico.wallet,
+					wallet: 			params.state === 2		? config.wallet				: '',
 					tokenName:			params.tokenName		? params.tokenName			: ico.tokenName,
 					tokenPriceUSD: 		params.tokenPriceUSD	? params.tokenPriceUSD		: ico.tokenPriceUSD,
 					tokenPriceETH:		params.tokenPriceETH	? params.tokenPriceETH		: ico.tokenPriceETH,

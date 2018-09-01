@@ -4,7 +4,7 @@
 <head>
 	<%- include('partials/gtag', {path: '/index'}); %>
 	<%- include('partials/head'); %>
-	<script src="https://www.google.com/recaptcha/api.js?render=6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw"></script>
+	<script src="https://www.google.com/recaptcha/api.js?render=<%- grecKeyPub %>"></script>
 </head>
 
 <body class=" 1-column undefined  page-animated svg-wrapper nojs loaded" data-menu-open="hover" data-menu="">
@@ -2659,7 +2659,7 @@
 	<script src="assets/js/i18n.js"></script>
 	<script src="assets/js/index.js"></script>
 	<script type="text/javascript">
-		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Landpage.getInstance().init('<%- JSON.stringify(roles) %>', '<%- ajaxDelay %>', '<%- cmcURI %>'), false );
+		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Landpage.getInstance().init('<%- JSON.stringify(roles) %>', '<%- ajaxDelay %>', '<%- cmcURI %>', '<%- grecKeyPub %>'), false );
 	</script>
 	<!-- END Custom JS-->
 </body>

@@ -222,6 +222,7 @@ module.exports = function(server) {
 	server.locals.dntSupport	= config.dntSupport;
 	server.locals.dntTrack		= config.dntTrack;
 	server.locals.GA_KEY		= config.GA_KEY;
+	server.locals.grecKeyPub	= config.grecKeyPub;
 
 	mAdmin						= server.models.Admin;
 	mContact					= server.models.Contact;
@@ -477,6 +478,7 @@ module.exports = function(server) {
 
 
 	router.post('/captcha', function(req, res, next) {
+		// https://developers.google.com/recaptcha/docs/v3
 		logger.info('route POST \"/captcha\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.body) {
 			return res.sendStatus(403);
@@ -484,53 +486,37 @@ module.exports = function(server) {
 		if (!req.body.token) {
 			return res.sendStatus(403);
 		}
+		var url = 'https://www.google.com/recaptcha/api/siteverify?secret=' + config.grecKeyPriv + '&response=' + req.body.token;
+		if (!config.dntSupport || req.header('dnt') == 0) {
+			url = url + '&remoteip=' + req.clientIP;
+		}
 		request
-			.get('https://www.google.com/recaptcha/api/siteverify?secret=6Lf4cW0UAAAAAL10CdH_gseSMtyMDyg62z6xZUh-&response=' + req.body.token + '&remoteip=' + req.clientIP)
+			.get(url)
 			.end((err, resp) => {
-				if (err) {
-					return res.send(err);
-				}
-				/*
-					"success": true|false,      // whether this request was a valid reCAPTCHA token for your site
-					"score": number             // the score for this request (0.0 - 1.0) (1.0 is very likely a good interaction, 0.0 is very likely a bot).
-					"action": string            // the action name for this request (important to verify)
-					"challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
-					"hostname": string,         // the hostname of the site where the reCAPTCHA was solved
-					"error-codes": [...]        // optional
-				*/
+				if (err) return res.send(err);
 				if (!resp.body.success) {
 					var errors = resp.body['error-codes'];
-					if (errors) {
-						// missing-input-secret	The secret parameter is missing.
-						// invalid-input-secret	The secret parameter is invalid or malformed.
-						// missing-input-response	The response parameter is missing.
-						// invalid-input-response	The response parameter is invalid or malformed.
-						// bad-request	The request is invalid or malformed.
-						return res.sendStatus(403);
-					}
+					if (errors) return res.sendStatus(403);
 				}
 				var validReferers = ['secure-swap.com', 'www.secure-swap.com', 'staging.secure-swap.com', 'localhost'];
 				var referer = resp.body['hostname'];
 				if (!validReferers.includes(referer)) {
-					logger.warn('/captcha: Received an Ajax call from referer:' + referer);
+					logger.warn('route POST \"/captcha\" received a call from referer:' + referer);
 					return res.sendStatus(403);
 				}
 				switch (resp.body['action']) {
 				case 'homepage':
 					return res.send({valid: true});
-					break;
 				case 'contact':
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
 						return res.send({valid: false, err: 'contact-area.error.message3'});
 					}
-					break;
 				default:
 					return res.send({valid: false, err: 'contact-area.error.message3'});
 				}
 			});
-
 	});
 
 	server.use(router);

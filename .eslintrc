@@ -8,7 +8,8 @@
 		"async": true,
 		"Popper": true,
 		"ClipboardJS": true,
-		"numeral": true
+		"numeral": true,
+		"grecaptcha": true
 	},
 	"rules": {
 		"no-console": 0,

@@ -130,6 +130,10 @@ input.noscript-closing-trick {
       -webkit-animation: floatup .5s ease-in-out;
       animation: floatup .5s ease-in-out; }
 
+/* -- reCaptcha ------------------------------------------------------------------- */
+.grecaptcha-badge {
+  display: none; }
+
 /* -- head ------------------------------------------------------------------- */
 header .navbar.navbar-fixed {
   padding: 0; }
