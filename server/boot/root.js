@@ -17,6 +17,7 @@
 const path		= require('path');
 const requestIp	= require('request-ip');
 const geoip		= require('geoip-lite');
+const request	= require('superagent');
 const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
 const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
@@ -472,6 +473,64 @@ module.exports = function(server) {
 		// 	return res.send({err: 'contact-area.error.message1'});
 		//	// don't clear cookie --- res.clearCookie('sent');
 		// }
+	});
+
+
+	router.post('/captcha', function(req, res, next) {
+		logger.info('route POST \"/captcha\" from: ' + req.clientIP + geo2str(req.geo));
+		if (!req.body) {
+			return res.sendStatus(403);
+		}
+		if (!req.body.token) {
+			return res.sendStatus(403);
+		}
+		request
+			.get('https://www.google.com/recaptcha/api/siteverify?secret=6Lf4cW0UAAAAAL10CdH_gseSMtyMDyg62z6xZUh-&response=' + req.body.token + '&remoteip=' + req.clientIP)
+			.end((err, resp) => {
+				if (err) {
+					return res.send(err);
+				}
+				/*
+					"success": true|false,      // whether this request was a valid reCAPTCHA token for your site
+					"score": number             // the score for this request (0.0 - 1.0) (1.0 is very likely a good interaction, 0.0 is very likely a bot).
+					"action": string            // the action name for this request (important to verify)
+					"challenge_ts": timestamp,  // timestamp of the challenge load (ISO format yyyy-MM-dd'T'HH:mm:ssZZ)
+					"hostname": string,         // the hostname of the site where the reCAPTCHA was solved
+					"error-codes": [...]        // optional
+				*/
+				if (!resp.body.success) {
+					var errors = resp.body['error-codes'];
+					if (errors) {
+						// missing-input-secret	The secret parameter is missing.
+						// invalid-input-secret	The secret parameter is invalid or malformed.
+						// missing-input-response	The response parameter is missing.
+						// invalid-input-response	The response parameter is invalid or malformed.
+						// bad-request	The request is invalid or malformed.
+						return res.sendStatus(403);
+					}
+				}
+				var validReferers = ['secure-swap.com', 'www.secure-swap.com', 'staging.secure-swap.com', 'localhost'];
+				var referer = resp.body['hostname'];
+				if (!validReferers.includes(referer)) {
+					logger.warn('/captcha: Received an Ajax call from referer:' + referer);
+					return res.sendStatus(403);
+				}
+				switch (resp.body['action']) {
+				case 'homepage':
+					return res.send({valid: true});
+					break;
+				case 'contact':
+					if ((+resp.body['score']) >= 0.8) {
+						return res.send({valid: true});
+					} else {
+						return res.send({valid: false, err: 'contact-area.error.message3'});
+					}
+					break;
+				default:
+					return res.send({valid: false, err: 'contact-area.error.message3'});
+				}
+			});
+
 	});
 
 	server.use(router);

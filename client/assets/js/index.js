@@ -454,6 +454,41 @@
 		}
 
 
+		function sendContact(ser) {
+			//	if (mailchimpLanguage !== '') {
+			//		ser += '&language=' + mailchimpLanguage;
+			//	}
+			$('#contact-debug-alert').hide();
+			$('#contact-submit').text($.i18n('contact-area.button.sending'));
+			$.ajax({
+				type: 'POST',
+				url: '/contact',
+				data: ser,
+				success: function(result) {
+					// var res = JSON.parse(result);
+					if (result.err) {
+						$('#contact-error-alert').html($.i18n(result.err));
+						$('#contact-error-alert').fadeIn('slow');
+						$('#contact-error-alert').delay(5000).fadeOut('slow');
+					} else if (result.success) {
+						$('#contact-form input[type=text]').val('');
+						// $('#message').val('');
+						$('#contact-success-alert').html($.i18n(result.success));
+						$('#contact-success-alert').fadeIn('slow');
+						$('#contact-success-alert').delay(5000).fadeOut('slow');
+					}
+					$('#contact-submit').text($.i18n('contact-area.button.submit'));
+				},
+				error: function() {
+					$('#contact-error-alert').html($.i18n('contact-area.error.message2'));
+					$('#contact-error-alert').fadeIn('slow');
+					$('#contact-error-alert').delay(5000).fadeOut('slow');
+					$('#contact-submit').text($.i18n('contact-area.button.submit'));
+				}
+			});
+		}
+
+
 		// --- public methods
 
 		return {
@@ -728,14 +763,21 @@
 				// Contact Form
 				//--------------------------------------------------------------------------------------------------------------
 
-				/*
 				grecaptcha.ready(function() {
-					grecaptcha.execute('6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw', {action: 'social'})
-					.then(function(token) {
-						console.log('');
+					grecaptcha.execute('6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw', {action: 'homepage'}).then(function(token) {
+						$.ajax({
+							type: 'POST',
+							url: '/captcha',
+							data: {token: token},
+							success: function(result) {
+								console.log('/captcha:' + JSON.stringify(result));
+							},
+							error: function(e) {
+								console.log('/captcha:' + JSON.stringify(e));
+							}
+						});
 					});
 				});
-				*/
 
 				$('#contact-success-alert').hide();
 				$('#contact-error-alert').hide();
@@ -744,37 +786,28 @@
 					e.preventDefault();
 					var valid = CFValidate();
 					if (valid) {
-						var ser = $('#contact-form').serialize();
-						//	if (mailchimpLanguage !== '') {
-						//		ser += '&language=' + mailchimpLanguage;
-						//	}
-						$('#contact-debug-alert').hide();
-						$('#contact-submit').text($.i18n('contact-area.button.sending'));
-						$.ajax({
-							type: 'POST',
-							url: '/contact',
-							data: ser,
-							success: function(result) {
-								// var res = JSON.parse(result);
-								if (result.err) {
-									$('#contact-error-alert').html($.i18n(result.err));
-									$('#contact-error-alert').fadeIn('slow');
-									$('#contact-error-alert').delay(5000).fadeOut('slow');
-								} else if (result.success) {
-									$('#contact-form input[type=text]').val('');
-									// $('#message').val('');
-									$('#contact-success-alert').html($.i18n(result.success));
-									$('#contact-success-alert').fadeIn('slow');
-									$('#contact-success-alert').delay(5000).fadeOut('slow');
-								}
-								$('#contact-submit').text($.i18n('contact-area.button.submit'));
-							},
-							error: function() {
-								$('#contact-error-alert').html($.i18n('contact-area.error.message2'));
-								$('#contact-error-alert').fadeIn('slow');
-								$('#contact-error-alert').delay(5000).fadeOut('slow');
-								$('#contact-submit').text($.i18n('contact-area.button.submit'));
-							}
+						grecaptcha.ready(function() {
+							grecaptcha.execute('6Lf4cW0UAAAAAMoGsU7YxlLUhN8ER4_SVGNPEpkw', {action: 'contact'}).then(function(token) {
+								$.ajax({
+									type: 'POST',
+									url: '/captcha',
+									data: {token: token},
+									success: function(result) {
+										console.log('/captcha:' + JSON.stringify(result));
+										if (result.valid) {
+											var ser = $('#contact-form').serialize();
+											sendContact(ser);
+										} else {
+											$('#contact-error-alert').html($.i18n(result.err));
+											$('#contact-error-alert').fadeIn('slow');
+											$('#contact-error-alert').delay(5000).fadeOut('slow');
+										}
+									},
+									error: function(e) {
+										console.log('/captcha:' + JSON.stringify(e));
+									}
+								});
+							});
 						});
 					}
 				});
