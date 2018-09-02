@@ -340,6 +340,7 @@ module.exports = function(ICO) {
 			if ((+ico.state) === 2) {
 				ico.wallet = config.wallet;
 			}
+			/*
 			var received = ico.ethReceived;
 			if (received.length > 0) {
 				ico.updateAttributes({
@@ -352,6 +353,21 @@ module.exports = function(ICO) {
 			} else {
 				return cb(null, ico);
 			}
+			*/
+
+			// ico.ethReceived conserve un array des transactions reçues depuis 10 secondes (le temps pour le client web de les récupérer)
+			var past = (new Date).getTime() - 10000;
+			logger.info('ICO.getICOData() previous ethReceiveds: ' + JSON.stringify(ico.ethReceived));
+			// on supprime les vielles transactions
+			var ethReceived = ico.ethReceived.filter(function(ethReceived) { return ethReceived.timestamp > past; });
+			logger.info('ICO.getICOData() cleaned ethReceiveds: ' + JSON.stringify(ethReceived));
+			ico.updateAttributes({
+				ethReceived: ethReceived
+			}, function(err, instance) {
+				if (err) return cb(err, null);
+				return cb(null, instance);
+			});
+
 		});
 	};
 
@@ -490,21 +506,30 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)				{ logger.info('ICO.setReceivedEth() bad ethReceived: ' + params.ethReceived); return cb(e2, null); } }
-		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setReceivedEth() bad state: ' + params.state); return cb(e2, null); } }
-		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)			{ logger.info('ICO.setReceivedEth() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
-		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)			{ logger.info('ICO.setReceivedEth() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
-		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)					{ logger.info('ICO.setReceivedEth() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
-		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)				{ logger.info('ICO.setReceivedEth() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
+		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)						{ logger.info('ICO.setReceivedEth() bad ethReceived: ' + params.ethReceived); return cb(e2, null); } }
+		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))			{ logger.info('ICO.setReceivedEth() bad state: ' + params.state); return cb(e2, null); } }
+		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)					{ logger.info('ICO.setReceivedEth() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
+		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)					{ logger.info('ICO.setReceivedEth() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
+		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)							{ logger.info('ICO.setReceivedEth() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
+		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)						{ logger.info('ICO.setReceivedEth() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
+		if (params.tokensSend)		{ if (!isNumber(params.tokensSend) || params.tokensSend < 0)						{ logger.info('ICO.setReceivedEth() bad tokensSend: ' + params.tokensSend); return cb(e2, null); } }
+		if (params.discount)		{ if (!isNumber(params.discount) || params.discount < 0 || params.discount > 1.0)	{ logger.info('ICO.setReceivedEth() bad discount: ' + params.discount); return cb(e2, null); } }
 		checkToken(tokenId, function(err, granted) {
 			if (err) return cb(err, null);
 			if (!granted) return cb(e, null);
 			getICO(1, function(err, ico) {
 				if (err) return cb(err, null);
 
-				var ethReceived = ico.ethReceived;
-				if (params.ethReceived)
-					ethReceived.push(params.ethReceived);
+//				// ico.ethReceived conserve un array des transactions reçues depuis 10 secondes (le temps pour le client web de les récupérer)
+				var now = (new Date).getTime();
+//				var past = now - 10000;
+//				logger.info('ICO.setReceivedEth() previous ethReceiveds: ' + JSON.stringify(ico.ethReceived));
+//				// on supprime les vielles transactions
+//				var ethReceived = ico.ethReceived.filter(function(ethReceived) { return ethReceived.timestamp < past; });
+//				logger.info('ICO.setReceivedEth() cleaned ethReceiveds: ' + JSON.stringify(ethReceived));
+				if (params.ethReceived) // on ajoute la courante
+					ico.ethReceived.push({ethReceived: params.ethReceived, tokensSend: params.tokensSend, discount: params.discount, timestamp: now});
+				logger.info('ICO.setReceivedEth() updated ethReceiveds: ' + JSON.stringify(ico.ethReceived));
 
 				ico.updateAttributes({
 					state:			params.state			? params.state			: ico.state,
@@ -512,8 +537,8 @@ module.exports = function(ICO) {
 					tokenPriceETH:	params.tokenPriceETH	? params.tokenPriceETH	: ico.tokenPriceETH,
 					ethTotal: 		params.ethTotal			? params.ethTotal		: ico.ethTotal,
 					tokensSold: 	params.tokensSold		? params.tokensSold		: ico.tokensSold,
-					ethReceived: 	ethReceived
-				}, function(err) {
+					ethReceived: 	ico.ethReceived
+				}, function(err, instance) {
 					if (err) return cb(err, null);
 					return cb(null);
 				});

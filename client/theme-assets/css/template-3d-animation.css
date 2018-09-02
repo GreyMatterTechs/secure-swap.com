@@ -1131,7 +1131,7 @@ svg#loader {
   -webkit-box-shadow: 0 5px 40px rgba(14, 42, 76, 0.2);
   box-shadow: 0 5px 40px rgba(14, 42, 76, 0.2);
   padding: 10px;
-  width: 350px;
+  /* width: 450px; */
   z-index: 2147483648 !important; }
   .alert-minimalist [data-notify="dismiss"] {
     color: rgba(149, 149, 149, 0.7); }
@@ -1142,15 +1142,18 @@ svg#loader {
       margin-right: 12px; }
   .alert-minimalist #text {
     float: left;
-    margin-top: 2px; }
+    margin-top: 2px;
+    margin-right: 20px; }
     .alert-minimalist #text [data-notify="title"] {
       color: #333333;
       line-height: 1rem;
       display: block;
-      font-size: 85%;
-      font-weight: 700; }
+      font-size: 100%;
+      font-weight: 700;
+      margin-bottom: 1rem; }
     .alert-minimalist #text [data-notify="message"] {
-      font-size: 80%; }
+      font-size: 80%;
+      line-height: 0.8rem; }
       .alert-minimalist #text [data-notify="message"] span.blue {
         color: #28bcfd;
         font-weight: 700; }

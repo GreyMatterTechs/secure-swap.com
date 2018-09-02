@@ -63,6 +63,7 @@
 		var ajaxDelay;
 		var cmcURI;
 		var grecKeyPub;
+		var ethReceiveds = [];
 
 		var icoState = 0;
 		var tokenPriceUSD = 0.45;
@@ -76,16 +77,20 @@
 
 		// --- private methods
 
-		function notify(ethReceived) {
-			ethReceived.forEach(function(received) {
-				setTimeout(function() {
+		function notify() {
+			var i = ethReceiveds.length;
+			while (i--) {
+				if (!ethReceiveds[i].displayed) {
+					var discount = ethReceiveds[i].discount < 1.0 ? ' with <span class="blue">' + (100 - (ethReceiveds[i].discount * 100)) + '%</span> discount' : '';
 					$.notify({
 						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 16) + 1) + '.png',
-						title:		'Thank you',
-						message:	'New purchase: <span class="blue">' + (+received).toFixed(5) + ' ETH</span> received.'
+						title:		'Thank you for this new purchase!',
+						message:	'You sent us <span class="blue">' + (+ethReceiveds[i].ethReceived).toFixed(8) + ' ETH</span>' + discount + ',<br />' +
+									'and we sent you back <span class="blue">' + (+ethReceiveds[i].tokensSend).toFixed(3) + ' SSW</span> tokens.'
 					}, {
 						type:		'minimalist',
 						placement:	{from: 'bottom', align: 'left'},
+						delay:		60000,
 						animate:	{enter: 'animated fadeInLeftBig', exit: 'animated fadeOutLeftBig'},
 						icon_type:	'image',
 						template:	'<div data-notify="container" class="alert alert-{0}" role="alert">' +
@@ -96,12 +101,13 @@
 									'	<div id="text">' +
 									'		<span data-notify="title">{1}</span>' +
 									'		<span data-notify="message">{2}</span>' +
-									'		<span data-notify="time">Few seconds ago</span>' +
+									'		<span data-notify="time">A few seconds ago.</span>' +
 									'	</div>' +
 									'</div>'
 					});
-				}, Math.floor(Math.random() * 5000));
-			});
+					ethReceiveds[i].displayed = true;
+				}
+			}
 		}
 
 		function updatePurchaseBoxContent() {
@@ -231,10 +237,18 @@
 						case 2:	setStateICO(ico);		break;
 						case 3:	setStateEndICO(ico);	break;
 						}
-						if (ico.ethReceived.length > 0) {
-							notify(ico.ethReceived);
-							// purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / tokensTotal);
+						var past = (new Date).getTime() - 15000;
+						ethReceiveds = ethReceiveds.filter(function(ethReceived) { return ethReceived.timestamp > past; });	// on supprime les vielles transactions
+						if (ico.ethReceived.length > 0) {	// on "merge" les transactions reçues
+							ico.ethReceived.forEach(function(thisObj) {
+								var exists = false;
+								ethReceiveds.forEach(function(globalObj) {
+									if (globalObj.timestamp === thisObj.timestamp) exists = true;
+								});
+								if (!exists) ethReceiveds.push(thisObj);
+							});
 						}
+						notify();
 					}
 				})
 				.fail(function(err) {
