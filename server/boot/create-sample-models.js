@@ -217,7 +217,7 @@ function updateAdmins(cb) {
 		}
 	}, {
 		userdata: {
-			username: 'aliaksandr ',		password: '8XhJyph6',			email: 'samusiel@gmail.com',
+			username: 'aliaksandr',			password: '8XhJyph6',			email: 'samusiel@gmail.com',
 			active: true,					accessVerified: true,			verificationToken: null,
 			emailVerified: true,											roles: [roles.developer, roles.teammember]
 		}
