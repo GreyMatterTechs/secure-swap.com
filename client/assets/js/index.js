@@ -90,7 +90,7 @@
 					}, {
 						type:		'minimalist',
 						placement:	{from: 'bottom', align: 'left'},
-						delay:		60000,
+						delay:		5000,
 						animate:	{enter: 'animated fadeInLeftBig', exit: 'animated fadeOutLeftBig'},
 						icon_type:	'image',
 						template:	'<div data-notify="container" class="alert alert-{0}" role="alert">' +
