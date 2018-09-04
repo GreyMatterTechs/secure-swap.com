@@ -2,33 +2,23 @@
 <% if (dntSupport === 'true') { %>
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-		window.ga_debug = {trace: true};
-		console.log('analyticsDNT: ga.create()');
 		ga('create', '<%- GA_KEY %>', 'auto');
-		// ga('set', 'transport', 'beacon');
 		<% if (dntTrack === 'true') { %>
-			console.log('analyticsDNT: ga.require(true)');
-			ga('require', 'gaDnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
-			ga('gaDnt:updateTracker');
+			ga('require', 'gaDnt', {logStatus: 'dimension1', path: '<%- path %>', debug: false});
 		<% } else { %>
-			console.log('analyticsDNT: ga.require()');
-			ga('require', 'gaDnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
-			ga('gaDnt:updateTracker');
+			ga('require', 'gaDnt', {logStatus: null, path: '<%- path %>', debug: false});
 		<% } %>
-		console.log('analyticsDNT: ga.send()');
+		ga('gaDnt:updateTracker');
 		ga('send', 'pageview');
 	</script>
-	<script async src='https://www.google-analytics.com/analytics_debug.js'></script>
-	<script async src="assets/js/gaDnt.js"></script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<script async src="assets/js/gaDnt.min.js"></script>
 <% } else { %>
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-		console.log('analytics: ga.create()');
 		ga('create', '<%- GA_KEY %>', 'auto');
-		// ga('set', 'transport', 'beacon');
-		console.log('analytics: ga.send()');
 		ga('send', 'pageview');
 	</script>
-	<script async src='https://www.google-analytics.com/analytics_debug.js'></script>
+	<script async src='https://www.google-analytics.com/analytics.js'></script>
 <% } %>
 <!-- End Google Analytics -->
