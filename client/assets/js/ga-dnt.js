@@ -12,9 +12,13 @@ function providePlugin(pluginName, pluginConstructor) {
 }
 var analyticsDNT = function(tracker, config) {
 	console.log('ga-dnt: plugin. Constructor');
-	var logStatus = config.logStatus,
-		isSet = !1,
-		dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+	this.tracker = tracker;
+	this.logStatus = config.logStatus;
+	this.debug = config.debug;
+	this.path = config.path;
+	this.isSet = !1;
+	this.dnt = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+};
 
 	!dnt || 'yes' != dnt && '1' != dnt || (isSet = !0);
 

@@ -7,16 +7,18 @@
 		// ga('set', 'transport', 'beacon');
 		<% if (dntTrack === 'true') { %>
 			console.log('analyticsDNT: ga.require(true)');
-			ga('require', 'ga-dnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
+			ga('require', 'gaDnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
+			ga('gaDnt:updateTracker');
 		<% } else { %>
 			console.log('analyticsDNT: ga.require()');
-			ga('require', 'ga-dnt');
+			ga('require', 'gaDnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
+			ga('gaDnt:updateTracker');
 		<% } %>
 		console.log('analyticsDNT: ga.send()');
 		ga('send', 'pageview');
 	</script>
-	<script src="assets/js/ga-dnt.js"></script>
 	<script async src='https://www.google-analytics.com/analytics.js'></script>
+	<script async src="assets/js/gaDnt.js"></script>
 <% } else { %>
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -29,4 +31,3 @@
 	<script async src='https://www.google-analytics.com/analytics.js'></script>
 <% } %>
 <!-- End Google Analytics -->
-
