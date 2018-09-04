@@ -2,13 +2,17 @@
 <% if (dntSupport === 'true') { %>
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+		console.log('analyticsDNT: ga.create()');
 		ga('create', '<%- GA_KEY %>', 'auto');
 		// ga('set', 'transport', 'beacon');
 		<% if (dntTrack === 'true') { %>
+			console.log('analyticsDNT: ga.require(true)');
 			ga('require', 'ga-dnt', {logStatus: 'dimension1', path: '<%- path %>', debug: true});
 		<% } else { %>
+			console.log('analyticsDNT: ga.require()');
 			ga('require', 'ga-dnt');
 		<% } %>
+		console.log('analyticsDNT: ga.send()');
 		ga('send', 'pageview');
 	</script>
 	<script async src='https://www.google-analytics.com/analytics.js'></script>
@@ -16,8 +20,10 @@
 <% } else { %>
 	<script>
 		window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+		console.log('analytics: ga.create()');
 		ga('create', '<%- GA_KEY %>', 'auto');
 		// ga('set', 'transport', 'beacon');
+		console.log('analytics: ga.send()');
 		ga('send', 'pageview');
 	</script>
 	<script async src='https://www.google-analytics.com/analytics.js'></script>
