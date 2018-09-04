@@ -33,7 +33,10 @@ gaDnt.prototype.updateTracker = function() {
 	console.log('gaDnt: set buildHitTask');
 	this.tracker.set('buildHitTask', function(model) {
 		console.log('gaDnt Hit: isSet=' + self.isSet + ' logStatus=' + self.logStatus);
-		if (self.isSet && !self.logStatus) throw 'dnt';
+		if (self.isSet && !self.logStatus) {
+			console.log('gaDnt Hit throw error');
+			throw 'dnt';
+		}
 		console.log('gaDnt: call original buildHitTask');
 		originalBuildHitTask(model);
 	});
