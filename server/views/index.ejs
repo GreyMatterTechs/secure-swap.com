@@ -1388,7 +1388,7 @@
 								<p class="animated mt-5" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="token-area.p3, <%= tokenName %>">Example : <br />• A NodeOwner (John) operates a node-gateway to Ethereum. <br />• He allocates 100 tokens for the operation of this node. <br />• If other NodeOwners (Paul, Max, Jim) also operate Ethereum gateway nodes, and all of these nodes have 1000 tokens allocated for this, <br />then our NodeOwner John will receive 10% (100/1000) of the fees collected on all exchanges involving Ethereums.<br />• If John has other $1 tokens, and he operates other nodes connecting to other blockchains, NEO for example, then he will also receive his share of the NEO blockchain exchange fees. <br /><br />This blockchain allocation system encourages NodeOwners to make their nodes work for blockchains where few nodes are in operation, which tends to reinforce system redundancy and availability.</p>
 								<div class="col-md-12 text-center token-bet-img-row">
 									<div id="svg-animation">
-											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240" preserveAspectRatio="xMidYMid meet" style="width: 50%;height: 50%;">
+											<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" width="320" height="240" preserveAspectRatio="xMidYMid meet" >
 												<g clip-path="url(#svg_animation_mask)">
 													<g transform="matrix(1,0,0,1,0,0)" opacity="1">
 														<image class="animated" data-animation="fadeInLeftShorter" data-animation-delay="0.1s" width="320px" height="240px" preserveAspectRatio="xMidYMid slice" xlink:href="assets/images/svg/token-example.svg"></image>
@@ -1420,18 +1420,27 @@
 								</div>
 								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="token-area.p5, <%= tokenName %>">This simulator allows to estimate the annual yield of $1 tokens. See White Paper for details.</p>
 							</div>
-							<div class="col-md-12 simulator-container mt-5 animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" >
-								<div class="simulator-labels">
-									<p class="mb-2" data-i18n="token-area.sim.label1" >Volume d'échange annuel</p>
-									<p class="mb-2" data-i18n="token-area.sim.label2" >Tokens affectés à tous les nodes</p>
-									<p class="mb-2" data-i18n="token-area.sim.label3" >Prix d'achat du token</p>
+							<div class="col-lg-8 simulator-container mt-5 animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" >
+								<div class="form-group row">
+									<label for="token-slider-volume" class="col-md-5 col-form-label" data-i18n="token-area.sim.label1">Volume d'échange annuel</label>
+									<div class="col-md-7">
+										<div id="token-slider-volume" class="token-slider mb-3"></div>
+									</div>
 								</div>
-								<div class="simulator-sliders">
-									<div id="token-slider-volume" class="token-slider mb-3"></div>
-									<div id="token-slider-tokens" class="token-slider mb-3"></div>
-									<div id="token-slider-cost" class="token-slider mb-3"></div>
+								<div class="form-group row">
+									<label for="token-slider-tokens" class="col-md-5 col-form-label" data-i18n="token-area.sim.label2">Tokens affectés à tous les nodes</label>
+									<div class="col-md-7">
+										<div id="token-slider-tokens" class="token-slider mb-3"></div>
+									</div>
 								</div>
-								<hr>
+								<div class="form-group row">
+									<label for="token-slider-cost" class="col-md-5 col-form-label" data-i18n="token-area.sim.label3">Prix d'achat du token</label>
+									<div class="col-md-7">
+										<div id="token-slider-cost" class="token-slider mb-3"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 mt-5 animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" >
 								<div class="simulator-result text-center">
 									<p class="mb-0 token-simu-percent">54 %</p>
 									<p class="mb-0 token-simu-percent-label" data-i18n="token-area.sim.label4" >Rendement<br />annuel</p>

@@ -766,7 +766,7 @@
 					$(this).parent().addClass('team-hover');
 					var $p;
 					// TODO: récupérer les valeurs de width à partir de la config bootstrap...
-					if (window.matchMedia('(min-width: 576px)').matches) { $p = $(this).parent().next(); }
+					$p = $(this).parent().next();
 					if (window.matchMedia('(min-width: 768px)').matches) { $p = $p.next(); }
 					if (window.matchMedia('(min-width: 992px)').matches) { $p = $p.next(); }
 					$p.css('visibility', 'hidden');
