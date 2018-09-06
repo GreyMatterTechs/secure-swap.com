@@ -739,9 +739,11 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .head-area .head-content .btn {
     padding: 0.8rem !important;
     font-size: 0.8rem; }
+  .head-area .head-content .move-first {
+    margin-top: 5rem; }
   .head-area #svg-animation {
-    margin-left: 10%;
-    margin-right: 10%; }
+    margin-left: 20%;
+    margin-right: 20%; }
   .section-padding {
     padding: 3rem 0 !important; }
   .dark-bg-heading {
