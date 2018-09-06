@@ -2154,7 +2154,7 @@ p {
   #token-sale-mobile-app .token-sale:before {
     content: "";
     background: url("../../theme-assets/images/token-sale-shape.png") no-repeat center left;
-    width: 673px;
+    width: 360px;
     position: absolute;
     left: 0;
     height: 902px;
