@@ -130,7 +130,7 @@
 	"referral-area.li4":				"Ingresa tu número de wallet Ethereum donde quieres recibir los tokens ganados",
 	"referral-area.li5":				"Ingresa los números de wallets Ethereum de tus contactos inversionistas interesados en invertir en Secure Swap",
 	"referral-area.li6":				"Haz click en el botón",
-	"referral-area.li6end":				"",
+	"referral-area.li6end":				"&nbsp;",
 	"referral-area.p5":					"Previniendo una utilización indebida, debes ingresar los números de wallets ETH de los posibles inversionistas <b>antes que ellos hayan realizado la transacción</b>.",
 	"referral-area.p6":					"Si la transacción fue realizada antes del registro del wallet de los inversionistas recomendados, no ganarás los tokens. <br />Si varios participantes han utilizado el mismo número de wallet ETH, sólo se recompensará el primer registro!",
 	"referral-area.p7":					"Buena suerte y que el juego comience!",
