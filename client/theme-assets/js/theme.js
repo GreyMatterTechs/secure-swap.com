@@ -71,11 +71,11 @@ $(window).on('load', function() {
 	$(window).scroll(function() {
 		var scroll = $(window).scrollTop();
 		if (scroll >= 50) {
-			if ($(window).width() > 992) {
+		//	if ($(window).width() > 992) {
 				$('.navbar').addClass('navbar-fixed navbar-shadow');
 				$('.navbar #slide-line').removeClass('d-none');
 				inverseNavbar(true); // For inverse navbar
-			}
+		//	}
 		} else {
 			$('.navbar').removeClass('navbar-fixed navbar-shadow');
 			$('.navbar #slide-line').addClass('d-none');
@@ -92,7 +92,7 @@ $(window).on('load', function() {
 
 	// Menu navbar toggler animation
 	$('.main-menu .navbar-toggler').click(function(event) {
-		$('.main-menu').toggleClass('open', 2000, 'swing');
+		$('.main-menu').toggleClass('open', 1000, 'swing');
 	});
 
 	// On menu click, Smooth Scrolling
@@ -102,9 +102,10 @@ $(window).on('load', function() {
 			target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
 			if (target.length) {
 				event.preventDefault();
+				$('.navbar-collapse').collapse('hide');
 				$('html, body').animate({
 					scrollTop: target.offset().top
-				}, 1000, function() {
+				}, 500, function() {
 					var $target = $(target);
 					$target.focus();
 					if ($target.is(':focus')) { return false; } else {
@@ -173,12 +174,13 @@ $(window).on('load', function() {
 // Absolute navbar below 992(md) screen
 
 function navbarAbsolute() {
-	if ($(window).width() < 992) {
-		$('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
-		$('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
+	$('.main-menu').addClass('fixed-top');
+	if (window.matchMedia('(min-width: 992px)').matches) {
+		// $('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
+		// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
 	} else {
-		$('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
-		$('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
+		// $('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
+		// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
 	}
 }
 
@@ -241,7 +243,7 @@ var InitWaypointAnimations = function() {
 	return function(defaults) {
 		defaults = defaults || {};
 		var params = {
-			offset:				defaults.offset || '90%',
+			offset:				defaults.offset || '95%',
 			delay:				defaults.delay || '0s',
 			animateClass:		defaults.animateClass || 'animated',
 			animateGroupClass:	defaults.animateGroupClass || 'ez-animate-group'

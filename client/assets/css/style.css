@@ -138,6 +138,9 @@ input.noscript-closing-trick {
 header .navbar.navbar-fixed {
   padding: 0; }
 
+header .navbar.open {
+  background: #194089; }
+
 header .navbar .navbar-brand .brand-text {
   font-family: "Open Sans Condensed", "Roboto", "Helvetica Neue", Arial, sans-serif; }
 
