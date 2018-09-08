@@ -171,8 +171,6 @@ gulp.task('watch', function() {
 	// Create LiveReload server
 	livereload.listen();
 	// Watch any files in dist/, reload on change
-	gulp.watch([config.assets_dest.path]).on('change', livereload.changed);
-	gulp.watch([config.theme_assets_dest.path]).on('change', livereload.changed);
-	gulp.watch([config.esp.path]).on('change', livereload.changed);
+	gulp.watch([config.assets_dest.path, config.theme_assets_dest.path, config.esp.path]).on('change', livereload.changed);
 });
 

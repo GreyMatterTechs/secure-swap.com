@@ -138,10 +138,13 @@ input.noscript-closing-trick {
 header .navbar.navbar-fixed {
   padding: 0; }
 
-.navbar .dropdown a {
+header .navbar .navbar-brand .brand-text {
+  font-family: "Open Sans Condensed", "Roboto", "Helvetica Neue", Arial, sans-serif; }
+
+header .navbar .dropdown a {
   line-height: 1.7rem; }
 
-.navbar .dropdown .dropdown-menu a:before {
+header .navbar .dropdown .dropdown-menu a:before {
   font-family: 'Font Awesome 5 Free';
   content: "\f054"; }
 
@@ -460,7 +463,11 @@ header .navbar.navbar-fixed {
 #token-slider-volume .noUi-pips {
   top: -33px; }
   #token-slider-volume .noUi-pips .noUi-value {
-    top: -25px; }
+    top: -25px;
+    font-family: "Open Sans Condensed", "Roboto", "Helvetica Neue", Arial, sans-serif; }
+
+#token-slider-cost .noUi-pips .noUi-value {
+  top: 14px; }
 
 .noUi-tooltip {
   display: none; }
@@ -729,13 +736,15 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .head-area .head-content .banner-content {
     padding-top: 1.5rem !important;
     text-align: center; }
+    .head-area .head-content .banner-content div {
+      margin-top: 1rem !important; }
   .head-area .head-content h1 {
-    font-size: 1.0rem;
-    line-height: 1.4rem; }
+    font-size: 0.9rem;
+    line-height: 1.1rem; }
   .head-area .head-content h3 {
-    margin-top: 2rem !important;
-    font-size: 0.7rem;
-    line-height: 1.0rem; }
+    margin-top: 1rem !important;
+    font-size: 0.6rem;
+    line-height: 0.8rem; }
   .head-area .head-content .btn {
     padding: 0.8rem !important;
     font-size: 0.8rem; }
@@ -820,34 +829,38 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
       padding: 0.7rem 1rem !important; }
       .mobile-app .btn span {
         padding-right: 1rem !important; }
-  .token-details .progress-bottom {
-    top: 2rem; }
-  .token-details .clock-counter .flip-clock-wrapper .flip {
-    height: 60px; }
-    .token-details .clock-counter .flip-clock-wrapper .flip li {
-      top: 0px; }
-      .token-details .clock-counter .flip-clock-wrapper .flip li a .up .inn {
-        font-size: 38px;
+  .token-details {
+    padding: 0.5rem; }
+    .token-details .progress-bottom {
+      top: 2rem; }
+    .token-details .clock-counter .flip-clock-wrapper .flip {
+      height: 60px; }
+      .token-details .clock-counter .flip-clock-wrapper .flip li {
         top: 0px; }
-      .token-details .clock-counter .flip-clock-wrapper .flip li a .down .inn {
-        font-size: 38px;
-        bottom: 0px; }
-  .token-details .clock-counter .flip-clock-wrapper .flip-clock-dot {
-    width: 6px;
-    height: 6px;
-    left: 3px; }
-    .token-details .clock-counter .flip-clock-wrapper .flip-clock-dot.top {
-      top: 24px; }
-    .token-details .clock-counter .flip-clock-wrapper .flip-clock-dot.bottom {
-      bottom: 36px; }
-  .token-details .clock-counter .flip-clock-divider.days .flip-clock-label {
-    left: 60px; }
-  .token-details .clock-counter .flip-clock-divider.hours .flip-clock-label {
-    left: 35px; }
-  .token-details .clock-counter .flip-clock-divider.minutes .flip-clock-label {
-    left: 32px; }
-  .token-details .clock-counter .flip-clock-divider.seconds .flip-clock-label {
-    left: 28px; } }
+        .token-details .clock-counter .flip-clock-wrapper .flip li a .up .inn {
+          font-size: 38px;
+          top: 0px; }
+        .token-details .clock-counter .flip-clock-wrapper .flip li a .down .inn {
+          font-size: 38px;
+          bottom: 0px; }
+    .token-details .clock-counter .flip-clock-wrapper .flip-clock-dot {
+      width: 6px;
+      height: 6px;
+      left: 3px; }
+      .token-details .clock-counter .flip-clock-wrapper .flip-clock-dot.top {
+        top: 24px; }
+      .token-details .clock-counter .flip-clock-wrapper .flip-clock-dot.bottom {
+        bottom: 36px; }
+    .token-details .clock-counter .flip-clock-divider.days .flip-clock-label {
+      left: 30px; }
+    .token-details .clock-counter .flip-clock-divider.hours .flip-clock-label {
+      left: 20px; }
+    .token-details .clock-counter .flip-clock-divider.minutes .flip-clock-label {
+      left: 12px; }
+    .token-details .clock-counter .flip-clock-divider.seconds .flip-clock-label {
+      left: 10px; }
+  .token-distribution .token-img {
+    margin-bottom: 17rem; } }
 
 @media (min-width: 576px) and (max-width: 767.98px) {
   .token-distribution .token-img {
@@ -860,6 +873,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     font-size: 38px; }
   .token-details .clock-counter .flip-clock-wrapper .flip li a .down .inn {
     font-size: 38px; } }
+
+@media (min-width: 576px) {
+  .head-area .head-content .banner-content div {
+    margin-top: 3rem !important; } }
 
 @media (max-width: 767.98px) {
   .footer .footer-wrapper .title {
