@@ -277,6 +277,7 @@ module.exports = function(server) {
 				return res.render('login', {						// render the login page, empty form
 					appName: config.appName,
 					tokenName: config.tokenName,
+					action: '/',
 					err: null
 				});
 			} else {
@@ -285,6 +286,7 @@ module.exports = function(server) {
 						return res.render('login', {				// accessToken invalid, render the login page, empty form
 							appName: config.appName,
 							tokenName: config.tokenName,
+							action: '/',
 							err: null
 						});
 					} else {										// logged user, accessToken granted
@@ -323,6 +325,7 @@ module.exports = function(server) {
 					return res.render('login', {					// accessToken invalid, render the login page, empty form
 						appName: config.appName,
 						tokenName: config.tokenName,
+						action: '/',
 						err: null
 					});
 				} else {
@@ -350,6 +353,81 @@ module.exports = function(server) {
 						accessToken: tokenId,
 						roles: roles,
 						ajaxDelay: config.ajaxDelay,
+						action: '/',
+						err: null
+					});
+				}
+			});
+		}
+	});
+
+	// intranet page
+	router.get('/intranet', function(req, res) {
+		logger.info('route GET \"/intranet\" from: ' + req.clientIP + geo2str(req.geo));
+		if (!req.query.access_token && !req.accessToken) {		// not logged user, no login form data
+			return res.render('login', {						// render the login page, empty form
+				appName: config.appName,
+				action: '/intranet',
+				err: null
+			});
+		} else {
+			getUser(req, function(err, username, roles) {					// also check if accessToken is legit.
+				if (err) {
+					return res.render('login', {				// accessToken invalid, render the login page, empty form
+						appName: config.appName,
+						action: '/intranet',
+						err: null
+					});
+				} else {										// logged user, accessToken granted
+					logger.info('route GET \"/intranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + username + ']');
+					var token = req.query.access_token || req.accessToken;
+					mAdmin.setOnlineStatus(token, 'online');
+					return res.render('intranet', {				// render the intranet page
+						appName: config.appName,
+						roles: roles.split(','),
+						ajaxDelay: config.ajaxDelay,
+						err: null
+					});
+				}
+			});
+		}
+	});
+	router.post('/intranet', function(req, res) {
+		logger.info('route POST \"/intranet\" from: ' + req.clientIP + geo2str(req.geo));
+		if (!req.body)
+			return res.sendStatus(403);
+		if (req.body.access_token) {								// logged user, accessToken granted
+			checkToken(req.body.access_token, function(err, user) {
+				if (err) {
+					mAdmin.setOnlineStatus(req.body.access_token, 'offline');
+					return res.render('login', {					// accessToken invalid, render the login page, empty form
+						appName: config.appName,
+						action: '/intranet',
+						err: null
+					});
+				} else {
+					mAdmin.setOnlineStatus(req.body.access_token, 'online');
+					logger.info('route POST \"/intranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
+					return res.render('intranet', {							// render intranet page
+						appName: config.appName,
+						roles: req.body.roles.split(','),
+						ajaxDelay: config.ajaxDelay,
+						err: null
+					});
+				}
+			});
+		} else {													// not logged user, login form credentials filled
+			login(req, (err, tokenId, roles) => {
+				if (err) {
+					return res.sendStatus(err);
+				} else {
+					mAdmin.setOnlineStatusByTokenId(tokenId, 'online');
+					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/intranet" again
+						appName: config.appName,
+						accessToken: tokenId,
+						roles: roles,
+						ajaxDelay: config.ajaxDelay,
+						action: '/intranet',
 						err: null
 					});
 				}
