@@ -1,0 +1,13 @@
+	<noscript> <!-- since there is no js, i18n will not work. Then let's leave this text in English. -->
+		<input type="checkbox" class="noscript-closing-trick" >
+		<div class="noscript-overlay" style="display: block;"></div>
+		<div class="noscript-message">
+			<div class="noscript-title">Javascript required.</div>
+			<p>We are sorry, but <%= appName %> doesn't work properly without Javascript enabled.</p>
+			<p>Need to know how to enable it? <a href="http://enable-javascript.com/" target="_blank" rel="noopener">Go here.</a></p>
+		</div>
+	</noscript>
+	<script type="text/javascript">
+		document.body.classList.remove("nojs");
+		document.body.classList.remove('loaded');
+	</script>

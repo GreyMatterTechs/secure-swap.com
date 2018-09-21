@@ -67,7 +67,7 @@
 
 		return {
 
-			init: function(jerr) {
+			init: function(jaction, jerr) {
 
 				$('#error').hide();
 				$('#success').hide();
@@ -78,7 +78,7 @@
 
 				$('#login').off('click').on('click', function(e) {
 					e.preventDefault();
-					$.post('/', $('form').serialize())
+					$.post(jaction, $('form').serialize())
 						.done(function(data) {
 							if (data.err) {
 								message(data.err);

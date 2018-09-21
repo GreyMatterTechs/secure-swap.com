@@ -74,18 +74,31 @@ function shorten(str, len) {
 	}
 }
 
+
+/**
+ * @description determine if an array contains one or more items from another array.
+ * @param {array} haystack the array to search.
+ * @param {array} arr the array providing items to check for in the haystack.
+ * @return {boolean} true|false if haystack contains at least one item from arr.
+ */
+var findOne = function(haystack, arr) {
+	return arr.some(v => haystack.indexOf(v) >= 0);
+};
+
+
 /**
  * Log a user
  *
  * @method login
  * @private
- * @param    {Object}   req   Received HTTP request
- * @callback {Function} cb    Callback function
- * @param    {Error}    err   Error information
- * @param    {String}   id    Token ID of logged in user
- * @param    {String[]} roles Roles of the logged in user
+ * @param    {String[]} grantedRoles   Received HTTP request
+ * @param    {Object}   req            Received HTTP request
+ * @callback {Function} cb             Callback function
+ * @param    {Error}    err            Error information
+ * @param    {String}   id             Token ID of logged in user
+ * @param    {String[]} roles          Roles of the logged in user
  */
-function login(req, cb) {
+function login(grantedRoles, req, cb) {
 	if (!req.body) {
 		return cb(403, null);
 	}
@@ -107,9 +120,19 @@ function login(req, cb) {
 				}
 				if (!user.active) {
 					mAdmin.logout(token.id);
-					return cb(err.statusCode, token.id);
+					return cb(401, token.id);
 				} else {
-					return cb(null, token.id, user.roles);
+					if (grantedRoles) {
+						var granted = findOne(grantedRoles, user.roles);
+						if (granted) {
+							return cb(null, token.id, user.roles);
+						} else {
+							mAdmin.logout(token.id);
+							return cb(401, token.id);
+						}
+					} else {
+						return cb(null, token.id, user.roles);
+					}
 				}
 			});
 		} else {
@@ -170,8 +193,7 @@ function checkToken(tokenId, cb) {
  * @param    {Object}   req      Received HTTP request
  * @callback {Function} cb       Callback function
  * @param    {Error}    err      Error information
- * @param    {String}   username username of the logged in user
- * @param    {String[]} roles    Roles of the logged in user
+ * @param    {Object}   user     the logged in user
  */
 function getUser(req, cb) {
 	if (!req.query.access_token && !req.accessToken) {
@@ -180,7 +202,7 @@ function getUser(req, cb) {
 	var token = req.query.access_token || req.accessToken;
 	checkToken(token.id, function(err, user) {
 		if (err) return cb(err, null);
-		return cb(null, user.username, user.roles);
+		return cb(null, user);
 	});
 }
 
@@ -281,7 +303,7 @@ module.exports = function(server) {
 					err: null
 				});
 			} else {
-				getUser(req, function(err, username, roles) {					// also check if accessToken is legit.
+				getUser(req, function(err, user) {					// also check if accessToken is legit.
 					if (err) {
 						return res.render('login', {				// accessToken invalid, render the login page, empty form
 							appName: config.appName,
@@ -290,13 +312,13 @@ module.exports = function(server) {
 							err: null
 						});
 					} else {										// logged user, accessToken granted
-						logger.info('route GET \"/\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + username + ']');
+						logger.info('route GET \"/\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
 						var token = req.query.access_token || req.accessToken;
 						mAdmin.setOnlineStatus(token, 'online');
 						return res.render('index', {				// render the index
 							appName: config.appName,
 							tokenName: config.tokenName,
-							roles: roles.split(','),
+							roles: user.roles.split(','),
 							ajaxDelay: config.ajaxDelay,
 							cmcURI: config.cmcURI,
 							err: null
@@ -342,7 +364,7 @@ module.exports = function(server) {
 				}
 			});
 		} else {													// not logged user, login form credentials filled
-			login(req, (err, tokenId, roles) => {
+			login(null, req, (err, tokenId, roles) => {
 				if (err) {
 					return res.sendStatus(err);
 				} else {
@@ -361,40 +383,42 @@ module.exports = function(server) {
 		}
 	});
 
-	// intranet page
-	router.get('/intranet', function(req, res) {
-		logger.info('route GET \"/intranet\" from: ' + req.clientIP + geo2str(req.geo));
+	// extranet page
+	router.get('/extranet', function(req, res) {
+		logger.info('route GET \"/extranet\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.query.access_token && !req.accessToken) {		// not logged user, no login form data
 			return res.render('login', {						// render the login page, empty form
 				appName: config.appName,
-				action: '/intranet',
+				action: '/extranet',
 				err: null
 			});
 		} else {
-			getUser(req, function(err, username, roles) {					// also check if accessToken is legit.
+			getUser(req, function(err, user) {					// also check if accessToken is legit.
 				if (err) {
 					return res.render('login', {				// accessToken invalid, render the login page, empty form
 						appName: config.appName,
-						action: '/intranet',
+						action: '/extranet',
 						err: null
 					});
 				} else {										// logged user, accessToken granted
-					logger.info('route GET \"/intranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + username + ']');
+					logger.info('route GET \"/extranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
 					var token = req.query.access_token || req.accessToken;
 					mAdmin.setOnlineStatus(token, 'online');
-					return res.render('intranet', {				// render the intranet page
+					return res.render('extranet', {				// render the extranet page
 						appName: config.appName,
-						roles: roles.split(','),
+						roles: user.roles.split(','),
 						ajaxDelay: config.ajaxDelay,
-						avatar: username.toLowerCase(),
+						avatar: user.username.toLowerCase(),
+						user: user,
+						accessToken: req.body.access_token,
 						err: null
 					});
 				}
 			});
 		}
 	});
-	router.post('/intranet', function(req, res) {
-		logger.info('route POST \"/intranet\" from: ' + req.clientIP + geo2str(req.geo));
+	router.post('/extranet', function(req, res) {
+		logger.info('route POST \"/extranet\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {								// logged user, accessToken granted
@@ -403,33 +427,44 @@ module.exports = function(server) {
 					mAdmin.setOnlineStatus(req.body.access_token, 'offline');
 					return res.render('login', {					// accessToken invalid, render the login page, empty form
 						appName: config.appName,
-						action: '/intranet',
+						action: '/extranet',
 						err: null
 					});
 				} else {
-					mAdmin.setOnlineStatus(req.body.access_token, 'online');
-					logger.info('route POST \"/intranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
-					return res.render('intranet', {							// render intranet page
-						appName: config.appName,
-						roles: req.body.roles.split(','),
-						ajaxDelay: config.ajaxDelay,
-						avatar: user.username.toLowerCase(),
-						err: null
-					});
+					if (req.body.roles && (req.body.roles.indexOf('teammember') > -1)) {
+						mAdmin.setOnlineStatus(req.body.access_token, 'online');
+						logger.info('route POST \"/extranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
+						return res.render('extranet', {							// render extranet page
+							appName: config.appName,
+							roles: req.body.roles.split(','),
+							ajaxDelay: config.ajaxDelay,
+							avatar: user.username.toLowerCase(),
+							user: user,
+							accessToken: req.body.access_token,
+							err: null
+						});
+					} else {
+						mAdmin.setOnlineStatus(req.body.access_token, 'offline');
+						mAdmin.logout(req.accessToken.id);
+						var e = new Error(g.f('Invalid Access Token'));
+						e.status = e.statusCode = 401;
+						e.code = e.errorCode = 'INVALID_TOKEN';
+						return res.send(e);
+					}
 				}
 			});
 		} else {													// not logged user, login form credentials filled
-			login(req, (err, tokenId, roles) => {
+			login(['teammember'], req, (err, tokenId, roles) => {
 				if (err) {
 					return res.sendStatus(err);
 				} else {
 					mAdmin.setOnlineStatusByTokenId(tokenId, 'online');
-					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/intranet" again
+					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/extranet" again
 						appName: config.appName,
 						accessToken: tokenId,
 						roles: roles,
 						ajaxDelay: config.ajaxDelay,
-						action: '/intranet',
+						action: '/extranet',
 						err: null
 					});
 				}
@@ -439,7 +474,7 @@ module.exports = function(server) {
 
 	router.post('/login', function(req, res) {
 		logger.info('route POST \"/login\" from: ' + req.clientIP + geo2str(req.geo));
-		login(req, (err, tokenId) => {
+		login(null, req, (err, tokenId) => {
 			if (err) {
 				res.sendStatus(err);
 			} else {
@@ -509,7 +544,7 @@ module.exports = function(server) {
 				login: false
 			});
 		}
-		login(req, (err, tokenId) => {
+		login(null, req, (err, tokenId) => {
 			if (err) {
 				mAdmin.setOnlineStatusByTokenId(tokenId, 'offline');
 				return res.sendStatus(err);
@@ -526,8 +561,8 @@ module.exports = function(server) {
 	});
 
 	// log a user out
-	router.get('/logout', function(req, res, next) {
-		logger.info('route GET \"/logout\" from: ' + req.clientIP + geo2str(req.geo));
+	router.post('/logout', function(req, res, next) {
+		logger.info('route POST \"/logout\" from: ' + req.clientIP + geo2str(req.geo));
 		if (!req.body)
 			return res.sendStatus(403);
 		if (!req.accessToken)
