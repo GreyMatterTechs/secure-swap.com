@@ -4,6 +4,20 @@
 <head>
 	<%- include('partials/gtag', {path: '/login'}); %>
 	<%- include('partials/head'); %>
+	<!-- BEGIN VENDOR CSS-->
+	<!--link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"-->
+	<link rel="stylesheet" type="text/css" href="/theme-assets/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme-assets/fonts/flag-icon-css/css/flag-icon.min.css">
+	<link rel="stylesheet" type="text/css" href="/theme-assets/vendors/vendors.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendors/vendors.min.css">
+	<!-- END VENDOR CSS-->
+	<!-- BEGIN Page Level CSS-->
+	<link rel="stylesheet" type="text/css" href="/theme-assets/css/template-3d-animation.css">
+	<!-- END Page Level CSS-->
+	<!-- BEGIN Custom CSS-->
+	<link rel="stylesheet" type="text/css" href="/assets/css/style.css">
+	<!-- END Custom CSS-->
 </head>
 
 <body class="1-column undefined  page-animated svg-wrapper nojs loaded" data-menu-open="hover" data-menu="">
@@ -105,28 +119,28 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em" crossorigin="anonymous"></script>
-	<script src="theme-assets/vendors/vendors.min.js"></script>
-	<script src="assets/vendors/vendors.min.js"></script>
+	<script src="/theme-assets/vendors/vendors.min.js"></script>
+	<script src="/assets/vendors/vendors.min.js"></script>
 	<!-- BEGIN VENDOR JS-->
 	<!-- BEGIN I18N JS-->
-	<script src="assets/jquery-i18n/CLDRPluralRuleParser.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.messagestore.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.fallbacks.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.language.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.parser.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.emitter.js"></script>
-	<script src="assets/jquery-i18n/jquery.i18n.emitter.bidi.js"></script>
-	<script src="assets/jquery-i18n/languages/uk.js"></script>
+	<script src="/assets/jquery-i18n/CLDRPluralRuleParser.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.messagestore.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.fallbacks.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.language.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.parser.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.emitter.js"></script>
+	<script src="/assets/jquery-i18n/jquery.i18n.emitter.bidi.js"></script>
+	<script src="/assets/jquery-i18n/languages/uk.js"></script>
 	<!-- END I18N JS-->
 	<!-- BEGIN THEME JS-->
-	<script src="theme-assets/js/theme.js"></script>
+	<script src="/theme-assets/js/theme.js"></script>
 	<!-- END THEME JS-->
 	<!-- BEGIN Custom JS-->
 	<!--script src="assets/vendors/moment/moment-with-locales.js"></script-->
-	<script src="assets/js/tools.js"></script>
-	<script src="assets/js/i18n.js"></script>
-	<script src="assets/js/login.js"></script>
+	<script src="/assets/js/tools.js"></script>
+	<script src="/assets/js/i18n.js"></script>
+	<script src="/assets/js/login.js"></script>
 	<script type="text/javascript">
 		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Login.getInstance().init(null, '<%- JSON.stringify(err) %>'), false );
 	</script>

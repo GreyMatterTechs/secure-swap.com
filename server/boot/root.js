@@ -386,6 +386,7 @@ module.exports = function(server) {
 						appName: config.appName,
 						roles: roles.split(','),
 						ajaxDelay: config.ajaxDelay,
+						avatar: username.toLowerCase(),
 						err: null
 					});
 				}
@@ -412,6 +413,7 @@ module.exports = function(server) {
 						appName: config.appName,
 						roles: req.body.roles.split(','),
 						ajaxDelay: config.ajaxDelay,
+						avatar: user.username.toLowerCase(),
 						err: null
 					});
 				}
