@@ -1,0 +1,79 @@
+    ____                        ____                  
+   /  __| ___ __ _  _ _ _ ___  /  __|_ __ ____ _ _ __ 
+   \__  \/ -_) _| || | '_/ -_) \__  \ V  V / _` | '_ \
+   |____/\___\__|\_,_|_| \___| |____/\_/\_/\__,_| .__/
+   The #1 new generation                        |_|    
+   crypto-currencies exchanger
+
+   Site name: Secure Swap
+   Site URL: https://secure-swap.com
+	
+   
+/* TEAM */
+
+   Company: Grey Matter Technologies SpA
+   
+   CEO : Alain Saffray
+   Contact: contact [at] secure-swap [dot] com
+   Location: Santiago, Chile
+
+   CTO : Philippe Aubessard
+   Contact: contact [at] secure-swap [dot] com
+   Location: Paris, France
+   
+   ...   	  
+
+
+/* SPECIAL THANKS */
+
+   Our families, for patience ^^
+  
+   Humans.txt
+   We Are People, Not Machines
+   www.humanstxt.org
+
+   We would like to thank the amazing team over at https://secure-swap.com for the work they do to support and create this great project.
+
+/* SOCIAL */
+
+	Linkedin:    https://linkedin.com/in/secureswap
+	Twitter:     https://twitter.com/secureswap
+	Facebook:    https://www.facebook.com/secureswap
+	Google+:     https://plus.google.com/secureswap/
+	Instagram:   https://www.instagram.com/secureswap/
+	YouTube:     https://www.youtube.com/channel/secureswap
+	Tumblr:      https://secureswap.tumblr.com/
+
+/* SITE */
+
+   Name: Secure Swap ICO website
+   URL: https://secure-swap.com
+   Last update: today :)
+   Language: Multi
+   File types used: css, js, svg, png, gif, json
+
+   Compatibility
+      This website has been tested on the latest stable versions of every browser.
+      Internet Explorer users should make sure they have the latest Internet Explorer, and check for updates to Windows every day.
+      No support will be given if you are using an outdated version of Internet Explorer or don't have the latest updates.
+
+   Server-side:
+      OS: Linux
+      Languages: Javascript
+      Components: Node.js Nginx
+
+   Client-side:
+      Doctype: HTML5
+      Standards: HTML5, CSS3, SASS
+      Languages: JavaScript
+      Technologies: Ajax
+      Components: jQuery, Twitter Bootstrap, google reCaptcha, google analytics
+      Icons: Font-Awesome
+      Typography: Comfortaa, Open Sans Condensed
+
+   Dev-tools:
+      Visual Studio Code, Notepad++, VirtualBox, FileZilla, WinSCP, Putty, Gimp, Chrome
+   
+   Copyright: Grey Matter Technologies SpA, 2018
+   License: 
+   Version: 0.0.1

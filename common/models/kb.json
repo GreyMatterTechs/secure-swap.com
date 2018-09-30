@@ -1,0 +1,82 @@
+{
+  "name": "KB",
+  "plural": "KBs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "title": {
+    	"type": "string",
+    	"required": false
+	},
+	"text": {
+		"type": "string",
+		"required": true
+	},
+	"categories": {
+		"type": "array",
+		"required": false
+	},
+	"tags": {
+		"type": "array",
+		"required": false
+	},
+	"author": {
+		"type": "string",
+		"required": true
+	},
+	"date": {
+		"type": "date",
+		"required": true
+	}
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+	"add": {
+		"accepts": [
+		  {
+			"arg": "tokenId",
+			"type": "String",
+			"root": true
+		  },
+		  {
+			"arg": "kb",
+			"type": "Object",
+			"root": true
+		  }
+		],
+		"returns": [],
+		"http": {
+		  "verb": "post"
+		}
+	  },
+	  "search": {
+		"accepts": [
+		  {
+			"arg": "tokenId",
+			"type": "String",
+			"root": true
+		  },
+		  {
+			"arg": "words",
+			"type": "String",
+			"root": true
+		  }
+		],
+		"returns": [
+			{
+				"arg": "res",
+				"type": "Array",
+				"root": true
+			}
+		],
+		"http": {
+		  "verb": "post"
+		}
+	  }
+  }
+}

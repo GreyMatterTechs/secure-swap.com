@@ -30,6 +30,18 @@
 		"js": "client/theme-assets/js",
 		"vendor": "client/theme-assets/vendors"
 	},
+	"extranet_assets_source": {
+		"path": "client-extranet-src/assets",
+		"sass": "client-extranet-src/assets/scss",
+		"js": "client-extranet-src/assets/js",
+		"vendor": "client-extranet-src/assets/vendors"
+	},
+	"extranet_assets_dest": {
+		"path": "client/_extranet/assets/**",
+		"css": "client/_extranet/assets/css",
+		"js": "client/_extranet/assets/js",
+		"vendor": "client/_extranet/assets/vendors"
+	},
 	"esp": { 
 		"path": "server/views/**"
 	}

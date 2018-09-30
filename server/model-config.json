@@ -21,8 +21,8 @@
         "type": "belongsTo",
         "model": "Admin",
         "foreignKey": "userId"
-	  }
-	}
+      }
+    }
   },
   "ACL": {
     "dataSource": "db",
@@ -52,12 +52,20 @@
   },
   "Admin": {
     "dataSource": "db",
-    "public": false,
+    "public": true,
     "options": {
       "emailVerificationRequired": true
     }
   },
   "ICO": {
+    "dataSource": "db",
+    "public": true
+  },
+  "Category": {
+    "dataSource": "db",
+    "public": true
+  },
+  "KB": {
     "dataSource": "db",
     "public": true
   }

@@ -29,6 +29,7 @@ var dsName;
 var mAdmin;
 var mICO;
 var mRole;
+var mCategory;
 var mRoleMapping;
 
 const HOUR_IN_MILLISECONDS	= 1000 * 60 * 60;
@@ -41,10 +42,21 @@ const roles = {
 	animator:	'animator',
 	node:		'node',
 	manager:	'manager',
+	team:		'team',
 	teammember:	'teammember',
 	vip:		'vip',
 	guest:		'guest'
 };
+const categories = [
+	'ICO',
+	'Token',
+	'Blockchain',
+	'Security',
+	'Trading',
+	'Legal',
+	'Exchangers',
+	'Secure Swap'
+];
 
 var hour = 1;
 
@@ -70,6 +82,42 @@ function updateRole(cb) {
 	}, function(err) {
 		if (err) return cb(err);
 		return cb();
+	});
+}
+
+function updateCategory(cb) {
+	mCategory.count(function(err, count) {
+		if (count) {
+			async.forEachOf(categories, function(value, key, callback) {
+				mCategory.find({where: {name: value}}, function(err, categories) {
+					if (err) return callback(err);
+					if (categories && categories.length === 1) {
+						return callback();
+					}
+					mCategory.create({
+						name: value
+					}, function(err, category) {
+						if (err) return callback(err);
+						return callback();
+					});
+				});
+			}, function(err) {
+				if (err) return cb(err);
+				return cb();
+			});
+		} else {
+			async.forEachOf(categories, function(value, key, callback) {
+				mCategory.create({
+					name: value
+				}, function(err, category) {
+					if (err) return callback(err);
+					return callback();
+				});
+			}, function(err) {
+				if (err) return cb(err);
+				return cb();
+			});
+		}
 	});
 }
 
@@ -285,7 +333,7 @@ function updateAdmins(cb) {
 		userdata: {
 			username: 'team',				password: 'B2xW6mkG',			email: 'team@secure-swap.com',
 			active: true,					accessVerified: true,			verificationToken: null,
-			emailVerified: true,											roles: [roles.teammember]
+			emailVerified: true,											roles: [roles.team]
 		}
 	}, {
 		userdata: {
@@ -317,10 +365,10 @@ function create(ds, tables, cb) {
 }
 
 function update(ds, tables, cb) {
-	ds.autoupdate(tables, function(err) {
+	ds.autoupdate(tables, function(err, result) {
 		if (err) return cb(err);
 		logger.info('Updating Loopback tables [' + tables + '] in "' + dsName + '" database...');
-		async.series([updateRole, updateICO, updateAdmins], function(err, result) {
+		async.series([updateRole, updateICO, updateAdmins, updateCategory], function(err, result) {
 			if (err) return cb(err);
 			logger.info('Loopback tables [' + tables + '] updated in "' + dsName + '" database.');
 			return cb();
@@ -347,10 +395,11 @@ module.exports = function(app) {
 	mAdmin = app.models.Admin;
 	mICO = app.models.ICO;
 	mRole = app.models.Role;
+	mCategory = app.models.Category;
 	mRoleMapping = app.models.RoleMapping;
 
 	var lbMigrateTables = ['AccessToken', 'ACL', 'RoleMapping'];
-	var lbUpdateTables = ['Role', 'Admin', 'ICO'];	// no properties in Contact and I18n models
+	var lbUpdateTables = ['Role', 'Admin', 'ICO', 'Category'];	// no properties in Contact and I18n models
 	async.series([
 		function(cb) { create(ds, lbMigrateTables, cb); },
 		function(cb) { update(ds, lbUpdateTables, cb); }

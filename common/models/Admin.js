@@ -14,15 +14,16 @@
 // includes
 // ------------------------------------------------------------------------------------------------------
 
-const path = require('path');
-const async = require('async');
-const passGen = require('password-generator');
-const uuidV1 = require('uuid/v1');
-const g = reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
-const loopback = reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
-const utils = reqlocal(path.join('node_modules', 'loopback', 'lib', 'utils'));
-const config = reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
-const logger = reqlocal(path.join('server', 'boot', 'winston.js')).logger;
+const path		= require('path');
+const async		= require('async');
+const passGen	= require('password-generator');
+const uuidV1	= require('uuid/v1');
+const app		= reqlocal(path.join('server', 'server'));
+const g			= reqlocal(path.join('node_modules', 'loopback', 'lib', 'globalize'));
+const loopback	= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
+const utils		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'utils'));
+const config	= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
+const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 // ------------------------------------------------------------------------------------------------------
 // Local Vars
@@ -80,6 +81,18 @@ function createTemplatedEmailBody(options, cb) {
 }
 */
 
+
+/**
+ * @description determine if an array contains one or more items from another array.
+ * @param {array} haystack the array to search.
+ * @param {array} arr the array providing items to check for in the haystack.
+ * @return {boolean} true|false if haystack contains at least one item from arr.
+ */
+var findOne = function(haystack, arr) {
+	return arr.some(v => haystack.indexOf(v) >= 0);
+};
+
+
 function getUser(tokenId, thisUser, cb) {
 	thisUser.relations.accessTokens.modelTo.findById(tokenId, function(err, accessToken) {
 		if (err) {
@@ -113,6 +126,79 @@ function getUser(tokenId, thisUser, cb) {
 function geo2str(geo) {
 	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
 	return ' (localhost)';
+}
+
+
+/**
+ * Check if val is a String
+ *
+ * @method isString
+ * @private
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is a String
+ */
+function isString(val) {
+	return Object.prototype.toString.call(val) === '[object String]';
+	// return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
+}
+
+
+/**
+ * Check access token validity
+ *
+ * @method checkToken
+ * @private
+ * @param    {String}   tokenId The token ID got from call to /login
+ * @callback {Function} cb      Callback function
+ * @param    {Error}    err     Error information
+ * @param    {Boolean}  granted True if access is granted
+ */
+function checkToken(tokenId, cb) {
+	const DEFAULT_TOKEN_LEN = 64; // taken from E:\DevGreyMatter\websites\secure-swap.com\node_modules\loopback\common\models\access-token.js
+	const mAdmin = app.models.Admin;
+	const mAccessToken = app.models.AccessToken;
+	var e = new Error(g.f('Invalid Access Token'));
+	e.status = e.statusCode = 401;
+	e.code = e.errorCode = 'INVALID_TOKEN';
+
+	if (!isString(tokenId) || tokenId.length !== DEFAULT_TOKEN_LEN) {
+		logger.debug('Admin.checkToken() token !String. e:' + e);
+		return cb(e, null);
+	}
+
+	mAccessToken.findById(tokenId, function(err, accessToken) {
+		if (err) {
+			logger.debug('Admin.checkToken() mAccessToken.findById failed. err:' + err);
+			return cb(err, null);
+		}
+		if (accessToken) {
+			accessToken.validate(function(err, isValid) {	// check user ACL and token TTL
+				if (err) {
+					logger.debug('Admin.checkToken() validate failed. err:' + err);
+					return cb(err, null);
+				} else if (isValid) {
+					mAdmin.findById(accessToken.userId, function(err, user) {	// check if user is active
+						if (err) {
+							logger.debug('Admin.checkToken() mAdmin.findById failed. err:' + err);
+							return cb(err, null);
+						}
+						if (!user || !user.active) {
+							logger.debug('Admin.checkToken() (!user || !user.active). e:' + e);
+							return cb(e, null);
+						}
+						return cb(null, true);
+					});
+				} else {
+					logger.debug('Admin.checkToken() !isValid. e:' + e);
+					return cb(e, null);
+				}
+			});
+		} else {
+			logger.debug('Admin.checkToken() accessToken===null. e:' + e);
+			return cb(e, null);
+		}
+	});
 }
 
 
@@ -162,8 +248,8 @@ module.exports = function(Admin) {
 		Admin.disableRemoteMethodByName('count');                                // disables GET /Admins/count
 		Admin.disableRemoteMethodByName('findOne');                              // disables GET /Admins/findOne
 
-		//Admin.disableRemoteMethodByName('login');                                // disables POST /Admins/login
-		//Admin.disableRemoteMethodByName('logout');                               // disables POST /Admins/logout
+		// Admin.disableRemoteMethodByName('login');                                // disables POST /Admins/login
+		// Admin.disableRemoteMethodByName('logout');                               // disables POST /Admins/logout
 
 		Admin.disableRemoteMethodByName('resetPassword');                        // disables POST /Admins/reset
 		Admin.disableRemoteMethodByName('setPassword');                          // disables POST /Admins/reset-password
@@ -269,36 +355,40 @@ module.exports = function(Admin) {
 	};
 
 
-	Admin.getOnlineStatuses = function(tokenId, userId, fn) {
+	Admin.getOnlineStatuses = function(tokenId, fn) {
 		fn = fn || utils.createPromiseCallback();
-		var err;
-	/*	if (!tokenId) {
-			err = new Error(g.f('{{tokenId}} is required to get Online Statuses'));
-			err.status = 401;
-			process.nextTick(fn, err);
-			return fn.promise;
-		}
-	*/	if (!userId) {
-			err = new Error(g.f('{{userId}} is required to get Online Statuses'));
-			err.status = 400;
-			process.nextTick(fn, err);
-			return fn.promise;
-		}
-		Admin.find({}, function(err, users) {
-			if (err) return fn(err);
-			var statuses = {};
-			var now = new Date().getTime();
-			users.forEach(function(user) {
-				var status = user.onlineStatus;
-				if (status === 'online') {
-					if (user.dateLastVisit) {
-						var dateLastVisit = new Date(user.dateLastVisit).getTime();
-						if (now > dateLastVisit + 1000 * 60) status = 'away';
+		var e = new Error(g.f('Invalid Access Token'));
+		e.status = e.statusCode = 401;
+		e.code = 'INVALID_TOKEN';
+		checkToken(tokenId, function(err, granted) {
+			if (err) {
+				process.nextTick(fn, err);
+				return fn.promise;
+			}
+			if (!granted) {
+				process.nextTick(fn, e);
+				return fn.promise;
+			}
+			Admin.find({}, function(err, users) {
+				if (err) return fn(err);
+				var statuses = [];
+				var now = new Date().getTime();
+				users.forEach(function(user) {
+					if (user.active) {
+						if (findOne(['teammember'], user.roles)) {
+							var status = user.onlineStatus;
+							if (status === 'online') {
+								if (user.dateLastVisit) {
+									var dateLastVisit = new Date(user.dateLastVisit).getTime();
+									if (now > dateLastVisit + 1000 * 60) status = 'away';
+								}
+							}
+							statuses.push({username: user.username, status: status});
+						}
 					}
-				}
-				statuses[user.id] = status;
+				});
+				fn(null, statuses);
 			});
-			fn(null, statuses);
 		});
 		return fn.promise;
 	};
@@ -307,15 +397,16 @@ module.exports = function(Admin) {
 		description: 'Reports online status of this user',
 		accepts: [
 			{
-				arg: 'access_token', type: 'string', http: function(ctx) {
+				arg: 'access_token',
+				type: 'string',
+				http: function(ctx) {
 					var req = ctx && ctx.req;
 					var accessToken = req && req.accessToken;
 					var tokenID = accessToken ? accessToken.id : undefined;
 					return tokenID;
 				},
 				description: 'Do not supply this argument, it is automatically extracted from request headers.'
-			},
-			{ arg: 'userId', type: 'string', required: true, description: 'id of user' }
+			}
 		],
 		returns: { arg: 'statuses', type: 'object', root: true },
 		http: { verb: 'POST' }

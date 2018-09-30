@@ -152,12 +152,16 @@ function login(grantedRoles, req, cb) {
  * @param    {Error}    err     Error information
  * @param    {Object}   user    Granted user
  */
-function checkToken(tokenId, cb) {
+function checkToken(tokenId, roles, cb) {
 	const DEFAULT_TOKEN_LEN = 64; // taken from E:\DevGreyMatter\websites\secure-swap.com\node_modules\loopback\common\models\access-token.js
 	var e = new Error(g.f('Invalid Access Token'));
 	e.status = e.statusCode = 401;
 	e.code = 'INVALID_TOKEN';
 
+	if (typeof roles === 'function') {
+		cb = roles;
+		roles = null;
+	}
 	if (!isString(tokenId) || tokenId.length !== DEFAULT_TOKEN_LEN)
 		return cb(e, null);
 
@@ -172,6 +176,12 @@ function checkToken(tokenId, cb) {
 						if (err) return cb(err, null);
 						if (!user || !user.active) {
 							return cb(e, null);
+						}
+						if (roles) {
+							var granted = findOne(roles, user.roles);
+							if (!granted) {
+								return cb(e, null);
+							}
 						}
 						return cb(null, user);
 					});
@@ -195,12 +205,16 @@ function checkToken(tokenId, cb) {
  * @param    {Error}    err      Error information
  * @param    {Object}   user     the logged in user
  */
-function getUser(req, cb) {
+function getUser(req, roles, cb) {
+	if (typeof roles === 'function') {
+		cb = roles;
+		roles = null;
+	}
 	if (!req.query.access_token && !req.accessToken) {
 		return cb(403, null);
 	}
 	var token = req.query.access_token || req.accessToken;
-	checkToken(token.id, function(err, user) {
+	checkToken(token.id, roles, function(err, user) {
 		if (err) return cb(err, null);
 		return cb(null, user);
 	});
@@ -406,7 +420,6 @@ module.exports = function(server) {
 					mAdmin.setOnlineStatus(token, 'online');
 					return res.render('extranet', {				// render the extranet page
 						appName: config.appName,
-						roles: user.roles.split(','),
 						ajaxDelay: config.ajaxDelay,
 						avatar: user.username.toLowerCase(),
 						user: user,
@@ -422,35 +435,26 @@ module.exports = function(server) {
 		if (!req.body)
 			return res.sendStatus(403);
 		if (req.body.access_token) {								// logged user, accessToken granted
-			checkToken(req.body.access_token, function(err, user) {
+			checkToken(req.body.access_token, ['teammember'], function(err, user) {
 				if (err) {
-					mAdmin.setOnlineStatus(req.body.access_token, 'offline');
+					mAdmin.setOnlineStatusById(user.id, 'offline');
+					mAdmin.logout(req.accessToken.id);
 					return res.render('login', {					// accessToken invalid, render the login page, empty form
 						appName: config.appName,
 						action: '/extranet',
 						err: null
 					});
 				} else {
-					if (req.body.roles && (req.body.roles.indexOf('teammember') > -1)) {
-						mAdmin.setOnlineStatus(req.body.access_token, 'online');
-						logger.info('route POST \"/extranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
-						return res.render('extranet', {							// render extranet page
-							appName: config.appName,
-							roles: req.body.roles.split(','),
-							ajaxDelay: config.ajaxDelay,
-							avatar: user.username.toLowerCase(),
-							user: user,
-							accessToken: req.body.access_token,
-							err: null
-						});
-					} else {
-						mAdmin.setOnlineStatus(req.body.access_token, 'offline');
-						mAdmin.logout(req.accessToken.id);
-						var e = new Error(g.f('Invalid Access Token'));
-						e.status = e.statusCode = 401;
-						e.code = e.errorCode = 'INVALID_TOKEN';
-						return res.send(e);
-					}
+					mAdmin.setOnlineStatusById(user.id, 'online');
+					logger.info('route POST \"/extranet\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
+					return res.render('extranet', {							// render extranet page
+						appName: config.appName,
+						ajaxDelay: config.ajaxDelay,
+						avatar: user.username.toLowerCase(),
+						user: user,
+						accessToken: req.body.access_token,
+						err: null
+					});
 				}
 			});
 		} else {													// not logged user, login form credentials filled
@@ -458,13 +462,58 @@ module.exports = function(server) {
 				if (err) {
 					return res.sendStatus(err);
 				} else {
-					mAdmin.setOnlineStatusByTokenId(tokenId, 'online');
 					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/extranet" again
 						appName: config.appName,
 						accessToken: tokenId,
 						roles: roles,
 						ajaxDelay: config.ajaxDelay,
 						action: '/extranet',
+						err: null
+					});
+				}
+			});
+		}
+	});
+
+	router.post('/kb', function(req, res) {
+		logger.info('route POST \"/kb\" from: ' + req.clientIP + geo2str(req.geo));
+		if (!req.body)
+			return res.sendStatus(403);
+		if (req.body.access_token) {								// logged user, accessToken granted
+			checkToken(req.body.access_token, ['teammember'], function(err, user) {
+				if (err) {
+					if (user) mAdmin.setOnlineStatusById(user.id, 'offline');
+					if (req.accessToken) mAdmin.logout(req.accessToken.id);
+					return res.render('login', {					// accessToken invalid, render the login page, empty form
+						appName: config.appName,
+						action: '/kb',
+						err: null
+					});
+				} else {
+					mAdmin.setOnlineStatusById(user.id, 'online');
+					logger.info('route POST \"/kb\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
+					return res.render('kb', {							// render extranet page
+						appName: config.appName,
+						ajaxDelay: config.ajaxDelay,
+						avatar: user.username.toLowerCase(),
+						user: user,
+						accessToken: req.body.access_token,
+						action: '/kb',	// pour résoudre un bug: lorsque token est timeout, si F5 sur Chrome, il essaie de r'afficher la page Login à partir de sa cache, et il lui manque cette variable
+						err: null
+					});
+				}
+			});
+		} else {													// not logged user, login form credentials filled
+			login(['teammember'], req, (err, tokenId, roles) => {
+				if (err) {
+					return res.sendStatus(err);
+				} else {
+					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/extranet" again
+						appName: config.appName,
+						accessToken: tokenId,
+						roles: roles,
+						ajaxDelay: config.ajaxDelay,
+						action: '/kb',
 						err: null
 					});
 				}

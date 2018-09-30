@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en" data-textdirection="ltr">
+
+<head>
+	<%- include('partials/gtag', {path: '/kb'}); %>
+	<%- include('partials/head'); %>
+	<!-- BEGIN VENDOR CSS-->
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/css/vendors.css">
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/vendors/css/charts/chartist.css">
+	<link rel="stylesheet" type="text/css" href="_extranet/app-assets/vendors/css/charts/chartist-plugin-tooltip.css">
+	<link rel="stylesheet" type="text/css" href="_extranet/assets/vendors/vendors.css">
+    <!-- END VENDOR CSS-->
+    <!-- BEGIN MODERN CSS-->
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/css/app.css">
+    <!-- END MODERN CSS-->
+    <!-- BEGIN Page Level CSS-->
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/css/core/menu/menu-types/vertical-compact-menu.css">
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/vendors/css/cryptocoins/cryptocoins.css">
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/css/pages/timeline.css">
+    <link rel="stylesheet" type="text/css" href="_extranet/app-assets/css/pages/dashboard-ico.css">
+    <!-- END Page Level CSS-->
+    <!-- BEGIN Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="_extranet/assets/css/style.css">
+    <!-- END Custom CSS-->
+	<script src="https://www.google.com/recaptcha/api.js?render=<%- grecKeyPub %>"></script>
+</head>
+
+<body class="vertical-layout vertical-compact-menu 2-columns   menu-expanded fixed-navbar" data-open="click" data-menu="vertical-compact-menu" data-col="2-columns">
+
+    <%- include('partials/noscript'); %>
+	
+    <!-- fixed-top-->
+    <nav class="header-navbar navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow fixed-top navbar-light navbar-bg-color">
+      <div class="navbar-wrapper">
+        <div class="navbar-header d-md-none">
+          <ul class="nav navbar-nav flex-row">
+            <li class="nav-item mobile-menu d-md-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu font-large-1"></i></a></li>
+			<li class="nav-item d-md-none">
+				<a class="navbar-brand" href="index.html">
+					<img class="brand-logo d-none d-md-block" alt="crypto ico admin logo" src="/assets/images/logo64.png">
+					<img class="brand-logo d-sm-block d-md-none" alt="crypto ico admin logo sm" src="/assets/images/logo64.png">
+				</a>
+			</li>
+            <li class="nav-item d-md-none"><a class="nav-link open-navbar-container" data-toggle="collapse" data-target="#navbar-mobile"><i class="la la-ellipsis-v">   </i></a></li>
+          </ul>
+        </div>
+        <div class="navbar-container">
+          <div class="collapse navbar-collapse" id="navbar-mobile">
+            <ul class="nav navbar-nav mr-auto float-left">
+              <li class="nav-item d-none d-md-block"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ft-menu"></i></a></li>
+              <li class="nav-item nav-search"><a class="nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
+                <div class="search-input">
+                  <input class="input" type="text" placeholder="Explore <%= appName %> ICO...">
+                </div>
+              </li>
+            </ul>
+            <ul class="nav navbar-nav float-right">         
+              <!--li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-gb"></i><span class="selected-language"></span></a>
+                <div class="dropdown-menu" aria-labelledby="dropdown-flag">
+                    <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-gb"></i> English</a>
+                    <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a>
+                    <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> Chinese</a>
+                    <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> German</a>
+                </div>
+              </li-->
+              <!--li class="dropdown dropdown-notification nav-item">
+                <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                    <i class="ficon ft-bell"></i><span class="badge badge-pill badge-default badge-danger badge-default badge-up badge-glow">5</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                  <li class="dropdown-menu-header">
+                    <h6 class="dropdown-header m-0"><span class="grey darken-2">Notifications</span></h6><span class="notification-tag badge badge-default badge-danger float-right m-0">5 New</span>
+                  </li>
+                  <li class="scrollable-container media-list w-100"><a href="javascript:void(0)">
+                      <div class="media">
+                        <div class="media-left align-self-center"><i class="ft-plus-square icon-bg-circle bg-cyan"></i></div>
+                        <div class="media-body">
+                          <h6 class="media-heading">You have new order!</h6>
+                          <p class="notification-text font-small-3 text-muted">Lorem ipsum dolor sit amet, consectetuer elit.</p><small>
+                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">30 minutes ago</time></small>
+                        </div>
+                      </div></a><a href="javascript:void(0)">
+                      <div class="media">
+                        <div class="media-left align-self-center"><i class="ft-download-cloud icon-bg-circle bg-red bg-darken-1"></i></div>
+                        <div class="media-body">
+                          <h6 class="media-heading red darken-1">99% Server load</h6>
+                          <p class="notification-text font-small-3 text-muted">Aliquam tincidunt mauris eu risus.</p><small>
+                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Five hour ago</time></small>
+                        </div>
+                      </div></a><a href="javascript:void(0)">
+                      <div class="media">
+                        <div class="media-left align-self-center"><i class="ft-alert-triangle icon-bg-circle bg-yellow bg-darken-3"></i></div>
+                        <div class="media-body">
+                          <h6 class="media-heading yellow darken-3">Warning notifixation</h6>
+                          <p class="notification-text font-small-3 text-muted">Vestibulum auctor dapibus neque.</p><small>
+                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Today</time></small>
+                        </div>
+                      </div></a><a href="javascript:void(0)">
+                      <div class="media">
+                        <div class="media-left align-self-center"><i class="ft-check-circle icon-bg-circle bg-cyan"></i></div>
+                        <div class="media-body">
+                          <h6 class="media-heading">Complete the task</h6><small>
+                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Last week</time></small>
+                        </div>
+                      </div></a><a href="javascript:void(0)">
+                      <div class="media">
+                        <div class="media-left align-self-center"><i class="ft-file icon-bg-circle bg-teal"></i></div>
+                        <div class="media-body">
+                          <h6 class="media-heading">Generate monthly report</h6><small>
+                            <time class="media-meta text-muted" datetime="2015-06-11T18:29:20+08:00">Last month</time></small>
+                        </div>
+                      </div></a></li>
+                  <li class="dropdown-menu-footer"><a class="dropdown-item text-muted text-center" href="javascript:void(0)">Read all notifications</a></li>
+                </ul>
+              </li-->
+              <!--li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="wallet.html"><i class="ficon icon-wallet"></i></a>
+              </li-->
+			  <li class="dropdown dropdown-user nav-item">
+				  <a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+					<span class="avatar avatar-online">
+						<img src="/assets/images/team/<%= avatar %>.png" alt="avatar">
+					</span>
+					<!--span class="mr-1">SSW<span class="user-name text-bold-700">0,45 USD</span></span-->
+				  </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item disabled" href=""><i class="ft-award"></i><%= user.username %></a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item disabled" href=""><i class="ft-user"></i> Profile</a>
+                    <!--a class="dropdown-item" href="wallet.html"><i class="icon-wallet"></i> My Wallet</a>
+                    <a class="dropdown-item" href="transactions.html"><i class="ft-check-square"></i> Transactions</a>
+                    <div class="dropdown-divider"></div-->
+                    <form id="navlink-logout" action="/logout" method="post"><input type="hidden" name="access_token" value="<%= accessToken %>"/></form>
+                    <a class="dropdown-item" href="#" onclick='document.getElementById("navlink-logout").submit()' ><i class="ft-power"></i> Logout</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+
+	<div class="main-menu menu-fixed menu-dark menu-bg-default rounded menu-accordion menu-shadow">
+		<div class="main-menu-content">
+			<a class="navigation-brand d-none d-md-block d-lg-block d-xl-block" href="/">
+				<img class="brand-logo" alt="crypto ico admin logo" src="/assets/images/logo64.png"/>
+			</a>
+			<ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+				<form id="navlink-extranet" action="/extranet" method="post"><input type="hidden" name="access_token" value="<%= accessToken %>"/></form>
+				<li class=" nav-item"><a href="#" onclick='document.getElementById("navlink-extranet").submit()'><i class="icon-grid"></i><span class="menu-title" data-i18n="">Dashboard</span></a></li>
+				<li class=" nav-item disabled "><a href="/ico"><i class="icon-layers"></i><span class="menu-title" data-i18n="">ICO</span></a></li>
+				<li class=" nav-item disabled "><a href="/transactions"><i class="icon-shuffle"></i><span class="menu-title condensed" data-i18n="">Transactions</span></a></li>
+				<form id="navlink-kb" action="/kb" method="post"><input type="hidden" name="access_token" value="<%= accessToken %>"/></form>
+				<li class="active"><a href="#" onclick='document.getElementById("navlink-kb").submit()'><i class="icon-graduation"></i><span class="menu-title condensed" data-i18n="">Knowledge Base</span></a></li>
+				<li class=" nav-item disabled "><a href="/faq"><i class="icon-support"></i><span class="menu-title" data-i18n="">FAQ</span></a></li>
+				<li class=" nav-item"><a href="#"><i class="icon-user-following"></i><span class="menu-title" data-i18n="">Account</span></a>
+					<ul class="menu-content">
+						<li class=" disabled"><a class="menu-item" href="/profile">Profile</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+    <div class="app-content content">
+    	<div class="content-wrapper">
+			
+			<div class="content-header row">
+				<div class="content-header-left col-md-8 col-12 mb-2 breadcrumb-new">
+					<h3 class="content-header-title mb-0 d-inline-block">Knowledge Base</h3>
+					<div class="row breadcrumbs-top d-inline-block">
+						<div class="breadcrumb-wrapper col-12">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#" onclick='document.getElementById("navlink-extranet").submit()' >Dashboard</a></li>
+								<li class="breadcrumb-item active">Knowledge Base</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="content-body">
+
+				<ul class="nav nav-tabs mb-1" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" data-toggle="tab" href="#tab-search" role="tab" aria-controls="tab-search" aria-selected="true">
+							<h6>
+								<i class="icon-magnifier"></i>
+								Search for answers
+							</h6>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" data-toggle="tab" href="#tab-add" role="tab" aria-controls="tab-add" aria-selected="false">
+						<h6>
+							<i class="icon-graduation"></i>
+							Add Knowledge
+						</h6>
+					</a>
+					</li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="tab-search" name="tab-search" role="tabpanel" aria-labelledby="nav-search-tab">
+						<section class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<p>Input a few keywords and check suggested answers.</p>
+									<div class="col-12">
+										<div class="row">
+											<nav style="width: 100%;" class="header-navbar ml-0 navbar-expand-md navbar navbar-with-menu navbar-without-dd-arrow navbar-light navbar-bg-color">
+												<div class="navbar-wrapper">
+													<div class="navbar-container">
+														<div class="navbar-collapse" id="navbar-search">
+															<ul style="width: 100%;" class="nav navbar-nav">
+																<li style="width: 100%;" class="nav-item nav-search">
+																	<a class="col-1 nav-link nav-link-search" href="#"><i class="ficon ft-search"></i></a>
+																	<div style="width: 90%;" class="col-11 search-input open">
+																		<input id="search" style="width: 100%;" class="input" type="text" placeholder="Explore <%= appName %> Knowledge base...">
+																	</div>
+																</li>
+															</ul>
+														</div>
+													</div>
+												</div>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+						<div id="kb-container">
+						</div>
+						<div id="pagination-container">
+						</div>
+					</div>
+				
+					<div class="tab-pane fade" id="tab-add" name="tab-add" role="tabpanel" aria-labelledby="nav-add-tab">
+						<section class="card">
+							<div class="card-content">
+								<div class="card-body">
+									<p>Thanks to share your knowledge with your team!</p>
+									<div class="col-12">
+										<div class="row">
+											<form id="form-add" class="form-horizontal form-user-profile row mt-2" novalidate >
+												<div class="col-12">
+													<fieldset class="form-label-group">
+														<input type="text" class="form-control" id="add-title" value="" autofocus=""/>
+														<label for="add-title">Title</label>
+													</fieldset>
+												</div>
+												<div class="col-12">
+													<fieldset class="form-label-group">
+														<input type="text" class="form-control" id="add-categories" value="" autofocus=""/>
+														<label for="add-categories">Select the appropriate categories or add new ones.</label>
+													</fieldset>
+												</div>
+												<div class="col-12">
+													<fieldset class="form-label-group">
+														<textarea class="form-control" rows="5" id="add-text" value="" required="required" autofocus=""></textarea>
+													</fieldset>
+													<div class="invalid-feedback">
+														Please choose a username.
+													</div>
+												</div>
+												<div class="col-12">
+													<fieldset class="form-label-group">
+														<input type="text" class="form-control" id="add-tags" value="" autofocus=""/>
+														<label for="add-tags">Please fill this tags-list carefully with most important words. Remove useless auto-generated tags.</label>
+													</fieldset>
+												</div>
+												<div class="col-12 text-right">
+													<button id="add-tags-submit" type="submit" class="btn-gradient-primary my-1">Save this awesome information</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</section>
+					</div>	
+			
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- ////////////////////////////////////////////////////////////////////////////-->
+
+	<div class="modal fade" id="kb-view" tabindex="-1" role="dialog" aria-labelledby="kb-view" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-body">
+					<div class="card-content">
+						<div class="card-body">
+										<div class="d-flex mb-1">
+											<div class="flex-grow-1"><b class="kb-title"></b></div>
+											<div class="view-categories"></div>
+										</div>
+										<div class="d-flex">
+											<div class="kb-text"></div>
+										</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="kb-author"></div>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- //////////////////////////////////// FOOTER ////////////////////////////////////-->
+	<footer class="footer footer-static footer-transparent">
+		<p class="clearfix blue-grey lighten-2 text-sm-center mb-0 px-2">
+			<span class="float-md-left d-block d-md-inline-block">Copyright &copy; 2018, Grey Matter Technologies SpA, All rights reserved. </span>
+			<span class="float-md-right d-block d-md-inline-block">
+				<a href="humans.txt" target="_blank">
+					<img src="assets/images/humanstxt-isolated-blank.gif" alt="We Are People, Not Machines"></img>
+				</a>
+			</span>
+		</p>
+    </footer>
+	<!-- //////////////////////////////////// END FOOTER ////////////////////////////////////-->
+
+	<!-- BEGIN VENDOR JS-->
+    <script src="/_extranet/app-assets/vendors/js/vendors.min.js" type="text/javascript"></script>
+    <!-- BEGIN VENDOR JS-->
+    <!-- BEGIN PAGE VENDOR JS-->
+    <script src="/_extranet/app-assets/vendors/js/charts/chartist.min.js" type="text/javascript"></script>
+    <script src="/_extranet/app-assets/vendors/js/charts/chartist-plugin-tooltip.min.js" type="text/javascript"></script>
+    <script src="/_extranet/app-assets/vendors/js/timeline/horizontal-timeline.js" type="text/javascript"></script>
+	<script src="/_extranet/assets/vendors/vendors.js"></script>
+    <!-- END PAGE VENDOR JS-->
+    <!-- BEGIN MODERN JS-->
+    <script src="/_extranet/app-assets/js/core/app-menu.js" type="text/javascript"></script>
+    <script src="/_extranet/app-assets/js/core/app.js" type="text/javascript"></script>
+    <!-- END MODERN JS-->
+    <!-- BEGIN PAGE LEVEL JS-->
+    <script src="/_extranet/app-assets/js/scripts/pages/dashboard-ico.js" type="text/javascript"></script>
+    <!-- END PAGE LEVEL JS-->
+    <!-- BEGIN Custom JS-->
+	<script src="/assets/js/tools.js"></script>
+	<script src="/_extranet/assets/js/kb.js"></script>
+	<script type="text/javascript">
+		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Kb.getInstance().init('<%= user.username %>', '<%- ajaxDelay %>', '<%= accessToken %>'), false );
+	</script>
+	<!-- END Custom JS-->
+</body>
+
+</html>

@@ -1,100 +1,106 @@
 {
-	"name": "Admin",
-	"plural": "Admins",
-	"base": "User",
-	"idInjection": true,
-	"options": {
-		"validateUpsert": true
-	},
-	"properties": {
-		"active": {
-			"type": "boolean",
-			"required": true,
-			"default": false
-		},
-		"accessVerified": {
-			"type": "boolean",
-			"required": true
-		},
-		"onlineStatus": {
-			"type": "string",
-			"required": false,
-			"default": "offline"
-		},
-		"dateCreated": {
-			"type": "date",
-			"required": false
-		},
-		"dateLastUpdated": {
-			"type": "date",
-			"required": false
-		},
-		"updatedBy": {
-			"type": "string",
-			"required": false
-		},
-		"dateLastVisit": {
-			"type": "date",
-			"required": false
-		}
-	},
-	"validations": [],
-	"relations": {},
-	"acls": [
-		{
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "DENY"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "DENY",
-			"property": "create"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$owner",
-			"permission": "DENY",
-			"property": "deleteById"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "ALLOW",
-			"property": "login"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "ALLOW",
-			"property": "logout"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$owner",
-			"permission": "ALLOW",
-			"property": "findById"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$owner",
-			"permission": "ALLOW",
-			"property": "updateAttributes"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "DENY",
-			"property": "confirm"
-		},
-		{
-			"principalType": "ROLE",
-			"principalId": "$everyone",
-			"permission": "DENY",
-			"property": "resetPassword",
-			"accessType": "EXECUTE"
-		}
-	],
-	"methods": {}
+  "name": "Admin",
+  "plural": "Admins",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": false
+    },
+    "accessVerified": {
+      "type": "boolean",
+      "required": true
+    },
+    "onlineStatus": {
+      "type": "string",
+      "required": false,
+      "default": "offline"
+    },
+    "dateCreated": {
+      "type": "date",
+      "required": false
+    },
+    "dateLastUpdated": {
+      "type": "date",
+      "required": false
+    },
+    "updatedBy": {
+      "type": "string",
+      "required": false
+    },
+    "dateLastVisit": {
+      "type": "date",
+      "required": false
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "create"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "DENY",
+      "property": "deleteById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "login"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "logout"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "findById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "teammember",
+      "permission": "ALLOW",
+      "property": "getOnlineStatuses"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$owner",
+      "permission": "ALLOW",
+      "property": "updateAttributes"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "confirm"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "DENY",
+      "property": "resetPassword"
+    }
+  ],
+  "methods": {}
 }

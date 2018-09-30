@@ -59,6 +59,19 @@ gulp.task('styles-theme-assets', function() {
 		.pipe(gulp.dest(config.theme_assets_dest.css))
 		.pipe(notify({message: 'Theme-Assets Styles task complete'}));
 });
+gulp.task('styles-extranet-assets', function() {
+	return gulp.src(config.extranet_assets_source.sass + '/**/*.scss')
+		.pipe(sass())
+		.pipe(autoprefixer({
+			browsers: ['last 2 versions'],
+			cascade: false
+		}))
+		.pipe(gulp.dest(config.extranet_assets_dest.css))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(cssnano())
+		.pipe(gulp.dest(config.extranet_assets_dest.css))
+		.pipe(notify({message: 'Extranet Assets Styles task complete'}));
+});
 
 // ------------------------------------------
 // JS Distribution Task.
@@ -90,7 +103,19 @@ gulp.task('scripts-theme-assets', function() {
 		.pipe(gulp.dest(config.theme_assets_dest.js))
 		.pipe(notify({message: 'Theme-Assets Scripts task complete'}));
 });
-
+gulp.task('scripts-extranet-assets', function() {
+	return gulp.src(config.extranet_assets_source.js + '/**/*.js')
+		// .pipe(jshint('.jshintrc'))
+		// .pipe(jshint.reporter('default'))
+		// .pipe(concat('main.js'))
+		.pipe(gulp.dest(config.extranet_assets_dest.js))
+		.pipe(rename({suffix: '.min'}))
+		//  only uglify if gulp is ran with '--type production'
+		// .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+		.pipe(uglify())
+		.pipe(gulp.dest(config.extranet_assets_dest.js))
+		.pipe(notify({message: 'Extranet-Assets Scripts task complete'}));
+});
 
 // ------------------------------------------
 // Vendor Distribution Task.
@@ -108,6 +133,18 @@ gulp.task('styles-vendor-theme-assets', function() {
 		.pipe(gulp.dest(config.theme_assets_dest.vendor))
 		.pipe(notify({message: 'Vendors Theme-Assets Styles task complete'}));
 });
+gulp.task('styles-vendor-extranet-assets', function() {
+	return gulp.src(['**/*.css', '!**/*.min.css'], {cwd: config.extranet_assets_source.vendor})
+		.pipe(concat('vendors.css'))
+		.pipe(gulp.dest(config.extranet_assets_dest.vendor))
+		.pipe(rename({suffix: '.min'}))
+		.pipe(cssnano())
+		.pipe(gulp.dest(config.extranet_assets_source.vendor))
+		.pipe(concat('vendors.min.css'))
+		.pipe(gulp.dest(config.extranet_assets_dest.vendor))
+		.pipe(notify({message: 'Vendors Extranet Assets Styles task complete'}));
+});
+
 gulp.task('scripts-vendor-assets', function() {
 	return gulp.src(['**/*.min.js'], {cwd: config.assets_source.vendor})
 		.pipe(concat('vendors.min.js'))
@@ -119,6 +156,19 @@ gulp.task('scripts-vendor-theme-assets', function() {
 		.pipe(concat('vendors.min.js'))
 		.pipe(gulp.dest(config.theme_assets_dest.vendor))
 		.pipe(notify({message: 'Vendors Theme-Assets Scripts task complete'}));
+});
+gulp.task('scripts-vendor-extranet-assets', function() {
+	return gulp.src(['**/*.js', '!**/*.min.js'], {cwd: config.extranet_assets_source.vendor})
+		.pipe(concat('vendors.js'))
+		.pipe(gulp.dest(config.extranet_assets_dest.vendor))
+		.pipe(rename({suffix: '.min'}))
+		//  only uglify if gulp is ran with '--type production'
+		// .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+		.pipe(uglify())
+		.pipe(gulp.dest(config.extranet_assets_source.vendor))
+		.pipe(concat('vendors.min.js'))
+		.pipe(gulp.dest(config.extranet_assets_dest.vendor))
+		.pipe(notify({message: 'Vendors Extranet Assets Scripts task complete'}));
 });
 
 // ------------------------------------------
@@ -136,10 +186,10 @@ gulp.task('vip-assets', function() {
 // ------------------------------------------
 
 gulp.task('clean-styles', function() {
-	return del([config.assets_dest.css, config.theme_assets_dest.css]);
+	return del([config.assets_dest.css, config.theme_assets_dest.css, config.extranet_assets_dest.css]);
 });
 gulp.task('clean-scripts', function() {
-	return del([config.assets_dest.js, config.theme_assets_dest.js]);
+	return del([config.assets_dest.js, config.theme_assets_dest.js, config.extranet_assets_dest.js]);
 });
 
 // ------------------------------------------
@@ -147,7 +197,7 @@ gulp.task('clean-scripts', function() {
 // ------------------------------------------
 
 gulp.task('default', ['clean-styles', 'clean-scripts'], function() {
-	gulp.start('styles-assets', 'styles-theme-assets', 'scripts-assets', 'scripts-theme-assets');
+	gulp.start('styles-assets', 'styles-theme-assets', 'styles-extranet-assets', 'scripts-assets', 'scripts-theme-assets', 'scripts-extranet-assets');
 });
 
 
@@ -159,12 +209,15 @@ gulp.task('watch', function() {
 	// Watch .scss files
 	gulp.watch(config.assets_source.sass + '/**/*.scss', ['styles-assets']);
 	gulp.watch(config.theme_assets_source.sass + '/**/*.scss', ['styles-theme-assets']);
+	gulp.watch(config.extranet_assets_source.sass + '/**/*.scss', ['styles-extranet-assets']);
 	// Watch .js files
 	gulp.watch(config.assets_source.js + '/**/*.js', ['scripts-assets']);
 	gulp.watch(config.theme_assets_source.js + '/**/*.js', ['scripts-theme-assets']);
+	gulp.watch(config.extranet_assets_source.js + '/**/*.js', ['scripts-extranet-assets']);
 	// Watch vendor files
 	gulp.watch(config.assets_source.vendor + '/**/*.*', ['styles-vendor-assets', 'scripts-vendor-assets']);
 	gulp.watch(config.theme_assets_source.vendor + '/**/*.*', ['styles-vendor-theme-assets', 'scripts-vendor-theme-assets']);
+	gulp.watch(config.extranet_assets_source.vendor + '/**/*.*', ['styles-vendor-extranet-assets', 'scripts-vendor-extranet-assets']);
 	// Watch VIP files
 	gulp.watch(config.assets_dest.i18n + '/**/*.*', ['vip-assets']);
 

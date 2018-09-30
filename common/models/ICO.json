@@ -1,173 +1,173 @@
 {
-	"name": "ICO",
-	"plural": "ICOs",
-	"base": "PersistedModel",
-	"idInjection": true,
-	"options": {
-		"validateUpsert": true
-	},
-	"properties": {
-		"state": {
-			"type": "number",
-			"required": true
-		},
-		"wallet": {
-			"type": "string",
-			"required": false
-		},
-		"contractAddress": {
-			"type": "string",
-			"required": false
-		},
-		"tokenName": {
-			"type": "string",
-			"required": true
-		},
-		"tokenPriceUSD": {
-			"type": "number",
-			"required": true
-		},
-		"tokenPriceETH": {
-			"type": "number",
-			"required": true
-		},
-		"softCap": {
-			"type": "number",
-			"required": true
-		},
-		"hardCap": {
-			"type": "number",
-			"required": true
-		},
-		"tokensTotal": {
-			"type": "number",
-			"required": true
-		},
-		"tokensSold": {
-			"type": "number",
-			"required": true
-		},
-		"ethReceived": {
-			"type": "array",
-			"required": false
-		},
-		"ethTotal": {
-			"type": "number",
-			"required": true
-		},
-		"dateStart": {
-			"type": "Date",
-			"required": true
-		},
-		"dateEnd": {
-			"type": "Date",
-			"required": true
-		}
-	},
-	"validations": [],
-	"relations": {},
-	"acls": [],
-	"methods": {
-		"getICOData": {
-			"accepts": [],
-			"returns": {
-				"arg": "ico",
-				"type": "Object",
-				"root": true
-			},
-			"http": {
-				"verb": "get"
-			},
-			"documented": false
-		},
-		"setParams": {
-			"accepts": [
-				{
-					"arg": "tokenId",
-					"type": "String",
-					"root": true
-				},
-				{
-					"arg": "params",
-					"type": "Object",
-					"root": true
-				}
-			],
-			"returns": [],
-			"http": {
-				"verb": "post"
-			},
-			"documented": false
-		},
-		"setState": {
-			"accepts": [
-				{
-					"arg": "tokenId",
-					"type": "String",
-					"root": true
-				},
-				{
-					"arg": "params",
-					"type": "Object",
-					"root": true
-				}
-			],
-			"returns": [],
-			"http": {
-				"verb": "post"
-			},
-			"documented": false
-		},
-		"setReceivedEth": {
-			"accepts": [
-				{
-					"arg": "tokenId",
-					"type": "String",
-					"root": true
-				},
-				{
-					"arg": "params",
-					"type": "Object",
-					"root": true
-				}
-			],
-			"returns": [],
-			"http": {
-				"verb": "post"
-			},
-			"documented": false
-		},
-		"isChecksumAddress": {
-			"accepts": {
-				"arg": "address",
-				"type": "String",
-				"root": true
-			},
-			"returns": {
-				"arg": "valid",
-				"type": "Boolean",
-				"root": true
-			},
-			"http": {
-				"verb": "post"
-			},
-			"documented": false
-		},
-		"register": {
-			"accepts": {
-				"arg": "ser",
-				"type": "String",
-				"root": true
-			},
-			"returns": {
-				"arg": "code",
-				"type": "Number",
-				"root": true
-			},
-			"http": {
-				"verb": "post"
-			},
-			"documented": false
-		}
-	}
+  "name": "ICO",
+  "plural": "ICOs",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "state": {
+      "type": "number",
+      "required": true
+    },
+    "wallet": {
+      "type": "string",
+      "required": false
+    },
+    "contractAddress": {
+      "type": "string",
+      "required": false
+    },
+    "tokenName": {
+      "type": "string",
+      "required": true
+    },
+    "tokenPriceUSD": {
+      "type": "number",
+      "required": true
+    },
+    "tokenPriceETH": {
+      "type": "number",
+      "required": true
+    },
+    "softCap": {
+      "type": "number",
+      "required": true
+    },
+    "hardCap": {
+      "type": "number",
+      "required": true
+    },
+    "tokensTotal": {
+      "type": "number",
+      "required": true
+    },
+    "tokensSold": {
+      "type": "number",
+      "required": true
+    },
+    "ethReceived": {
+      "type": "array",
+      "required": false
+    },
+    "ethTotal": {
+      "type": "number",
+      "required": true
+    },
+    "dateStart": {
+      "type": "Date",
+      "required": true
+    },
+    "dateEnd": {
+      "type": "Date",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "getICOData": {
+      "accepts": [],
+      "returns": {
+        "arg": "ico",
+        "type": "Object",
+        "root": true
+      },
+      "http": {
+        "verb": "get"
+      },
+      "documented": false
+    },
+    "setParams": {
+      "accepts": [
+        {
+          "arg": "tokenId",
+          "type": "String",
+          "root": true
+        },
+        {
+          "arg": "params",
+          "type": "Object",
+          "root": true
+        }
+      ],
+      "returns": [],
+      "http": {
+        "verb": "post"
+      },
+      "documented": false
+    },
+    "setState": {
+      "accepts": [
+        {
+          "arg": "tokenId",
+          "type": "String",
+          "root": true
+        },
+        {
+          "arg": "params",
+          "type": "Object",
+          "root": true
+        }
+      ],
+      "returns": [],
+      "http": {
+        "verb": "post"
+      },
+      "documented": false
+    },
+    "setReceivedEth": {
+      "accepts": [
+        {
+          "arg": "tokenId",
+          "type": "String",
+          "root": true
+        },
+        {
+          "arg": "params",
+          "type": "Object",
+          "root": true
+        }
+      ],
+      "returns": [],
+      "http": {
+        "verb": "post"
+      },
+      "documented": false
+    },
+    "isChecksumAddress": {
+      "accepts": {
+        "arg": "address",
+        "type": "String",
+        "root": true
+      },
+      "returns": {
+        "arg": "valid",
+        "type": "Boolean",
+        "root": true
+      },
+      "http": {
+        "verb": "post"
+      },
+      "documented": false
+    },
+    "register": {
+      "accepts": {
+        "arg": "ser",
+        "type": "String",
+        "root": true
+      },
+      "returns": {
+        "arg": "code",
+        "type": "Number",
+        "root": true
+      },
+      "http": {
+        "verb": "post"
+      },
+      "documented": false
+    }
+  }
 }

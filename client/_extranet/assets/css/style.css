@@ -1,0 +1,290 @@
+/*================================================================================
+	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+/* -- general -------------------------------------- */
+.condensed {
+  font-family: "Open Sans Condensed", "Roboto", "Helvetica Neue", Arial, sans-serif; }
+
+.balloon {
+  cursor: help;
+  border-bottom: 1px dotted; }
+
+::-webkit-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #98A4B8;
+  opacity: 1;
+  /* Firefox */ }
+
+:-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #98A4B8;
+  opacity: 1;
+  /* Firefox */ }
+
+::-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #98A4B8;
+  opacity: 1;
+  /* Firefox */ }
+
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #98A4B8;
+  opacity: 1;
+  /* Firefox */ }
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #98A4B8; }
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #98A4B8; }
+
+/* -- noscript -------------------------------------- */
+input.noscript-closing-trick:checked ~ div {
+  display: none !important; }
+
+input.noscript-closing-trick {
+  position: absolute;
+  top: -9999px;
+  left: -9999px; }
+
+.noscript-overlay {
+  position: fixed;
+  /*display: none;*/
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 300; }
+
+.noscript-title {
+  font-weight: 700;
+  font-size: 32px;
+  margin: 0 0 10px 0;
+  line-height: 1.2;
+  color: #ffffff; }
+
+.noscript p {
+  color: #999;
+  margin: 0 0 25px 0;
+  color: #f0f0f0; }
+  .noscript p a {
+    color: #76daff; }
+
+.noscript-message {
+  border: 10px solid #ff3c41;
+  position: fixed;
+  width: 600px;
+  min-width: 380px;
+  left: 50%;
+  top: 50px;
+  margin-left: -300px;
+  padding: 20px;
+  background: black;
+  z-index: 301; }
+
+.nojs nav, .nojs header, .nojs .content-wrapper, .nojs footer {
+  visibility: hidden; }
+
+/* -- corner-ribbon ------------------------------------------------------------------- */
+.corner-ribbon {
+  width: 200px;
+  background: #e43;
+  position: absolute;
+  top: 25px;
+  left: -50px;
+  text-align: center;
+  line-height: 20px;
+  letter-spacing: 1px;
+  color: #f0f0f0;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  font-size: 14px;
+  z-index: 9999; }
+  .corner-ribbon.sticky {
+    position: fixed; }
+  .corner-ribbon.shadow {
+    -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3); }
+  .corner-ribbon.top-left {
+    top: 25px;
+    left: -50px;
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg); }
+  .corner-ribbon.top-right {
+    top: 25px;
+    right: -50px;
+    left: auto;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg); }
+
+/* -- reCaptcha ------------------------------------------------------------------- */
+.grecaptcha-badge {
+  display: none; }
+
+/* -- head ------------------------------------------------------------------- */
+.dropdown-menu a.disabled,
+.dropdown-menu a.disabled:visited,
+.dropdown-menu a.disabled:active,
+.dropdown-menu a.disabled:hover {
+  color: #999;
+  cursor: not-allowed;
+  background-color: white; }
+
+/*  Notify  -------------------------------------------------------------------------------------------*/
+.alert-minimalist {
+  background-color: white;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 5px 40px rgba(14, 42, 76, 0.2);
+  box-shadow: 0 5px 40px rgba(14, 42, 76, 0.2);
+  padding: 10px;
+  /* width: 450px; */
+  z-index: 2147483648 !important; }
+
+.alert-minimalist [data-notify="dismiss"] {
+  color: rgba(149, 149, 149, 0.7); }
+
+.alert-minimalist #image {
+  float: left; }
+
+.alert-minimalist #image [data-notify="icon"] {
+  height: 60px;
+  margin-right: 12px; }
+
+.alert-minimalist #text {
+  float: left;
+  margin-top: 2px;
+  margin-right: 20px; }
+
+.alert-minimalist #text [data-notify="title"] {
+  color: #333333;
+  line-height: 1rem;
+  display: block;
+  font-size: 100%;
+  font-weight: 700;
+  margin-bottom: 1rem; }
+
+.alert-minimalist #text [data-notify="message"] {
+  font-size: 80%;
+  line-height: 0.8rem; }
+
+.alert-minimalist #text [data-notify="message"] span.blue {
+  color: #28bcfd;
+  font-weight: 700; }
+
+.alert-minimalist #text [data-notify="time"] {
+  display: block;
+  font-size: 70%;
+  color: rgba(149, 149, 149, 0.7);
+  margin-top: 4px; }
+
+/* -- Knowledge Base ------------------------------------------------------------------- */
+#add-tags-submit {
+  -webkit-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out; }
+
+#kb-container .kb-text {
+  max-height: 5.7rem;
+  min-height: 5.7rem;
+  overflow: hidden;
+  color: #333;
+  -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(black), to(rgba(0, 0, 0, 0))); }
+
+.kb-button {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 0px;
+  height: 3rem;
+  width: 100%; }
+  .kb-button .btn {
+    position: absolute;
+    right: 1.5rem;
+    bottom: 0; }
+
+#kb-container .hlt {
+  background-color: #ffc107 !important; }
+
+#kb-view .modal-footer {
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between; }
+
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -- Responsiveness -------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/* -------------------------------------------------------- */
+/*
+// Extra small devices (portrait phones, less than 576px)
+@include media-breakpoint-only(xs) {
+}
+
+// Small devices (landscape phones, 576px and less than 768px)
+@include media-breakpoint-only(sm) {
+}
+
+// Small devices (landscape phones, 576px and wider)
+@include media-breakpoint-up(sm) {
+}
+
+// Small devices (landscape phones, 576px and smaller)
+@include media-breakpoint-down(sm) {
+}
+
+// Medium devices (tablets, 768px and less than 992px)
+@include media-breakpoint-only(md) {
+}
+
+// Medium devices (tablets, 768px and wider)
+@include media-breakpoint-up(md) {
+}
+
+// Medium devices (tablets, 768px and smaller)
+@include media-breakpoint-down(md) {
+}
+
+// Large devices (desktops, 992px and less than 1200px)
+@include media-breakpoint-only(lg) {
+}
+
+// Large devices (desktops, 992px and wider)
+@include media-breakpoint-up(lg) {
+}
+
+// Large devices (desktops, 992px and smaller)
+@include media-breakpoint-down(lg) {
+}
+
+// XLarge devices (desktops, 1200px and less than 1500px)
+@include media-breakpoint-only(xl) {
+}
+
+// XLarge devices (desktops, 1200px and wider)
+@include media-breakpoint-up(xl) {
+}
+
+// XLarge devices (desktops, 1200px and smaller)
+@include media-breakpoint-down(xl) {
+}
+
+// Large and XLarge devices (desktops, greater than 992px and less than 1500px)
+@media (min-width: 992px) and (max-width: 1499.98px) {
+}
+*/

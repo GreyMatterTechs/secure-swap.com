@@ -1,23 +1,23 @@
 {
-	"db": {
-		"name": "db",
-		"connector": "memory",
-		"file": "mydata.json"
-	},
-	"emailDS": {
-		"name": "emailDS",
-		"connector": "mail",
-		"transports": [
-			{
-				"type": "smtp",
-				"secure": true,
-				"port": 465,
-				"host": "${SMTP_HOST}",
-				"auth": {
-					"user": "${SMTP_USER}",
-					"pass": "${SMTP_PASS}"
-				}
-			}
-		]
-	}
+  "db": {
+    "name": "db",
+    "connector": "memory",
+    "file": "mydata.json"
+  },
+  "emailDS": {
+    "name": "emailDS",
+    "connector": "mail",
+    "transports": [
+      {
+        "type": "smtp",
+        "secure": true,
+        "port": 465,
+        "host": "${SMTP_HOST}",
+        "auth": {
+          "user": "${SMTP_USER}",
+          "pass": "${SMTP_PASS}"
+        }
+      }
+    ]
+  }
 }

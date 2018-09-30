@@ -1,11 +1,11 @@
 {
   "loopback-component-explorer": {
     "basePath": "/api",
-	"mountPath": "/explorer",
-	"apiInfo": {
-	  "title": "SecureSwap",
-	  "description": "Description of SecureSwap APIs."
-	},
+    "mountPath": "/explorer",
+    "apiInfo": {
+      "title": "SecureSwap",
+      "description": "Description of SecureSwap APIs."
+    },
     "generateOperationScopedModels": true
   }
 }

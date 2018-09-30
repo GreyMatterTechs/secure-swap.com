@@ -1,26 +1,29 @@
 {
-	"name": "I18n",
-	"base": "PersistedModel",
-	"idInjection": true,
-	"options": {
-		"validateUpsert": true
-	},
-	"properties": {},
-	"methods": {
-		"getSupportedLanguages": {
-			"accepts": {
-				"arg": "roles",
-				"type": "array",
-				"root": true
-			},
-			"returns": {
-				"arg": "languages",
-				"type": "array"
-			},
-			"http": {
-				"verb": "post"
-			},
-			"documented": false
-		}
-	}
+  "name": "I18n",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+    "getSupportedLanguages": {
+      "accepts": {
+        "arg": "roles",
+        "type": "array",
+        "root": true
+      },
+      "returns": {
+        "arg": "languages",
+        "type": "array"
+      },
+      "http": {
+        "verb": "post"
+      },
+      "documented": false
+    }
+  }
 }

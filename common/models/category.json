@@ -1,0 +1,38 @@
+{
+  "name": "Category",
+  "plural": "Categories",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {
+	"add": {
+		"accepts": [
+		  {
+			"arg": "tokenId",
+			"type": "String",
+			"root": true
+		  },
+		  {
+			"arg": "category",
+			"type": "String",
+			"root": true
+		  }
+		],
+		"returns": [],
+		"http": {
+		  "verb": "post"
+		}
+	  }
+  }
+}
