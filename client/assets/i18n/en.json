@@ -94,6 +94,24 @@
 	"key-strengths-area.key6.title":	"A Worldwide Exchange",
 	"key-strengths-area.key6.desc":		"Community additions of fiat currency support will gradually make the service global.",
 	
+	"-------------- SECTION USE CASE --------------":"",
+	"usecase-area.subhead":				"Who are you?",
+	"usecase-area.head":				"Use cases",
+	"usecase-area.desc1":				"Each one can take advantage of this trading ecosystem.",
+	"usecase-area.desc2":				"Voyez comment $1 réponds à vos attentes.",
+
+	"-------------- SECTION USE TOKEN ROLES --------------":"",
+	"tokenroles-area.subhead":			"Who are you?",
+	"tokenroles-area.head":				"Token roles",
+	"tokenroles-area.desc1":			"Each one can take advantage of this trading ecosystem.",
+	"tokenroles-area.desc2":			"Voyez comment $1 réponds à vos attentes.",
+
+	"-------------- SECTION USE MARKET --------------":"",
+	"market-area.subhead":				"Who are you?",
+	"market-area.head":					"Market",
+	"market-area.desc1":				"Each one can take advantage of this trading ecosystem.",
+	"market-area.desc2":				"Voyez comment $1 réponds à vos attentes.",
+
 	"-------------- SECTION WHITEPAPER --------------":"",
 	"whitepaper-area.subhead":			"Documents",
 	"whitepaper-area.head":				"Whitepaper",
@@ -325,6 +343,8 @@
 	"team-area.renaud.bio":				"25+ years of international experience, working in product management, including hardware and software development. Strong experience at building and maintaining customer relationships: business and marketing strategies development, extension of worldwide reseller networks, pre-sales, customer support and training.",
 	"team-area.edouard.role":			"Financial Analyst & Aeroshot CEO",
 	"team-area.edouard.bio":			"Financial market specialist (sell-side analyst) and founder of aerial shooting specialist Aeroshot (aeroshot.fr). Blockchain enthusiast and crypto investor since 2016.",
+	"team-area.richard.role":			"Blockchain Entrepreneur | Market Influencer | ICO Adviser | Fundraising & Investors | PR & Marketing",
+	"team-area.richard.bio":			"Richard Shibi has more than 15 years of experience in the IT industry. He has served as a senior management consultant and a regional account executive for IT projects deployed at global scale in the Telecommunication industry (North America, Europe, Russia, Middle East, China & South Africa). Richard is currently studying MBA at Imperial Collage Business School in London, running a Blockchain consultancy development start-up in Europe, and is serving as a board member and ICO advisor (Blockchain Consultant) for more than 10 projects",
 
 	"-------------- SECTION FAQ --------------": "",
 	"faq-area.subhead":					"question",

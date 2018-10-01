@@ -162,7 +162,7 @@
 			case 3:	$('#tokensale-title').html($.i18n('tokensale-area.info.ended'));	break;
 			}
 			$('#tokensale-percent').html($.i18n('tokensale-area.info.percent', purchaseSoldPercent + (purchaseSoldPercent * 0.25)));
-			$('#token-sale-mobile-app div.progress > div').css('width', purchaseSoldPercent + '%');
+			$('#token-sale div.progress > div').css('width', purchaseSoldPercent + '%');
 			refreshTokenPrices();
 			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
 			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(dateStart).format('LL')));

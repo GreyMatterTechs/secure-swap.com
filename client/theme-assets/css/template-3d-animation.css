@@ -2149,9 +2149,9 @@ p {
   right: 0;
   height: 556px; }
 
-#token-sale-mobile-app {
+#token-sale {
   position: relative; }
-  #token-sale-mobile-app .token-sale:before {
+  #token-sale .token-sale:before {
     content: "";
     background: url("../../theme-assets/images/token-sale-shape.png") no-repeat center left;
     width: 360px;
@@ -2159,8 +2159,11 @@ p {
     left: 0;
     height: 902px;
     top: 15%; }
-  #token-sale-mobile-app ul.token-sale-info li {
+  #token-sale ul.token-sale-info li {
     color: #c7b8ff; }
+
+#mobile-app {
+  position: relative; }
 
 #token-ssw:before {
   content: "";
