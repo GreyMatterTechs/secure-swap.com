@@ -156,6 +156,9 @@ header .navbar .dropdown .dropdown-menu a:before {
   content: "\f078"; }
 
 /* -- about ------------------------------------------------------------------- */
+#about .content-area {
+  color: #c7b8ff; }
+
 #about .play-video {
   top: 30%;
   background-color: white;
@@ -164,6 +167,49 @@ header .navbar .dropdown .dropdown-menu a:before {
   #about .play-video .play i {
     font-size: 2.2rem;
     margin-left: 7px; }
+
+#about .advantage-title {
+  font-size: 1rem;
+  color: #c7b8ff; }
+
+#about .arguments {
+  min-height: 21rem; }
+
+#about .grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  font-size: 0.875rem;
+  width: 100%; }
+  #about .grid > * {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+    width: calc(25% - 2px);
+    margin-left: 2px;
+    display: block;
+    /* IE fix */
+    text-align: center;
+    /* Inline-block fallback */
+    display: inline-block;
+    letter-spacing: normal;
+    text-rendering: auto;
+    margin-bottom: 2px;
+    color: #fff; }
+    #about .grid > *.table-success, #about .grid > *.table-danger, #about .grid > *.table-warning {
+      Color: #000; }
+  #about .grid .column:first-of-type {
+    -webkit-box-flex: 2;
+    -ms-flex-positive: 2;
+    flex-grow: 2;
+    -ms-flex-negative: 2;
+    flex-shrink: 2; }
 
 /* -- Key Strengths ------------------------------------------------------------------- */
 .key-strengths .advantage-title {
