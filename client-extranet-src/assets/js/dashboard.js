@@ -75,6 +75,10 @@
 				})
 				.fail(function(err) {
 					if (teamInterval < teamIntervalDefault * 100) teamInterval *= 2;
+					if (err.status == 401) {
+						window.location = window.location.host; // go back to login
+						// $$$ TODO Ajouter une popup qui dit : ta sessions est terminéé, go to login
+					}
 				});
 		}
 		function updateTeamTimer() {
