@@ -437,7 +437,7 @@ module.exports = function(server) {
 		if (req.body.access_token) {								// logged user, accessToken granted
 			checkToken(req.body.access_token, ['teammember'], function(err, user) {
 				if (err) {
-					mAdmin.setOnlineStatusById(user.id, 'offline');
+					mAdmin.setOnlineStatus(req.body.access_token, 'offline');
 					mAdmin.logout(req.accessToken.id);
 					return res.render('login', {					// accessToken invalid, render the login page, empty form
 						appName: config.appName,
