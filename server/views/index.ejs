@@ -725,20 +725,20 @@
 				</section>
 				<!--/ About -->
 				<!-- Whitepaper -->
-				<section id="whitepaper" class="whitepaper section-padding">
+				<section class="whitepaper section-padding">
 					<div class="container">
 						<div class="heading text-center social-margin">
 							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s">
 								<h6 class="sub-title" data-i18n="whitepaper-area.subhead">Documents</h6>
-								<h2 class="title" data-i18n="whitepaper-area.head">Whitepaper</h2>
+								<h2 class="title" data-i18n="whitepaper-area.head">Documents</h2>
 							</div>
 							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s">
-								<span data-i18n="whitepaper-area.desc1">Do you want to know more?</span>
+								<span data-i18n="whitepaper-area.desc1, <%= appName %>"><%= appName %> is a complex project. Full details are explained in documents.</span>
 								<br class="d-none d-xl-block">
 								<span data-i18n="whitepaper-area.desc2, <%= appName %>">Read the Whitepaper to learn more about <%= appName %> and the opportunities available.</span>
 							</p>
 						</div>
-						<div class="row social-margin">
+						<div id="whitepaper" class="row social-margin">
 							<div class="col-lg-5 col-md-12">
 								<div class="whitepaper-img">
 									<img class="img-fluid animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" src="theme-assets/images/whitepaper.png"
@@ -776,23 +776,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				</section>
-				<!--/ Whitepaper -->
-				<!-- One pager -->
-				<section id="onepager" class="onepager section-padding">
-					<div class="container">
-						<div class="heading text-center social-margin">
-							<div class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s">
-								<h2 class="title" data-i18n="onepager-area.head">Onepager</h2>
-							</div>
-							<p class="content-desc animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s">
-								<span data-i18n="onepager-area.desc1">Do you want to know more?</span>
-								<br class="d-none d-xl-block">
-								<span data-i18n="onepager-area.desc2, <%= appName %>">Read the onepager to learn more about <%= appName %> and the opportunities available.</span>
-							</p>
-						</div>
-						<div class="row social-margin">
+						<div id="onepager" class="row social-margin">
 							<div class="col-lg-5 col-md-12">
 								<div class="onepager-img">
 									<img class="img-fluid animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" src="theme-assets/images/onepager.png"

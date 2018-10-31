@@ -286,12 +286,23 @@ header .navbar .dropdown .dropdown-menu a:before {
     color: #c7b8ff; }
 
 /* -- whitepaper ------------------------------------------------------------------- */
+
+.whitepaper-img .img {
+	max-height: 16rem;
+}
+
 /* -- onepager ------------------------------------------------------------------- */
-#navigation > ul > li:nth-child(5) > div > a:nth-child(2) {
-  display: none; }
+
+.onepager-img .img {
+	max-height: 16rem;
+}
+
+/* -- onepager ------------------------------------------------------------------- */
+/* #navigation > ul > li:nth-child(5) > div > a:nth-child(2) {
+  display: none; } */
 
 .onepager {
-  display: none; }
+ /* display: none; */ }
   .onepager.section-padding {
     padding-top: 0rem; }
     .onepager.section-padding .onepager-languages .lang-text .language {
