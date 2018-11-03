@@ -988,6 +988,19 @@
 					updateETHTimer();
 				}, 200);
 
+				$(window).scroll(function() {
+					if ($(this).scrollTop() > 200) {
+						$('#scrollUp').css('right', '44px');
+					} else {
+						$('#scrollUp').removeAttr('style');
+					}
+				});
+				$('#scrollUp').click(function(event) {
+					event.preventDefault();
+					$('html, body').animate({scrollTop: 0}, 300);
+					return false;
+				});
+
 			} // end of init:function
 
 		}; // end of return

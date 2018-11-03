@@ -134,6 +134,35 @@ input.noscript-closing-trick {
 .grecaptcha-badge {
   display: none; }
 
+/* -- Scroll to top button ------------------------------------------------------------------- */
+#scrollUp {
+  position: fixed;
+  bottom: 44px;
+  right: -100px;
+  font-weight: 700;
+  cursor: pointer;
+  z-index: 1000; }
+  #scrollUp .icon:after, #scrollUp .icon:before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-family: 'Font Awesome 5 Free';
+    font-size: 0.65rem;
+    -webkit-transition: all 300ms linear 0s;
+    transition: all 300ms linear 0s;
+    background-image: linear-gradient(45deg, #bf68e6, #9e48cd);
+    background-repeat: repeat-x;
+    border: 0;
+    color: #fff;
+    padding: 0.5rem 0.65rem;
+    border-radius: 1rem;
+    -webkit-box-shadow: 0px 0px 12px 0 #bf68e6;
+    box-shadow: 0px 0px 12px 0 #bf68e6; }
+  #scrollUp .icon:after {
+    content: "\f106"; }
+  #scrollUp .icon:before {
+    content: "\f106"; }
+
 /* -- head ------------------------------------------------------------------- */
 header .navbar.navbar-fixed {
   padding: 0; }
