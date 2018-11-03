@@ -83,7 +83,7 @@
 				if (!ethReceiveds[i].displayed) {
 					var discount = ethReceiveds[i].discount < 1.0 ? ' with <span class="blue">' + (100 - (ethReceiveds[i].discount * 100)) + '%</span> discount' : '';
 					$.notify({
-						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 16) + 1) + '.png',
+						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 23) + 1) + '.png',
 						title:		'Thank you for this new purchase!',
 						message:	'You sent us <span class="blue">' + (+ethReceiveds[i].ethReceived).toFixed(8) + ' ETH</span>' + discount + ',<br />' +
 									'and we sent you back <span class="blue">' + (+ethReceiveds[i].tokensSend).toFixed(3) + ' SSW</span> tokens.'
