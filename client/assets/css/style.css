@@ -511,6 +511,12 @@ header .navbar .dropdown .dropdown-menu a:before {
   cursor: inherit;
   margin-bottom: 1rem; }
 
+#mobile-app .card-caps {
+  text-align: center; }
+
+#mobile-app div[data-target="#editor"] {
+  cursor: pointer; }
+
 /* -- Roadmap ------------------------------------------------------------------- */
 .roadmap .swiper-slide .roadmap-info {
   margin-left: 1rem;
@@ -883,17 +889,20 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
       .referral-modal .modal-content form a {
         padding: .5rem 0.5rem 0.3rem 0.5rem; }
 
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -- Responsiveness -------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
-/* -------------------------------------------------------- */
+/* -- Editor modal popup -------------------------------------- */
+#editor .modal-dialog {
+  max-width: 95%; }
+
+.team-modal {
+  background-image: linear-gradient(70deg, #140e38c0 0%, #140e38c0 25%, #14387bc0 35%, #14387bc0 65%, #140e38c0 75%, #140e38c0 100%); }
+
+/* ######################################################## */
+/* ######################################################## */
+/* ##                    ################################## */
+/* ##   RESPONSIVENESS   ################################## */
+/* ##                    ################################## */
+/* ######################################################## */
+/* ######################################################## */
 @media (max-width: 575.98px) {
   .svg-img {
     width: 350px !important; }
@@ -951,7 +960,9 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .token-fuel-img-inline,
   .token-yield-img-inline {
     width: 250px; }
-  .whitepaper-img {
+  .whitepaper-img,
+  .onepager-img,
+  .referral-img {
     text-align: center;
     margin-bottom: 3rem; }
   .roadmap .timestamp.active span:after {
@@ -978,19 +989,19 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .mobile-app {
     margin-top: 3rem !important; }
     .mobile-app .mobile-app-imgs .mobile-app-img-1 {
-      width: 250px; }
+      width: 320px; }
     .mobile-app .mobile-app-imgs .mobile-app-img-2 {
       width: 70px;
       top: 36px;
-      left: 145px; }
+      left: 215px; }
     .mobile-app .mobile-app-imgs .mobile-app-img-3 {
       width: 115px;
       top: -9px;
-      left: 141px; }
+      left: 220px; }
     .mobile-app .mobile-app-imgs .mobile-app-img-4 {
       width: 175px;
       top: -92px;
-      left: 146px; }
+      left: 228px; }
     .mobile-app .btn {
       padding: 0.7rem 1rem !important; }
       .mobile-app .btn span {
@@ -1040,7 +1051,21 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .token-details .clock-counter .flip-clock-wrapper .flip li a .up .inn {
     font-size: 38px; }
   .token-details .clock-counter .flip-clock-wrapper .flip li a .down .inn {
-    font-size: 38px; } }
+    font-size: 38px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-1 {
+    width: 320px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-2 {
+    width: 70px;
+    top: 36px;
+    left: 215px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-3 {
+    width: 115px;
+    top: -9px;
+    left: 220px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-4 {
+    width: 175px;
+    top: -92px;
+    left: 228px; } }
 
 @media (min-width: 576px) {
   .head-area .head-content .banner-content div {
@@ -1058,7 +1083,21 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .token-distribution .token-img {
     margin-bottom: 28rem; }
     .token-distribution .token-img img {
-      width: 690px; } }
+      width: 690px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-1 {
+    width: 320px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-2 {
+    width: 70px;
+    top: 36px;
+    left: 215px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-3 {
+    width: 115px;
+    top: -9px;
+    left: 220px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-4 {
+    width: 175px;
+    top: -92px;
+    left: 228px; } }
 
 @media (min-width: 768px) {
   .head-area .head-content .banner-content div a {
@@ -1119,7 +1158,21 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .token-distribution .token-img {
     margin-bottom: 7rem; }
     .token-distribution .token-img img {
-      width: 419px; } }
+      width: 419px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-1 {
+    width: 280px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-2 {
+    width: 70px;
+    top: 36px;
+    left: 172px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-3 {
+    width: 115px;
+    top: -9px;
+    left: 170px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-4 {
+    width: 175px;
+    top: -92px;
+    left: 175px; } }
 
 @media (min-width: 992px) {
   /* -- problems & solutions ---------------------------- */
@@ -1140,7 +1193,23 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 @media (min-width: 1200px) {
   /* -- problems & solutions ---------------------------- */
   ul.solution-align2 {
-    margin-left: 17rem; } }
+    margin-left: 17rem; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-1 {
+    width: 320px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-2 {
+    width: 70px;
+    top: 36px;
+    left: 218px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-3 {
+    width: 115px;
+    top: -9px;
+    left: 240px; }
+  .mobile-app .mobile-app-imgs .mobile-app-img-4 {
+    width: 175px;
+    top: -92px;
+    left: 280px; }
+  #editor .modal-dialog {
+    max-width: 73rem; } }
 
 @media (min-width: 992px) and (max-width: 1499.98px) {
   /* -- all sections ---------------------------- */
