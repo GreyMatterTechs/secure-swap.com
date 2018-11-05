@@ -506,6 +506,16 @@ header .navbar .dropdown .dropdown-menu a:before {
 .ico-ended {
   display: none; }
 
+/* -- Market ------------------------------------------------------------------- */
+.market ul {
+  list-style: circle;
+  font-size: .875rem;
+  padding-left: 16px; }
+  .market ul li {
+    color: #c7b8ff;
+    /*color: $dark-bg-color1;*/
+    padding: 0.1rem 0; }
+
 /* -- App ------------------------------------------------------------------- */
 #mobile-app .mobile-button {
   cursor: inherit;
