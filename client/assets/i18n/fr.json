@@ -263,7 +263,7 @@
 	"usecase-area.trader.li2":			"m'affiche les cours en temps-réel de toutes les devices disponibles que je souhaite acheter ou vendre",
 	"usecase-area.trader.li3":			"me permet de consulter leurs carnets d'ordres respectifs,",
 	"usecase-area.trader.li4":			"me permet de faire mes analyses techniques avec des outils graphiques évolués,",
-	"usecase-area.trader.li5":			"me permet de faire mon analyse de fond avec de news et d'alertes.",
+	"usecase-area.trader.li5":			"me permet de faire mon analyse de fond avec son système de news et d'alertes.",
 	"usecase-area.trader.p3":			"Je peux passer des ordres d'achat ou de vente sur n'importe quelle devise (Secure Swap est crypto-agnostique). Je possède quelques assets digitaux sur mon wallet ou ma clef Ledger, et ce n'est que lorsque mon ordre a trouvé une contrepartie que mes assets sont transférés vers la contrepartie, et inversement.",
 	"usecase-area.trader.p4":			"Si je suis un expert en trading, je peux aussi :",
 	"usecase-area.trader.li6":			"profiter d'un effet de levier avec du trading sur marge,",
