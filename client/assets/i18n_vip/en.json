@@ -264,7 +264,7 @@
 	"usecase-area.trader.li2":			"displays me the real-time prices of all available devices that I want to buy or sell,",
 	"usecase-area.trader.li3":			"allows me to consult their respective order books,",
 	"usecase-area.trader.li4":			"allows me to do my technical analysis with advanced graphical tools,",
-	"usecase-area.trader.li5":			"allows me to do my background analysis with news and alerts.",
+	"usecase-area.trader.li5":			"allows me to do my background analysis with with its news and alerts system.",
 	"usecase-area.trader.p3":			"I can place buy or sell orders in any currency (Secure Swap is crypto-diagnostic). I have some digital assets on my wallet or Ledger key, and it is only when my order has found a counterparty that my assets are transferred to the counterparty, and vice versa.",
 	"usecase-area.trader.p4":			"If I am a trading expert, I can also:",
 	"usecase-area.trader.li6":			"take advantage of leverage with margin trading,",

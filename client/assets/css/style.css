@@ -526,6 +526,12 @@ header .navbar .dropdown .dropdown-menu a:before {
     /*color: $dark-bg-color1;*/
     padding: 0.1rem 0; }
 
+.use-cases .use-case-img-inline {
+  display: block !important;
+  margin-left: 1rem;
+  margin-bottom: 1rem;
+  float: right; }
+
 /* -- App ------------------------------------------------------------------- */
 #mobile-app .mobile-button {
   cursor: inherit;
@@ -976,6 +982,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .problems-img,
   .solutions-img {
     width: 250px; }
+  .use-case-img {
+    width: 180px; }
   .token-trade-img-inline,
   .token-fuel-img-inline,
   .token-yield-img-inline {
