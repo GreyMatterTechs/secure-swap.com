@@ -282,7 +282,7 @@ header .navbar .dropdown .dropdown-menu a:before {
     -ms-flex-pack: center;
     justify-content: center; }
 
-#about .advantage-desc ul li:before {
+#about .advantage-desc + ul li:before {
   font-family: 'Font Awesome 5 Free';
   content: '\f105';
   margin-right: 10px;
@@ -516,6 +516,13 @@ header .navbar .dropdown .dropdown-menu a:before {
     /*color: $dark-bg-color1;*/
     padding: 0.1rem 0; }
 
+.market .card {
+  background-color: transparent; }
+
+.market .card-caps {
+  text-align: center;
+  line-height: 1rem; }
+
 /* -- Use cases ------------------------------------------------------------------- */
 .use-cases ul {
   list-style: circle;
@@ -538,12 +545,16 @@ header .navbar .dropdown .dropdown-menu a:before {
   margin-bottom: 1rem; }
 
 #mobile-app .card-caps {
-  text-align: center; }
+  text-align: center;
+  line-height: 1rem; }
 
 #mobile-app div[data-target="#editor"] {
   cursor: pointer; }
 
 /* -- Roadmap ------------------------------------------------------------------- */
+.roadmap.section-padding {
+  padding-bottom: 0rem; }
+
 .roadmap .swiper-slide .roadmap-info {
   margin-left: 1rem;
   margin-right: 1rem; }
