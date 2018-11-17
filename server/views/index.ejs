@@ -130,19 +130,53 @@
 								<div class="row align-items-center">
 									<div class="col-lg-6 col-md-12">
 										<div class="banner-content pt-5">
-											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="0.5s" >
+											<h1 class="best-template animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s" >
 												<span data-i18n="head-area.title.row1, <%= appName %>" ><%= appName %>&nbsp;-&nbsp;Welcome to the future of trading.</span>
 												<br class="d-none d-xl-block" />
 												<span data-i18n="head-area.title.row2" >The first DEX that brings speed and liquidity in a decentralized community system.</span>
 											</h1>
-											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="0.6s" >
+											<h3 class="d-block white animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" >
 												<span data-i18n="head-area.subtitle.row1, <%= appName %>" >An advanced trading interface, combined with a secure architecture, makes $1 the first crypto-agnostic DEX capable of competing with centralized exchangers.</span>
 											</h3>
-											<div class="">
-												<a href="#token-sale" class="btn btn-lg btn-gradient-purple btn-glow ml-2 mr-2 mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.7s" data-i18n="head-area.button.purchase" >Contribute</a>
-												<a href="#whitepaper" class="btn btn-lg btn-gradient-purple btn-glow ml-2 mr-2 mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.8s" data-i18n="head-area.button.whitepaper">Whitepaper</a>
-												<a href="#referral" class="btn btn-lg btn-gradient-purple btn-glow ml-2 mr-2 mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.9s" data-i18n="head-area.button.referral">Referral</a>
-												<a href="#onepager" class="btn btn-lg btn-gradient-purple btn-glow ml-2 mr-2 mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="1.0s" data-i18n="head-area.button.onepager">Onepager</a>
+											<div class="container container-actions">
+												<div class="row justify-content-around no-gutters">
+													<div class="col-6">
+														<a href="#token-sale" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.purchase" >Contribute</a>
+													</div>
+													<div class="col-6">
+														<a href="#whitepaper" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.whitepaper">Whitepaper</a>
+													</div>
+													<div class="w-100"></div>
+													<div class="col-6">
+														<a href="#referral" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.referral">Referral</a>
+													</div>
+													<div class="col-6">
+														<a href="#onepager" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.onepager">Onepager</a>
+													</div>
+												</div>
+											</div>
+											<div class="container containter-mail">
+												<div class="row no-gutters">
+													<form id="email-form" name="email" action="javascript:void(0)" novalidate="novalidate" accept-charset="utf-8" method="post" class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
+														<div class="input-group">
+															<div class="col">
+																<input type="text" name="email-mail" id="email-mail" data-i18n="[placeholder]head-area.placeholder.mail" placeholder="Your Mail" class="form-control" >
+															</div>
+															<div class="col-auto">
+																<span class="input-group-btn">
+																	<button id="email-submit" type="submit" 
+																		class="btn btm-sm btn-gradient-purple btn-glow animated g-recaptcha" 
+																		data-animation="fadeInUpShorter" data-animation-delay="0.2s"
+																		data-i18n="head-area.button.submit">Submit
+																	</button>
+																</span>
+															</div>
+														</div>
+													</form>
+														<div id="email-success-alert"></div>
+														<div id="email-error-alert"></div>
+														<div id="email-debug-alert"></div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -2864,9 +2898,9 @@
 									<li class="animated" data-animation="fadeInLeftShorter" data-animation-delay="0.0s"><i class="fas fa-comment-alt"></i><span class="ml-1" data-i18n="contact-area.joinSNS">Join us on Telegram</span></li>
 								</ul>
 								<form id="contact-form" name="contact" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" class="text-center">
-									<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="name" name="name" data-i18n="[placeholder]contact-area.placeholder.name" placeholder="Your Name">
-									<input type="text" class="form-control animated" data-animation="fadeInLeftShorter" data-animation-delay="0.1s" id="mail" name="mail" data-i18n="[placeholder]contact-area.placeholder.mail" placeholder="Your Mail">
-									<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="message" name="message" data-i18n="[placeholder]contact-area.placeholder.message" placeholder="Your Message">
+									<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="contact-name" name="contact-name" data-i18n="[placeholder]contact-area.placeholder.name" placeholder="Your Name">
+									<input type="text" class="form-control animated" data-animation="fadeInLeftShorter" data-animation-delay="0.1s" id="contact-mail" name="contact-mail" data-i18n="[placeholder]contact-area.placeholder.mail" placeholder="Your Mail">
+									<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="contact-message" name="contact-message" data-i18n="[placeholder]contact-area.placeholder.message" placeholder="Your Message">
 									<button id="contact-submit" type="submit" 
 										class="btn btn-lg btn-gradient-purple btn-glow animated g-recaptcha"
 										data-animation="fadeInUpShorter" data-animation-delay="0.2s"

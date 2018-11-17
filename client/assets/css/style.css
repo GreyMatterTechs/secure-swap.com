@@ -188,6 +188,23 @@ header .navbar .dropdown .dropdown-menu a:before {
 .head-area .banner-content > div > a {
   width: 8rem; }
 
+.head-area .banner-content .col-6 {
+  text-align: center; }
+
+.head-area .banner-content form {
+  width: 100%; }
+
+.head-area .banner-content .container-actions {
+  margin-top: 3rem !important; }
+
+.head-area #email-mail {
+  padding: 0.5rem 0.5rem;
+  margin-bottom: 0;
+  height: 2.5rem; }
+
+.head-area #email-submit {
+  padding: 0.5rem 1.0rem 0.5rem 1.0rem; }
+
 /* -- about ------------------------------------------------------------------- */
 #about .content-area {
   color: #c7b8ff; }
@@ -784,6 +801,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   border-bottom: 2px solid #be2e1b !important; }
 
 #contact-success-alert,
+#email-success-alert,
 #referralbox-success-alert {
   text-align: center;
   background-color: #57cc65;
@@ -797,6 +815,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   text-transform: uppercase; }
 
 #contact-error-alert,
+#email-error-alert,
 #referralbox-error-alert {
   text-align: center;
   background-color: #cc5757;
@@ -810,6 +829,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   text-transform: uppercase; }
 
 #contact-debug-alert,
+#email-debug-alert,
 #referralbox-debug-alert {
   text-align: center;
   background-color: #cc5757;
@@ -946,20 +966,33 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .head-area .head-content .banner-content {
     padding-top: 1.5rem !important;
     text-align: center; }
-    .head-area .head-content .banner-content div {
+    .head-area .head-content .banner-content .container-actions {
       margin-top: 1rem !important; }
+    .head-area .head-content .banner-content div {
+      /* margin-top: 3rem !important; */ }
+      .head-area .head-content .banner-content div a {
+        width: 7rem; }
   .head-area .head-content h1 {
     font-size: 0.9rem;
     line-height: 1.1rem; }
   .head-area .head-content h3 {
     margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
     font-size: 0.6rem;
     line-height: 0.8rem; }
+  .head-area .head-content .container-mail {
+    margin-top: 1rem !important;
+    margin-bottom: 1rem !important; }
   .head-area .head-content .btn {
-    padding: 0.8rem !important;
+    padding: 0.6rem 0.6rem !important;
     font-size: 0.8rem; }
   .head-area .head-content .move-first {
     margin-top: 5rem; }
+  .head-area .head-content #email-mail {
+    padding: 0.4rem 0.5rem !important;
+    height: 2.0rem; }
+  .head-area .head-content #email-submit {
+    padding: 0.4rem 0.5rem 0.4rem 0.5rem !important; }
   .head-area #svg-animation {
     margin-left: 20%;
     margin-right: 20%; }
@@ -1108,7 +1141,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 
 @media (min-width: 576px) {
   .head-area .head-content .banner-content div {
-    margin-top: 3rem !important; }
+    /* margin-top: 3rem !important; */ }
     .head-area .head-content .banner-content div a {
       width: 10rem; } }
 

@@ -351,6 +351,21 @@
 			return valid;
 		}
 
+		function EFValidate() {
+			var valid = true;
+			$('#email-form input[type=text]').each(function(index) {
+				if (index == 0) {
+					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
+						$('#email-form').find('input:eq(' + index + ')').addClass('required-error');
+						valid = false;
+					} else {
+						$('#email-form').find('input:eq(' + index + ')').removeClass('required-error');
+					}
+				}
+			});
+			return valid;
+		}
+
 		/**
 		 * Checks if the given string is a checksummed address
 		 *
@@ -503,6 +518,40 @@
 			});
 		}
 
+		function sendEmail(ser) {
+			//	if (mailchimpLanguage !== '') {
+			//		ser += '&language=' + mailchimpLanguage;
+			//	}
+			$('#email-debug-alert').hide();
+			$('#email-submit').text($.i18n('head-area.button.sending'));
+			$.ajax({
+				type: 'POST',
+				url: '/email',
+				data: ser,
+				success: function(result) {
+					// var res = JSON.parse(result);
+					if (result.err) {
+						$('#email-error-alert').html($.i18n(result.err));
+						$('#email-error-alert').fadeIn('slow');
+						$('#email-error-alert').delay(5000).fadeOut('slow');
+					} else if (result.success) {
+						$('#email-form input[type=text]').val('');
+						// $('#message').val('');
+						$('#email-success-alert').html($.i18n(result.success));
+						$('#email-success-alert').fadeIn('slow');
+						$('#email-success-alert').delay(5000).fadeOut('slow');
+					}
+					$('#email-submit').text($.i18n('head-area.button.submit'));
+				},
+				error: function() {
+					$('#email-error-alert').html($.i18n('head-area.error.message2'));
+					$('#email-error-alert').fadeIn('slow');
+					$('#email-error-alert').delay(5000).fadeOut('slow');
+					$('#email-submit').text($.i18n('head-area.button.submit'));
+				}
+			});
+		}
+
 
 		// --- public methods
 
@@ -564,7 +613,7 @@
 								} else {
 									$target.attr('tabindex', '-1');
 									$target.focus();
-								};
+								}
 							});
 						}
 					}
@@ -842,7 +891,43 @@
 						});
 					}
 				});
-				$('#name, #mail, #message').on('input change', function(e) {
+				$('#contact-name, #contact-mail, #contact-message').on('input change', function(e) {
+					$(this).removeClass('required-error');
+				});
+
+				$('#email-success-alert').hide();
+				$('#email-error-alert').hide();
+				$('#email-debug-alert').hide();
+				$('#email-submit').unbind('click').bind('click', function(e) {
+					e.preventDefault();
+					var valid = EFValidate();
+					if (valid) {
+						grecaptcha.ready(function() {
+							grecaptcha.execute(grecKeyPub, {action: 'email'}).then(function(token) {
+								$.ajax({
+									type: 'POST',
+									url: '/captcha',
+									data: {token: token},
+									success: function(result) {
+										console.log('/captcha:' + JSON.stringify(result));
+										if (result.valid) {
+											var ser = $('#email-form').serialize();
+											sendEmail(ser);
+										} else {
+											$('#email-error-alert').html($.i18n(result.err));
+											$('#email-error-alert').fadeIn('slow');
+											$('#email-error-alert').delay(5000).fadeOut('slow');
+										}
+									},
+									error: function(e) {
+										console.log('/captcha:' + JSON.stringify(e));
+									}
+								});
+							});
+						});
+					}
+				});
+				$('#email-name, #email-mail, #email-message').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 

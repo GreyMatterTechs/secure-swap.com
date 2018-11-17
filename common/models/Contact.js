@@ -23,50 +23,50 @@ const datasources	= reqlocal(path.join('server', 'datasources' + (process.env.NO
 const loopback		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
 const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.js'));
 const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
+const dsEmail		= app.dataSources.emailDS;
 
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
 // ------------------------------------------------------------------------------------------------------
 
-function sendMail(data, mEmail, cb) {
+function makeOptions(data) {
+	var options = {};
+	options.to = config.mailRecipient.to;
+	options.cc = config.mailRecipient.cc;
+	options.bcc = config.mailRecipient.cci;
+	options.replyTo = data.mail;
+	options.subject = data.name ? '[Secure-Swap] Contact from ' + data.name : '[Secure-Swap] Email from <' + data.mail + '>';
+	options.type = 'email';
+	options.protocol = 'http';
+	options.host = config.nginxhost;
+	options.port = config.nginxport;
+	options.displayPort = (
+		(options.protocol === 'http' && options.port == '80') ||
+		(options.protocol === 'https' && options.port == '443')
+	) ? '' : ':' + options.port;
+	// options.from = config.mailProvider.auth.user;
+	options.from = dsEmail.adapter.transports[0].options.auth.user;
+	options.headers = options.headers || {};
+	options.maildata = {
+		db: datasources.db.host || datasources.db.name || datasources.db.file,
+		env: (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV),
+		name: data.name ? data.name : null,
+		mail: data.mail,
+		message: data.message ? data.message : null
+	};
+	options.ejs = data.message ? 'contactMessage.ejs' : 'contactEmail.ejs';
+	return options;
+}
 
-	var dsEmail = app.dataSources.emailDS;
+function createTemplatedEmailBody(options, cb) {
+	var template = loopback.template(path.resolve(__dirname, '../../server/views/' + options.ejs));
+	cb(null, template(options));
+}
 
-	function makeOptions() {
-		var options = {};
-		options.to = config.mailRecipient.to;
-		options.cc = config.mailRecipient.cc;
-		options.bcc = config.mailRecipient.cci;
-		options.replyTo = data.mail;
-		options.subject = '[Secure-Swap] Contact from ' + data.name;
-		options.type = 'email';
-		options.protocol = 'http';
-		options.host = config.nginxhost;
-		options.port = config.nginxport;
-		options.displayPort = (
-			(options.protocol === 'http' && options.port == '80') ||
-			(options.protocol === 'https' && options.port == '443')
-		) ? '' : ':' + options.port;
-		// options.from = config.mailProvider.auth.user;
-		options.from = dsEmail.adapter.transports[0].options.auth.user;
-		options.headers = options.headers || {};
-		options.maildata = {
-			db: datasources.db.host || datasources.db.name || datasources.db.file,
-			env: (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV),
-			name: data.name,
-			mail: data.mail,
-			message: data.message
-		};
-		return options;
-	}
+function sendContact(data, mEmail, cb) {
 
-	function createTemplatedEmailBody(options, cb) {
-		var template = loopback.template(path.resolve(__dirname, '../../server/views/contactEmail.ejs'));
-		cb(null, template(options));
-	}
-
-	var options = makeOptions();
+	var options = makeOptions(data);
 
 	createTemplatedEmailBody(options, function(err, html) {
 		options.html = html;
@@ -87,6 +87,36 @@ function sendMail(data, mEmail, cb) {
 			});
 		}
 	});
+}
+
+function sendMail(data, mEmail, cb) {
+
+	/*
+	var options = makeOptions(data);
+
+	createTemplatedEmailBody(options, function(err, html) {
+		options.html = html;
+		delete options.maildata;
+		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
+			mEmail.send(options, null, function(err, email) {
+				if (err) {
+					return cb({err: 'head-area.error.message5'}, null);
+				}
+				return cb(null, {success: 'head-area.success.message'});
+			});
+		} else {
+			mEmail.send(options, function(err, email) {
+				if (err) {
+					return cb({err: 'head-area.error.message6'}, null);
+				}
+				return cb(null, {success: 'head-area.success.message'});
+			});
+		}
+	});
+	*/
+
+	// $$$ TODO: Implémenter Mailchimp ici
+	return cb({success: 'head-area.success.message'}, null);
 }
 
 
@@ -203,7 +233,7 @@ module.exports = function(Contact) {
 				if (validator.isEmail(postData.mail)) {
 					postData.mail = validator.normalizeEmail(postData.mail);
 					var mEmail = app.models.Email;
-					sendMail(postData, mEmail, function(err, successMessage) {
+					sendContact(postData, mEmail, function(err, successMessage) {
 						if (err) {
 							return cb(err);
 						}
@@ -218,4 +248,39 @@ module.exports = function(Contact) {
 		*/
 	};
 
+	Contact.email = function(req, cb) {
+		// Filter bad requests
+		if (!req) {
+			return cb({err: 'bad request'}, null);
+		}
+		// Check referers
+		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
+		var referer = req.get('Referrer');
+		referer = referer.replace(/www/i, '');
+		if (!validReferers.includes(referer)) {
+			logger.warn('Email Form: Received an Ajax call to /email from referer:' + referer);
+			return cb({err: 'bad request'}, null);
+		}
+		// check form data
+		if (!req.body['email-mail']) {
+			return cb({err: 'bad request'}, null);
+		}
+
+		var postData = {
+			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['email-mail'])))
+		};
+		if (validator.isEmail(postData.mail)) {
+			postData.mail = validator.normalizeEmail(postData.mail);
+			var mEmail = app.models.Email;
+			sendMail(postData, mEmail, function(err, successMessage) {
+				if (err) {
+					return cb(err);
+				}
+				logger.info('Email Form: Sent email from ' + postData.mail);
+				return cb(null, successMessage);
+			});
+		} else {
+			return cb({err: 'head-area.error.message4'}, null);
+		}
+	};
 };
