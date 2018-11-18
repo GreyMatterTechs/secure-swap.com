@@ -22,6 +22,19 @@
       "http": {
         "verb": "post"
       }
-    }
+	},
+	"head": {
+		"accepts": {
+		  "arg": "req",
+		  "type": "Object"
+		},
+		"returns": {
+		  "arg": "result",
+		  "type": "Object"
+		},
+		"http": {
+		  "verb": "post"
+		}
+	  }
   }
 }

@@ -4,7 +4,7 @@
         <style>
 			.corner-ribbon{
 				width: 200px;
-				background: #e43;
+				background: #ff3300;
 				position: absolute;
 				top: 25px;
 				left: -50px;
@@ -144,11 +144,17 @@
                     <div class="alert-subtitle"></div>
 					<p></p>
 					<div class="alert-content">
-						Here is a message we just received from <b><%= maildata.name %></b> &lt;<a href="mailto:<%= maildata.mail %>"><%= maildata.mail %></a>&gt;
+						Here is a message we just received from <b><%= maildata.name %></b> 
+						<% if (maildata.mail) { %>
+							&lt;<a href="mailto:<%= maildata.mail %>"><%= maildata.mail %></a>&gt;
+						<% } %>
 						<p class="message">
 							<%= maildata.message %>
 						</p>
-						<p>Thanks to answer him diligently.<br />
+						<p>
+						<% if (maildata.mail) { %>
+							Thanks to answer him diligently.<br />
+						<% } %>
 						Your great SecureSwap ICO website.</p>
 					</div>
                 </div>

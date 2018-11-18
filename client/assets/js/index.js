@@ -77,16 +77,15 @@
 
 		// --- private methods
 
-		function notify() {
+		function notifyEthReceiveds() {
 			var i = ethReceiveds.length;
 			while (i--) {
 				if (!ethReceiveds[i].displayed) {
-					var discount = ethReceiveds[i].discount < 1.0 ? ' with <span class="blue">' + (100 - (ethReceiveds[i].discount * 100)) + '%</span> discount' : '';
+					var discount = ethReceiveds[i].discount < 1.0 ? $.i18n('notify.purchase.discount', (100 - (ethReceiveds[i].discount * 100)) + '%') : '';
 					$.notify({
 						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 23) + 1) + '.png',
-						title:		'Thank you for this new purchase!',
-						message:	'You sent us <span class="blue">' + (+ethReceiveds[i].ethReceived).toFixed(8) + ' ETH</span>' + discount + ',<br />' +
-									'and we sent you back <span class="blue">' + (+ethReceiveds[i].tokensSend).toFixed(3) + ' SSW</span> tokens.'
+						title:		$.i18n('notify.purchase.title'),
+						message:	$.i18n('notify.purchase.message', (ethReceiveds[i].ethReceived).toFixed(8), discount, (+ethReceiveds[i].tokensSend).toFixed(3))
 					}, {
 						type:		'minimalist',
 						placement:	{from: 'bottom', align: 'left'},
@@ -108,6 +107,42 @@
 					ethReceiveds[i].displayed = true;
 				}
 			}
+		}
+
+		function notifyJoin() {
+			var nbBlink = 6;
+			var blinkIntervalId = setInterval(function() {
+				$('.blink').css('visibility', nbBlink % 2 === 0 ? 'hidden' : 'visible');
+				if (nbBlink-- < 0) {
+					clearInterval(blinkIntervalId);
+				}
+			}, 500);
+
+			$.notify({
+				icon:		'assets/images/join.png',
+				title:		$.i18n('notify.join.title', 'Secure Swap'),
+				message:	$.i18n('notify.join.message')
+			}, {
+				type:		'minimalist',
+				placement:	{from: 'top', align: 'right'},
+				delay:		5000,
+				animate:	{enter: 'animated fadeInRightBig', exit: 'animated fadeOutRightBig'},
+				mouse_over:	'pause',
+				icon_type:	'image',
+				template:	'<div data-notify="container" class="alert alert-{0}" role="alert">' +
+							'	<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+							'	<div id="image">' +
+							'		<img data-notify="icon" class="rounded-circle float-left" />' +
+							'	</div>' +
+							'	<div id="text">' +
+							'		<span data-notify="title">{1}</span>' +
+							'		<span data-notify="message">{2}</span><br />' +
+							'		<button id="notify-join-submit" data-toggle="modal" data-target="#join-modal" ' +
+							'			class="btn btn-sm btn-gradient-orange btn-glow mt-3" ' +
+							'			data-i18n="notify.join.button" >Join our community</button>' +
+							'	</div>' +
+							'</div>'
+			});
 		}
 
 		function updatePurchaseBoxContent() {
@@ -248,7 +283,7 @@
 								if (!exists) ethReceiveds.push(thisObj);
 							});
 						}
-						notify();
+						notifyEthReceiveds();
 					}
 				})
 				.fail(function(err) {
@@ -324,15 +359,17 @@
 		function CFValidate() {
 			var valid = true;
 			$('#contact-form input[type=text]').each(function(index) {
-				if (index == 0) {
-					if ($(this).val() == null || $(this).val() == '') {
-						$('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
-						valid = false;
-					} else {
+				if (index == 0) { // optional
+					// if ($(this).val() == null || $(this).val() == '') {
+						// $('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
+						// valid = false;
+					// } else {
 						$('#contact-form').find('input:eq(' + index + ')').removeClass('required-error');
-					}
-				} else if (index == 1) {
-					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
+					// }
+				} else if (index == 1) { // optionnal
+					if ($(this).val() == null || $(this).val() == '') {
+						$('#contact-form').find('input:eq(' + index + ')').removeClass('required-error');
+					} else if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
 						$('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
 						valid = false;
 					} else {
@@ -351,15 +388,38 @@
 			return valid;
 		}
 
-		function EFValidate() {
+		function JBFValidate() {
 			var valid = true;
-			$('#email-form input[type=text]').each(function(index) {
-				if (index == 0) {
+			$('#joinbox-form input[type=text]').each(function(index) {
+				if (index == 0) { // optional
+					// if ($(this).val() == null || $(this).val() == '') {
+						// $('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
+						// valid = false;
+					// } else {
+						$('#joinbox-form').find('input:eq(' + index + ')').removeClass('required-error');
+					// }
+				} else if (index == 1) {
 					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
-						$('#email-form').find('input:eq(' + index + ')').addClass('required-error');
+						$('#joinbox-form').find('input:eq(' + index + ')').addClass('required-error');
 						valid = false;
 					} else {
-						$('#email-form').find('input:eq(' + index + ')').removeClass('required-error');
+						$('#joinbox-form').find('input:eq(' + index + ')').removeClass('required-error');
+					}
+				}
+
+			});
+			return valid;
+		}
+
+		function HFValidate() {
+			var valid = true;
+			$('#head-form input[type=text]').each(function(index) {
+				if (index == 0) {
+					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
+						$('#head-form').find('input:eq(' + index + ')').addClass('required-error');
+						valid = false;
+					} else {
+						$('#head-form').find('input:eq(' + index + ')').removeClass('required-error');
 					}
 				}
 			});
@@ -518,36 +578,70 @@
 			});
 		}
 
-		function sendEmail(ser) {
+		function sendJoin(ser) {
 			//	if (mailchimpLanguage !== '') {
 			//		ser += '&language=' + mailchimpLanguage;
 			//	}
-			$('#email-debug-alert').hide();
-			$('#email-submit').text($.i18n('head-area.button.sending'));
+			$('#joinbox-debug-alert').hide();
+			$('#joinbox-submit').text($.i18n('joinbox.button.sending'));
 			$.ajax({
 				type: 'POST',
-				url: '/email',
+				url: '/join',
 				data: ser,
 				success: function(result) {
 					// var res = JSON.parse(result);
 					if (result.err) {
-						$('#email-error-alert').html($.i18n(result.err));
-						$('#email-error-alert').fadeIn('slow');
-						$('#email-error-alert').delay(5000).fadeOut('slow');
+						$('#joinbox-error-alert').html($.i18n(result.err));
+						$('#joinbox-error-alert').fadeIn('slow');
+						$('#joinbox-error-alert').delay(5000).fadeOut('slow');
 					} else if (result.success) {
-						$('#email-form input[type=text]').val('');
+						$('#joinbox-form input[type=text]').val('');
 						// $('#message').val('');
-						$('#email-success-alert').html($.i18n(result.success));
-						$('#email-success-alert').fadeIn('slow');
-						$('#email-success-alert').delay(5000).fadeOut('slow');
+						$('#joinbox-success-alert').html($.i18n(result.success));
+						$('#joinbox-success-alert').fadeIn('slow');
+						$('#joinbox-success-alert').delay(5000).fadeOut('slow');
 					}
-					$('#email-submit').text($.i18n('head-area.button.submit'));
+					$('#joinbox-submit').text($.i18n('joinbox.button.submit'));
 				},
 				error: function() {
-					$('#email-error-alert').html($.i18n('head-area.error.message2'));
-					$('#email-error-alert').fadeIn('slow');
-					$('#email-error-alert').delay(5000).fadeOut('slow');
-					$('#email-submit').text($.i18n('head-area.button.submit'));
+					$('#joinbox-error-alert').html($.i18n('joinbox.error.message2'));
+					$('#joinbox-error-alert').fadeIn('slow');
+					$('#joinbox-error-alert').delay(5000).fadeOut('slow');
+					$('#joinbox-submit').text($.i18n('joinbox.button.submit'));
+				}
+			});
+		}
+
+		function sendHead(ser) {
+			//	if (mailchimpLanguage !== '') {
+			//		ser += '&language=' + mailchimpLanguage;
+			//	}
+			$('#head-debug-alert').hide();
+			$('#head-submit').text($.i18n('head-area.button.sending'));
+			$.ajax({
+				type: 'POST',
+				url: '/head',
+				data: ser,
+				success: function(result) {
+					// var res = JSON.parse(result);
+					if (result.err) {
+						$('#head-error-alert').html($.i18n(result.err));
+						$('#head-error-alert').fadeIn('slow');
+						$('#head-error-alert').delay(5000).fadeOut('slow');
+					} else if (result.success) {
+						$('#head-form input[type=text]').val('');
+						// $('#message').val('');
+						$('#head-success-alert').html($.i18n(result.success));
+						$('#head-success-alert').fadeIn('slow');
+						$('#head-success-alert').delay(5000).fadeOut('slow');
+					}
+					$('#head-submit').text($.i18n('head-area.button.submit'));
+				},
+				error: function() {
+					$('#head-error-alert').html($.i18n('head-area.error.message2'));
+					$('#head-error-alert').fadeIn('slow');
+					$('#head-error-alert').delay(5000).fadeOut('slow');
+					$('#head-submit').text($.i18n('head-area.button.submit'));
 				}
 			});
 		}
@@ -577,7 +671,7 @@
 					$('.play-video').each(function() {
 						$(this).tooltip({html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
 					});
-					$('.vertical-social li').each(function() {
+					$('.vertical-social li.wip').each(function() {
 						$(this).tooltip({placement: 'right', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
 					});
 					$('.contact .contact-info > li:nth-child(2)').each(function() {
@@ -895,15 +989,15 @@
 					$(this).removeClass('required-error');
 				});
 
-				$('#email-success-alert').hide();
-				$('#email-error-alert').hide();
-				$('#email-debug-alert').hide();
-				$('#email-submit').unbind('click').bind('click', function(e) {
+				$('#head-success-alert').hide();
+				$('#head-error-alert').hide();
+				$('#head-debug-alert').hide();
+				$('#head-submit').unbind('click').bind('click', function(e) {
 					e.preventDefault();
-					var valid = EFValidate();
+					var valid = HFValidate();
 					if (valid) {
 						grecaptcha.ready(function() {
-							grecaptcha.execute(grecKeyPub, {action: 'email'}).then(function(token) {
+							grecaptcha.execute(grecKeyPub, {action: 'head'}).then(function(token) {
 								$.ajax({
 									type: 'POST',
 									url: '/captcha',
@@ -911,12 +1005,12 @@
 									success: function(result) {
 										console.log('/captcha:' + JSON.stringify(result));
 										if (result.valid) {
-											var ser = $('#email-form').serialize();
-											sendEmail(ser);
+											var ser = $('#head-form').serialize();
+											sendHead(ser);
 										} else {
-											$('#email-error-alert').html($.i18n(result.err));
-											$('#email-error-alert').fadeIn('slow');
-											$('#email-error-alert').delay(5000).fadeOut('slow');
+											$('#head-error-alert').html($.i18n(result.err));
+											$('#head-error-alert').fadeIn('slow');
+											$('#head-error-alert').delay(5000).fadeOut('slow');
 										}
 									},
 									error: function(e) {
@@ -927,10 +1021,46 @@
 						});
 					}
 				});
-				$('#email-name, #email-mail, #email-message').on('input change', function(e) {
+				$('#head-mail').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 
+				
+				$('#joinbox-success-alert').hide();
+				$('#joinbox-error-alert').hide();
+				$('#joinbox-debug-alert').hide();
+				$('#joinbox-submit').unbind('click').bind('click', function(e) {
+					e.preventDefault();
+					var valid = JBFValidate();
+					if (valid) {
+						grecaptcha.ready(function() {
+							grecaptcha.execute(grecKeyPub, {action: 'joinbox'}).then(function(token) {
+								$.ajax({
+									type: 'POST',
+									url: '/captcha',
+									data: {token: token},
+									success: function(result) {
+										console.log('/captcha:' + JSON.stringify(result));
+										if (result.valid) {
+											var ser = $('#joinbox-form').serialize();
+											sendJoin(ser);
+										} else {
+											$('#joinbox-error-alert').html($.i18n(result.err));
+											$('#joinbox-error-alert').fadeIn('slow');
+											$('#joinbox-error-alert').delay(5000).fadeOut('slow');
+										}
+									},
+									error: function(e) {
+										console.log('/captcha:' + JSON.stringify(e));
+									}
+								});
+							});
+						});
+					}
+				});
+				$('#joinbox-name, #joinbox-mail').on('input change', function(e) {
+					$(this).removeClass('required-error');
+				});
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Referral Form
@@ -1072,6 +1202,10 @@
 					updateICOTimer();
 					updateETHTimer();
 				}, 200);
+
+				setTimeout(function() {
+					notifyJoin();
+				}, 5000);
 
 				$(window).scroll(function() {
 					if ($(this).scrollTop() > 200) {

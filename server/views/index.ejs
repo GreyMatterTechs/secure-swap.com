@@ -28,17 +28,22 @@
 	
 	<nav class="vertical-social">
 		<ul>
-			<li><a href="#"><i class="fab fa-discord" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-github" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-hubspot" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-linkedin-in" ></i></a></li>
-			<li><a href="#"><i class="fab fa-medium-m" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-slack-hash" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-discord" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-github" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-hubspot" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-linkedin-in" ></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-medium-m" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-slack-hash" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-telegram-plane" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+			<li class="blink" >
+				<a href="#" id="btn-social-mail" data-toggle="modal" data-target="#join-modal" >
+					<span style="color: #ff3300;"><i class="fas fa-envelope" aria-hidden="true"></i></span>
+				</a>
+			</li>
 		</ul>
 	</nav>
 	<!-- /////////////////////////////////// HEADER /////////////////////////////////////-->
@@ -141,31 +146,31 @@
 											<div class="container container-actions">
 												<div class="row justify-content-around no-gutters">
 													<div class="col-6">
-														<a href="#token-sale" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.purchase" >Contribute</a>
+														<a href="#token-sale" class="btn btn-lg btn-gradient-orange btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.purchase" >Contribute</a>
 													</div>
 													<div class="col-6">
-														<a href="#whitepaper" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.whitepaper">Whitepaper</a>
+														<a href="#whitepaper" class="btn btn-lg btn-gradient-orange btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.whitepaper">Whitepaper</a>
 													</div>
 													<div class="w-100"></div>
 													<div class="col-6">
-														<a href="#referral" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.referral">Referral</a>
+														<a href="#referral" class="btn btn-lg btn-gradient-orange btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.referral">Referral</a>
 													</div>
 													<div class="col-6">
-														<a href="#onepager" class="btn btn-lg btn-gradient-purple btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.onepager">Onepager</a>
+														<a href="#onepager" class="btn btn-lg btn-gradient-orange btn-glow mb-2 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" data-i18n="head-area.button.onepager">Onepager</a>
 													</div>
 												</div>
 											</div>
 											<div class="container containter-mail">
 												<div class="row no-gutters">
-													<form id="email-form" name="email" action="javascript:void(0)" novalidate="novalidate" accept-charset="utf-8" method="post" class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
+													<form id="head-form" name="head-form" action="javascript:void(0)" novalidate="novalidate" accept-charset="utf-8" method="post" class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
 														<div class="input-group">
 															<div class="col">
-																<input type="text" name="email-mail" id="email-mail" data-i18n="[placeholder]head-area.placeholder.mail" placeholder="Your Mail" class="form-control" >
+																<input type="text" name="head-mail" id="head-mail" data-i18n="[placeholder]head-area.placeholder.mail" placeholder="Your Mail" class="form-control" >
 															</div>
 															<div class="col-auto">
 																<span class="input-group-btn">
-																	<button id="email-submit" type="submit" 
-																		class="btn btm-sm btn-gradient-purple btn-glow animated g-recaptcha" 
+																	<button id="head-submit" type="submit" 
+																		class="btn btm-sm btn-gradient-orange btn-glow animated g-recaptcha" 
 																		data-animation="fadeInUpShorter" data-animation-delay="0.2s"
 																		data-i18n="head-area.button.submit">Submit
 																	</button>
@@ -173,9 +178,9 @@
 															</div>
 														</div>
 													</form>
-														<div id="email-success-alert"></div>
-														<div id="email-error-alert"></div>
-														<div id="email-debug-alert"></div>
+														<div id="head-success-alert"></div>
+														<div id="head-error-alert"></div>
+														<div id="head-debug-alert"></div>
 												</div>
 											</div>
 										</div>
@@ -897,7 +902,7 @@
 									<div class="col-xl-6 col-lg-6 col-md-12 animated" data-animation="fadeInRightShorter" data-animation-delay="0.0s">
 										<div class="token-sale-counter">
 											<h5 id="tokensale-title" data-i18n="tokensale-area.info.start" >Pre-ICO will start in:</h5>
-											<div class="token-details text-center">
+											<div class="token-details btn-gradient-blue text-center">
 												<!-- ICO Counter -->
 												<div class="clock-counter mb-4">
 													<div class="clock ml-0 mt-5 d-flex justify-content-center"></div>
@@ -948,7 +953,7 @@
 												<!--/ Progressbar -->
 												<a href="#" id="btn-purchase-sale" 
 													data-toggle="modal" data-target="#purchase-modal"
-													class="btn btn-lg btn-glow btn-gradient-blue" 
+													class="btn btn-lg btn-glow btn-gradient-orange" 
 													data-i18n="tokensale-area.btn.purchase">Purchase Token</a>
 											</div>
 										</div>
@@ -1130,13 +1135,13 @@
 											<li><span data-i18n="referral-area.li6">Click the</span> <span data-i18n="referralbox.button.register">Register</span> <span data-i18n="referral-area.li6end">button</span></li>
 										</ul>
 									</div>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s" ><i class="fas fa-exclamation-triangle text-danger mr-3" aria-hidden="true"></i><span data-i18n="referral-area.p5">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span></p>
+									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s" ><span style="color: #ff3300;"><i class="fas fa-exclamation-triangle mr-3" aria-hidden="true"></i></span><span data-i18n="referral-area.p5">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span></p>
 									<p class="animated note" data-animation="fadeInUpShorter" data-animation-delay="0.1s" data-i18n="referral-area.p6">In case the transaction is done before the referrals wallets are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address: Only early address provided participant will be rewarded!</p>
 									<p>
 										<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="referral-area.p7">Good luck and let the games begin!</h4>
 										<a href="#" id="btn-referral-area.register" 
 												data-toggle="modal" data-target="#referral-modal"
-												class="btn btn-gradient-purple btn-glow animated" data-animation="fadeInLeftShorter" data-animation-delay="0.3s" 
+												class="btn btn-gradient-orange btn-glow animated" data-animation="fadeInLeftShorter" data-animation-delay="0.3s" 
 												data-i18n="referral-area.but.register">Register referrals</a>
 									</p>
 								</div>
@@ -1747,23 +1752,23 @@
 
 							<div class="row social-margin">
 								<div class="col-md-12 animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s">
-									<div class="windows mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<div class="windows mobile-button btn btn-gradient-orange mr-4">
 										<span data-i18n="app-area.system.windows" >Windows</span>
 										<img src="assets/images/app/icon-windows.png" alt="">
 									</div>
-									<div class="mac mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<div class="mac mobile-button btn btn-gradient-orange mr-4">
 										<span data-i18n="app-area.system.mac" >Mac</span>
 										<img src="assets/images/app/icon-finder.png" alt="">
 									</div>
-									<div class="linux mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<div class="linux mobile-button btn btn-gradient-orange mr-4">
 										<span data-i18n="app-area.system.linux" >Linux</span>
 										<img src="assets/images/app/icon-linux.png" alt="">
 									</div>
-									<div class="android mobile-button btn btn-gradient-purple btn-glow mr-4">
+									<div class="android mobile-button btn btn-gradient-orange mr-4">
 										<span data-i18n="app-area.system.android" >Android</span>
 										<img src="theme-assets/images/icon-android.png" alt="">
 									</div>
-									<div class="apple mobile-button btn btn-gradient-purple btn-glow">
+									<div class="apple mobile-button btn btn-gradient-orange">
 										<span data-i18n="app-area.system.ios" >iOS</span>
 										<img src="theme-assets/images/icon-apple.png" alt="">
 									</div>
@@ -2897,12 +2902,12 @@
 									<li class="animated" data-animation="fadeInRightShorter" data-animation-delay="0.0s"><i class="fas fa-envelope"></i><span class="ml-1">contact@secure-swap.com</span></li>
 									<li class="animated" data-animation="fadeInLeftShorter" data-animation-delay="0.0s"><i class="fas fa-comment-alt"></i><span class="ml-1" data-i18n="contact-area.joinSNS">Join us on Telegram</span></li>
 								</ul>
-								<form id="contact-form" name="contact" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" class="text-center">
+								<form id="contact-form" name="contact-form" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" class="text-center">
 									<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="contact-name" name="contact-name" data-i18n="[placeholder]contact-area.placeholder.name" placeholder="Your Name">
 									<input type="text" class="form-control animated" data-animation="fadeInLeftShorter" data-animation-delay="0.1s" id="contact-mail" name="contact-mail" data-i18n="[placeholder]contact-area.placeholder.mail" placeholder="Your Mail">
 									<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="contact-message" name="contact-message" data-i18n="[placeholder]contact-area.placeholder.message" placeholder="Your Message">
 									<button id="contact-submit" type="submit" 
-										class="btn btn-lg btn-gradient-purple btn-glow animated g-recaptcha"
+										class="btn btn-lg btn-gradient-orange btn-glow animated g-recaptcha"
 										data-animation="fadeInUpShorter" data-animation-delay="0.2s"
 										data-i18n="contact-area.button.submit" >
 										Send Message
@@ -2991,7 +2996,7 @@
 														<div class="invalid-feedback" data-i18n="purchasebox.ico.legal.err"></div>
 													</div>
 													<div class="mt-3 clearfix">
-														<button id="legal-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated float-right" data-animation="fadeInRightShorter" data-animation-delay="0.5s" data-i18n="purchasebox.ico.legal.continue" >Continue</button>
+														<button id="legal-submit" type="submit" class="btn btn-lg btn-gradient-orange btn-glow animated float-right" data-animation="fadeInRightShorter" data-animation-delay="0.5s" data-i18n="purchasebox.ico.legal.continue" >Continue</button>
 													</div>
 													<p class="note mb-0 mt-5" data-i18n="purchasebox.ico.legal.note, <%= appName %>">Do note that the <%= appName %> team will never PM you for contribution of funds, or change the contribution address. Beware of scammers!</p>
 												</fieldset>
@@ -3059,6 +3064,41 @@
 					</div>
 				</div>
 				<!-- End Purchase Modal -->
+				<!-- Join Modal -->
+				<div class="modal referral-modal fade" id="join-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"><img src="assets/images/logo.png" alt="<%= appName %> Logo" /> <span data-i18n="joinbox.title, <%= appName %>">Join the <%= appName %> community</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							</div>							
+							<div class="modal-body">
+								<div class="container-fluid">
+									<form id="joinbox-form" name="joinbox" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" class="text-center">
+										<input type="text" class="form-control animated" data-animation="fadeInRightShorter" data-animation-delay="0.1s" id="joinbox-name" name="joinbox-name" data-i18n="[placeholder]joinbox.placeholder.name" placeholder="Your Name">
+										<input type="text" class="form-control animated" data-animation="fadeInLeftShorter" data-animation-delay="0.1s" id="joinbox-mail" name="joinbox-mail" data-i18n="[placeholder]joinbox.placeholder.mail" placeholder="Your Mail">
+										<button id="joinbox-submit" type="submit" 
+											class="btn btn-lg btn-gradient-orange btn-glow animated g-recaptcha"
+											data-animation="fadeInUpShorter" data-animation-delay="0.2s"
+											data-i18n="joinbox.button.submit" >
+											Join!
+										</button>									
+									</form>
+									<div id="joinbox-success-alert"></div>
+									<div id="joinbox-error-alert"></div>
+									<div id="joinbox-debug-alert"></div>
+								</div>
+							</div>
+							<div class="modal-footer">
+								<p class="col-12 small note"  >
+									<span style="color: #ff3300;"><i class="fas fa-exclamation-triangle mr-3" aria-hidden="true"></i></span>
+									<span class="small" data-i18n="joinbox.foot">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Join Modal -->
 				<!-- Referral Modal -->
 				<div class="modal referral-modal fade" id="referral-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
@@ -3093,7 +3133,7 @@
 										</div>
 										<div class="form-group">
 											<div class="col-sm-offset-2 col-sm-10">
-												<button id="referralbox-submit" type="submit" class="btn btn-lg btn-gradient-purple btn-glow animated" data-animation="fadeInRight" data-animation-delay="0.4s" data-i18n="referralbox.button.register" >Register</button>
+												<button id="referralbox-submit" type="submit" class="btn btn-lg btn-gradient-orange btn-glow animated" data-animation="fadeInRight" data-animation-delay="0.4s" data-i18n="referralbox.button.register" >Register</button>
 											</div>
 										</div>
 									</form>
@@ -3104,10 +3144,10 @@
 							</div>
 							<div class="modal-footer">
 								<p class="col-12 small note"  >
-									<i class="fas fa-exclamation-triangle text-danger mr-3" aria-hidden="true"></i>
-									<span class="small" data-i18n="referral-area.p5">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span>
+									<span style="color: #ff3300;"><i class="fas fa-exclamation-triangle mr-3" aria-hidden="true"></i></span>
+									<span class="small" data-i18n="referralbox.foot1">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span>
 									<br /> 
-									<span class="small" data-i18n="referral-area.p6">In case the transaction is done before the referrals wallets are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address: Only early address provided participant will be rewarded!</span>
+									<span class="small" data-i18n="referralbox.foot2">In case the transaction is done before the referrals wallets are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address: Only early address provided participant will be rewarded!</span>
 								</p>
 							</div>
 						</div>

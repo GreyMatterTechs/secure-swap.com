@@ -17,6 +17,9 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
   cursor: help;
   border-bottom: 1px dotted; }
 
+.alert-minimalist {
+  max-width: 16rem; }
+
 /* -- noscript -------------------------------------- */
 input.noscript-closing-trick:checked ~ div {
   display: none !important; }
@@ -51,7 +54,7 @@ input.noscript-closing-trick {
     color: #76daff; }
 
 .noscript-message {
-  border: 10px solid #ff3c41;
+  border: 10px solid #ff3300;
   position: fixed;
   width: 600px;
   min-width: 380px;
@@ -68,7 +71,7 @@ input.noscript-closing-trick {
 /* -- corner-ribbon ------------------------------------------------------------------- */
 .corner-ribbon {
   width: 200px;
-  background: #e43;
+  background: #ff4137;
   position: absolute;
   top: 25px;
   left: -50px;
@@ -197,12 +200,12 @@ header .navbar .dropdown .dropdown-menu a:before {
 .head-area .banner-content .container-actions {
   margin-top: 3rem !important; }
 
-.head-area #email-mail {
+.head-area #head-mail {
   padding: 0.5rem 0.5rem;
   margin-bottom: 0;
   height: 2.5rem; }
 
-.head-area #email-submit {
+.head-area #head-submit {
   padding: 0.5rem 1.0rem 0.5rem 1.0rem; }
 
 /* -- about ------------------------------------------------------------------- */
@@ -801,7 +804,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   border-bottom: 2px solid #be2e1b !important; }
 
 #contact-success-alert,
-#email-success-alert,
+#head-success-alert,
+#joinbox-success-alert,
 #referralbox-success-alert {
   text-align: center;
   background-color: #57cc65;
@@ -815,7 +819,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   text-transform: uppercase; }
 
 #contact-error-alert,
-#email-error-alert,
+#head-error-alert,
+#joinbox-error-alert,
 #referralbox-error-alert {
   text-align: center;
   background-color: #cc5757;
@@ -829,7 +834,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   text-transform: uppercase; }
 
 #contact-debug-alert,
-#email-debug-alert,
+#head-debug-alert,
+#joinbox-debug-alert,
 #referralbox-debug-alert {
   text-align: center;
   background-color: #cc5757;
@@ -988,10 +994,10 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     font-size: 0.8rem; }
   .head-area .head-content .move-first {
     margin-top: 5rem; }
-  .head-area .head-content #email-mail {
+  .head-area .head-content #head-mail {
     padding: 0.4rem 0.5rem !important;
     height: 2.0rem; }
-  .head-area .head-content #email-submit {
+  .head-area .head-content #head-submit {
     padding: 0.4rem 0.5rem 0.4rem 0.5rem !important; }
   .head-area #svg-animation {
     margin-left: 20%;
@@ -1140,6 +1146,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     left: 228px; } }
 
 @media (min-width: 576px) {
+  .alert-minimalist {
+    max-width: 20rem; }
   .head-area .head-content .banner-content div {
     /* margin-top: 3rem !important; */ }
     .head-area .head-content .banner-content div a {
@@ -1172,6 +1180,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     left: 228px; } }
 
 @media (min-width: 768px) {
+  .alert-minimalist {
+    max-width: 25rem; }
   .head-area .head-content .banner-content div a {
     width: 12rem; }
   /* -- problems & solutions ---------------------------- */
@@ -1247,6 +1257,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
     left: 175px; } }
 
 @media (min-width: 992px) {
+  .alert-minimalist {
+    max-width: 30rem; }
   /* -- problems & solutions ---------------------------- */
   p.solution-align1,
   p.solution-align2 {

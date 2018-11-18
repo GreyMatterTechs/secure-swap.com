@@ -640,10 +640,27 @@ module.exports = function(server) {
 		// }
 	});
 
-	router.post('/email', function(req, res, next) {
-		logger.info('route POST \"/email\" from: ' + req.clientIP + geo2str(req.geo));
+	router.post('/join', function(req, res, next) {
+		logger.info('route POST \"/join\" from: ' + req.clientIP + geo2str(req.geo));
 		// if (!req.cookies.sent) {
-		mContact.email(req, function(err, result) {
+		mContact.join(req, function(err, result) {
+			if (err) {
+				return res.send(err);
+			}
+			// /* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */
+			// res.cookie('sent', '', {maxAge: 120, expires: new Date(Date.now() + 120), httpOnly: false});
+			return res.send(result);
+		});
+		// } else {
+		// 	return res.send({err: 'contact-area.error.message1'});
+		//	// don't clear cookie --- res.clearCookie('sent');
+		// }
+	});
+
+	router.post('/head', function(req, res, next) {
+		logger.info('route POST \"/head\" from: ' + req.clientIP + geo2str(req.geo));
+		// if (!req.cookies.sent) {
+		mContact.head(req, function(err, result) {
 			if (err) {
 				return res.send(err);
 			}
@@ -694,11 +711,17 @@ module.exports = function(server) {
 					} else {
 						return res.send({valid: false, err: 'contact-area.error.message3'});
 					}
-				case 'email':
+				case 'head':
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
 						return res.send({valid: false, err: 'head-area.error.message3'});
+					}
+				case 'joinbox':
+					if ((+resp.body['score']) >= 0.8) {
+						return res.send({valid: true});
+					} else {
+						return res.send({valid: false, err: 'joinbox.error.message3'});
 					}
 				default:
 					return res.send({valid: false, err: 'contact-area.error.message3'});

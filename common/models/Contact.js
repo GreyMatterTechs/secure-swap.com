@@ -35,8 +35,8 @@ function makeOptions(data) {
 	options.to = config.mailRecipient.to;
 	options.cc = config.mailRecipient.cc;
 	options.bcc = config.mailRecipient.cci;
-	options.replyTo = data.mail;
-	options.subject = data.name ? '[Secure-Swap] Contact from ' + data.name : '[Secure-Swap] Email from <' + data.mail + '>';
+	options.replyTo = data.mail ? data.mail : null;
+	options.subject = data.name ? ('[Secure-Swap] Contact from ' + data.name) : (data.mail ? '[Secure-Swap] Contact from <' + data.mail + '>' : '[Secure-Swap] Email from anonymous visitor');
 	options.type = 'email';
 	options.protocol = 'http';
 	options.host = config.nginxhost;
@@ -51,8 +51,8 @@ function makeOptions(data) {
 	options.maildata = {
 		db: datasources.db.host || datasources.db.name || datasources.db.file,
 		env: (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV),
-		name: data.name ? data.name : null,
-		mail: data.mail,
+		name: data.name ? data.name : 'anonymous visitor',
+		mail: data.mail ? data.mail : null,
 		message: data.message ? data.message : null
 	};
 	options.ejs = data.message ? 'contactMessage.ejs' : 'contactEmail.ejs';
@@ -89,7 +89,39 @@ function sendContact(data, mEmail, cb) {
 	});
 }
 
-function sendMail(data, mEmail, cb) {
+
+function sendJoin(data, mEmail, cb) {
+
+	/*
+	var options = makeOptions(data);
+
+	createTemplatedEmailBody(options, function(err, html) {
+		options.html = html;
+		delete options.maildata;
+		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
+			mEmail.send(options, null, function(err, email) {
+				if (err) {
+					return cb({err: 'joinbox.error.message5'}, null);
+				}
+				return cb(null, {success: 'joinbox.success.message'});
+			});
+		} else {
+			mEmail.send(options, function(err, email) {
+				if (err) {
+					return cb({err: 'joinbox.error.message6'}, null);
+				}
+				return cb(null, {success: 'joinbox.success.message'});
+			});
+		}
+	});
+	*/
+
+	// $$$ TODO: Implémenter Mailchimp ici
+	return cb({success: 'joinbox.success.message'}, null);
+}
+
+
+function sendHead(data, mEmail, cb) {
 
 	/*
 	var options = makeOptions(data);
@@ -200,7 +232,7 @@ module.exports = function(Contact) {
 			return cb({err: 'bad request'}, null);
 		}
 		// check form data
-		if (!req.body.name || !req.body.mail || !req.body.message) {
+		if (/*!req.body['contact-name'] || !req.body['contact-mail'] ||*/ !req.body['contact-message']) {
 			return cb({err: 'bad request'}, null);
 		}
 
@@ -225,30 +257,31 @@ module.exports = function(Contact) {
 				}
 				*/
 
-				var postData = {
-					mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.mail))),
-					name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.name))),
-					message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body.message)))
-				};
-				if (validator.isEmail(postData.mail)) {
-					postData.mail = validator.normalizeEmail(postData.mail);
-					var mEmail = app.models.Email;
-					sendContact(postData, mEmail, function(err, successMessage) {
-						if (err) {
-							return cb(err);
-						}
-						logger.info('Contact Form: Sent contact message from ' + postData.mail);
-						return cb(null, successMessage);
-					});
-				} else {
-					return cb({err: 'contact-area.error.message4'}, null);
+		var postData = {
+			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-mail']))),
+			name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-name']))),
+			message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-message'])))
+		};
+	//	if (validator.isEmail(postData.mail)) {
+			postData.mail = validator.normalizeEmail(postData.mail);
+			var mEmail = app.models.Email;
+			sendContact(postData, mEmail, function(err, successMessage) {
+				if (err) {
+					return cb(err);
 				}
+				logger.info('Contact Form: Sent contact message from ' + (postData.mail ? postData.mail : 'anonymous sender'));
+				return cb(null, successMessage);
+			});
+	//	} else {
+	//		return cb({err: 'contact-area.error.message4'}, null);
+	//	}
 		/*		
 			});
 		*/
 	};
 
-	Contact.email = function(req, cb) {
+	
+	Contact.join = function(req, cb) {
 		// Filter bad requests
 		if (!req) {
 			return cb({err: 'bad request'}, null);
@@ -258,21 +291,58 @@ module.exports = function(Contact) {
 		var referer = req.get('Referrer');
 		referer = referer.replace(/www/i, '');
 		if (!validReferers.includes(referer)) {
-			logger.warn('Email Form: Received an Ajax call to /email from referer:' + referer);
+			logger.warn('Join Form: Received an Ajax call to /join from referer:' + referer);
 			return cb({err: 'bad request'}, null);
 		}
 		// check form data
-		if (!req.body['email-mail']) {
+		if (/*!req.body['contact-name'] ||*/ !req.body['contact-mail']) {
 			return cb({err: 'bad request'}, null);
 		}
 
 		var postData = {
-			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['email-mail'])))
+			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-mail']))),
+			name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-name'])))
 		};
 		if (validator.isEmail(postData.mail)) {
 			postData.mail = validator.normalizeEmail(postData.mail);
 			var mEmail = app.models.Email;
-			sendMail(postData, mEmail, function(err, successMessage) {
+			sendJoin(postData, mEmail, function(err, successMessage) {
+				if (err) {
+					return cb(err);
+				}
+				logger.info('Join Form: Sent join message from ' + postData.mail);
+				return cb(null, successMessage);
+			});
+		} else {
+			return cb({err: 'joinbox.error.message4'}, null);
+		}
+	};
+
+	Contact.head = function(req, cb) {
+		// Filter bad requests
+		if (!req) {
+			return cb({err: 'bad request'}, null);
+		}
+		// Check referers
+		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
+		var referer = req.get('Referrer');
+		referer = referer.replace(/www/i, '');
+		if (!validReferers.includes(referer)) {
+			logger.warn('Head Form: Received an Ajax call to /head from referer:' + referer);
+			return cb({err: 'bad request'}, null);
+		}
+		// check form data
+		if (!req.body['head-mail']) {
+			return cb({err: 'bad request'}, null);
+		}
+
+		var postData = {
+			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['head-mail'])))
+		};
+		if (validator.isEmail(postData.mail)) {
+			postData.mail = validator.normalizeEmail(postData.mail);
+			var mEmail = app.models.Email;
+			sendHead(postData, mEmail, function(err, successMessage) {
 				if (err) {
 					return cb(err);
 				}

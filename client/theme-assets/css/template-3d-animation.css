@@ -992,7 +992,7 @@ svg#loader {
 /*	Token Sale box with counter progress and button
 * 	----------------------------------------------------------------------------------------------*/
 .token-details {
-  background: linear-gradient(32deg, #ff4137, #fdc800);
+  /* background: linear-gradient(32deg,$token-gradient1, $token-gradient2); */
   padding: 1.2rem;
   border-radius: 0.35rem;
   height: 336px;
@@ -1141,9 +1141,10 @@ svg#loader {
       height: 60px;
       margin-right: 12px; }
   .alert-minimalist #text {
-    float: left;
+    /* float: left; */
     margin-top: 2px;
-    margin-right: 20px; }
+    margin-right: 20px;
+    line-height: 1.0rem; }
     .alert-minimalist #text [data-notify="title"] {
       color: #333333;
       line-height: 1rem;
