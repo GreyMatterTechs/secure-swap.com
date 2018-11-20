@@ -81,7 +81,7 @@ Chimp.subscribe = function(user, listId) {
 		var subscriber = {
 			email_address: user.email,
 			double_optin: defaults.double_optin || false,
-			status: 'subscribed',
+			status: 'pending',
 			timestamp_opt: moment().format('YYYY-MM-DD HH:mm:ss'), 
 			list_id: listId || defaults.defaultListId,
 			merge_fields: {
@@ -95,10 +95,12 @@ Chimp.subscribe = function(user, listId) {
 		if (user.lastName) {
 			subscriber.merge_fields.LNAME = user.lastName;
 		}
+		/*
 		if (user.ip) {
 			subscriber.ip_opt = user.ip;
 			subscriber.merge_fields.optin_ip = user.ip;
 		}
+		*/
 
 		subscriber.merge_fields = lo.merge(subscriber.merge_fields, user.merge_fields);
 
@@ -113,16 +115,14 @@ Chimp.subscribe = function(user, listId) {
 		}, function(err, response) {
 			var errNum = 0;
 			if (err) {
-				delete err.instance;
-				delete err.stack;
 				errNum = 1; // Unknown Add member error
 				if (err.status === 400) {
 					if (err.message.includes('looks fake or invalid')) {
-						// "obelix.pharming@mailnull.com looks fake or invalid, please enter a real email address."
+						// "xxx@xxx.com looks fake or invalid, please enter a real email address."
 						errNum = 2; // invalid email
 					}
 					if (err.message.includes('is already a list member')) {
-						// "toto@dkjdfj.com is already a list member. Use PUT to insert or update list members."
+						// "xxx@xxx.com is already a list member. Use PUT to insert or update list members."
 						errNum = 3; // already exists
 					}
 				}
@@ -139,6 +139,31 @@ Chimp.subscribe = function(user, listId) {
 		});
 	});
 };
+
+
+Chimp.checkStatus = function(user, listId) {
+	var _this = this;
+	return new Promise(function(resolve, reject) {
+
+		_this.MailChimp.request({
+			method: 'GET',
+			path: '/lists/{list_id}/members/{member_id}',
+			path_params: {
+				list_id: listId || defaults.defaultListId,
+				member_id: md5(user.email.toLowerCase())
+			},
+			params: {}
+		}, function(err, response) {
+			if (err) {
+				err.errNum = 11;
+				return reject(err);
+			} else {
+				resolve(response);
+			}
+		});
+	});
+};
+
 
 Chimp.unsubscribe = function(user, listId) {
 	var _this = this;

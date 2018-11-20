@@ -28,7 +28,7 @@ const dsEmail		= app.dataSources.emailDS;
 const mailchimp		= reqlocal(path.join('server', 'components', 'mailchimp.js'));
 
 mailchimp.init({
-	apiKey:			'fefffdfdbe8e4d050156dd8927ff75f5-us12',
+	apiKey:			config.mcApiKey,
 	defaultListId:	'fac8425178', // Liste 'SecureSwap Subscribers'
 	doubleOptin:	false
 });
@@ -299,10 +299,12 @@ module.exports = function(Contact) {
 			email: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-mail']))),
 			firstName: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-fname']))),
 			lastName: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-lname']))),
-			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang']))),
-			merge_fields: {
+			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang']))) 
+			/*
+			,merge_fields: {
 				optin_ip: '192.168.0.1'
 			}
+			*/
 		};
 		if (validator.isEmail(user.email)) {
 			user.email = validator.normalizeEmail(user.email);
@@ -312,11 +314,40 @@ module.exports = function(Contact) {
 
 			mailchimp.subscribe(user)
 				.then(function(response) {
-					logger.info('Join Form: Registered new mailchimp: ' + user.email);
-					return cb(null, {errNum: response.errNum});
+					if (response.errNum === 0) {
+						logger.info('Join Form: Registered new mailchimp: ' + user.email);
+						return cb(null, {errNum: response.errNum});
+					} else {
+						// errNum ==1 : unknown error
+						return cb({errNum: response.errNum}, null);
+					}
 				})
 				.catch(function(err) {
-					return cb({errNum: err.errNum}, null);
+					if (err.errNum === 3) {
+						// check why subscribe failed
+						mailchimp.checkStatus(user)
+							.then(function(response) {
+								switch (response.status) {
+								case 'pending':
+									// resubmit
+									break;
+								case 'subscribed':
+									// already registered
+									return cb(null, {errNum: 0});
+								case 'unsubscribed':
+									// resubscribe
+									break;
+								default:
+									// unknown error
+									return cb({errNum: 12}, null);
+								}
+							})
+							.catch(function(err) {
+								return cb({errNum: err.errNum}, null);
+							});
+					} else {
+						return cb({errNum: err.errNum}, null);
+					}
 				});
 		} else {
 			return cb({errNum: 4}, null);

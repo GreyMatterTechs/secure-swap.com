@@ -622,16 +622,18 @@
 					if (result.errNum > 0) {
 						// 1; // Unknown Add member error
 						// 2; // invalid email
-						// 3; // user already exists
+						// 4; // invalid email
+						// 11; // Unknown Get member status error
+						// 12; // Unknown Get member status error
 						shorter.$errorAlert.html($.i18n('joinbox.error.message' + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow');
 					} else {
 						shorter.$input.val('');
-						// $('#message').val('');
 						shorter.$successAlert.html($.i18n(shorter.i18nSuccess)).fadeIn('slow').delay(5000).fadeOut('slow');
 					}
 					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				},
 				error: function(err) {
+					// all unknown errors
 					shorter.$errorAlert.html($.i18n(shorter.i18nError)).fadeIn('slow').delay(5000).fadeOut('slow');
 					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				}
