@@ -1,40 +1,53 @@
 {
-  "name": "Contact",
-  "base": "PersistedModel",
-  "idInjection": true,
-  "options": {
-    "validateUpsert": true
-  },
-  "properties": {},
-  "validations": [],
-  "relations": {},
-  "acls": [],
-  "methods": {
-    "contact": {
-      "accepts": {
-        "arg": "req",
-        "type": "Object"
-      },
-      "returns": {
-        "arg": "result",
-        "type": "Object"
-      },
-      "http": {
-        "verb": "post"
-      }
+	"name": "Contact",
+	"base": "PersistedModel",
+	"idInjection": true,
+	"options": {
+		"validateUpsert": true
 	},
-	"head": {
-		"accepts": {
-		  "arg": "req",
-		  "type": "Object"
+	"properties": {},
+	"validations": [],
+	"relations": {},
+	"acls": [],
+	"methods": {
+		"contact": {
+			"accepts": {
+				"arg": "req",
+				"type": "Object"
+			},
+			"returns": {
+				"arg": "result",
+				"type": "Object"
+			},
+			"http": {
+				"verb": "post"
+			}
 		},
-		"returns": {
-		  "arg": "result",
-		  "type": "Object"
+		"head": {
+			"accepts": {
+				"arg": "req",
+				"type": "Object"
+			},
+			"returns": {
+				"arg": "result",
+				"type": "Object"
+			},
+			"http": {
+				"verb": "post"
+			}
 		},
-		"http": {
-		  "verb": "post"
+		"join": {
+			"accepts": {
+				"arg": "req",
+				"type": "Object"
+			},
+			"returns": {
+				"arg": "result",
+				"type": "Object"
+			},
+			"http": {
+				"verb": "post"
+			}
 		}
-	  }
-  }
+	}
 }

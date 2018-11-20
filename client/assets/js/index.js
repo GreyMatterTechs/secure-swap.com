@@ -74,6 +74,8 @@
 		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
 		var purchaseboxLegal = false;
 
+		var shorters;
+
 
 		// --- private methods
 
@@ -118,7 +120,7 @@
 				}
 			}, 500);
 
-			$.notify({
+			var notify = $.notify({
 				icon:		'assets/images/join.png',
 				title:		$.i18n('notify.join.title', 'Secure Swap'),
 				message:	$.i18n('notify.join.message')
@@ -139,9 +141,14 @@
 							'		<span data-notify="message">{2}</span><br />' +
 							'		<button id="notify-join-submit" data-toggle="modal" data-target="#join-modal" ' +
 							'			class="btn btn-sm btn-gradient-orange btn-glow mt-3" ' +
-							'			data-i18n="notify.join.button" >Join our community</button>' +
+							'			data-i18n="notify.join.button" >' + $.i18n('notify.join.button') + '</button>' +
 							'	</div>' +
 							'</div>'
+			});
+
+			$('body').off('click.btn').on('click.btn', '#notify-join-submit', function(e) {
+				e.preventDefault();
+				notify.close();
 			});
 		}
 
@@ -366,7 +373,14 @@
 					// } else {
 						$('#contact-form').find('input:eq(' + index + ')').removeClass('required-error');
 					// }
-				} else if (index == 1) { // optionnal
+				} else if (index == 1) { // optional
+					// if ($(this).val() == null || $(this).val() == '') {
+						// $('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
+						// valid = false;
+					// } else {
+						$('#contact-form').find('input:eq(' + index + ')').removeClass('required-error');
+					// }
+				} else if (index == 2) { // optionnal
 					if ($(this).val() == null || $(this).val() == '') {
 						$('#contact-form').find('input:eq(' + index + ')').removeClass('required-error');
 					} else if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
@@ -375,7 +389,7 @@
 					} else {
 						$('#contact-form').find('input:eq(' + index + ')').removeClass('required-error');
 					}
-				} else if (index == 2) {
+				} else if (index == 3) {
 					if ($(this).val() == null || $(this).val() == '') {
 						$('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
 						valid = false;
@@ -398,7 +412,14 @@
 					// } else {
 						$('#joinbox-form').find('input:eq(' + index + ')').removeClass('required-error');
 					// }
-				} else if (index == 1) {
+				} else if (index == 1) { // optional
+					// if ($(this).val() == null || $(this).val() == '') {
+						// $('#contact-form').find('input:eq(' + index + ')').addClass('required-error');
+						// valid = false;
+					// } else {
+						$('#joinbox-form').find('input:eq(' + index + ')').removeClass('required-error');
+					// }
+				} else if (index == 2) {
 					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
 						$('#joinbox-form').find('input:eq(' + index + ')').addClass('required-error');
 						valid = false;
@@ -543,105 +564,76 @@
 			return same;
 		}
 
-
-		function sendContact(ser) {
-			//	if (mailchimpLanguage !== '') {
-			//		ser += '&language=' + mailchimpLanguage;
-			//	}
-			$('#contact-debug-alert').hide();
-			$('#contact-submit').text($.i18n('contact-area.button.sending'));
-			$.ajax({
-				type: 'POST',
-				url: '/contact',
-				data: ser,
-				success: function(result) {
-					// var res = JSON.parse(result);
-					if (result.err) {
-						$('#contact-error-alert').html($.i18n(result.err));
-						$('#contact-error-alert').fadeIn('slow');
-						$('#contact-error-alert').delay(5000).fadeOut('slow');
-					} else if (result.success) {
-						$('#contact-form input[type=text]').val('');
-						// $('#message').val('');
-						$('#contact-success-alert').html($.i18n(result.success));
-						$('#contact-success-alert').fadeIn('slow');
-						$('#contact-success-alert').delay(5000).fadeOut('slow');
-					}
-					$('#contact-submit').text($.i18n('contact-area.button.submit'));
-				},
-				error: function() {
-					$('#contact-error-alert').html($.i18n('contact-area.error.message2'));
-					$('#contact-error-alert').fadeIn('slow');
-					$('#contact-error-alert').delay(5000).fadeOut('slow');
-					$('#contact-submit').text($.i18n('contact-area.button.submit'));
+		function initForm(shorter, fnValidate, action) {
+			shorter.$successAlert.hide();
+			shorter.$errorAlert.hide();
+			shorter.$debugAlert.hide();
+			shorter.$submit.unbind('click').bind('click', function(e) {
+				e.preventDefault();
+				if (fnValidate()) {
+					checkCaptcha(action, shorter, function(err) {
+						if (!err) {
+							var ser = shorter.$form.serialize();
+							if (mailchimpLanguage !== '') {
+								ser += '&lang=' + mailchimpLanguage;
+							}
+							sendForm(ser, shorter);
+						}
+					});
 				}
 			});
 		}
 
-		function sendJoin(ser) {
-			//	if (mailchimpLanguage !== '') {
-			//		ser += '&language=' + mailchimpLanguage;
-			//	}
-			$('#joinbox-debug-alert').hide();
-			$('#joinbox-submit').text($.i18n('joinbox.button.sending'));
-			$.ajax({
-				type: 'POST',
-				url: '/join',
-				data: ser,
-				success: function(result) {
-					// var res = JSON.parse(result);
-					if (result.err) {
-						$('#joinbox-error-alert').html($.i18n(result.err));
-						$('#joinbox-error-alert').fadeIn('slow');
-						$('#joinbox-error-alert').delay(5000).fadeOut('slow');
-					} else if (result.success) {
-						$('#joinbox-form input[type=text]').val('');
-						// $('#message').val('');
-						$('#joinbox-success-alert').html($.i18n(result.success));
-						$('#joinbox-success-alert').fadeIn('slow');
-						$('#joinbox-success-alert').delay(5000).fadeOut('slow');
-					}
-					$('#joinbox-submit').text($.i18n('joinbox.button.submit'));
-				},
-				error: function() {
-					$('#joinbox-error-alert').html($.i18n('joinbox.error.message2'));
-					$('#joinbox-error-alert').fadeIn('slow');
-					$('#joinbox-error-alert').delay(5000).fadeOut('slow');
-					$('#joinbox-submit').text($.i18n('joinbox.button.submit'));
-				}
+		function checkCaptcha(action, shorter, cb) {
+			grecaptcha.ready(function() {
+				grecaptcha.execute(grecKeyPub, {action: action}).then(function(token) {
+					$.ajax({
+						type: 'POST',
+						url: '/captcha',
+						data: {token: token},
+						success: function(result) {
+							console.log('/captcha:' + JSON.stringify(result));
+							if (result.valid) {
+								cb(null);
+							} else {
+								shorter.$errorAlert.html($.i18n(result.err)).fadeIn('slow').delay(5000).fadeOut('slow');
+								cb(true);
+							}
+						},
+						error: function(e) {
+							console.log('/captcha:' + JSON.stringify(e));
+							cb(true);
+						}
+					});
+				});
 			});
 		}
 
-		function sendHead(ser) {
-			//	if (mailchimpLanguage !== '') {
-			//		ser += '&language=' + mailchimpLanguage;
-			//	}
-			$('#head-debug-alert').hide();
-			$('#head-submit').text($.i18n('head-area.button.sending'));
+
+		function sendForm(ser, shorter) {
+			shorter.$debugAlert.hide();
+			shorter.$submit.text($.i18n(shorter.i18nSending));
 			$.ajax({
 				type: 'POST',
-				url: '/head',
+				url: shorter.url,
 				data: ser,
 				success: function(result) {
 					// var res = JSON.parse(result);
-					if (result.err) {
-						$('#head-error-alert').html($.i18n(result.err));
-						$('#head-error-alert').fadeIn('slow');
-						$('#head-error-alert').delay(5000).fadeOut('slow');
-					} else if (result.success) {
-						$('#head-form input[type=text]').val('');
+					if (result.errNum > 0) {
+						// 1; // Unknown Add member error
+						// 2; // invalid email
+						// 3; // user already exists
+						shorter.$errorAlert.html($.i18n('joinbox.error.message' + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow');
+					} else {
+						shorter.$input.val('');
 						// $('#message').val('');
-						$('#head-success-alert').html($.i18n(result.success));
-						$('#head-success-alert').fadeIn('slow');
-						$('#head-success-alert').delay(5000).fadeOut('slow');
+						shorter.$successAlert.html($.i18n(shorter.i18nSuccess)).fadeIn('slow').delay(5000).fadeOut('slow');
 					}
-					$('#head-submit').text($.i18n('head-area.button.submit'));
+					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				},
-				error: function() {
-					$('#head-error-alert').html($.i18n('head-area.error.message2'));
-					$('#head-error-alert').fadeIn('slow');
-					$('#head-error-alert').delay(5000).fadeOut('slow');
-					$('#head-submit').text($.i18n('head-area.button.submit'));
+				error: function(err) {
+					shorter.$errorAlert.html($.i18n(shorter.i18nError)).fadeIn('slow').delay(5000).fadeOut('slow');
+					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				}
 			});
 		}
@@ -662,6 +654,49 @@
 				updateICOIntervalDefault = ajaxDelay;
 
 				i18n = window.ssw.I18n.getInstance();
+
+				shorters = {
+					contact: {
+						$form:			$('#contact-form'),
+						$debugAlert:	$('#contact-debug-alert'),
+						$errorAlert:	$('#contact-error-alert'),
+						$successAlert:	$('#contact-success-alert'),
+						$submit:		$('#contact-submit'),
+						$input:			$('#contact-form input[type=text]'),
+						i18nSending:	'contact-area.button.sending',
+						i18nSubmit:		'contact-area.button.submit',
+						i18nSuccess:	'contact-area.success.message',
+						i18nError:		'contact-area.error.message2',
+						url:			'/contact'
+					},
+					join: {
+						$form:			$('#joinbox-form'),
+						$debugAlert:	$('#joinbox-debug-alert'),
+						$errorAlert:	$('#joinbox-error-alert'),
+						$successAlert:	$('#joinbox-success-alert'),
+						$submit:		$('#joinbox-submit'),
+						$input:			$('#joinbox-form input[type=text]'),
+						i18nSending:	'joinbox.button.sending',
+						i18nSubmit:		'joinbox.button.submit',
+						i18nSuccess:	'joinbox.success.message',
+						i18nError:		'joinbox.error.message1',
+						url:			'/join'
+					},
+					head: {
+						$form:			$('#head-form'),
+						$debugAlert:	$('#head-debug-alert'),
+						$errorAlert:	$('#head-error-alert'),
+						$successAlert:	$('#head-success-alert'),
+						$submit:		$('#head-submit'),
+						$input:			$('#head-form input[type=text]'),
+						i18nSending:	'head-area.button.sending',
+						i18nSubmit:		'head-area.button.submit',
+						i18nSuccess:	'head-area.success.message',
+						i18nError:		'head-area.error.message2',
+						url:			'/head'
+					}
+				};
+
 
 				//--------------------------------------------------------------------------------------------------------------
 				// Popups placemnt
@@ -953,112 +988,18 @@
 					});
 				});
 
-				$('#contact-success-alert').hide();
-				$('#contact-error-alert').hide();
-				$('#contact-debug-alert').hide();
-				$('#contact-submit').unbind('click').bind('click', function(e) {
-					e.preventDefault();
-					var valid = CFValidate();
-					if (valid) {
-						grecaptcha.ready(function() {
-							grecaptcha.execute(grecKeyPub, {action: 'contact'}).then(function(token) {
-								$.ajax({
-									type: 'POST',
-									url: '/captcha',
-									data: {token: token},
-									success: function(result) {
-										console.log('/captcha:' + JSON.stringify(result));
-										if (result.valid) {
-											var ser = $('#contact-form').serialize();
-											sendContact(ser);
-										} else {
-											$('#contact-error-alert').html($.i18n(result.err));
-											$('#contact-error-alert').fadeIn('slow');
-											$('#contact-error-alert').delay(5000).fadeOut('slow');
-										}
-									},
-									error: function(e) {
-										console.log('/captcha:' + JSON.stringify(e));
-									}
-								});
-							});
-						});
-					}
-				});
-				$('#contact-name, #contact-mail, #contact-message').on('input change', function(e) {
+				initForm(shorters.contact, CFValidate, 'contact');
+				$('#contact-fname, #contact-lname, #contact-mail, #contact-message').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 
-				$('#head-success-alert').hide();
-				$('#head-error-alert').hide();
-				$('#head-debug-alert').hide();
-				$('#head-submit').unbind('click').bind('click', function(e) {
-					e.preventDefault();
-					var valid = HFValidate();
-					if (valid) {
-						grecaptcha.ready(function() {
-							grecaptcha.execute(grecKeyPub, {action: 'head'}).then(function(token) {
-								$.ajax({
-									type: 'POST',
-									url: '/captcha',
-									data: {token: token},
-									success: function(result) {
-										console.log('/captcha:' + JSON.stringify(result));
-										if (result.valid) {
-											var ser = $('#head-form').serialize();
-											sendHead(ser);
-										} else {
-											$('#head-error-alert').html($.i18n(result.err));
-											$('#head-error-alert').fadeIn('slow');
-											$('#head-error-alert').delay(5000).fadeOut('slow');
-										}
-									},
-									error: function(e) {
-										console.log('/captcha:' + JSON.stringify(e));
-									}
-								});
-							});
-						});
-					}
-				});
+				initForm(shorters.head, HFValidate, 'head');
 				$('#head-mail').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 
-				
-				$('#joinbox-success-alert').hide();
-				$('#joinbox-error-alert').hide();
-				$('#joinbox-debug-alert').hide();
-				$('#joinbox-submit').unbind('click').bind('click', function(e) {
-					e.preventDefault();
-					var valid = JBFValidate();
-					if (valid) {
-						grecaptcha.ready(function() {
-							grecaptcha.execute(grecKeyPub, {action: 'joinbox'}).then(function(token) {
-								$.ajax({
-									type: 'POST',
-									url: '/captcha',
-									data: {token: token},
-									success: function(result) {
-										console.log('/captcha:' + JSON.stringify(result));
-										if (result.valid) {
-											var ser = $('#joinbox-form').serialize();
-											sendJoin(ser);
-										} else {
-											$('#joinbox-error-alert').html($.i18n(result.err));
-											$('#joinbox-error-alert').fadeIn('slow');
-											$('#joinbox-error-alert').delay(5000).fadeOut('slow');
-										}
-									},
-									error: function(e) {
-										console.log('/captcha:' + JSON.stringify(e));
-									}
-								});
-							});
-						});
-					}
-				});
-				$('#joinbox-name, #joinbox-mail').on('input change', function(e) {
+				initForm(shorters.join, JBFValidate, 'joinbox');
+				$('#joinbox-fname, #joinbox-lname, #joinbox-mail').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 

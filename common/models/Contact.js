@@ -25,6 +25,19 @@ const config		= reqlocal(path.join('server', 'config' + (process.env.NODE_ENV ==
 const logger		= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 const dsEmail		= app.dataSources.emailDS;
 
+const mailchimp		= reqlocal(path.join('server', 'components', 'mailchimp.js'));
+
+mailchimp.init({
+	apiKey:			'fefffdfdbe8e4d050156dd8927ff75f5-us12',
+	defaultListId:	'fac8425178', // Liste 'SecureSwap Subscribers'
+	doubleOptin:	false
+});
+
+
+// ------------------------------------------------------------------------------------------------------
+// Local Vars
+// ------------------------------------------------------------------------------------------------------
+
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
@@ -32,11 +45,15 @@ const dsEmail		= app.dataSources.emailDS;
 
 function makeOptions(data) {
 	var options = {};
+	var name = data.fname && data.lname ? (data.fname + ' ' + data.lname) 
+										: (data.fname ? (data.fname) 
+													  : (data.lname ? (data.lname) 
+													  				: ('')));
 	options.to = config.mailRecipient.to;
 	options.cc = config.mailRecipient.cc;
 	options.bcc = config.mailRecipient.cci;
 	options.replyTo = data.mail ? data.mail : null;
-	options.subject = data.name ? ('[Secure-Swap] Contact from ' + data.name) : (data.mail ? '[Secure-Swap] Contact from <' + data.mail + '>' : '[Secure-Swap] Email from anonymous visitor');
+	options.subject = name ? ('[Secure-Swap] Contact from ' + name) : (data.mail ? '[Secure-Swap] Contact from <' + data.mail + '>' : '[Secure-Swap] Email from anonymous visitor');
 	options.type = 'email';
 	options.protocol = 'http';
 	options.host = config.nginxhost;
@@ -51,7 +68,7 @@ function makeOptions(data) {
 	options.maildata = {
 		db: datasources.db.host || datasources.db.name || datasources.db.file,
 		env: (process.env.NODE_ENV === undefined ? 'development' : process.env.NODE_ENV),
-		name: data.name ? data.name : 'anonymous visitor',
+		name: name ? name : 'anonymous visitor',
 		mail: data.mail ? data.mail : null,
 		message: data.message ? data.message : null
 	};
@@ -64,7 +81,7 @@ function createTemplatedEmailBody(options, cb) {
 	cb(null, template(options));
 }
 
-function sendContact(data, mEmail, cb) {
+function sendMessage(data, mEmail, cb) {
 
 	var options = makeOptions(data);
 
@@ -158,6 +175,21 @@ function geo2str(geo) {
 }
 
 
+function isBadRequest(req, call) {
+	// Filter bad requests
+	if (!req) return true;
+	// Check referers
+	var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
+	var referer = req.get('Referrer');
+	referer = referer.replace(/www/i, '');
+	if (!validReferers.includes(referer)) {
+		logger.warn('Received an Ajax call to ' + call + +' from referer:' + referer);
+		return true;
+	}
+	return false;
+}
+
+
 // ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
@@ -220,124 +252,91 @@ module.exports = function(Contact) {
 
 	Contact.contact = function(req, cb) {
 		// Filter bad requests
-		if (!req) {
-			return cb({err: 'bad request'}, null);
-		}
-		// Check referers
-		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
-		var referer = req.get('Referrer');
-		referer = referer.replace(/www/i, '');
-		if (!validReferers.includes(referer)) {
-			logger.warn('Contact Form: Received an Ajax call to /contact from referer:' + referer);
-			return cb({err: 'bad request'}, null);
-		}
-		// check form data
-		if (/*!req.body['contact-name'] || !req.body['contact-mail'] ||*/ !req.body['contact-message']) {
+		if (isBadRequest(req, '/contact')) {
 			return cb({err: 'bad request'}, null);
 		}
 
-		/*
-		// g-recaptcha-response is the key that browser will generate upon form submit.
-		// if its blank or null means user has not selected the captcha, so return the error.
-		if (req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-			return cb({err: {responseCode: 1, responseDesc: 'Please select captcha'}}, null);
+		// check form data
+		if (/* !req.body['contact-fname'] || !req.body['contact-lname'] || !req.body['contact-mail'] || */ !req.body['contact-message']) {
+			return cb({err: 'bad request'}, null);
 		}
-		// Put your secret key here.
-		var secretKey = '6LceZm0UAAAAAFPt30bkQW94rQIJMCZYjVCbTyPH';
-		// req.connection.remoteAddress will provide IP address of connected user.
-		var verificationUrl = 'https://www.google.com/recaptcha/api/siteverify?secret=' + secretKey + '&response=' + req.body['g-recaptcha-response'] + '&remoteip=' + req.connection.remoteAddress;
-		// Hitting GET request to the URL, Google will respond with success or error scenario.
-		request
-			.get(verificationUrl)
-			.end((err, res) => {
-				if (err) return cb({err: {responseCode: 1, responseDesc: 'Failed captcha verification'}}, null);
-				var body = res;
-				if (body.success !== undefined && !body.success) {
-					return cb({err: {responseCode: 1, responseDesc: 'Failed captcha verification'}}, null);
-				}
-				*/
 
 		var postData = {
 			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-mail']))),
-			name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-name']))),
-			message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-message'])))
+			fname: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-fname']))),
+			lname: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-lname']))),
+			message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-message']))),
+			lang: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
 		};
-	//	if (validator.isEmail(postData.mail)) {
-			postData.mail = validator.normalizeEmail(postData.mail);
-			var mEmail = app.models.Email;
-			sendContact(postData, mEmail, function(err, successMessage) {
-				if (err) {
-					return cb(err);
-				}
-				logger.info('Contact Form: Sent contact message from ' + (postData.mail ? postData.mail : 'anonymous sender'));
-				return cb(null, successMessage);
-			});
-	//	} else {
-	//		return cb({err: 'contact-area.error.message4'}, null);
-	//	}
-		/*		
-			});
-		*/
+		//	if (validator.isEmail(postData.mail)) {
+		postData.mail = validator.normalizeEmail(postData.mail);
+		var mEmail = app.models.Email;
+		sendMessage(postData, mEmail, function(err, successMessage) {
+			if (err) {
+				return cb(err);
+			}
+			logger.info('Contact Form: Sent contact message from ' + (postData.mail ? postData.mail : 'anonymous sender'));
+			return cb(null, successMessage);
+		});
+		//	} else {
+		//		return cb({err: 'contact-area.error.message4'}, null);
+		//	}
 	};
 
-	
+
 	Contact.join = function(req, cb) {
 		// Filter bad requests
-		if (!req) {
-			return cb({err: 'bad request'}, null);
-		}
-		// Check referers
-		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
-		var referer = req.get('Referrer');
-		referer = referer.replace(/www/i, '');
-		if (!validReferers.includes(referer)) {
-			logger.warn('Join Form: Received an Ajax call to /join from referer:' + referer);
-			return cb({err: 'bad request'}, null);
-		}
-		// check form data
-		if (/*!req.body['contact-name'] ||*/ !req.body['contact-mail']) {
+		if (isBadRequest(req, '/join')) {
 			return cb({err: 'bad request'}, null);
 		}
 
-		var postData = {
-			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-mail']))),
-			name: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-name'])))
+		// check form data
+		if (/* !req.body['joinbox-fname'] || !req.body['joinbox-lname'] || */ !req.body['joinbox-mail']) {
+			return cb({err: 'bad request'}, null);
+		}
+
+		var user = {
+			email: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-mail']))),
+			firstName: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-fname']))),
+			lastName: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-lname']))),
+			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang']))),
+			merge_fields: {
+				optin_ip: '192.168.0.1'
+			}
 		};
-		if (validator.isEmail(postData.mail)) {
-			postData.mail = validator.normalizeEmail(postData.mail);
-			var mEmail = app.models.Email;
-			sendJoin(postData, mEmail, function(err, successMessage) {
-				if (err) {
-					return cb(err);
-				}
-				logger.info('Join Form: Sent join message from ' + postData.mail);
-				return cb(null, successMessage);
-			});
+		if (validator.isEmail(user.email)) {
+			user.email = validator.normalizeEmail(user.email);
+			user.firstName = user.firstName === '' ? null : user.firstName;
+			user.lastName = user.lastName === '' ? null : user.lastName;
+			user.language = user.language === '' ? null : user.language;
+
+			mailchimp.subscribe(user)
+				.then(function(response) {
+					logger.info('Join Form: Registered new mailchimp: ' + user.email);
+					return cb(null, {errNum: response.errNum});
+				})
+				.catch(function(err) {
+					return cb({errNum: err.errNum}, null);
+				});
 		} else {
-			return cb({err: 'joinbox.error.message4'}, null);
+			return cb({errNum: 4}, null);
 		}
 	};
 
 	Contact.head = function(req, cb) {
 		// Filter bad requests
-		if (!req) {
+		if (isBadRequest(req, '/head')) {
 			return cb({err: 'bad request'}, null);
 		}
-		// Check referers
-		var validReferers = ['https://secure-swap.com/', 'https://www.secure-swap.com/', 'https://staging.secure-swap.com/', 'http://localhost:3000/'];
-		var referer = req.get('Referrer');
-		referer = referer.replace(/www/i, '');
-		if (!validReferers.includes(referer)) {
-			logger.warn('Head Form: Received an Ajax call to /head from referer:' + referer);
-			return cb({err: 'bad request'}, null);
-		}
+
 		// check form data
 		if (!req.body['head-mail']) {
 			return cb({err: 'bad request'}, null);
 		}
 
 		var postData = {
-			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['head-mail'])))
+			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['head-mail']))),
+			lang: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
 		};
 		if (validator.isEmail(postData.mail)) {
 			postData.mail = validator.normalizeEmail(postData.mail);
