@@ -564,25 +564,6 @@
 			return same;
 		}
 
-		function initForm(shorter, fnValidate, action) {
-			shorter.$successAlert.hide();
-			shorter.$errorAlert.hide();
-			shorter.$debugAlert.hide();
-			shorter.$submit.unbind('click').bind('click', function(e) {
-				e.preventDefault();
-				if (fnValidate()) {
-					checkCaptcha(action, shorter, function(err) {
-						if (!err) {
-							var ser = shorter.$form.serialize();
-							if (mailchimpLanguage !== '') {
-								ser += '&lang=' + mailchimpLanguage;
-							}
-							sendForm(ser, shorter);
-						}
-					});
-				}
-			});
-		}
 
 		function checkCaptcha(action, shorter, cb) {
 			grecaptcha.ready(function() {
@@ -610,6 +591,25 @@
 		}
 
 
+		// err.errNum = 1: unknown error
+		//                 errNumSub = 1: Add pending member failed
+		//                 errNumSub = 2: Add pending member succeed but wrong
+		//                 errNumSub = 3: Get member info failed
+		//                 errNumSub = 4: Delete user failed
+		//                 errNumSub = 5: Resubscribe user failed
+		//                 errNumSub = 6: \
+		//                 errNumSub = 7:  \ unknown switch case errors
+		//                 errNumSub = 8:  /
+		//                 errNumSub = 9: /
+		//              2: invalid email
+		function showError(err, shorter) {
+			var errTxt = err.errNum == 1
+				? $.i18n(shorter.i18nError + err.errNum, '0x100' + (err.errNumSub | '0'))
+				: $.i18n(shorter.i18nError + err.errNum);
+			shorter.$errorAlert.html(errTxt).fadeIn('slow').delay(5000).fadeOut('slow');
+		}
+
+
 		function sendForm(ser, shorter) {
 			shorter.$debugAlert.hide();
 			shorter.$submit.text($.i18n(shorter.i18nSending));
@@ -618,24 +618,46 @@
 				url: shorter.url,
 				data: ser,
 				success: function(result) {
-					// var res = JSON.parse(result);
-					if (result.errNum > 0) {
-						// 1; // Unknown Add member error
-						// 2; // invalid email
-						// 4; // invalid email
-						// 11; // Unknown Get member status error
-						// 12; // Unknown Get member status error
-						shorter.$errorAlert.html($.i18n('joinbox.error.message' + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow');
-					} else {
+					switch (result.errNum) {
+					case 0:
 						shorter.$input.val('');
 						shorter.$successAlert.html($.i18n(shorter.i18nSuccess)).fadeIn('slow').delay(5000).fadeOut('slow');
+						break;
+					case 3:
+					case 4:
+						shorter.$input.val('');
+						shorter.$successAlert.html($.i18n(shorter.i18nError + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow');
+						break;
+					default:
+						showError(result, shorter);
+						break;
 					}
 					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				},
 				error: function(err) {
-					// all unknown errors
-					shorter.$errorAlert.html($.i18n(shorter.i18nError)).fadeIn('slow').delay(5000).fadeOut('slow');
+					showError(err, shorter);
 					shorter.$submit.text($.i18n(shorter.i18nSubmit));
+				}
+			});
+		}
+
+
+		function initForm(shorter, fnValidate, action) {
+			shorter.$successAlert.hide();
+			shorter.$errorAlert.hide();
+			shorter.$debugAlert.hide();
+			shorter.$submit.unbind('click').bind('click', function(e) {
+				e.preventDefault();
+				if (fnValidate()) {
+					checkCaptcha(action, shorter, function(err) {
+						if (!err) {
+							var ser = shorter.$form.serialize();
+							if (mailchimpLanguage !== '') {
+								ser += '&lang=' + mailchimpLanguage;
+							}
+							sendForm(ser, shorter);
+						}
+					});
 				}
 			});
 		}
@@ -668,7 +690,7 @@
 						i18nSending:	'contact-area.button.sending',
 						i18nSubmit:		'contact-area.button.submit',
 						i18nSuccess:	'contact-area.success.message',
-						i18nError:		'contact-area.error.message2',
+						i18nError:		'contact-area.error.message',
 						url:			'/contact'
 					},
 					join: {
@@ -681,7 +703,7 @@
 						i18nSending:	'joinbox.button.sending',
 						i18nSubmit:		'joinbox.button.submit',
 						i18nSuccess:	'joinbox.success.message',
-						i18nError:		'joinbox.error.message1',
+						i18nError:		'joinbox.error.message',
 						url:			'/join'
 					},
 					head: {
@@ -694,7 +716,7 @@
 						i18nSending:	'head-area.button.sending',
 						i18nSubmit:		'head-area.button.submit',
 						i18nSuccess:	'head-area.success.message',
-						i18nError:		'head-area.error.message2',
+						i18nError:		'head-area.error.message',
 						url:			'/head'
 					}
 				};

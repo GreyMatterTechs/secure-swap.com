@@ -313,44 +313,65 @@ module.exports = function(Contact) {
 			user.language = user.language === '' ? null : user.language;
 
 			mailchimp.subscribe(user)
-				.then(function(response) {
-					if (response.errNum === 0) {
-						logger.info('Join Form: Registered new mailchimp: ' + user.email);
+				.then(function(response) { // mailchimp.subscribe()
+					switch (response.errNum) {
+					case 0:
+						logger.info('Join Form: Successfully Add pending: ' + user.email);
 						return cb(null, {errNum: response.errNum});
-					} else {
-						// errNum ==1 : unknown error
-						return cb({errNum: response.errNum}, null);
+					case 3:
+						logger.info('Join Form: ' + user.email + ' is already a list member.');
+						// check why subscribe failed
+						return mailchimp.checkStatus(user);
+					default:
+						// unknown error
+						return cb({errNum: 1, errNumSub: 6}, null);
+					}
+				})
+				.then(function(response) { //  mailchimp.checkStatus()
+					switch (response.status) {
+					case 'pending':			// resubmit
+						// here we have 2 solutions:
+						// 1. resubscribe him
+						// 2. tell him he has a pending subscription
+						// but we don't know if he received the confirmation email,
+						// so we will use option 1.
+						user.oldStatus = response.status;
+						return mailchimp.resubscribe(user); // and then subscribe() again
+					case 'subscribed':		// already registered
+						return cb(null, {errNum: 3});
+					case 'unsubscribed':	// resubscribe
+						user.oldStatus = response.status;
+						return mailchimp.resubscribe(user);
+					default:
+						// unknown error
+						return cb({errNum: 1, errNumSub: 7}, null);
+					}
+				})
+				.then(function(response) { //  mailchimp.resubscribe()
+					if (typeof response !== 'undefined' && response.hasOwnProperty('errNum')) {
+						switch (response.errNum) {
+						case 4: // come from resubscribe()
+						case 5: // come from resubscribe()
+							logger.info('Join Form: Successfully Add pending: ' + user.email);
+							return cb(null, {errNum: response.errNum}); // 4: subscription is now renewed
+						default:
+							// unknown error
+							return cb({errNum: 1, errNumSub: 8}, null);
+						}
 					}
 				})
 				.catch(function(err) {
-					if (err.errNum === 3) {
-						// check why subscribe failed
-						mailchimp.checkStatus(user)
-							.then(function(response) {
-								switch (response.status) {
-								case 'pending':
-									// resubmit
-									break;
-								case 'subscribed':
-									// already registered
-									return cb(null, {errNum: 0});
-								case 'unsubscribed':
-									// resubscribe
-									break;
-								default:
-									// unknown error
-									return cb({errNum: 12}, null);
-								}
-							})
-							.catch(function(err) {
-								return cb({errNum: err.errNum}, null);
-							});
-					} else {
-						return cb({errNum: err.errNum}, null);
-					}
+					// err.errNum = 1: unknown error
+					//                 errNumSub = 1: Add pending member failed
+					//                 errNumSub = 2: Add pending member succeed but wrong
+					//                 errNumSub = 3: Get member info failed
+					//                 errNumSub = 4: Delete user failed
+					//                 errNumSub = 5: Resubscribe user failed
+					//              2: invalid email
+					return cb({errNum: err.errNum, errNumSub: err.errNumSub | null}, null);
 				});
 		} else {
-			return cb({errNum: 4}, null);
+			return cb({errNum: 2}, null); // invalid email
 		}
 	};
 

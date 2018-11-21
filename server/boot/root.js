@@ -709,22 +709,22 @@ module.exports = function(server) {
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
-						return res.send({valid: false, err: 'contact-area.error.message3'});
+						return res.send({valid: false, err: 'contact-area.error.captcha'});
 					}
 				case 'head':
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
-						return res.send({valid: false, err: 'head-area.error.message3'});
+						return res.send({valid: false, err: 'head-area.error.captcha'});
 					}
 				case 'joinbox':
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
-						return res.send({valid: false, err: 'joinbox.error.message3'});
+						return res.send({valid: false, err: 'joinbox.error.captcha'});
 					}
 				default:
-					return res.send({valid: false, err: 'contact-area.error.message3'});
+					return res.send({valid: false, err: 'contact-area.error.captcha'});
 				}
 			});
 	});
