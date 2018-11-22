@@ -596,11 +596,8 @@
 	"contact-area.button.submit":		"Envoyer",
 	"contact-area.button.sending":		"Envoi en cours...",
 	"contact-area.success.message":		"Message envoyé avec succès. Merci.",
-	"contact-area.error.message1":		"Veuillez patienter 2 minutes entre chaque message. Merci",
-	"contact-area.error.message2":		"Désolé, il semble que le système de messagerie est hors service. Erreur [0x4001].<br />Merci de bien vouloir réessayer plus tard.",
-	"contact-area.error.message3":		"Le format de cette adresse eMail semble invalide. Merci de vérifier.",
-	"contact-area.error.message4":		"Désolé, il semble que le système de messagerie est hors service. Erreur [0x3004].<br />Merci de bien vouloir réessayer plus tard.",
-	"contact-area.error.message5":		"Désolé, il semble que le système de messagerie est hors service. Erreur [0x3005].<br />Merci de bien vouloir réessayer plus tard.",
+	"contact-area.error.message1":		"Désolé, il semble que le système de messagerie soit hors service. Erreur [$1].<br />Merci de bien vouloir réessayer plus tard.",
+	"contact-area.error.message2":		"Cette adresse email a l'air fausse ou invalide, veuillez entrer une adresse email réelle.",
 	"contact-area.error.captcha":		"Désolé, il semble que le système reCAPTCHA v3 de Google refuse votre accès. Erreur [0x2001].<br />Si cela persiste, merci de nous contacter par email à contact@secure-swap.com.",
 
 	"-------------- FOOTER --------------": "",

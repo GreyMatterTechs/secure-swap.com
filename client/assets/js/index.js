@@ -606,7 +606,8 @@
 		//                 errNumSub =  7:  \ unknown switch case errors
 		//                 errNumSub =  8:  /
 		//                 errNumSub =  9: /
-		//                 errNumSub = 10: Email sending failed
+		//                 errNumSub = 10: Email templating failed
+		//                 errNumSub = 11: Email sending failed
 		//              2: invalid email
 		function showError(err, shorter) {
 			var errTxt = err.errNum == 1

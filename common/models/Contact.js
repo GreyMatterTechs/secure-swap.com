@@ -86,19 +86,22 @@ function sendMessage(data, mEmail, cb) {
 	var options = makeOptions(data);
 
 	createTemplatedEmailBody(options, function(err, html) {
+		if (err) {
+			return cb({errNum: 1, errNumSub: 10}, null);
+		}
 		options.html = html;
 		delete options.maildata;
 		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
 			mEmail.send(options, null, function(err, email) {
 				if (err) {
-					return cb({errNum: 1, errNumSub: 10}, null);
+					return cb({errNum: 1, errNumSub: 11}, null);
 				}
 				return cb(null);
 			});
 		} else {
 			mEmail.send(options, function(err, email) {
 				if (err) {
-					return cb({errNum: 1, errNumSub: 10}, null);
+					return cb({errNum: 1, errNumSub: 11}, null);
 				}
 				return cb(null);
 			});
@@ -342,7 +345,8 @@ module.exports = function(Contact) {
 		sendMessage(postData, mEmail, function(err) {
 			if (err) {
 				// err.errNum = 1: unknown error
-				//                 errNumSub = 10: Email sending failed
+				//                 errNumSub = 10: Email templating failed
+				//                 errNumSub = 11: Email sending failed
 				return cb(err);
 			}
 			logger.info('Contact Form: Sent contact message from ' + (postData.mail ? postData.mail : 'anonymous sender'));
