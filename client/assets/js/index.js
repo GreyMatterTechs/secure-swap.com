@@ -577,12 +577,10 @@
 							if (result.valid) {
 								cb(null);
 							} else {
-								shorter.$errorAlert.html($.i18n(result.err)).fadeIn('slow').delay(5000).fadeOut('slow');
 								cb(true);
 							}
 						},
 						error: function(e) {
-							console.log('/captcha:' + JSON.stringify(e));
 							cb(true);
 						}
 					});
@@ -591,20 +589,28 @@
 		}
 
 
+		function pad(n, width, z) {
+			z = z || '0';
+			n = n + '';
+			return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+		}
+
+
 		// err.errNum = 1: unknown error
-		//                 errNumSub = 1: Add pending member failed
-		//                 errNumSub = 2: Add pending member succeed but wrong
-		//                 errNumSub = 3: Get member info failed
-		//                 errNumSub = 4: Delete user failed
-		//                 errNumSub = 5: Resubscribe user failed
-		//                 errNumSub = 6: \
-		//                 errNumSub = 7:  \ unknown switch case errors
-		//                 errNumSub = 8:  /
-		//                 errNumSub = 9: /
+		//                 errNumSub =  1: Add pending member failed
+		//                 errNumSub =  2: Add pending member succeed but wrong
+		//                 errNumSub =  3: Get member info failed
+		//                 errNumSub =  4: Delete user failed
+		//                 errNumSub =  5: Resubscribe user failed
+		//                 errNumSub =  6: \
+		//                 errNumSub =  7:  \ unknown switch case errors
+		//                 errNumSub =  8:  /
+		//                 errNumSub =  9: /
+		//                 errNumSub = 10: Email sending failed
 		//              2: invalid email
 		function showError(err, shorter) {
 			var errTxt = err.errNum == 1
-				? $.i18n(shorter.i18nError + err.errNum, '0x100' + (err.errNumSub | '0'))
+				? $.i18n(shorter.i18nError + err.errNum, '0x10' + pad((err.errNumSub | '0'), 2))
 				: $.i18n(shorter.i18nError + err.errNum);
 			shorter.$errorAlert.html(errTxt).fadeIn('slow').delay(5000).fadeOut('slow');
 		}
@@ -650,7 +656,9 @@
 				e.preventDefault();
 				if (fnValidate()) {
 					checkCaptcha(action, shorter, function(err) {
-						if (!err) {
+						if (err) {
+							shorter.$errorAlert.html($.i18n(shorter.i18nCaptcha)).fadeIn('slow').delay(5000).fadeOut('slow');
+						} else {
 							var ser = shorter.$form.serialize();
 							if (mailchimpLanguage !== '') {
 								ser += '&lang=' + mailchimpLanguage;
@@ -691,6 +699,7 @@
 						i18nSubmit:		'contact-area.button.submit',
 						i18nSuccess:	'contact-area.success.message',
 						i18nError:		'contact-area.error.message',
+						i18nCaptcha:	'contact-area.error.captcha',
 						url:			'/contact'
 					},
 					join: {
@@ -704,6 +713,7 @@
 						i18nSubmit:		'joinbox.button.submit',
 						i18nSuccess:	'joinbox.success.message',
 						i18nError:		'joinbox.error.message',
+						i18nCaptcha:	'joinbox.error.captcha',
 						url:			'/join'
 					},
 					head: {
@@ -717,6 +727,7 @@
 						i18nSubmit:		'head-area.button.submit',
 						i18nSuccess:	'head-area.success.message',
 						i18nError:		'head-area.error.message',
+						i18nCaptcha:	'head-area.error.captcha',
 						url:			'/head'
 					}
 				};

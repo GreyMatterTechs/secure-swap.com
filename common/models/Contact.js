@@ -91,16 +91,16 @@ function sendMessage(data, mEmail, cb) {
 		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
 			mEmail.send(options, null, function(err, email) {
 				if (err) {
-					return cb({err: 'contact-area.error.message5'}, null);
+					return cb({errNum: 1, errNumSub: 10}, null);
 				}
-				return cb(null, {success: 'contact-area.success.message'});
+				return cb(null);
 			});
 		} else {
 			mEmail.send(options, function(err, email) {
 				if (err) {
-					return cb({err: 'contact-area.error.message6'}, null);
+					return cb({errNum: 1, errNumSub: 10}, null);
 				}
-				return cb(null, {success: 'contact-area.success.message'});
+				return cb(null);
 			});
 		}
 	});
@@ -190,6 +190,68 @@ function isBadRequest(req, call) {
 }
 
 
+function subscribe(user, cb) {
+	mailchimp.subscribe(user)
+		.then(function(response) { // mailchimp.subscribe()
+			switch (response.errNum) {
+			case 0:
+				logger.info('Subscribe Form: Successfully Add pending: ' + user.email);
+				return cb(null, {errNum: response.errNum});
+			case 3:
+				logger.info('Subscribe Form: ' + user.email + ' is already a list member.');
+				// check why subscribe failed
+				return mailchimp.checkStatus(user);
+			default:
+				// unknown error
+				return cb({errNum: 1, errNumSub: 6}, null);
+			}
+		})
+		.then(function(response) { //  mailchimp.checkStatus()
+			switch (response.status) {
+			case 'pending':			// resubmit
+				// here we have 2 solutions:
+				// 1. resubscribe him
+				// 2. tell him he has a pending subscription
+				// but we don't know if he received the confirmation email,
+				// so we will use option 1.
+				user.oldStatus = response.status;
+				return mailchimp.resubscribe(user); // and then subscribe() again
+			case 'subscribed':		// already registered
+				return cb(null, {errNum: 3});
+			case 'unsubscribed':	// resubscribe
+				user.oldStatus = response.status;
+				return mailchimp.resubscribe(user);
+			default:
+				// unknown error
+				return cb({errNum: 1, errNumSub: 7}, null);
+			}
+		})
+		.then(function(response) { //  mailchimp.resubscribe()
+			if (typeof response !== 'undefined' && response.hasOwnProperty('errNum')) {
+				switch (response.errNum) {
+				case 4: // come from resubscribe()
+				case 5: // come from resubscribe()
+					logger.info('Subscribe Form: Successfully Add pending: ' + user.email);
+					return cb(null, {errNum: response.errNum}); // 4: subscription is now renewed
+				default:
+					// unknown error
+					return cb({errNum: 1, errNumSub: 8}, null);
+				}
+			}
+		})
+		.catch(function(err) {
+			// err.errNum = 1: unknown error
+			//                 errNumSub = 1: Add pending member failed
+			//                 errNumSub = 2: Add pending member succeed but wrong
+			//                 errNumSub = 3: Get member info failed
+			//                 errNumSub = 4: Delete user failed
+			//                 errNumSub = 5: Resubscribe user failed
+			//              2: invalid email
+			return cb({errNum: err.errNum, errNumSub: err.errNumSub | null}, null);
+		});
+}
+
+
 // ------------------------------------------------------------------------------------------------------
 // Exports
 // ------------------------------------------------------------------------------------------------------
@@ -255,7 +317,6 @@ module.exports = function(Contact) {
 		if (isBadRequest(req, '/contact')) {
 			return cb({err: 'bad request'}, null);
 		}
-
 		// check form data
 		if (/* !req.body['contact-fname'] || !req.body['contact-lname'] || !req.body['contact-mail'] || */ !req.body['contact-message']) {
 			return cb({err: 'bad request'}, null);
@@ -268,19 +329,26 @@ module.exports = function(Contact) {
 			message: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['contact-message']))),
 			lang: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
 		};
-		//	if (validator.isEmail(postData.mail)) {
-		postData.mail = validator.normalizeEmail(postData.mail);
+
+		if (postData.mail) {
+			if (validator.isEmail(postData.mail)) {
+				postData.mail = validator.normalizeEmail(postData.mail);
+			} else {
+				// return cb({err: 'contact-area.error.message4'}, null);
+				return cb({errNum: 2}, null); // invalid email
+			}
+		}
 		var mEmail = app.models.Email;
-		sendMessage(postData, mEmail, function(err, successMessage) {
+		sendMessage(postData, mEmail, function(err) {
 			if (err) {
+				// err.errNum = 1: unknown error
+				//                 errNumSub = 10: Email sending failed
 				return cb(err);
 			}
 			logger.info('Contact Form: Sent contact message from ' + (postData.mail ? postData.mail : 'anonymous sender'));
-			return cb(null, successMessage);
+			// return cb(null, successMessage);
+			return cb(null, {errNum: 0});
 		});
-		//	} else {
-		//		return cb({err: 'contact-area.error.message4'}, null);
-		//	}
 	};
 
 
@@ -289,7 +357,6 @@ module.exports = function(Contact) {
 		if (isBadRequest(req, '/join')) {
 			return cb({err: 'bad request'}, null);
 		}
-
 		// check form data
 		if (/* !req.body['joinbox-fname'] || !req.body['joinbox-lname'] || */ !req.body['joinbox-mail']) {
 			return cb({err: 'bad request'}, null);
@@ -299,77 +366,14 @@ module.exports = function(Contact) {
 			email: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-mail']))),
 			firstName: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-fname']))),
 			lastName: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['joinbox-lname']))),
-			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang']))) 
-			/*
-			,merge_fields: {
-				optin_ip: '192.168.0.1'
-			}
-			*/
+			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
 		};
 		if (validator.isEmail(user.email)) {
 			user.email = validator.normalizeEmail(user.email);
 			user.firstName = user.firstName === '' ? null : user.firstName;
 			user.lastName = user.lastName === '' ? null : user.lastName;
 			user.language = user.language === '' ? null : user.language;
-
-			mailchimp.subscribe(user)
-				.then(function(response) { // mailchimp.subscribe()
-					switch (response.errNum) {
-					case 0:
-						logger.info('Join Form: Successfully Add pending: ' + user.email);
-						return cb(null, {errNum: response.errNum});
-					case 3:
-						logger.info('Join Form: ' + user.email + ' is already a list member.');
-						// check why subscribe failed
-						return mailchimp.checkStatus(user);
-					default:
-						// unknown error
-						return cb({errNum: 1, errNumSub: 6}, null);
-					}
-				})
-				.then(function(response) { //  mailchimp.checkStatus()
-					switch (response.status) {
-					case 'pending':			// resubmit
-						// here we have 2 solutions:
-						// 1. resubscribe him
-						// 2. tell him he has a pending subscription
-						// but we don't know if he received the confirmation email,
-						// so we will use option 1.
-						user.oldStatus = response.status;
-						return mailchimp.resubscribe(user); // and then subscribe() again
-					case 'subscribed':		// already registered
-						return cb(null, {errNum: 3});
-					case 'unsubscribed':	// resubscribe
-						user.oldStatus = response.status;
-						return mailchimp.resubscribe(user);
-					default:
-						// unknown error
-						return cb({errNum: 1, errNumSub: 7}, null);
-					}
-				})
-				.then(function(response) { //  mailchimp.resubscribe()
-					if (typeof response !== 'undefined' && response.hasOwnProperty('errNum')) {
-						switch (response.errNum) {
-						case 4: // come from resubscribe()
-						case 5: // come from resubscribe()
-							logger.info('Join Form: Successfully Add pending: ' + user.email);
-							return cb(null, {errNum: response.errNum}); // 4: subscription is now renewed
-						default:
-							// unknown error
-							return cb({errNum: 1, errNumSub: 8}, null);
-						}
-					}
-				})
-				.catch(function(err) {
-					// err.errNum = 1: unknown error
-					//                 errNumSub = 1: Add pending member failed
-					//                 errNumSub = 2: Add pending member succeed but wrong
-					//                 errNumSub = 3: Get member info failed
-					//                 errNumSub = 4: Delete user failed
-					//                 errNumSub = 5: Resubscribe user failed
-					//              2: invalid email
-					return cb({errNum: err.errNum, errNumSub: err.errNumSub | null}, null);
-				});
+			return subscribe(user, cb);
 		} else {
 			return cb({errNum: 2}, null); // invalid email
 		}
@@ -380,28 +384,21 @@ module.exports = function(Contact) {
 		if (isBadRequest(req, '/head')) {
 			return cb({err: 'bad request'}, null);
 		}
-
 		// check form data
 		if (!req.body['head-mail']) {
 			return cb({err: 'bad request'}, null);
 		}
 
-		var postData = {
-			mail: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['head-mail']))),
-			lang: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
+		var user = {
+			email: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['head-mail']))),
+			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
 		};
-		if (validator.isEmail(postData.mail)) {
-			postData.mail = validator.normalizeEmail(postData.mail);
-			var mEmail = app.models.Email;
-			sendHead(postData, mEmail, function(err, successMessage) {
-				if (err) {
-					return cb(err);
-				}
-				logger.info('Email Form: Sent email from ' + postData.mail);
-				return cb(null, successMessage);
-			});
+		if (validator.isEmail(user.email)) {
+			user.email = validator.normalizeEmail(user.email);
+			user.language = user.language === '' ? null : user.language;
+			return subscribe(user, cb);
 		} else {
-			return cb({err: 'head-area.error.message4'}, null);
+			return cb({errNum: 2}, null); // invalid email
 		}
 	};
 };

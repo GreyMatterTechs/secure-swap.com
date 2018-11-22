@@ -706,25 +706,15 @@ module.exports = function(server) {
 				case 'homepage':
 					return res.send({valid: true});
 				case 'contact':
-					if ((+resp.body['score']) >= 0.8) {
-						return res.send({valid: true});
-					} else {
-						return res.send({valid: false, err: 'contact-area.error.captcha'});
-					}
 				case 'head':
-					if ((+resp.body['score']) >= 0.8) {
-						return res.send({valid: true});
-					} else {
-						return res.send({valid: false, err: 'head-area.error.captcha'});
-					}
 				case 'joinbox':
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
-						return res.send({valid: false, err: 'joinbox.error.captcha'});
+						return res.send({valid: false});
 					}
 				default:
-					return res.send({valid: false, err: 'contact-area.error.captcha'});
+					return res.send({valid: false});
 				}
 			});
 	});
