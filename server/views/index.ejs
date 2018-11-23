@@ -3094,13 +3094,41 @@
 							<div class="modal-footer">
 								<p class="col-12 small note"  >
 									<span style="color: #ff3300;"><i class="fas fa-exclamation-triangle mr-3" aria-hidden="true"></i></span>
-									<span class="small" data-i18n="joinbox.foot">In order to reduce the possibility of manipulation, you must provide the referrals ETH wallets before they have actually done the transaction.</span>
+									<span class="small" data-i18n="joinbox.foot">If you are already subscribed, you can also <a id="btn-unsubscribe" href=\"#\">unsubscribe</a> from our mailing list easily.</span>
 								</p>
 							</div>
 						</div>
 					</div>
 				</div>
 				<!-- End Join Modal -->
+				<!-- Unjoin Modal -->
+				<div class="modal referral-modal fade" id="unjoin-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title"><img src="assets/images/logo.png" alt="<%= appName %> Logo" /> <span data-i18n="unjoinbox.title, <%= appName %>">Unsubscribe from the <%= appName %> community</span></h5>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							</div>							
+							<div class="modal-body">
+								<div class="container-fluid">
+									<form id="unjoinbox-form" name="unjoinbox" action="javascript:void(0)" method="post" novalidate="novalidate" accept-charset="utf-8" class="text-center">
+										<input type="text" class="form-control animated" data-animation="fadeInLeftShorter" data-animation-delay="0.1s" id="unjoinbox-mail" name="unjoinbox-mail" data-i18n="[placeholder]unjoinbox.placeholder.mail" placeholder="Your Mail">
+										<button id="unjoinbox-submit" type="submit" 
+											class="btn btn-lg btn-gradient-orange btn-glow animated g-recaptcha"
+											data-animation="fadeInUpShorter" data-animation-delay="0.2s"
+											data-i18n="unjoinbox.button.submit" >
+											Unsubscribe!
+										</button>									
+									</form>
+									<div id="unjoinbox-success-alert"></div>
+									<div id="unjoinbox-error-alert"></div>
+									<div id="unjoinbox-debug-alert"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- End Unjoin Modal -->
 				<!-- Referral Modal -->
 				<div class="modal referral-modal fade" id="referral-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg modal-dialog-centered" role="document">

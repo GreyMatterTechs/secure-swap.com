@@ -17,7 +17,6 @@
 const path			= require('path');
 const validator		= require('validator');
 const xssFilters	= require('xss-filters');
-const request		= require('superagent');
 const app			= reqlocal(path.join('server', 'server'));
 const datasources	= reqlocal(path.join('server', 'datasources' + (process.env.NODE_ENV === undefined ? '' : ('.' + process.env.NODE_ENV)) + '.json'));
 const loopback		= reqlocal(path.join('node_modules', 'loopback', 'lib', 'loopback'));
@@ -28,9 +27,10 @@ const dsEmail		= app.dataSources.emailDS;
 const mailchimp		= reqlocal(path.join('server', 'components', 'mailchimp.js'));
 
 mailchimp.init({
-	apiKey:			config.mcApiKey,
-	defaultListId:	'fac8425178', // Liste 'SecureSwap Subscribers'
-	doubleOptin:	false
+	apiKey:				config.mcApiKey,
+	defaultAccountId:	config.mcAccountId,
+	defaultListId:		config.mcListId,	// Liste 'SecureSwap Subscribers'
+	doubleOptin:		false
 });
 
 
@@ -110,68 +110,6 @@ function sendMessage(data, mEmail, cb) {
 }
 
 
-function sendJoin(data, mEmail, cb) {
-
-	/*
-	var options = makeOptions(data);
-
-	createTemplatedEmailBody(options, function(err, html) {
-		options.html = html;
-		delete options.maildata;
-		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
-			mEmail.send(options, null, function(err, email) {
-				if (err) {
-					return cb({err: 'joinbox.error.message5'}, null);
-				}
-				return cb(null, {success: 'joinbox.success.message'});
-			});
-		} else {
-			mEmail.send(options, function(err, email) {
-				if (err) {
-					return cb({err: 'joinbox.error.message6'}, null);
-				}
-				return cb(null, {success: 'joinbox.success.message'});
-			});
-		}
-	});
-	*/
-
-	// $$$ TODO: Implémenter Mailchimp ici
-	return cb({success: 'joinbox.success.message'}, null);
-}
-
-
-function sendHead(data, mEmail, cb) {
-
-	/*
-	var options = makeOptions(data);
-
-	createTemplatedEmailBody(options, function(err, html) {
-		options.html = html;
-		delete options.maildata;
-		if (mEmail.send.length === 3) {	// argument "options" is passed depending on Email.send function requirements
-			mEmail.send(options, null, function(err, email) {
-				if (err) {
-					return cb({err: 'head-area.error.message5'}, null);
-				}
-				return cb(null, {success: 'head-area.success.message'});
-			});
-		} else {
-			mEmail.send(options, function(err, email) {
-				if (err) {
-					return cb({err: 'head-area.error.message6'}, null);
-				}
-				return cb(null, {success: 'head-area.success.message'});
-			});
-		}
-	});
-	*/
-
-	// $$$ TODO: Implémenter Mailchimp ici
-	return cb({success: 'head-area.success.message'}, null);
-}
-
-
 function geo2str(geo) {
 	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
 	return ' (localhost)';
@@ -193,6 +131,28 @@ function isBadRequest(req, call) {
 }
 
 
+function unsubscribe(user, cb) {
+	mailchimp.unsubscribe(user)
+		.then(function(response) { // mailchimp.unsubscribe()
+			logger.info('Unsubscribe Form: Successfully got unsubscribe link for: ' + user.email);
+			response.url = config.mcUnsubscribUrl + response.params;
+			return cb(null, response);
+		})
+		.catch(function(err) {
+			// err.errNum = 1: unknown error
+			//                 errNumSub = 1: Add pending member failed
+			//                 errNumSub = 2: Add pending member succeed but wrong
+			//                 errNumSub = 3: Get member info failed
+			//                 errNumSub = 4: Delete user failed
+			//                 errNumSub = 5: Resubscribe user failed
+			//                 errNumSub = 6: Unsubscribe user failed
+			//              2: invalid email
+			//              6: email already unsubscribed
+			return cb({errNum: err.errNum, errNumSub: err.errNumSub | null}, null);
+		});
+}
+
+
 function subscribe(user, cb) {
 	mailchimp.subscribe(user)
 		.then(function(response) { // mailchimp.subscribe()
@@ -206,7 +166,7 @@ function subscribe(user, cb) {
 				return mailchimp.checkStatus(user);
 			default:
 				// unknown error
-				return cb({errNum: 1, errNumSub: 6}, null);
+				return cb({errNum: 1, errNumSub: 7}, null);
 			}
 		})
 		.then(function(response) { //  mailchimp.checkStatus()
@@ -226,7 +186,7 @@ function subscribe(user, cb) {
 				return mailchimp.resubscribe(user);
 			default:
 				// unknown error
-				return cb({errNum: 1, errNumSub: 7}, null);
+				return cb({errNum: 1, errNumSub: 8}, null);
 			}
 		})
 		.then(function(response) { //  mailchimp.resubscribe()
@@ -238,7 +198,7 @@ function subscribe(user, cb) {
 					return cb(null, {errNum: response.errNum}); // 4: subscription is now renewed
 				default:
 					// unknown error
-					return cb({errNum: 1, errNumSub: 8}, null);
+					return cb({errNum: 1, errNumSub: 9}, null);
 				}
 			}
 		})
@@ -382,6 +342,31 @@ module.exports = function(Contact) {
 			return cb({errNum: 2}, null); // invalid email
 		}
 	};
+
+
+	Contact.unjoin = function(req, cb) {
+		// Filter bad requests
+		if (isBadRequest(req, '/unjoin')) {
+			return cb({err: 'bad request'}, null);
+		}
+		// check form data
+		if (!req.body['unjoinbox-mail']) {
+			return cb({err: 'bad request'}, null);
+		}
+
+		var user = {
+			email: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['unjoinbox-mail']))),
+			language: xssFilters.inHTMLData(validator.stripLow(validator.trim(req.body['lang'])))
+		};
+		if (validator.isEmail(user.email)) {
+			user.email = validator.normalizeEmail(user.email);
+			user.language = user.language === '' ? null : user.language;
+			return unsubscribe(user, cb);
+		} else {
+			return cb({errNum: 2}, null); // invalid email
+		}
+	};
+
 
 	Contact.head = function(req, cb) {
 		// Filter bad requests

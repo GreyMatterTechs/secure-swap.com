@@ -657,6 +657,23 @@ module.exports = function(server) {
 		// }
 	});
 
+	router.post('/unjoin', function(req, res, next) {
+		logger.info('route POST \"/unjoin\" from: ' + req.clientIP + geo2str(req.geo));
+		// if (!req.cookies.sent) {
+		mContact.unjoin(req, function(err, result) {
+			if (err) {
+				return res.send(err);
+			}
+			// /* On créé un cookie de courte durée (120 secondes) pour éviter de renvoyer un e-mail en rafraichissant la page */
+			// res.cookie('sent', '', {maxAge: 120, expires: new Date(Date.now() + 120), httpOnly: false});
+			return res.send(result);
+		});
+		// } else {
+		// 	return res.send({err: 'contact-area.error.message1'});
+		//	// don't clear cookie --- res.clearCookie('sent');
+		// }
+	});
+
 	router.post('/head', function(req, res, next) {
 		logger.info('route POST \"/head\" from: ' + req.clientIP + geo2str(req.geo));
 		// if (!req.cookies.sent) {
@@ -708,6 +725,7 @@ module.exports = function(server) {
 				case 'contact':
 				case 'head':
 				case 'joinbox':
+				case 'unjoinbox':
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {

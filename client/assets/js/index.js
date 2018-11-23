@@ -146,7 +146,7 @@
 							'</div>'
 			});
 
-			$('body').off('click.btn').on('click.btn', '#notify-join-submit', function(e) {
+			$('body').off('click.join').on('click.join', '#notify-join-submit', function(e) {
 				e.preventDefault();
 				notify.close();
 			});
@@ -432,6 +432,22 @@
 			return valid;
 		}
 
+		function UJBFValidate() {
+			var valid = true;
+			$('#unjoinbox-form input[type=text]').each(function(index) {
+				if (index == 0) {
+					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
+						$('#unjoinbox-form').find('input:eq(' + index + ')').addClass('required-error');
+						valid = false;
+					} else {
+						$('#unjoinbox-form').find('input:eq(' + index + ')').removeClass('required-error');
+					}
+				}
+			});
+			return valid;
+		}
+
+
 		function HFValidate() {
 			var valid = true;
 			$('#head-form input[type=text]').each(function(index) {
@@ -602,9 +618,9 @@
 		//                 errNumSub =  3: Get member info failed
 		//                 errNumSub =  4: Delete user failed
 		//                 errNumSub =  5: Resubscribe user failed
-		//                 errNumSub =  6: \
-		//                 errNumSub =  7:  \ unknown switch case errors
-		//                 errNumSub =  8:  /
+		//                 errNumSub =  6: Unsubscribe user failed
+		//                 errNumSub =  7: \
+		//                 errNumSub =  8:  > unknown switch case errors
 		//                 errNumSub =  9: /
 		//                 errNumSub = 10: Email templating failed
 		//                 errNumSub = 11: Email sending failed
@@ -618,8 +634,6 @@
 
 
 		function sendForm(ser, shorter) {
-			shorter.$debugAlert.hide();
-			shorter.$submit.text($.i18n(shorter.i18nSending));
 			$.ajax({
 				type: 'POST',
 				url: shorter.url,
@@ -634,6 +648,18 @@
 					case 4:
 						shorter.$input.val('');
 						shorter.$successAlert.html($.i18n(shorter.i18nError + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow');
+						break;
+					case 5 :
+						shorter.$input.val('');
+						shorter.$submit.text($.i18n(shorter.i18nSubmit));
+						$('#unjoin-modal').modal('hide');
+						window.location.href = result.url;
+						break;
+					case 6 :
+						shorter.$input.val('');
+						shorter.$successAlert.html($.i18n(shorter.i18nError + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow', function() {
+							$('#unjoin-modal').modal('hide');
+						});
 						break;
 					default:
 						showError(result, shorter);
@@ -655,9 +681,12 @@
 			shorter.$debugAlert.hide();
 			shorter.$submit.unbind('click').bind('click', function(e) {
 				e.preventDefault();
+				shorter.$debugAlert.hide();
+				shorter.$submit.text($.i18n(shorter.i18nSending));
 				if (fnValidate()) {
 					checkCaptcha(action, shorter, function(err) {
 						if (err) {
+							shorter.$submit.text($.i18n(shorter.i18nSubmit));
 							shorter.$errorAlert.html($.i18n(shorter.i18nCaptcha)).fadeIn('slow').delay(5000).fadeOut('slow');
 						} else {
 							var ser = shorter.$form.serialize();
@@ -667,6 +696,8 @@
 							sendForm(ser, shorter);
 						}
 					});
+				} else {
+					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				}
 			});
 		}
@@ -716,6 +747,20 @@
 						i18nError:		'joinbox.error.message',
 						i18nCaptcha:	'joinbox.error.captcha',
 						url:			'/join'
+					},
+					unjoin: {
+						$form:			$('#unjoinbox-form'),
+						$debugAlert:	$('#unjoinbox-debug-alert'),
+						$errorAlert:	$('#unjoinbox-error-alert'),
+						$successAlert:	$('#unjoinbox-success-alert'),
+						$submit:		$('#unjoinbox-submit'),
+						$input:			$('#unjoinbox-form input[type=text]'),
+						i18nSending:	'unjoinbox.button.sending',
+						i18nSubmit:		'unjoinbox.button.submit',
+						i18nSuccess:	'unjoinbox.success.message',
+						i18nError:		'unjoinbox.error.message',
+						i18nCaptcha:	'unjoinbox.error.captcha',
+						url:			'/unjoin'
 					},
 					head: {
 						$form:			$('#head-form'),
@@ -1036,6 +1081,16 @@
 
 				initForm(shorters.join, JBFValidate, 'joinbox');
 				$('#joinbox-fname, #joinbox-lname, #joinbox-mail').on('input change', function(e) {
+					$(this).removeClass('required-error');
+				});
+				$('body').off('click.unjoin').on('click.unjoin', '#btn-unsubscribe', function(e) {
+					e.preventDefault();
+					$('#join-modal').modal('hide');
+					$('#unjoin-modal').modal('show');
+				});
+
+				initForm(shorters.unjoin, UJBFValidate, 'unjoinbox');
+				$('#unjoinbox-mail').on('input change', function(e) {
 					$(this).removeClass('required-error');
 				});
 

@@ -806,6 +806,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 #contact-success-alert,
 #head-success-alert,
 #joinbox-success-alert,
+#unjoinbox-success-alert,
 #referralbox-success-alert {
   text-align: center;
   background-color: #57cc65;
@@ -821,6 +822,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 #contact-error-alert,
 #head-error-alert,
 #joinbox-error-alert,
+#unjoinbox-error-alert,
 #referralbox-error-alert {
   text-align: center;
   background-color: #cc5757;
@@ -836,6 +838,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
 #contact-debug-alert,
 #head-debug-alert,
 #joinbox-debug-alert,
+#unjoinbox-debug-alert,
 #referralbox-debug-alert {
   text-align: center;
   background-color: #cc5757;

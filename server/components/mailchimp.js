@@ -44,33 +44,6 @@ Chimp.init = function(_defaults) {
 };
 
 
-/*
-MailChimp.json {
-	"name":			"MailChimp",
-	"base":			"Model",
-	"properties":	{
-	  "id":				{"type": "string", "required": true},
-	  "email":			{"type": "string", "required": true},
-	  "double_optin":	{"type": "boolean"},
-	  "merge_vars":		{"type": "object"}
-	}
-}
-default = {
-	apiKey:			'fefffdfdbe8e4d050156dd8927ff75f5-us12',
-	defaultListId:	'6b0fc88f5b', // Liste 'Subscribers'
-	doubleOptin:	true
-});
-user = {
-	email:		'user@email.com',
-	firstName:	'A name',
-	lastName:	'A surname',
-	language:	'fr',
-	merge_fields:	{
-		optin_ip:	'192.168.0.1'
-	}
-};
-*/
-
 Chimp.makeSubscriber = function(user, listId) {
 	if (!user.merge_fields) {
 		user.merge_fields = {};
@@ -114,40 +87,6 @@ Chimp.subscribe = function(user, listId) {
 
 		var subscriber = _this.makeSubscriber(user, listId);
 		subscriber.status = 'pending';
-
-		/*
-		if (!user.merge_fields) {
-			user.merge_fields = {};
-		}
-
-		var subscriber = {
-			email_address: user.email,
-			double_optin: defaults.double_optin || false,
-			status: 'pending',
-			timestamp_opt: moment().format('YYYY-MM-DD HH:mm:ss'), 
-			list_id: listId || defaults.defaultListId,
-			merge_fields: {
-				EMAIL: user.email
-			}
-		};
-
-		if (user.firstName) {
-			subscriber.merge_fields.FNAME = user.firstName;
-		}
-		if (user.lastName) {
-			subscriber.merge_fields.LNAME = user.lastName;
-		}
-		if (user.language) {
-			subscriber.language = user.language;
-		}
-	
-		//if (user.ip) {
-		//	subscriber.ip_opt = user.ip;
-		//	subscriber.merge_fields.optin_ip = user.ip;
-		//}
-
-		subscriber.merge_fields = lo.merge(subscriber.merge_fields, user.merge_fields);
-		*/
 
 		_this.MailChimp.request({
 			method: 'POST',
@@ -222,7 +161,9 @@ Chimp.delete = function(user, listId) {
 	var _this = this;
 	return new Promise(function(resolve, reject) {
 		if (!user.email) {
-			return reject(new Error('Email is required to delete.'));
+			var err = new Error('Email is required to unsubscribe.');
+			err.errNum = 2; // invalid email
+			return reject(err);
 		}
 		_this.MailChimp.request({
 			method:			'DELETE',
@@ -238,7 +179,6 @@ Chimp.delete = function(user, listId) {
 				err.errNumSub = 4; // Delete user failed
 				return reject(err);
 			} else {
-				response.errNum = 6; // delete ok, go to subscribe again
 				return resolve(response);
 			}
 		});
@@ -251,7 +191,9 @@ Chimp.resubscribe = function(user, listId) {
 	var _this = this;
 	return new Promise(function(resolve, reject) {
 		if (!user.email) {
-			return reject(new Error('Email is required to resubscribe.'));
+			var err = new Error('Email is required to unsubscribe.');
+			err.errNum = 2; // invalid email
+			return reject(err);
 		}
 		var subscriber = _this.makeSubscriber(user, listId);
 		subscriber.status = 'pending';
@@ -286,29 +228,51 @@ Chimp.resubscribe = function(user, listId) {
 };
 
 
-Chimp.unsubscribe = function(user, listId) {
+Chimp.unsubscribe = function(user, listId, accountId) {
 	var _this = this;
 	return new Promise(function(resolve, reject) {
 		if (!user.email) {
-			return reject(new Error('Email is required to unsubscribe.'));
+			var err = new Error('Email is required to unsubscribe.');
+			err.errNum = 2; // invalid email
+			return reject(err);
 		}
-		var subscriber = _this.makeSubscriber(user, listId);
-		subscriber.status = 'unsubscribed';
-
 		_this.MailChimp.request({
-			method:			'PATCH',
+			method:			'GET',
 			path:			'/lists/{list_id}/members/{member_id}',
 			path_params: {
 				list_id:	listId || defaults.defaultListId,
 				member_id:	md5(user.email.toLowerCase())
 			},
-			body: subscriber,
 			params: {}
 		}, function(err, response) {
 			if (err) {
+				if (err.status === 404) {
+					if (err.message.includes('resource could not be found')) {
+						err.errNum = 2; // invalid email
+						return reject(err);
+					}
+				}
+				err.errNum = 1; // Unknown error
+				err.errNumSub = 3; // Get member info failed
 				return reject(err);
 			} else {
-				return resolve(response);
+				switch (response.status) {
+				case 'pending':
+				case 'cleaned':
+				case 'subscribed':
+					var params = '?u=' + (accountId || defaults.defaultAccountId) + '&id=' + (listId || defaults.defaultListId) + '&e=' + response.unique_email_id;
+					return resolve({errNum: 5, params: params});
+				case 'unsubscribed':
+					err = new Error('Unsubscribe member error');
+					err.errNum = 6; // email already unsubscribed
+					return reject(err);
+				default:
+					// unknown error
+					err = new Error('Unsubscribe member error');
+					err.errNum = 1; // Unknown error
+					err.errNumSub = 3; // Get member info failed
+					return reject(err);
+				}
 			}
 		});
 	});

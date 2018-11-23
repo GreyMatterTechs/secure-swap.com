@@ -45,5 +45,8 @@ module.exports = {
 	grecKeyPub: process.env.GR_KEY_PUB,
 	grecKeyPriv: process.env.GR_KEY_PRIV,
 	wallet: process.env.WALLET,
-	mcApiKey: process.env.MC_API_KEY
+	mcApiKey: process.env.MC_API_KEY,
+	mcAccountId: process.env.MC_ACCOUNT_ID,
+	mcListId: process.env.MC_LIST_ID,
+	mcUnsubscribUrl: process.env.MC_UNSUBSCRIB_URL
 };
