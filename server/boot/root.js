@@ -726,7 +726,7 @@ module.exports = function(server) {
 				case 'head':
 				case 'joinbox':
 				case 'unjoinbox':
-					if ((+resp.body['score']) >= 0.8) {
+					if ((+resp.body['score']) >= 0.6) {
 						return res.send({valid: true});
 					} else {
 						return res.send({valid: false, score: resp.body['score']});
