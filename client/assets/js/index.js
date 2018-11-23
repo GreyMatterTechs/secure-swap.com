@@ -597,6 +597,7 @@
 							}
 						},
 						error: function(e) {
+							console.log('/captcha:' + JSON.stringify(e));
 							cb(true);
 						}
 					});

@@ -729,10 +729,10 @@ module.exports = function(server) {
 					if ((+resp.body['score']) >= 0.8) {
 						return res.send({valid: true});
 					} else {
-						return res.send({valid: false});
+						return res.send({valid: false, score: resp.body['score']});
 					}
 				default:
-					return res.send({valid: false});
+					return res.send({valid: false, score: resp.body['score']});
 				}
 			});
 	});
