@@ -16,7 +16,7 @@
 	<link rel="stylesheet" type="text/css" href="theme-assets/css/template-3d-animation.css">
 	<!-- END Page Level CSS-->
 	<!-- BEGIN Custom CSS-->
-	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.min.css">
 	<!-- END Custom CSS-->
 	<script src="https://www.google.com/recaptcha/api.js?render=<%- grecKeyPub %>"></script>
 </head>
@@ -800,19 +800,19 @@
 									<div class="whitepaper-languages">
 										<div class="row">
 											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-												<a href="docs/White-Paper.Secure-Swap_en_v1.1.0.4.pdf" target="_blank" title="English">
+												<a href="docs/White-Paper.Secure-Swap_en_v1.1.0.8.pdf" target="_blank" title="English">
 													<img src="theme-assets/images/flag-1.png" alt="USA">
 													<div class="lang-text"><span class="icon fas fa-download mr-1"></span><span class="language">English</span></div>
 												</a>
 											</div>
 											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-												<a href="docs/Livre-Blanc.Secure-Swap_fr_v1.1.0.1.pdf" target="_blank" title="Français">
+												<a href="docs/Livre-Blanc.Secure-Swap_fr_v1.1.0.8.pdf" target="_blank" title="Français">
 													<img src="theme-assets/images/flag-5.png" alt="France">
 													<div class="lang-text"><span class="icon fas fa-download mr-1"></span><span class="language">Français</span></div>
 												</a>
 											</div>
 											<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-												<a href="docs/Libro-Blanco.Secure-Swap_es_v1.1.0.2.pdf" target="_blank" title="Español">
+												<a href="docs/Libro-Blanco.Secure-Swap_es_v1.1.0.8.pdf" target="_blank" title="Español">
 													<img src="theme-assets/images/flag-4.png" alt="España">
 													<div class="lang-text"><span class="icon fas fa-download mr-1"></span><span class="language">Español</span></div>
 												</a>
@@ -856,7 +856,7 @@
 											</a>
 										</div>
 										<div class="col-6 col-md-3 text-center mt-4 animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
-											<a href="docs/libro-blanco.secure-swap_es.pdf" target="_blank" title="Español">
+											<a href="docs/Afiche.Secure-Swap_es_1.1.0.pdf" target="_blank" title="Español">
 												<img src="theme-assets/images/flag-4.png" alt="España">
 												<div class="lang-text"><span class="icon fas fa-download mr-1"></span><span class="language">Español</span></div>
 											</a>
@@ -1253,13 +1253,13 @@
 									System secured by design, with detection of hacking attempts, alert and automatic shutdown of the parties concerned. <br />Real decentralized system, users remain in possession of their crypto-currencies until the time to perform an exchange. <br />No concentration of crypto-currencies, which is a target of choice for hackers in centralized (or decentralized but which keep the wallets) exchangers.
 									</p>
 								</div>
-								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.2s">
+								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.4s">
 									<div class="advantage-title d-flex">
-										<div class="float-left mr-3"><img src="assets/images/keystrengths/community.png" alt="" class="" width="64"></div>
-										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key3.title">Controled and Operated by Community</div></div>
+										<div class="float-left mr-3"><img src="assets/images/keystrengths/worldwide.png" alt="" class="" width="64"></div>
+										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key6.title">Fast order execution</div></div>
 									</div>
-									<p class="advantage-desc" data-i18n="key-strengths-area.key3.desc">
-									Its distributed and community aspect, makes the service independent of the existence of the company that created it and does not need it to function.<br />An open system that allows everyone to control the code, operation and security.
+									<p class="advantage-desc" data-i18n="key-strengths-area.key6.desc, <%= appName %>">
+									Its architecture and operation make <%= appName %> unaffected by the speed of execution of smart contracts on the various blockchains. <br />Each instance of the client application, Secure Trade, performs the matching of its own orders against the complete order book. <br />Combined with the available liquidity, this ensures us a speed of execution comparable to centralized exchangers.
 									</p>
 								</div>
 								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.3s">
@@ -1283,46 +1283,46 @@
 								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.3s">
 									<div class="advantage-title d-flex">
 										<div class="float-left mr-3"><img src="assets/images/keystrengths/availability.png" alt="" class="" width="64"></div>
-										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key2.title"></div></div>
+										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key2.title">High liquidity</div></div>
 									</div>
-									<p class="advantage-desc" data-i18n="key-strengths-area.key2.desc">
-									. 
+									<p class="advantage-desc" data-i18n="key-strengths-area.key2.desc, <%= appName %>">
+									<%= appName %> provides very high liquidity. Thanks to our arbitration system, liquidity is supported by that of centralized exchangers. <br />In the future, liquidity will also be supported by the sharing of order books between DEX exchanges.
+									</p>
+								</div>
+								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.2s">
+									<div class="advantage-title d-flex">
+										<div class="float-left mr-3"><img src="assets/images/keystrengths/community.png" alt="" class="" width="64"></div>
+										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key3.title">Controled and Operated by Community</div></div>
+									</div>
+									<p class="advantage-desc" data-i18n="key-strengths-area.key3.desc">
+									Its distributed and community aspect, makes the service independent of the existence of the company that created it and does not need it to function.<br />An open system that allows everyone to control the code, operation and security.
 									</p>
 								</div>
 								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.4s">
 									<div class="advantage-title d-flex">
 										<div class="float-left mr-3"><img src="assets/images/keystrengths/worldwide.png" alt="" class="" width="64"></div>
-										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key6.title"></div></div>
+										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key7.title">A low-cost exchanger</div></div>
 									</div>
-									<p class="advantage-desc" data-i18n="key-strengths-area.key6.desc">
-									
+									<p class="advantage-desc" data-i18n="key-strengths-area.key7.desc, <%= appName %>">
+									<%= appName %> only involves smart contracts in the event of an anomaly. An exchange that proceeds without malfunction nor hacking does not use any functionality from the smart contract. <br />Thus, the placement of orders, order modifications, order cancellations, do not generate any cost for the user, unlike most DEXs. The platform also does not take withdrawal fees, since it does not have wallets. <br /> In the end, with its single fee of 0.15% on the execution of an order (decreasing according to volumes), <%= appName %> will be as competitive as the centralized exchangers.
 									</p>
 								</div>
 								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.4s">
 									<div class="advantage-title d-flex">
 										<div class="float-left mr-3"><img src="assets/images/keystrengths/worldwide.png" alt="" class="" width="64"></div>
-										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key7.title"></div></div>
-									</div>
-									<p class="advantage-desc" data-i18n="key-strengths-area.key7.desc">
-									.
-									</p>
-								</div>
-								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.4s">
-									<div class="advantage-title d-flex">
-										<div class="float-left mr-3"><img src="assets/images/keystrengths/worldwide.png" alt="" class="" width="64"></div>
-										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key8.title"></div></div>
+										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key8.title">Ergonomics</div></div>
 									</div>
 									<p class="advantage-desc" data-i18n="key-strengths-area.key8.desc">
-									
+									The client application, Secure Trade, offers advanced trading tools, which are common in the world of traditional trading (stock markets, futures markets...), but still not available on current platforms. <br />The user interfaces are designed to be simple to use, accessible to all, in order to offer optimal ergonomics. A simplified mode is available to exchange and send crypto-currencies as easily as possible. In this mode, simple orders (market, limit, stop) are made easier by assisted entry.
 									</p>
 								</div>
 								<div class="col-sm-12 col-md-6 col-lg-4 mb-2 animated" data-animation="flipInX" data-animation-delay="0.4s">
 									<div class="advantage-title d-flex">
 										<div class="float-left mr-3"><img src="assets/images/keystrengths/worldwide.png" alt="" class="" width="64"></div>
-										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key9.title"></div></div>
+										<div class="align-self-center"><div class="advantage-title" data-i18n="key-strengths-area.key9.title">Advanced Trading</div></div>
 									</div>
 									<p class="advantage-desc" data-i18n="key-strengths-area.key9.desc">
-									
+									Secure Trade's user interfaces offer an advanced mode that activates all of Secure Trade's sophisticated trading tools. <br />This includes money management tools, all advanced trading orders (multiple orders), scalping support, automatic trading (with strategy editor). <br />The advanced mode also allows access to margin trading, with information from each supplier node, such as: its continuous connection time, prices, pairs offered for margin trading, etc.
 									</p>
 								</div>
 							</div>
@@ -1592,15 +1592,13 @@
 							<div class="col-md-12">
 								<img src="assets/images/margintrading.png" class="mt-5 pull-right token-trade-img token-trade-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s" alt="trading-graphic">
 								<div class="heading mb-4">
-									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="token-area.title4, <%= tokenName %>">Proof of stake</h4>
+									<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="token-area.title4, <%= appName %>">Margin trading</h4>
 								</div>
-								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="token-area.p6, <%= tokenName %>">Exchangeable on traditional exchange platforms, the $1 token is the proof of stake that guarantees the functioning of the network nodes. Traders will be free to speculate on the price of the $1 token.</p>
+								<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="token-area.p6, <%= appName %>">Margin-trading nodes allow the <%= appName %> network to offer this service. For traders, this allows leveraged trading. For the operators of these nodes, this provides a source of revenue corresponding to the interest paid by the traders who use this service. <br />This feature is almost unique for a DEX. This service is completely anonymous, the security of transactions for this type of trading is ensured by the <%= appName %> anonymous guarantee system, via a smart contract that manages margin-trading. This ensures that neither the trader nor the operator of such a node can harm the counterparty.</p>
 							</div>
 							<div class="col-md-12 text-center token-trade-img-row">
 								<img src="assets/images/margintrading.png" class="token-trade-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s" alt="trading-graphic">
 							</div>
-
-
 						</div>
 					</div>
 				</section>
@@ -3248,15 +3246,15 @@
 	<script src="assets/jquery-i18n/languages/uk.js"></script>
 	<!-- END I18N JS-->
 	<!-- BEGIN THEME JS-->
-	<script src="theme-assets/js/theme.js"></script>
+	<script src="theme-assets/js/theme.min.js"></script>
 	<!-- END THEME JS-->
 	<!-- BEGIN PAGE LEVEL JS-->
-	<script src="theme-assets/js/scripts/particles-type1.js"></script>
+	<script src="theme-assets/js/scripts/particles-type1.min.js"></script>
 	<!-- END PAGE LEVEL JS-->
 	<!-- BEGIN Custom JS-->
-	<script src="assets/js/tools.js"></script>
-	<script src="assets/js/i18n.js"></script>
-	<script src="assets/js/index.js"></script>
+	<script src="assets/js/tools.min.js"></script>
+	<script src="assets/js/i18n.min.js"></script>
+	<script src="assets/js/index.min.js"></script>
 	<script type="text/javascript">
 		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Landpage.getInstance().init('<%- JSON.stringify(roles) %>', '<%- ajaxDelay %>', '<%- cmcURI %>', '<%- grecKeyPub %>'), false );
 	</script>

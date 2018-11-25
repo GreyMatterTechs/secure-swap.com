@@ -704,6 +704,524 @@
 		}
 
 
+		function setPopupsPlacement() {
+			$('.play-video').each(function() {
+				$(this).tooltip({html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
+			});
+			$('.vertical-social li.wip').each(function() {
+				$(this).tooltip({placement: 'right', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
+			});
+			$('.contact .contact-info > li:nth-child(2)').each(function() {
+				$(this).tooltip({placement: 'left', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
+			});
+			$('.footer .about a').each(function() {
+				$(this).tooltip({placement: 'top', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
+			});
+			$('.footer .tweets a').each(function() {
+				$(this).tooltip({placement: 'left', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
+			});
+		}
+
+
+		function setCall2ActionBtns() {
+			/* On button click, Smooth Scrolling */
+			$('.head-content a[href*="#"]').not('[href="#"]').not('[href="#0"]').unbind('click').bind('click', function(event) {
+				if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
+					var target = $(this.hash);
+					target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
+					if (target.length) {
+						event.preventDefault();
+						$('html, body').animate({
+							scrollTop: target.offset().top
+						}, 1000, function() {
+							var $target = $(target);
+							$target.focus();
+							if ($target.is(':focus')) {
+								return false;
+							} else {
+								$target.attr('tabindex', '-1');
+								$target.focus();
+							}
+						});
+					}
+				}
+			});
+		}
+
+
+		function setPurchaseModal() {
+			$('#purchase-modal').on('show.bs.modal', function() {
+				updatePurchaseBoxContent();
+			});
+			updatePurchaseBoxContent();
+		}
+
+
+		function setBootstrapFormValidity() {
+			// Fetch all the forms we want to apply custom Bootstrap validation styles to
+			var forms = document.getElementsByClassName('legal-form');
+			// Loop over them and prevent submission
+			var validation = Array.prototype.filter.call(forms, function(form) {
+				form.addEventListener('submit', function(event) {
+					if (form.checkValidity() === false) {
+						event.preventDefault();
+						event.stopPropagation();
+					}
+					form.classList.add('was-validated');
+					$('.section-1').hide();
+					$('.section-2').show();
+					event.preventDefault();
+					purchaseboxLegal = true;
+				}, false);
+			});
+		}
+
+
+		function initScroll2Top() {
+			$(window).scroll(function() {
+				if ($(this).scrollTop() > 200) {
+					$('#scrollUp').css('right', '44px');
+				} else {
+					$('#scrollUp').removeAttr('style');
+				}
+			});
+			$('#scrollUp').click(function(event) {
+				event.preventDefault();
+				$('html, body').animate({scrollTop: 0}, 300);
+				return false;
+			});
+		}
+
+
+		function setCopyButton() {
+			function myFunctionCopy() {
+				/* Get the text field */
+				var copyText = document.getElementById('SSW');
+				/* Select the text field */
+				copyText.select();
+				/* Copy the text inside the text field */
+				document.execCommand('Copy');
+				/* Alert the copied text */
+				alert('Copied the text: ' + copyText.value);
+			}
+
+			var currencyFrom = $('.currencyValueFrom');
+			var currencyTo = $('.currencyValueTo');
+			currencyFrom.on('input', function() {
+				var amount = $(this).val();
+				currencyTo.val(amount * coinMarketCapUSD / tokenPriceUSD);
+			});
+			currencyTo.on('input', function() {
+				var amount = $(this).val();
+				currencyFrom.val(amount * tokenPriceUSD / coinMarketCapUSD);
+			});
+
+			// Clipboard
+
+			if (ClipboardJS.isSupported()) {
+				var clipboard = new ClipboardJS('#btn-wallet-copy', {
+					container: document.getElementById('purchase-modal')
+				});
+				clipboard.on('success', function(e) {
+					e.clearSelection();
+					$('#btn-wallet-copy')
+						.addClass('copying')
+						.one('animationend webkitAnimationEnd', function() {
+							$('#btn-wallet-copy').removeClass('copying');
+						});
+				});
+				clipboard.on('error', function(e) {
+					console.error('Action:', e.action);
+					console.error('Trigger:', e.trigger);
+				});
+			} else {
+				$('#btn-wallet-copy').hide();
+			}
+		}
+
+		function setAboutAdvantageEffect() {
+			$('.about .advantages').hover(function() {
+				$('.argument0').hide();
+				var show = $(this).data('show');
+				$('.' + show).show();
+			}, function() {
+				$('.arguments').children().hide();
+				$('.argument0').show();
+			});
+			$('.arguments').children().hide();
+			$('.argument0').show();
+		}
+
+
+		function initFlipClock() {
+			// http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
+			FlipClock.Lang.Custom = {
+				'years': '<span data-i18n="tokensale-area.flipclock.years"></span>',
+				'months': '<span data-i18n="tokensale-area.flipclock.months"></span>',
+				'days': '<span data-i18n="tokensale-area.flipclock.days"></span>',
+				'hours': '<span data-i18n="tokensale-area.flipclock.hours"></span>',
+				'minutes': '<span data-i18n="tokensale-area.flipclock.minutes"></span>',
+				'seconds': '<span data-i18n="tokensale-area.flipclock.seconds"></span>'
+			};
+			var countdown = 100 * 24 * 60 * 60;
+			clock = $('.clock').FlipClock(countdown, {
+				clockFace: 'DailyCounter',
+				countdown: true,
+				language: 'Custom',
+				classes: {
+					active: 'flip-clock-active',
+					before: 'flip-clock-before',
+					divider: 'flip-clock-divider',
+					dot: 'flip-clock-dot',
+					label: 'flip-clock-label',
+					flip: 'flip',
+					play: 'play',
+					wrapper: 'flip-clock-wrapper'
+				}
+			});
+		}
+
+
+		function initYieldSimulator() {
+			function filterVE(value, type) {
+				return value === 3000000 ? 1 : (value === 10000000 ? 1 : value === 20000000 ? 1 : 0);
+			}
+			function filterPX(value, type) {
+				return value === 0.45 ? 1 : 0;
+			}
+			function clickOnPip(e) {
+				var noUiSlider = this.noUiSlider;
+				var value = Number(this.getAttribute('data-value'));
+				noUiSlider.set(value);
+			}
+			var VEindex = 0;
+			var FTAPindex = 1;
+			var PXindex = 2;
+			var sliders = document.getElementsByClassName('token-slider');
+			var slidersData = [{
+				value: 10000000,
+				config: {
+					start: [10000000],
+					behaviour: 'tap-drag',
+					connect: [true, false],
+					tooltips: [{
+						to: function(value) {
+							return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
+						}
+					}],
+					step: 1000000,
+					range: {
+						'min': [0],
+						'max': [50000000]
+					},
+					pips: {
+						mode: 'steps',
+						density: 3,
+						filter: filterVE,
+						format: {
+							to: function(value) {
+								return value === 3000000 ? 'Top 100' : (value === 10000000 ? 'Top 75' : value === 20000000 ? 'Top 50' : '');
+							}
+						}
+					}
+				}
+			}, {
+				value: 50,
+				config: {
+					start: [50],
+					behaviour: 'tap-drag',
+					connect: [true, false],
+					step: 1,
+					tooltips: [{
+						to: function(value) {
+							return value.toFixed(0) + '%';
+						}
+					}],
+					range: {
+						'min': [1],
+						'max': [100]
+					}
+				}
+			}, {
+				value: 0.45,
+				config: {
+					start: [0.45],
+					behaviour: 'tap-drag',
+					connect: [true, false],
+					step: 0.01,
+					tooltips: [{
+						to: function(value) {
+							return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2});
+						}
+					}],
+					range: {
+						'min': [0.01],
+						'max': [1.00]
+					},
+					pips: {
+						mode: 'steps',
+						density: 3,
+						filter: filterPX,
+						format: {
+							to: function(value) {
+								return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (ICO Price)';
+							}
+						}
+					}
+				}
+			}];
+
+			[].slice.call(sliders).forEach(function(slider, index) {
+				noUiSlider.create(slider, slidersData[index].config);
+				slider.noUiSlider.on('update', function() {
+					slidersData[index].value = slider.noUiSlider.get();
+					var result = ((((365 * slidersData[VEindex].value) * 0.0015) / (100000000 * (slidersData[FTAPindex].value / 100))) / slidersData[PXindex].value) * 100;
+					$('.token-simu-percent').text(result.toFixed(0) + '%');
+				});
+				if (index === VEindex || index === PXindex) {
+					var pips = sliders[index].querySelectorAll('.noUi-value');
+					for (var i = 0; i < pips.length; i++) {
+						pips[i].style.cursor = 'pointer';
+						pips[i].noUiSlider = sliders[index].noUiSlider;
+						pips[i].addEventListener('click', clickOnPip);
+					}
+				}
+			});
+		}
+
+
+		function setTeamEffect() {
+			$('.team-member').hover(function() {
+				$(this).next('.team-description').show();
+				$(this).parent().addClass('team-hover');
+				var $p;
+				// TODO: récupérer les valeurs de width à partir de la config bootstrap...
+				$p = $(this).parent().next();
+				if (window.matchMedia('(min-width: 768px)').matches) { $p = $p.next(); }
+				if (window.matchMedia('(min-width: 992px)').matches) { $p = $p.next(); }
+				$p.css('visibility', 'hidden');
+			}, function() {
+				$('.team-description').hide();
+				$('.team-profile > div > div').removeClass('team-hover').css('visibility', 'inherit');
+			});
+		}
+
+
+		function initReCaptcha() {
+			grecaptcha.ready(function() {
+				grecaptcha.execute(grecKeyPub, {action: 'homepage'}).then(function(token) {
+					$.ajax({
+						type: 'POST',
+						url: '/captcha',
+						data: {token: token},
+						success: function(result) {
+							console.log('/captcha:' + JSON.stringify(result));
+						},
+						error: function(e) {
+							console.log('/captcha:' + JSON.stringify(e));
+						}
+					});
+				});
+			});
+		}
+
+
+		function initReferralForm() {
+			$('#referralbox-success-alert').hide();
+			$('#referralbox-error-alert').hide();
+			$('#referralbox-debug-alert').hide();
+			$('#referralbox-submit').off('click.referralsubmit').on('click.referralsubmit', function(e) {
+				e.preventDefault();
+				$('[id^=referr]').removeClass('required-error');
+				RFValidate(function(valid) {
+					if (valid) {
+						var ser = $('#referralbox-form').serialize();
+						var list = ser.split('&');
+						var addresses = list.map(function(el) { return el.split('=').pop(); });
+						if (!sameAddresses(addresses)) {
+							$('#referralbox-debug-alert').hide();
+							$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
+							$.ajax({
+								type: 'POST',
+								url: 'api/ICOs/register',
+								data: {ser: ser},
+								success: function(result) {
+									if (result.err) {
+										$('#referralbox-error-alert').html($.i18n('referralbox.error.message2', result.err));
+										$('#referralbox-error-alert').fadeIn('slow');
+										$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+									} else {
+										$('#referralbox-form input[type=text]').val('');
+										$('#referralbox-success-alert').html($.i18n('referralbox.success.message'));
+										$('#referralbox-success-alert').fadeIn('slow');
+										$('#referralbox-success-alert').delay(5000).fadeOut('slow');
+									}
+									$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+								},
+								error: function(err) {
+									$('#referralbox-error-alert').html($.i18n('referralbox.error.message2', (err.responseJSON.error.code ? err.responseJSON.error.code : '0x1001')));
+									$('#referralbox-error-alert').fadeIn('slow');
+									$('#referralbox-error-alert').delay(5000).fadeOut('slow');
+									$('#referralbox-submit').text($.i18n('referralbox.button.register'));
+								}
+							});
+						}
+					}
+				});
+			});
+			$('[id^=referr]').on('input change', function(e) {
+				$('[id^=referr]').removeClass('required-error');
+			});
+			var nbReferrals = 1;
+			$('#referralbox-form').off('click.referraladd').on('click.referraladd', '#referralbox-add', function(e) {
+				e.preventDefault();
+				// supprimer ce bouton
+				$('#referralbox-add').remove();
+				// créer un nouvel input group
+				nbReferrals++;
+				$('.referrals-extent').append(
+					'<div class="form-group">' +
+					'	<div class="row">' +
+					'		<div class="col-10">' +
+					'			<input type="text" class="form-control" id="referral-' + nbReferrals + '" name="referral-' + nbReferrals + '" data-i18n="[placeholder]referralbox.placeholder.referral" placeholder="' + $.i18n('referralbox.placeholder.referral') + '">' +
+					'		</div>' +
+					'		<div class="col-1">' +
+					'			<a id="referralbox-add" class="btn btn-sm btn-gradient-blue my-2 my-sm-0 mt-3" href="#" ><i class="fas fa-lg fa-plus" data-fa-transform="grow-20 down-6"></i></a>' +
+					'		</div>' +
+					'	</div>' +
+					'</div>'
+				);
+				$('#referral-modal').modal('handleUpdate');
+			});
+		}
+
+
+		//--------------------------------------------------------------------------------------------------------------
+		// i18n callbacks
+		//--------------------------------------------------------------------------------------------------------------
+
+		var i18nInitCallback = function(_locale, _mailchimpLanguage) {
+			locale = _locale;
+			moment.locale(_locale);
+			mailchimpLanguage = _mailchimpLanguage;
+			// once the locale file is loaded , we can start other inits that needs i18n ready
+			$('input[placeholder]').i18n();
+			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
+			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
+			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
+			$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
+			var copied = $.i18n('purchasebox.ico.address.copied');
+			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
+		};
+
+		var i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
+			locale = _locale;
+			moment.locale(_locale);
+			mailchimpLanguage = _mailchimpLanguage;
+			// once the locale is changed, we can update each moduel that needs i18n strings
+			$('input[placeholder]').i18n();
+			updateTokenSalesArea();
+			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
+			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
+			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
+			$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
+			var copied = $.i18n('purchasebox.ico.address.copied');
+			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
+			if ($('.page-animated').length > 0) {
+				InitWaypointAnimations();	// from theme.js
+			}
+		};
+
+		function setShorters() {
+			shorters = {
+				contact: {
+					$form:			$('#contact-form'),
+					$debugAlert:	$('#contact-debug-alert'),
+					$errorAlert:	$('#contact-error-alert'),
+					$successAlert:	$('#contact-success-alert'),
+					$submit:		$('#contact-submit'),
+					$input:			$('#contact-form input[type=text]'),
+					i18nSending:	'contact-area.button.sending',
+					i18nSubmit:		'contact-area.button.submit',
+					i18nSuccess:	'contact-area.success.message',
+					i18nError:		'contact-area.error.message',
+					i18nCaptcha:	'contact-area.error.captcha',
+					url:			'/contact'
+				},
+				join: {
+					$form:			$('#joinbox-form'),
+					$debugAlert:	$('#joinbox-debug-alert'),
+					$errorAlert:	$('#joinbox-error-alert'),
+					$successAlert:	$('#joinbox-success-alert'),
+					$submit:		$('#joinbox-submit'),
+					$input:			$('#joinbox-form input[type=text]'),
+					i18nSending:	'joinbox.button.sending',
+					i18nSubmit:		'joinbox.button.submit',
+					i18nSuccess:	'joinbox.success.message',
+					i18nError:		'joinbox.error.message',
+					i18nCaptcha:	'joinbox.error.captcha',
+					url:			'/join'
+				},
+				unjoin: {
+					$form:			$('#unjoinbox-form'),
+					$debugAlert:	$('#unjoinbox-debug-alert'),
+					$errorAlert:	$('#unjoinbox-error-alert'),
+					$successAlert:	$('#unjoinbox-success-alert'),
+					$submit:		$('#unjoinbox-submit'),
+					$input:			$('#unjoinbox-form input[type=text]'),
+					i18nSending:	'unjoinbox.button.sending',
+					i18nSubmit:		'unjoinbox.button.submit',
+					i18nSuccess:	'unjoinbox.success.message',
+					i18nError:		'unjoinbox.error.message',
+					i18nCaptcha:	'unjoinbox.error.captcha',
+					url:			'/unjoin'
+				},
+				head: {
+					$form:			$('#head-form'),
+					$debugAlert:	$('#head-debug-alert'),
+					$errorAlert:	$('#head-error-alert'),
+					$successAlert:	$('#head-success-alert'),
+					$submit:		$('#head-submit'),
+					$input:			$('#head-form input[type=text]'),
+					i18nSending:	'head-area.button.sending',
+					i18nSubmit:		'head-area.button.submit',
+					i18nSuccess:	'head-area.success.message',
+					i18nError:		'head-area.error.message',
+					i18nCaptcha:	'head-area.error.captcha',
+					url:			'/head'
+				}
+			};
+		}
+
+
+		function initContactForms() {
+			initForm(shorters.contact, CFValidate, 'contact');
+			$('#contact-fname, #contact-lname, #contact-mail, #contact-message').on('input change', function(e) {
+				$(this).removeClass('required-error');
+			});
+
+			initForm(shorters.head, HFValidate, 'head');
+			$('#head-mail').on('input change', function(e) {
+				$(this).removeClass('required-error');
+			});
+
+			initForm(shorters.join, JBFValidate, 'joinbox');
+			$('#joinbox-fname, #joinbox-lname, #joinbox-mail').on('input change', function(e) {
+				$(this).removeClass('required-error');
+			});
+			$('body').off('click.unjoin').on('click.unjoin', '#btn-unsubscribe', function(e) {
+				e.preventDefault();
+				$('#join-modal').modal('hide');
+				$('#unjoin-modal').modal('show');
+			});
+
+			initForm(shorters.unjoin, UJBFValidate, 'unjoinbox');
+			$('#unjoinbox-mail').on('input change', function(e) {
+				$(this).removeClass('required-error');
+			});
+		}
+
+
 		// --- public methods
 
 		return {
@@ -720,538 +1238,69 @@
 
 				i18n = window.ssw.I18n.getInstance();
 
-				shorters = {
-					contact: {
-						$form:			$('#contact-form'),
-						$debugAlert:	$('#contact-debug-alert'),
-						$errorAlert:	$('#contact-error-alert'),
-						$successAlert:	$('#contact-success-alert'),
-						$submit:		$('#contact-submit'),
-						$input:			$('#contact-form input[type=text]'),
-						i18nSending:	'contact-area.button.sending',
-						i18nSubmit:		'contact-area.button.submit',
-						i18nSuccess:	'contact-area.success.message',
-						i18nError:		'contact-area.error.message',
-						i18nCaptcha:	'contact-area.error.captcha',
-						url:			'/contact'
-					},
-					join: {
-						$form:			$('#joinbox-form'),
-						$debugAlert:	$('#joinbox-debug-alert'),
-						$errorAlert:	$('#joinbox-error-alert'),
-						$successAlert:	$('#joinbox-success-alert'),
-						$submit:		$('#joinbox-submit'),
-						$input:			$('#joinbox-form input[type=text]'),
-						i18nSending:	'joinbox.button.sending',
-						i18nSubmit:		'joinbox.button.submit',
-						i18nSuccess:	'joinbox.success.message',
-						i18nError:		'joinbox.error.message',
-						i18nCaptcha:	'joinbox.error.captcha',
-						url:			'/join'
-					},
-					unjoin: {
-						$form:			$('#unjoinbox-form'),
-						$debugAlert:	$('#unjoinbox-debug-alert'),
-						$errorAlert:	$('#unjoinbox-error-alert'),
-						$successAlert:	$('#unjoinbox-success-alert'),
-						$submit:		$('#unjoinbox-submit'),
-						$input:			$('#unjoinbox-form input[type=text]'),
-						i18nSending:	'unjoinbox.button.sending',
-						i18nSubmit:		'unjoinbox.button.submit',
-						i18nSuccess:	'unjoinbox.success.message',
-						i18nError:		'unjoinbox.error.message',
-						i18nCaptcha:	'unjoinbox.error.captcha',
-						url:			'/unjoin'
-					},
-					head: {
-						$form:			$('#head-form'),
-						$debugAlert:	$('#head-debug-alert'),
-						$errorAlert:	$('#head-error-alert'),
-						$successAlert:	$('#head-success-alert'),
-						$submit:		$('#head-submit'),
-						$input:			$('#head-form input[type=text]'),
-						i18nSending:	'head-area.button.sending',
-						i18nSubmit:		'head-area.button.submit',
-						i18nSuccess:	'head-area.success.message',
-						i18nError:		'head-area.error.message',
-						i18nCaptcha:	'head-area.error.captcha',
-						url:			'/head'
-					}
-				};
-
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Popups placemnt
-				//--------------------------------------------------------------------------------------------------------------
-
-				setTimeout(function() {
-					$('.play-video').each(function() {
-						$(this).tooltip({html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-					});
-					$('.vertical-social li.wip').each(function() {
-						$(this).tooltip({placement: 'right', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-					});
-					$('.contact .contact-info > li:nth-child(2)').each(function() {
-						$(this).tooltip({placement: 'left', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-					});
-					$('.footer .about a').each(function() {
-						$(this).tooltip({placement: 'top', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-					});
-					$('.footer .tweets a').each(function() {
-						$(this).tooltip({placement: 'left', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-					});
-
-				}, 500);
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Call to action buttons
-				//--------------------------------------------------------------------------------------------------------------
-
-				/* On button click, Smooth Scrolling */
-				$('.head-content a[href*="#"]').not('[href="#"]').not('[href="#0"]').unbind('click').bind('click', function(event) {
-					if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-						var target = $(this.hash);
-						target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-						if (target.length) {
-							event.preventDefault();
-							$('html, body').animate({
-								scrollTop: target.offset().top
-							}, 1000, function() {
-								var $target = $(target);
-								$target.focus();
-								if ($target.is(':focus')) {
-									return false;
-								} else {
-									$target.attr('tabindex', '-1');
-									$target.focus();
-								}
-							});
-						}
-					}
-				});
-				$('#purchase-modal').on('show.bs.modal', function() {
-					updatePurchaseBoxContent();
-				});
-				updatePurchaseBoxContent();
-
-				// Fetch all the forms we want to apply custom Bootstrap validation styles to
-				var forms = document.getElementsByClassName('legal-form');
-				// Loop over them and prevent submission
-				var validation = Array.prototype.filter.call(forms, function(form) {
-					form.addEventListener('submit', function(event) {
-						if (form.checkValidity() === false) {
-							event.preventDefault();
-							event.stopPropagation();
-						}
-						form.classList.add('was-validated');
-						$('.section-1').hide();
-						$('.section-2').show();
-						event.preventDefault();
-						purchaseboxLegal = true;
-					}, false);
-				});
-
-				function myFunctionCopy() {
-					/* Get the text field */
-					var copyText = document.getElementById('SSW');
-					/* Select the text field */
-					copyText.select();
-					/* Copy the text inside the text field */
-					document.execCommand('Copy');
-					/* Alert the copied text */
-					alert('Copied the text: ' + copyText.value);
-				}
-
-				var currencyFrom = $('.currencyValueFrom');
-				var currencyTo = $('.currencyValueTo');
-				currencyFrom.on('input', function() {
-					var amount = $(this).val();
-					currencyTo.val(amount * coinMarketCapUSD / tokenPriceUSD);
-				});
-				currencyTo.on('input', function() {
-					var amount = $(this).val();
-					currencyFrom.val(amount * tokenPriceUSD / coinMarketCapUSD);
-				});
-
-
-				//--------------------------------------------------------------------------------------------------------------
-				// About
-				//--------------------------------------------------------------------------------------------------------------
-
-				$('.about .advantages').hover(function() {
-					$('.argument0').hide();
-					var show = $(this).data('show');
-					$('.' + show).show();
-				}, function() {
-					$('.arguments').children().hide();
-					$('.argument0').show();
-				});
-				$('.arguments').children().hide();
-				$('.argument0').show();
-
-				//--------------------------------------------------------------------------------------------------------------
-				// FlipClock Counter
-				//--------------------------------------------------------------------------------------------------------------
-
-				// http://www.dwuser.com/education/content/easy-javascript-jquery-countdown-clock-builder/
-				FlipClock.Lang.Custom = {
-					'years': '<span data-i18n="tokensale-area.flipclock.years"></span>',
-					'months': '<span data-i18n="tokensale-area.flipclock.months"></span>',
-					'days': '<span data-i18n="tokensale-area.flipclock.days"></span>',
-					'hours': '<span data-i18n="tokensale-area.flipclock.hours"></span>',
-					'minutes': '<span data-i18n="tokensale-area.flipclock.minutes"></span>',
-					'seconds': '<span data-i18n="tokensale-area.flipclock.seconds"></span>'
-				};
-				var countdown = 100 * 24 * 60 * 60;
-				clock = $('.clock').FlipClock(countdown, {
-					clockFace: 'DailyCounter',
-					countdown: true,
-					language: 'Custom',
-					classes: {
-						active: 'flip-clock-active',
-						before: 'flip-clock-before',
-						divider: 'flip-clock-divider',
-						dot: 'flip-clock-dot',
-						label: 'flip-clock-label',
-						flip: 'flip',
-						play: 'play',
-						wrapper: 'flip-clock-wrapper'
-					}
-				});
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Token Yield
-				//--------------------------------------------------------------------------------------------------------------
-
-				function filterVE(value, type) {
-					return value === 3000000 ? 1 : (value === 10000000 ? 1 : value === 20000000 ? 1 : 0);
-				}
-				function filterPX(value, type) {
-					return value === 0.45 ? 1 : 0;
-				}
-				function clickOnPip(e) {
-					var noUiSlider = this.noUiSlider;
-					var value = Number(this.getAttribute('data-value'));
-					noUiSlider.set(value);
-				}
-				var VEindex = 0;
-				var FTAPindex = 1;
-				var PXindex = 2;
-				var sliders = document.getElementsByClassName('token-slider');
-				var slidersData = [{
-					value: 10000000,
-					config: {
-						start: [10000000],
-						behaviour: 'tap-drag',
-						connect: [true, false],
-						tooltips: [{
-							to: function(value) {
-								return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0});
-							}
-						}],
-						step: 1000000,
-						range: {
-							'min': [0],
-							'max': [50000000]
-						},
-						pips: {
-							mode: 'steps',
-							density: 3,
-							filter: filterVE,
-							format: {
-								to: function(value) {
-									return value === 3000000 ? 'Top 100' : (value === 10000000 ? 'Top 75' : value === 20000000 ? 'Top 50' : '');
-								}
-							}
-						}
-					}
-				}, {
-					value: 50,
-					config: {
-						start: [50],
-						behaviour: 'tap-drag',
-						connect: [true, false],
-						step: 1,
-						tooltips: [{
-							to: function(value) {
-								return value.toFixed(0) + '%';
-							}
-						}],
-						range: {
-							'min': [1],
-							'max': [100]
-						}
-					}
-				}, {
-					value: 0.45,
-					config: {
-						start: [0.45],
-						behaviour: 'tap-drag',
-						connect: [true, false],
-						step: 0.01,
-						tooltips: [{
-							to: function(value) {
-								return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2});
-							}
-						}],
-						range: {
-							'min': [0.01],
-							'max': [1.00]
-						},
-						pips: {
-							mode: 'steps',
-							density: 3,
-							filter: filterPX,
-							format: {
-								to: function(value) {
-									return value.toLocaleString(undefined, {style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2}) + ' (ICO Price)';
-								}
-							}
-						}
-					}
-				}];
-
-				[].slice.call(sliders).forEach(function(slider, index) {
-					noUiSlider.create(slider, slidersData[index].config);
-					slider.noUiSlider.on('update', function() {
-						slidersData[index].value = slider.noUiSlider.get();
-						var result = ((((365 * slidersData[VEindex].value) * 0.0015) / (100000000 * (slidersData[FTAPindex].value / 100))) / slidersData[PXindex].value) * 100;
-						$('.token-simu-percent').text(result.toFixed(0) + '%');
-					});
-					if (index === VEindex || index === PXindex) {
-						var pips = sliders[index].querySelectorAll('.noUi-value');
-						for (var i = 0; i < pips.length; i++) {
-							pips[i].style.cursor = 'pointer';
-							pips[i].noUiSlider = sliders[index].noUiSlider;
-							pips[i].addEventListener('click', clickOnPip);
-						}
-					}
-				});
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Token distribution
-				//--------------------------------------------------------------------------------------------------------------
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Team
-				//--------------------------------------------------------------------------------------------------------------
-
-				$('.team-member').hover(function() {
-					$(this).next('.team-description').show();
-					$(this).parent().addClass('team-hover');
-					var $p;
-					// TODO: récupérer les valeurs de width à partir de la config bootstrap...
-					$p = $(this).parent().next();
-					if (window.matchMedia('(min-width: 768px)').matches) { $p = $p.next(); }
-					if (window.matchMedia('(min-width: 992px)').matches) { $p = $p.next(); }
-					$p.css('visibility', 'hidden');
-				}, function() {
-					$('.team-description').hide();
-					$('.team-profile > div > div').removeClass('team-hover').css('visibility', 'inherit');
-				});
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Contact Form
-				//--------------------------------------------------------------------------------------------------------------
-
-				grecaptcha.ready(function() {
-					grecaptcha.execute(grecKeyPub, {action: 'homepage'}).then(function(token) {
-						$.ajax({
-							type: 'POST',
-							url: '/captcha',
-							data: {token: token},
-							success: function(result) {
-								console.log('/captcha:' + JSON.stringify(result));
-							},
-							error: function(e) {
-								console.log('/captcha:' + JSON.stringify(e));
-							}
-						});
-					});
-				});
-
-				initForm(shorters.contact, CFValidate, 'contact');
-				$('#contact-fname, #contact-lname, #contact-mail, #contact-message').on('input change', function(e) {
-					$(this).removeClass('required-error');
-				});
-
-				initForm(shorters.head, HFValidate, 'head');
-				$('#head-mail').on('input change', function(e) {
-					$(this).removeClass('required-error');
-				});
-
-				initForm(shorters.join, JBFValidate, 'joinbox');
-				$('#joinbox-fname, #joinbox-lname, #joinbox-mail').on('input change', function(e) {
-					$(this).removeClass('required-error');
-				});
-				$('body').off('click.unjoin').on('click.unjoin', '#btn-unsubscribe', function(e) {
-					e.preventDefault();
-					$('#join-modal').modal('hide');
-					$('#unjoin-modal').modal('show');
-				});
-
-				initForm(shorters.unjoin, UJBFValidate, 'unjoinbox');
-				$('#unjoinbox-mail').on('input change', function(e) {
-					$(this).removeClass('required-error');
-				});
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Referral Form
-				//--------------------------------------------------------------------------------------------------------------
-
-				$('#referralbox-success-alert').hide();
-				$('#referralbox-error-alert').hide();
-				$('#referralbox-debug-alert').hide();
-				$('#referralbox-submit').off('click.referralsubmit').on('click.referralsubmit', function(e) {
-					e.preventDefault();
-					$('[id^=referr]').removeClass('required-error');
-					RFValidate(function(valid) {
-						if (valid) {
-							var ser = $('#referralbox-form').serialize();
-							var list = ser.split('&');
-							var addresses = list.map(function(el) { return el.split('=').pop(); });
-							if (!sameAddresses(addresses)) {
-								$('#referralbox-debug-alert').hide();
-								$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
-								$.ajax({
-									type: 'POST',
-									url: 'api/ICOs/register',
-									data: {ser: ser},
-									success: function(result) {
-										if (result.err) {
-											$('#referralbox-error-alert').html($.i18n('referralbox.error.message2', result.err));
-											$('#referralbox-error-alert').fadeIn('slow');
-											$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-										} else {
-											$('#referralbox-form input[type=text]').val('');
-											$('#referralbox-success-alert').html($.i18n('referralbox.success.message'));
-											$('#referralbox-success-alert').fadeIn('slow');
-											$('#referralbox-success-alert').delay(5000).fadeOut('slow');
-										}
-										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
-									},
-									error: function(err) {
-										$('#referralbox-error-alert').html($.i18n('referralbox.error.message2', (err.responseJSON.error.code ? err.responseJSON.error.code : '0x1001')));
-										$('#referralbox-error-alert').fadeIn('slow');
-										$('#referralbox-error-alert').delay(5000).fadeOut('slow');
-										$('#referralbox-submit').text($.i18n('referralbox.button.register'));
-									}
-								});
-							}
-						}
-					});
-				});
-				$('[id^=referr]').on('input change', function(e) {
-					$('[id^=referr]').removeClass('required-error');
-				});
-				var nbReferrals = 1;
-				$('#referralbox-form').off('click.referraladd').on('click.referraladd', '#referralbox-add', function(e) {
-					e.preventDefault();
-					// supprimer ce bouton
-					$('#referralbox-add').remove();
-					// créer un nouvel input group
-					nbReferrals++;
-					$('.referrals-extent').append(
-						'<div class="form-group">' +
-						'	<div class="row">' +
-						'		<div class="col-10">' +
-						'			<input type="text" class="form-control" id="referral-' + nbReferrals + '" name="referral-' + nbReferrals + '" data-i18n="[placeholder]referralbox.placeholder.referral" placeholder="' + $.i18n('referralbox.placeholder.referral') + '">' +
-						'		</div>' +
-						'		<div class="col-1">' +
-						'			<a id="referralbox-add" class="btn btn-sm btn-gradient-blue my-2 my-sm-0 mt-3" href="#" ><i class="fas fa-lg fa-plus" data-fa-transform="grow-20 down-6"></i></a>' +
-						'		</div>' +
-						'	</div>' +
-						'</div>'
-					);
-					$('#referral-modal').modal('handleUpdate');
-				});
-
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Clipboard
-				//--------------------------------------------------------------------------------------------------------------
-
-				if (ClipboardJS.isSupported()) {
-					var clipboard = new ClipboardJS('#btn-wallet-copy', {
-						container: document.getElementById('purchase-modal')
-					});
-					clipboard.on('success', function(e) {
-						e.clearSelection();
-						$('#btn-wallet-copy')
-							.addClass('copying')
-							.one('animationend webkitAnimationEnd', function() {
-								$('#btn-wallet-copy').removeClass('copying');
-							});
-					});
-					clipboard.on('error', function(e) {
-						console.error('Action:', e.action);
-						console.error('Trigger:', e.trigger);
-					});
-				} else {
-					$('#btn-wallet-copy').hide();
-				}
-
-
 				//--------------------------------------------------------------------------------------------------------------
 				// Starts i18n, and run all scripts that requires localisation
 				//--------------------------------------------------------------------------------------------------------------
 
-				var i18nInitCallback = function(_locale, _mailchimpLanguage) {
-					locale = _locale;
-					moment.locale(_locale);
-					mailchimpLanguage = _mailchimpLanguage;
-					// once the locale file is loaded , we can start other inits that needs i18n ready
-					$('input[placeholder]').i18n();
-					$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
-					$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
-					$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
-					$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
-					var copied = $.i18n('purchasebox.ico.address.copied');
-					$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
-				};
-
-				var i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
-					locale = _locale;
-					moment.locale(_locale);
-					mailchimpLanguage = _mailchimpLanguage;
-					// once the locale is changed, we can update each moduel that needs i18n strings
-					$('input[placeholder]').i18n();
-					updateTokenSalesArea();
-					$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
-					$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
-					$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
-					$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
-					var copied = $.i18n('purchasebox.ico.address.copied');
-					$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
-					if ($('.page-animated').length > 0) {
-						InitWaypointAnimations();	// from theme.js
-					}
-				};
-
 				i18n.init();
 				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Immediate needed actions
+				//--------------------------------------------------------------------------------------------------------------
+
+				setTimeout(function() {
+					setCall2ActionBtns();
+					initFlipClock();
+					setPurchaseModal();
+					setCopyButton();
+				}, 200);
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Later GUI effects
+				//--------------------------------------------------------------------------------------------------------------
+
+				setTimeout(function() {
+					setPopupsPlacement();
+					setAboutAdvantageEffect();
+					initYieldSimulator();
+					setTeamEffect();
+				}, 500);
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// reCaptcha and Forms
+				//--------------------------------------------------------------------------------------------------------------
+
+				setTimeout(function() {
+					initReCaptcha();
+					setBootstrapFormValidity();
+					setShorters();
+					initContactForms();
+					initReferralForm();
+				}, 1000);
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Ajax polling
+				//--------------------------------------------------------------------------------------------------------------
 
 				setTimeout(function() {
 					updateICOTimer();
 					updateETHTimer();
-				}, 200);
+				}, 1500);
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Final cosmetics
+				//--------------------------------------------------------------------------------------------------------------
 
 				setTimeout(function() {
+					initScroll2Top();
 					notifyJoin();
-				}, 5000);
-
-				$(window).scroll(function() {
-					if ($(this).scrollTop() > 200) {
-						$('#scrollUp').css('right', '44px');
-					} else {
-						$('#scrollUp').removeAttr('style');
-					}
-				});
-				$('#scrollUp').click(function(event) {
-					event.preventDefault();
-					$('html, body').animate({scrollTop: 0}, 300);
-					return false;
-				});
+				}, 2000);
 
 			} // end of init:function
 

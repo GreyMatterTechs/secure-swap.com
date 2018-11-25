@@ -548,28 +548,34 @@
 		var setLocale = function(locale, callback) {
 			$i18n.locale = locale;	// locale should be valid IS0 639 language codes(eg: en, ml, hi, fr, ta, etc...)
 			$i18n.load( 'assets/i18n', locale )
-			.done(function() {
-				$('[data-i18n]').html(function(index) {
-					var args = $(this).data('i18n').split(',');
-					return $.i18n.apply(null, args);
+				.done(function() {
+					$('[data-i18n]').html(function(index) {
+						var args = $(this).data('i18n').split(',');
+						return $.i18n.apply(null, args);
+					});
+					$('body').removeClass('waiting');
+					if (typeof callback === 'function') {
+						callback(locale, mailchimpLanguage);
+					}
 				});
-				if (typeof callback === 'function') {
-					callback(locale, mailchimpLanguage);
-				}
-			});
 		};
 
 		var selectLanguage = function(code, callback) {
+			var done = false;
+			$('body').addClass('waiting');
 			for (var l = 0; l < locales.length; l++) {
-				if ( locales[l].browser === code ) {
+				if (locales[l].browser === code) {
 					$('#i18n-select').html('<span class="flag-icon flag-icon-' + locales[l].flag + '"></span> ' + code.toUpperCase());
 					$('html').attr('lang', code);
 					// $$$ TODO: $('html').attr('data-textdirection', 'ltr');
 					mailchimpLanguage = locales[l].mailchimp;
 					setLocale(code, callback);
+					done = true;
 					break;
 				}
 			}
+			if (!done)
+				$('body').removeClass('waiting');
 		};
 
 

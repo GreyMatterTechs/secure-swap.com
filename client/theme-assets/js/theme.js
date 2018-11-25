@@ -232,7 +232,7 @@ function navbarSlideLine() {
 			'left': ($currentItem.parent().position().left + ($currentItem.parent().width() - $currentItem.width()) / 2 - 8)
 		});
 	}
-};
+}
 
 
 // Init waypoints
