@@ -1,8 +1,8 @@
 # ![](https://staging.secure-swap.com/assets/images/logo.png) Secure-Swap - ICO Website todo-list
 
-There are a shortened tasks-list that must be done, following the reference document from Richard:<br />
+Here is a short list of tasks that must be done, following Richard's reference document:<br />
 https://www.linkedin.com/pulse/how-make-your-ico-website-attractive-investors-richard-shibi/<br />
-(Extracts from the site are noted in [_italic blue_]())
+(Extracts from the document are noted in [_italic blue_]())
 
 
 1. **_[The website should better have neutral colors, which are not too shining or too bright.]()_**<br /> 
