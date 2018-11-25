@@ -52,7 +52,8 @@ So I put the sections concerned right away, and on the first page we have links 
 _[After having the potential investors watched the explanatory video and gone through part of the documents, they might have already decided to purchase some tokens. Therefore, you must provide them with a link or an option to purchase tokens; here you should present how much has been raised so far, what is the soft cap and what is the hard cap.]()_<br />
 Well, this is the Sales page....   Which has been moved up in the investor deck....<br />
 So I don't know what to do now....<br />
-   ![](https://cdn4.iconfinder.com/data/icons/fugue/icon_shadowless/cross-script.png) Not done
+For now, we'll keep it that way.<br />
+   ![](https://susangarrettdogagility.com/wp-content/uploads/2011/03/green-checkmark.png) Done
 
 6. **Details**<br /> 
 _[Investors may need to get more information before making an investment, so they will keep scrolling down. Impress them with the website, both the visuals and the content, as this will highly reflect on the image of the overall project. 
