@@ -40,11 +40,9 @@ So I put the sections concerned right away, and on the first page we have links 
 	  - Secure Swap use cases :  Done
 	  - Tokenomics & Token functionality : _[How you design your token role]()_ :<br />
 	  TokenSSW section moved here... with proof of stake, performance, simulator... : Done<br />
-	  Just the use of token in margin trading 
-	     ```diff
-         - remains to be done
-         ```
-	  
+	    ```diff
+        - Explanation of SSW token usage in margin-trading remains to be done
+        ```	  
 	  - _[why and how people will be able to use your solution]()_:<br />
 	  Moved in Use-Cases section... Done<br />
 
