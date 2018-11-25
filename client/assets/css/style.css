@@ -74,7 +74,7 @@ input.noscript-closing-trick {
 /* -- corner-ribbon ------------------------------------------------------------------- */
 .corner-ribbon {
   width: 200px;
-  background: #ff4137;
+  background: #df3e0a;
   position: absolute;
   top: 25px;
   left: -50px;
@@ -910,7 +910,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
         background-color: #fff;
         background-clip: padding-box; }
       .purchase-modal .modal-content form .converter {
-        background: linear-gradient(32deg, #ff4137, #fdc800);
+        background: linear-gradient(32deg, #ff3300, #ffae00);
         border: none; }
 
 .referral-modal {

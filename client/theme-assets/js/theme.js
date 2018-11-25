@@ -210,11 +210,11 @@ function inverseNavbar(isFixed) {
 		if (isFixed) {
 			$('.navbar-brand-logo-dark').removeClass('d-none');
 			$('.navbar-brand-logo').addClass('d-none');
-			$('.btn-sign-in').removeClass('btn-light').addClass('btn-gradient-blue btn-glow');
+			$('.btn-sign-in').removeClass('btn-light').addClass('btn-gradient-blue');
 		} else {
 			$('.navbar-brand-logo-dark').addClass('d-none');
 			$('.navbar-brand-logo').removeClass('d-none');
-			$('.btn-sign-in').addClass('btn-light').removeClass('btn-gradient-blue btn-glow');
+			$('.btn-sign-in').addClass('btn-light').removeClass('btn-gradient-blue');
 		}
 	}
 }

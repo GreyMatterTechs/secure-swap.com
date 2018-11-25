@@ -140,7 +140,7 @@
 							'		<span data-notify="title">{1}</span>' +
 							'		<span data-notify="message">{2}</span><br />' +
 							'		<button id="notify-join-submit" data-toggle="modal" data-target="#join-modal" ' +
-							'			class="btn btn-sm btn-gradient-orange btn-glow mt-3" ' +
+							'			class="btn btn-sm btn-gradient-orange mt-3" ' +
 							'			data-i18n="notify.join.button" >' + $.i18n('notify.join.button') + '</button>' +
 							'	</div>' +
 							'</div>'

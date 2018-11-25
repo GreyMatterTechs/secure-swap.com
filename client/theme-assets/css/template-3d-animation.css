@@ -210,7 +210,7 @@ svg#loader {
 .btn-gradient-orange {
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  background-image: linear-gradient(40deg, #ff4137 20%, #fdc800 51%, #ff4137 90%);
+  background-image: linear-gradient(40deg, #df3e0a 20%, #e5ab16 51%, #df3e0a 90%);
   background-position: left center;
   background-size: 200% auto;
   border: 0;
@@ -220,7 +220,7 @@ svg#loader {
     text-decoration: none;
     color: #fff; }
   .btn-gradient-orange:not(:disabled):not(.disabled):active {
-    background-image: linear-gradient(40deg, #ff4137 0%, #fdc800 51%, #ff4137 90%); }
+    background-image: linear-gradient(40deg, #df3e0a 0%, #e5ab16 51%, #df3e0a 90%); }
   .btn-gradient-orange.btn-glow {
     -webkit-box-shadow: 0px 0px 12px 0 #ff5f2b;
     box-shadow: 0px 0px 12px 0 #ff5f2b; }
@@ -272,8 +272,8 @@ svg#loader {
   background: linear-gradient(to right, #28bcfd, #1d78ff); }
 
 .progress .progress-orange {
-  background: -webkit-gradient(linear, left top, right top, from(#fdc800), to(#ff4137));
-  background: linear-gradient(to right, #fdc800, #ff4137); }
+  background: -webkit-gradient(linear, left top, right top, from(#e5ab16), to(#df3e0a));
+  background: linear-gradient(to right, #e5ab16, #df3e0a); }
 
 .progress .progress-purple {
   background: -webkit-gradient(linear, left top, right top, from(#bf68e6), to(#9e48cd));
@@ -1717,15 +1717,15 @@ header .navbar.navbar-shadow {
   position: relative;
   z-index: 1; }
   .team .team-img:hover {
-    -webkit-box-shadow: 0px 0px 12px 0 #ff4137;
-    box-shadow: 0px 0px 12px 0 #ff4137;
-    background: linear-gradient(45deg, #ff4137, #fdc800); }
+    -webkit-box-shadow: 0px 0px 12px 0 #ff3300;
+    box-shadow: 0px 0px 12px 0 #ff3300;
+    background: linear-gradient(45deg, #ff3300, #ffae00); }
     .team .team-img:hover:before {
-      border-image-source: linear-gradient(to top, #ff4137, #fdc800);
+      border-image-source: linear-gradient(to top, #ff3300, #ffae00);
       -webkit-transform: rotate(55deg);
       transform: rotate(55deg); }
     .team .team-img:hover ~ .team-icon {
-      background: linear-gradient(45deg, #ff4137, #fdc800); }
+      background: linear-gradient(45deg, #ff3300, #ffae00); }
   .team .team-img img {
     border: 5px solid #fff; }
   .team .team-img:before {
@@ -2100,7 +2100,7 @@ header .navbar .dropdown .dropdown-menu .dropdown-item {
   color: #7d7d7d; }
 
 #navigation #slide-line {
-  background-color: #fdc800; }
+  background-color: #e5ab16; }
 
 .ripples:before {
   background: radial-gradient(ellipse at center, rgba(182, 225, 235, 0) 0%, rgba(182, 225, 235, 0.05) 40%, rgba(182, 225, 235, 0.1) 100%);
