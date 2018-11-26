@@ -682,7 +682,7 @@
 	"unjoinbox.success.message":		"Vous êtes désabonné.<br />Vous recevrez bientôt un email de confirmation.<br />Merci.",
 	"unjoinbox.error.message1":			"Désolé, il semble que le système d'enregistrement soit hors service. Erreur [$1].<br />Merci de bien vouloir réessayer plus tard.",
 	"unjoinbox.error.message2":			"Cette adresse email a l'air fausse ou invalide, veuillez entrer votre adresse email réelle.",
-	"unjoinbox.error.message6":			"Vous êtres déjà désabonné.<br />Merci.",	
+	"unjoinbox.error.message7":			"Vous êtres déjà désabonné.<br />Merci.",	
 	"unjoinbox.error.captcha":			"Désolé, il semble que le système reCAPTCHA v3 de Google refuse votre accès.<br />Si cela persiste, merci de nous contacter par email à contact@secure-swap.com.",
 
 	"-------------- NOTIFICATIONS --------------":"",

@@ -261,10 +261,10 @@ Chimp.unsubscribe = function(user, listId, accountId) {
 				case 'cleaned':
 				case 'subscribed':
 					var params = '?u=' + (accountId || defaults.defaultAccountId) + '&id=' + (listId || defaults.defaultListId) + '&e=' + response.unique_email_id;
-					return resolve({errNum: 5, params: params});
+					return resolve({errNum: 6, params: params});
 				case 'unsubscribed':
 					err = new Error('Unsubscribe member error');
-					err.errNum = 6; // email already unsubscribed
+					err.errNum = 7; // email already unsubscribed
 					return reject(err);
 				default:
 					// unknown error

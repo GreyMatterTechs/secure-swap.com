@@ -147,7 +147,7 @@ function unsubscribe(user, cb) {
 			//                 errNumSub = 5: Resubscribe user failed
 			//                 errNumSub = 6: Unsubscribe user failed
 			//              2: invalid email
-			//              6: email already unsubscribed
+			//              7: email already unsubscribed
 			return cb({errNum: err.errNum, errNumSub: err.errNumSub | null}, null);
 		});
 }
@@ -195,7 +195,8 @@ function subscribe(user, cb) {
 				case 4: // come from resubscribe()
 				case 5: // come from resubscribe()
 					logger.info('Subscribe Form: Successfully Add pending: ' + user.email);
-					return cb(null, {errNum: response.errNum}); // 4: subscription is now renewed
+					return cb(null, {errNum: response.errNum}); // 4: user was unsubcribed
+																// 5: subscription was pending.
 				default:
 					// unknown error
 					return cb({errNum: 1, errNumSub: 9}, null);

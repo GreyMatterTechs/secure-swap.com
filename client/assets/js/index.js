@@ -647,16 +647,17 @@
 						break;
 					case 3:
 					case 4:
+					case 5:
 						shorter.$input.val('');
 						shorter.$successAlert.html($.i18n(shorter.i18nError + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow');
 						break;
-					case 5 :
+					case 6 :
 						shorter.$input.val('');
 						shorter.$submit.text($.i18n(shorter.i18nSubmit));
 						$('#unjoin-modal').modal('hide');
 						window.location.href = result.url;
 						break;
-					case 6 :
+					case 7 :
 						shorter.$input.val('');
 						shorter.$successAlert.html($.i18n(shorter.i18nError + result.errNum)).fadeIn('slow').delay(5000).fadeOut('slow', function() {
 							$('#unjoin-modal').modal('hide');

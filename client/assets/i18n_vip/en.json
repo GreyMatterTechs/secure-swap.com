@@ -682,7 +682,7 @@
 	"unjoinbox.success.message":		"You are unsubscribed.<br />You will receive a confirmation email soon.<br />Thank you.",
 	"unjoinbox.error.message1":			"Sorry, registering system sounds down. Error [$1].<br />Please retry later.",
 	"unjoinbox.error.message2":			"This email address looks wrong or invalid, please enter your real email address.",
-	"unjoinbox.error.message6":			"You are already unsubscribed. <br />Thank you.",	
+	"unjoinbox.error.message7":			"You are already unsubscribed. <br />Thank you.",	
 	"unjoinbox.error.captcha":			"Sorry, it seems that Google's reCAPTCHA v3 system refuses your access. <br />If this persists, please contact us by email at contact@secure-swap.com.",
 
 	"-------------- NOTIFICATIONS --------------":"",
