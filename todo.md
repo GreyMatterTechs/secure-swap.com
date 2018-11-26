@@ -39,14 +39,12 @@ So I put the sections concerned right away, and on the first page we have links 
 	<br/>Then :	
 	  - Secure Swap use cases :  Done
 	  - Tokenomics & Token functionality : _[How you design your token role]()_ :<br />
-	  TokenSSW section moved here... with proof of stake, performance, simulator... : Done<br />
-	    ```diff
-        - Explanation of SSW token usage in margin-trading remains to be done
-        ```	  
+	    TokenSSW section moved here... with proof of stake, performance, simulator... : Done<br />
+        Explanation of SSW token usage in margin-trading : Done 
 	  - _[why and how people will be able to use your solution]()_:<br />
 	  Moved in Use-Cases section... Done<br />
 
-   ![](https://cdn4.iconfinder.com/data/icons/fugue/icon_shadowless/cross-script.png) Not done
+   ![](https://susangarrettdogagility.com/wp-content/uploads/2011/03/green-checkmark.png) Done
 
 5. **Purchase section**<br /> 
 _[After having the potential investors watched the explanatory video and gone through part of the documents, they might have already decided to purchase some tokens. Therefore, you must provide them with a link or an option to purchase tokens; here you should present how much has been raised so far, what is the soft cap and what is the hard cap.]()_<br />
