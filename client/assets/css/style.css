@@ -244,7 +244,8 @@ header .navbar .dropdown .dropdown-menu a:before {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   letter-spacing: normal;
-  text-rendering: auto; }
+  text-rendering: auto;
+  line-height: 1.6rem; }
 
 #about .th {
   display: none;
