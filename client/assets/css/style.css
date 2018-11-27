@@ -561,7 +561,9 @@ header .navbar .dropdown .dropdown-menu a:before {
   display: block !important;
   margin-left: 1rem;
   margin-bottom: 1rem;
-  float: right; }
+  float: right;
+  width: 25%;
+  max-width: 15rem; }
 
 /* -- App ------------------------------------------------------------------- */
 #mobile-app .mobile-button {
