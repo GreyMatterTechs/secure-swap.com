@@ -73,7 +73,7 @@
 		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
 		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
 		var purchaseboxLegal = false;
-
+		var iconame;
 		var shorters;
 
 
@@ -199,14 +199,25 @@
 
 		function updateTokenSalesArea() {
 			switch (icoState) {
-			case 1:	$('#tokensale-title').html($.i18n('tokensale-area.info.start'));	break;
-			case 2:	$('#tokensale-title').html($.i18n('tokensale-area.info.ends'));		break;
-			case 3:	$('#tokensale-title').html($.i18n('tokensale-area.info.ended'));	break;
+			case 1:
+				iconame = $.i18n('tokensale-area.preico');
+				$('#tokensale-title').html($.i18n('tokensale-area.info.start', iconame));
+				break;
+			case 2:
+				iconame = $.i18n('tokensale-area.ico');
+				$('#tokensale-title').html($.i18n('tokensale-area.info.ends', iconame));
+				break;
+			case 3:
+				iconame = $.i18n('tokensale-area.ico');
+				$('#tokensale-title').html($.i18n('tokensale-area.info.ended'));
+				break;
 			}
 			$('#tokensale-percent').html($.i18n('tokensale-area.info.percent', purchaseSoldPercent + (purchaseSoldPercent * 0.25)));
 			$('#token-sale div.progress > div').css('width', purchaseSoldPercent + '%');
 			refreshTokenPrices();
+			$('#tokensale-li2').html($.i18n('tokensale-area.li2', iconame));
 			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
+			$('#tokensale-li3').html($.i18n('tokensale-area.li3', iconame));
 			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(dateStart).format('LL')));
 			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
 			$('#contractAddress').text(contractAddress);
@@ -927,9 +938,9 @@
 					}
 				}
 			}, {
-				value: 50,
+				value: 30,
 				config: {
-					start: [50],
+					start: [30],
 					behaviour: 'tap-drag',
 					connect: [true, false],
 					step: 1,
@@ -1119,7 +1130,7 @@
 			locale = _locale;
 			moment.locale(_locale);
 			mailchimpLanguage = _mailchimpLanguage;
-			// once the locale is changed, we can update each moduel that needs i18n strings
+			// once the locale is changed, we can update each module that needs i18n strings
 			$('input[placeholder]').i18n();
 			updateTokenSalesArea();
 			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
@@ -1292,6 +1303,25 @@
 					updateICOTimer();
 					updateETHTimer();
 				}, 1500);
+				icoState = 1;
+				setStatePreICO({
+					state:				1,
+					wallet:				"",
+					contractAddress:	"",
+					tokenName:			"SSW",
+					tokenPriceUSD:		0.45,
+					tokenPriceETH:		0.15414,
+					softCap:			10000000,
+					hardCap:			80000000,
+					tokensTotal:		100000000,
+					tokensSold:			0,
+					ethReceived:		[],
+					ethTotal:			0,
+					dateStart:			"2018-09-30T22:00:00.000Z",
+					dateEnd:			"2019-01-30T23:00:00.000Z",
+					purchaseSoldPercent:0,
+					contractAddress:	$.i18n('tokensale-area.balance.address')
+				});
 
 
 				//--------------------------------------------------------------------------------------------------------------

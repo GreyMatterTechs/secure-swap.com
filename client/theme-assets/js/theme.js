@@ -142,8 +142,8 @@ $(window).on('load', function() {
 		slidesPerView: 4,
 		grabCursor: true,
 		navigation: {
-			nextEl: '.next-slide',
-			prevEl: '.prev-slide'
+			nextEl: '.next-slideICO',
+			prevEl: '.prev-slideICO'
 		},
 		// Responsive breakpoints
 		breakpoints: {
@@ -162,8 +162,8 @@ $(window).on('load', function() {
 		slidesPerView: 4,
 		grabCursor: true,
 		navigation: {
-			nextEl: '.next-slide',
-			prevEl: '.prev-slide'
+			nextEl: '.next-slideSSW',
+			prevEl: '.prev-slideSSW'
 		},
 		// Responsive breakpoints
 		breakpoints: {
