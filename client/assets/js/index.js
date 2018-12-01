@@ -1276,6 +1276,11 @@
 
 				$(window).on('load', function() {
 
+					// setTimeout(function() {
+					console.log('indexjs-closeLoader');
+					$('body').addClass('loaded');
+					// }, 1);
+
 					//--------------------------------------------------------------------------------------------------------------
 					// Starts i18n, and run all scripts that requires localisation
 					//--------------------------------------------------------------------------------------------------------------
@@ -1284,11 +1289,6 @@
 					i18n.init();
 					console.log('indexjs-i18n-buildgui');
 					i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
-
-					// setTimeout(function() {
-					console.log('indexjs-closeLoader');
-					$('body').addClass('loaded');
-					// }, 1);
 
 					//--------------------------------------------------------------------------------------------------------------
 					// Immediate needed actions

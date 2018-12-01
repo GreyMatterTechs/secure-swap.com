@@ -139,6 +139,11 @@ function isString(val) {
  */
 function isDate(val) { // 2018-07-08T20:37:22.102Z or Timestamp
 	logger.info('ICO.isDate() val: ' + val);
+
+	if (!moment(val).isValid()) {
+		logger.info('ICO.isDate() invalid at: ' + moment(val).invalidAt());
+	}
+
 	return moment(val).isValid();
 }
 
