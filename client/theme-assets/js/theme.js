@@ -9,6 +9,98 @@
  **/
 'use strict';
 
+var apple_phone = /iPhone/i,
+	apple_ipod = /iPod/i,
+	apple_tablet = /iPad/i,
+	android_phone = /\bAndroid(?:.+)Mobile\b/i, // Match 'Android' AND 'Mobile'
+	android_tablet = /Android/i,
+	amazon_phone = /\bAndroid(?:.+)SD4930UR\b/i,
+	amazon_tablet = /\bAndroid(?:.+)(?:KF[A-Z]{2,4})\b/i,
+	windows_phone = /Windows Phone/i,
+	windows_tablet = /\bWindows(?:.+)ARM\b/i, // Match 'Windows' AND 'ARM'
+	other_blackberry = /BlackBerry/i,
+	other_blackberry_10 = /BB10/i,
+	other_opera = /Opera Mini/i,
+	other_chrome = /\b(CriOS|Chrome)(?:.+)Mobile/i,
+	other_firefox = /\Mobile(?:.+)Firefox\b/i; // Match 'Mobile' AND 'Firefox'
+
+function match(regex, userAgent) {
+	return regex.test(userAgent);
+}
+
+
+function isMobile(userAgent) {
+	var ua = userAgent || (typeof navigator !== 'undefined' ? navigator.userAgent : '');
+
+	// Facebook mobile app's integrated browser adds a bunch of strings that match everything. Strip it out if it exists.
+	var tmp = ua.split('[FBAN');
+	if (typeof tmp[1] !== 'undefined') {
+		ua = tmp[0];
+	}
+
+	// Twitter mobile app's integrated browser on iPad adds a "Twitter for iPhone" string. Same probably happens on other tablet platforms.
+	// This will confuse detection so strip it out if it exists.
+	tmp = ua.split('Twitter');
+	if (typeof tmp[1] !== 'undefined') {
+		ua = tmp[0];
+	}
+
+	var result = {
+		apple: {	phone:		match(apple_phone, ua) && !match(windows_phone, ua),
+					ipod:		match(apple_ipod, ua),
+					tablet:		!match(apple_phone, ua) &&
+								match(apple_tablet, ua) &&
+								!match(windows_phone, ua),
+					device:		(match(apple_phone, ua) ||
+								match(apple_ipod, ua) ||
+								match(apple_tablet, ua)) &&
+								!match(windows_phone, ua)
+		},
+		amazon: {	phone:		match(amazon_phone, ua),
+					tablet:		!match(amazon_phone, ua) && match(amazon_tablet, ua),
+					device:		match(amazon_phone, ua) || match(amazon_tablet, ua)
+		},
+		android: {	phone:		(!match(windows_phone, ua) && match(amazon_phone, ua)) ||
+								(!match(windows_phone, ua) && match(android_phone, ua)),
+					tablet:		!match(windows_phone, ua) &&
+								!match(amazon_phone, ua) &&
+								!match(android_phone, ua) &&
+								(match(amazon_tablet, ua) || match(android_tablet, ua)),
+					device:		(!match(windows_phone, ua) &&
+								(match(amazon_phone, ua) ||
+								match(amazon_tablet, ua) ||
+								match(android_phone, ua) ||
+								match(android_tablet, ua))) ||
+								match(/\bokhttp\b/i, ua)
+		},
+		windows: {	phone:		match(windows_phone, ua),
+					tablet:		match(windows_tablet, ua),
+					device:		match(windows_phone, ua) || match(windows_tablet, ua)
+		},
+		other: {	blackberry:	match(other_blackberry, ua),
+					blackberry10: match(other_blackberry_10, ua),
+					opera:		match(other_opera, ua),
+					firefox:	match(other_firefox, ua),
+					chrome:		match(other_chrome, ua),
+					device:		match(other_blackberry, ua) ||
+								match(other_blackberry_10, ua) ||
+								match(other_opera, ua) ||
+								match(other_firefox, ua) ||
+								match(other_chrome, ua)
+		}
+	};
+	result.any =	result.apple.device ||
+					result.android.device ||
+					result.windows.device ||
+					result.other.device;
+
+	// excludes 'other' devices and ipods, targeting touchscreen phones
+	result.phone =	result.apple.phone || result.android.phone || result.windows.phone;
+	result.tablet = result.apple.tablet || result.android.tablet || result.windows.tablet;
+
+	return result;
+}
+
 function gettime() {
 	var tm = new Date().getTime();
 	var seconds = (tm / 1000) % 60;
@@ -20,36 +112,16 @@ function gettime() {
 
 // Preloader
 $(window).on('load', function() {
+	// console.log('theme-onload-start: ' + gettime());
 
+	setTimeout(function() {
+		$('body').addClass('loaded');
+	}, 1);
 
-	console.log('theme-onload-start: ' + gettime());
-
-	// Vertical Nav with social icons + telegram
-	$('nav.vertical-social').midnight();
-
-	// Navbar dropdown on hover
-	$('.navbar .dropdown').on('mouseover', function() {
-		var $this = $(this).find('.dropdown-menu');
-		if ($this.hasClass('show')) {
-			return false;
+	if (!isMobile().any) {
+		if ($('.page-animated').length > 0) {
+			InitWaypointAnimations();
 		}
-		$('.dropdown-toggle', this).dropdown('toggle');
-	});
-	$('.navbar .dropdown').on('mouseout', function() {
-		var $this = $(this).find('.dropdown-menu');
-		if ($this.hasClass('show')) {
-			$('.dropdown-toggle', this).dropdown('toggle');
-		}
-	});
-	$('.navbar .dropdown').on('click', function() {
-		var $this = $(this);
-		if ($this.hasClass('show')) {
-			return false;
-		}
-	});
-
-	if ($('.page-animated').length > 0) {
-		InitWaypointAnimations();
 	}
 
 	setTimeout(function() {
@@ -60,14 +132,11 @@ $(window).on('load', function() {
 		console.log('theme-onload-svg-end: ' + gettime());
 	}, 3000);
 
-	console.log('theme-onload-end: ' + gettime());
-
+	// console.log('theme-onload-end: ' + gettime());
 });
 
 
 (function(window, document, $) {
-	console.log('theme-start: ' + gettime());
-
 	var $html = $('html');
 	var $body = $('body');
 
@@ -199,8 +268,6 @@ $(window).on('load', function() {
 		swiperICO.slideTo(8, 1000, false);
 	// }
 	});
-	console.log('theme-end: ' + gettime());
-
 })(window, document, jQuery);
 
 
@@ -251,48 +318,41 @@ function navbarSlideLine() {
 // Init waypoints
 var InitWaypointAnimations = function() {
 
-	function setWayPoints(elements, group, params) {
-		var groupOffset = group ? group.attr('data-animation-offset') || params.offset : null;
+	function setWayPoints(elements, params) {
 		elements.each(function() {
 			var element = $(this);
 			var anim = element.attr('data-animation');
 			var delay = element.attr('data-animation-delay') || params.delay;
 			var offset = element.attr('data-animation-offset') || params.offset;
 			element.css({'-webkit-animation-delay': delay, '-moz-animation-delay': delay, 'animation-delay': delay, opacity: 0});
-			var l = group ? group : element;
+			var l = element;
 			l.waypoint(function() {
 				element.addClass('animated').addClass(anim).css({opacity: 1});
 			}, {
 				triggerOnce:	!0,
-				offset:			groupOffset || offset
+				offset:			offset
 			});
 		});
 	}
 
-	function makeClassSelector(className) {
-		return '.' + className;
-	}
+	/* function slowIterate(arr, params) {
+		if (arr.length === 0) return;
+		setWayPoints($(arr[0]), params);
+		setTimeout(function() {
+		  slowIterate(arr.slice(1), params);
+		}, 1);
+	} */
 
 	return function(defaults) {
 		defaults = defaults || {};
 		var params = {
 			offset:				defaults.offset || '95%',
-			delay:				defaults.delay || '0s',
-			animateClass:		defaults.animateClass || 'animated',
-			animateGroupClass:	defaults.animateGroupClass || 'ez-animate-group'
+			delay:				defaults.delay || '0s'
 		};
-		var animateGroup	= makeClassSelector(params.animateGroupClass);
-		var animate		= makeClassSelector(params.animateClass);
-		$(animateGroup).each(function(index, element) {
-			var group = $(element);
-			var anims = $(element).find(animate);
-			setWayPoints(anims, group, params);
+		$('.animated').each(function(index, element) {
+			setWayPoints($(element), params);
 		});
-		$(animate).filter(function(index, element) {
-			return 0 === $(element).parents(animateGroup).length;
-		}).each(function(index, element) {
-			setWayPoints($(element), null, params);
-		});
+		// slowIterate($('.animated'), params);
 	};
 
 }();

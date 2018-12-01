@@ -87,7 +87,8 @@
 					$.notify({
 						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 23) + 1) + '.png',
 						title:		$.i18n('notify.purchase.title'),
-						message:	$.i18n('notify.purchase.message', (+ethReceiveds[i].ethReceived).toFixed(8), discount, (+ethReceiveds[i].tokensSend).toFixed(3))
+						message:	$.i18n('notify.purchase.message', (+ethReceiveds[i].ethReceived).toFixed(8), discount, (+ethReceiveds[i].tokensSend).toFixed(3)),
+						time:		$.i18n('notify.purchase.time')
 					}, {
 						type:		'minimalist',
 						placement:	{from: 'bottom', align: 'left'},
@@ -102,7 +103,7 @@
 									'	<div id="text">' +
 									'		<span data-notify="title">{1}</span>' +
 									'		<span data-notify="message">{2}</span>' +
-									'		<span data-notify="time">A few seconds ago.</span>' +
+									'		<span data-notify="time">{3}</span>' +
 									'	</div>' +
 									'</div>'
 					});
@@ -1257,13 +1258,13 @@
 			return seconds + ':' + miliseconds;
 		}
 
-		
+
 		// --- public methods
 
 		return {
 
 			init: function(_roles, _ajaxDelay, _cmcURI, _grecKeyPub) {
-				console.log('indexjs-start: ' + gettime());
+				// console.log('indexjs-start: ' + gettime());
 
 				if (_roles) {
 					roles = JSON.parse(_roles);
@@ -1273,126 +1274,114 @@
 				grecKeyPub = _grecKeyPub;
 				updateICOIntervalDefault = ajaxDelay;
 
-				console.log('indexjs-i18n-instance: ' + gettime());
 				i18n = window.ssw.I18n.getInstance();
-						
-				//$(window).on('load', function() {
-				//	console.log('indexjs-onload');
 
+				//--------------------------------------------------------------------------------------------------------------
+				// Starts i18n, and run all scripts that requires localisation
+				//--------------------------------------------------------------------------------------------------------------
+				i18n.init();
+				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
 
+				//--------------------------------------------------------------------------------------------------------------
+				// Immediate needed actions
+				//--------------------------------------------------------------------------------------------------------------
 
-					//--------------------------------------------------------------------------------------------------------------
-					// Starts i18n, and run all scripts that requires localisation
-					//--------------------------------------------------------------------------------------------------------------
+				setTimeout(function() {
+					// Vertical Nav with social icons + telegram
+					$('nav.vertical-social').midnight();
 
-						
-					console.log('indexjs-i18n-init: ' + gettime());
-					i18n.init();
-					console.log('indexjs-i18n-buildgui: ' + gettime());
-					i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
-	
-											
-						setTimeout(function() {
-							console.log('indexjs-closeLoader: ' + gettime());
-							$('body').addClass('loaded');
-						}, 400);
-
-							
-
-					//--------------------------------------------------------------------------------------------------------------
-					// Immediate needed actions
-					//--------------------------------------------------------------------------------------------------------------
-
-					setTimeout(function() {
-						console.log('indexjs-immediate-start: ' + gettime());
-						setCall2ActionBtns();
-						initFlipClock();
-						setPurchaseModal();
-						setCopyButton();
-						console.log('indexjs-immediate-end: ' + gettime());
-
-					}, 300);
-
-
-					//--------------------------------------------------------------------------------------------------------------
-					// Later GUI effects
-					//--------------------------------------------------------------------------------------------------------------
-
-					setTimeout(function() {
-						console.log('indexjs-gui-start: ' + gettime());
-						setPopupsPlacement();
-						setAboutAdvantageEffect();
-			
-						setTeamEffect();
-						console.log('indexjs-gui-end: ' + gettime());
-
-
-						initYieldSimulator();
-
-					}, 600);
-
-
-					//--------------------------------------------------------------------------------------------------------------
-					// reCaptcha and Forms
-					//--------------------------------------------------------------------------------------------------------------
-
-					setTimeout(function() {
-						console.log('indexjs-forms-start: ' + gettime());
-						initReCaptcha();
-						setBootstrapFormValidity();
-						setShorters();
-						initContactForms();
-						initReferralForm();
-						console.log('indexjs-forms-end: ' + gettime());
-					}, 1000);
-
-
-					//--------------------------------------------------------------------------------------------------------------
-					// Ajax polling
-					//--------------------------------------------------------------------------------------------------------------
-
-					setTimeout(function() {
-						console.log('indexjs-ajax-start: ' +gettime());
-						updateICOTimer();
-						updateETHTimer();
-						console.log('indexjs-ajax-end: ' + gettime());
-					}, 1500);
-					console.log('indexjs-icoinit: ' + gettime());
-					icoState = 1;
-					setStatePreICO({
-						state:				1,
-						wallet:				"",
-						contractAddress:	"",
-						tokenName:			"SSW",
-						tokenPriceUSD:		0.45,
-						tokenPriceETH:		0.15414,
-						softCap:			10000000,
-						hardCap:			80000000,
-						tokensTotal:		100000000,
-						tokensSold:			0,
-						ethReceived:		[],
-						ethTotal:			0,
-						dateStart:			"2018-09-30T22:00:00.000Z",
-						dateEnd:			"2019-01-30T23:00:00.000Z",
-						purchaseSoldPercent:0,
-						contractAddress:	$.i18n('tokensale-area.balance.address')
+					// Navbar dropdown on hover
+					$('.navbar .dropdown').on('mouseover', function() {
+						var $this = $(this).find('.dropdown-menu');
+						if ($this.hasClass('show')) {
+							return false;
+						}
+						$('.dropdown-toggle', this).dropdown('toggle');
+					});
+					$('.navbar .dropdown').on('mouseout', function() {
+						var $this = $(this).find('.dropdown-menu');
+						if ($this.hasClass('show')) {
+							$('.dropdown-toggle', this).dropdown('toggle');
+						}
+					});
+					$('.navbar .dropdown').on('click', function() {
+						var $this = $(this);
+						if ($this.hasClass('show')) {
+							return false;
+						}
 					});
 
+					setCall2ActionBtns();
+					initFlipClock();
+					setPurchaseModal();
+					setCopyButton();
+				}, 1);
 
-					//--------------------------------------------------------------------------------------------------------------
-					// Final cosmetics
-					//--------------------------------------------------------------------------------------------------------------
 
-					setTimeout(function() {
-						console.log('indexjs-final-start: ' + gettime());
-						initScroll2Top();
-						notifyJoin();
-						console.log('indexjs-final-end: ' + gettime());
-					}, 2000);
+				//--------------------------------------------------------------------------------------------------------------
+				// Later GUI effects
+				//--------------------------------------------------------------------------------------------------------------
 
-			//	});
+				setTimeout(function() {
+					setPopupsPlacement();
+					setAboutAdvantageEffect();
+					setTeamEffect();
+					initYieldSimulator();
+				}, 100);
 
-			console.log('indexjs-end: ' + gettime());
+
+				//--------------------------------------------------------------------------------------------------------------
+				// reCaptcha and Forms
+				//--------------------------------------------------------------------------------------------------------------
+
+				setTimeout(function() {
+					initReCaptcha();
+					setBootstrapFormValidity();
+					setShorters();
+					initContactForms();
+					initReferralForm();
+				}, 200);
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Ajax polling
+				//--------------------------------------------------------------------------------------------------------------
+
+				setTimeout(function() {
+					updateICOTimer();
+					updateETHTimer();
+				}, 300);
+				icoState = 1;
+				setStatePreICO({
+					state:				1,
+					wallet:				"",
+					contractAddress:	"",
+					tokenName:			"SSW",
+					tokenPriceUSD:		0.45,
+					tokenPriceETH:		0.15414,
+					softCap:			10000000,
+					hardCap:			80000000,
+					tokensTotal:		100000000,
+					tokensSold:			0,
+					ethReceived:		[],
+					ethTotal:			0,
+					dateStart:			"2018-09-30T22:00:00.000Z",
+					dateEnd:			"2019-01-30T23:00:00.000Z",
+					purchaseSoldPercent:0,
+					contractAddress:	$.i18n('tokensale-area.balance.address')
+				});
+
+
+				//--------------------------------------------------------------------------------------------------------------
+				// Final cosmetics
+				//--------------------------------------------------------------------------------------------------------------
+
+				setTimeout(function() {
+					initScroll2Top();
+					notifyJoin();
+				}, 5000);
+
+				// console.log('indexjs-end: ' + gettime());
 			} // end of init:function
 
 		}; // end of return
