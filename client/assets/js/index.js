@@ -166,6 +166,13 @@
 					break;
 				case 2:
 					$('#purchase-modal-state-preico').addClass('d-none');
+					$('#purchase-modal-state-ico').addClass('d-none');
+					$('#purchase-modal-state-postico').addClass('d-none');
+					$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
+					$('#walletAddress').val(wallet);
+					break;
+				case 3:
+					$('#purchase-modal-state-preico').addClass('d-none');
 					$('#purchase-modal-state-ico').removeClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
 					$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
@@ -204,10 +211,14 @@
 				$('#tokensale-title').html($.i18n('tokensale-area.info.start', iconame));
 				break;
 			case 2:
+				iconame = $.i18n('tokensale-area.preico');
+				$('#tokensale-title').html($.i18n('tokensale-area.info.start', iconame));
+				break;
+			case 3:
 				iconame = $.i18n('tokensale-area.ico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.ends', iconame));
 				break;
-			case 3:
+			case 4:
 				iconame = $.i18n('tokensale-area.ico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.ended'));
 				break;
@@ -237,6 +248,16 @@
 
 		function setStatePreICO(ico) {
 			// set timer to remaining time before ICO starts
+			setTimerClock(ico.dateStart);
+			$('.clock-counter').show();
+			$('.ico-ended').hide();
+			updateTokenSalesArea();
+			updatePurchaseBoxContent(ico.state);
+			$('#btn-purchase-sale').show();
+			$('.loading-bar').show();
+		}
+		function setState1mnICO(ico) {
+			// set timer to remaining time until ICO ends
 			setTimerClock(ico.dateStart);
 			$('.clock-counter').show();
 			$('.ico-ended').hide();
@@ -287,8 +308,9 @@
 						contractAddress		= ico.contractAddress ? ico.contractAddress : $.i18n('tokensale-area.balance.address');
 						switch (ico.state) {
 						case 1:	setStatePreICO(ico);	break;
-						case 2:	setStateICO(ico);		break;
-						case 3:	setStateEndICO(ico);	break;
+						case 2:	setState1mnICO(ico);	break;
+						case 3:	setStateICO(ico);		break;
+						case 4:	setStateEndICO(ico);	break;
 						}
 						var past = (new Date).getTime() - 15000;
 						ethReceiveds = ethReceiveds.filter(function(ethReceived) { return ethReceived.timestamp > past; });	// on supprime les vielles transactions
@@ -1251,17 +1273,19 @@
 
 				i18n = window.ssw.I18n.getInstance();
 
-				//--------------------------------------------------------------------------------------------------------------
-				// Starts i18n, and run all scripts that requires localisation
-				//--------------------------------------------------------------------------------------------------------------
-
 				console.log('indexjs-i18n');
-				i18n.init();
-				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
 
 				$(window).on('load', function() {
 
 					console.log('indexjs-closeLoader');
+
+					//--------------------------------------------------------------------------------------------------------------
+					// Starts i18n, and run all scripts that requires localisation
+					//--------------------------------------------------------------------------------------------------------------
+
+					i18n.init();
+					i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
+
 					// setTimeout(function() {
 					$('body').addClass('loaded');
 					// }, 1);

@@ -293,7 +293,7 @@ function geo2str(geo) {
  */
 module.exports = function(ICO) {
 
-	ICO.validatesInclusionOf('state', {in: [1, 2, 3]});
+	ICO.validatesInclusionOf('state', {in: [1, 2, 3, 4]});
 
 	if (process.env.NODE_ENV !== undefined) {
 		// https://loopback.io/doc/en/lb3/Authentication-authorization-and-permissions.html
@@ -337,7 +337,7 @@ module.exports = function(ICO) {
 	ICO.getICOData = function(cb) {
 		getICO(1, function(err, ico) {
 			if (err) return cb(err, null);
-			if ((+ico.state) === 2) {
+			if ((+ico.state) === 2 || (+ico.state) === 3) {
 				ico.wallet = config.wallet;
 			}
 			/*
@@ -390,7 +390,7 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))			{ logger.info('ICO.setParams() bad state: ' + params.state); return cb(e2, null); } }
+		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 4))			{ logger.info('ICO.setParams() bad state: ' + params.state); return cb(e2, null); } }
 		if (params.wallet)			{ if (!isString(params.wallet) || !isETHAddress(params.wallet))						{ logger.info('ICO.setParams() bad wallet: ' + params.wallet); return cb(e2, null); } }
 		if (params.tokenName)		{ if (!isString(params.tokenName))													{ logger.info('ICO.setParams() bad tokenName: ' + params.tokenName); return cb(e2, null); } }
 		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)					{ logger.info('ICO.setParams() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
@@ -419,7 +419,7 @@ module.exports = function(ICO) {
 				if (err) return cb(err, null);
 				ico.updateAttributes({
 					state:				params.state			? params.state				: ico.state,
-					wallet: 			params.state === 2		? config.wallet				: '',
+					wallet: 			(params.state === 2 || params.state === 3) ? config.wallet : '',
 					tokenName:			params.tokenName		? params.tokenName			: ico.tokenName,
 					tokenPriceUSD: 		params.tokenPriceUSD	? params.tokenPriceUSD		: ico.tokenPriceUSD,
 					tokenPriceETH:		params.tokenPriceETH	? params.tokenPriceETH		: ico.tokenPriceETH,
@@ -448,7 +448,7 @@ module.exports = function(ICO) {
 	 * @public
 	 * @param    {String}   tokenId      The token ID got from call to /login
 	 * @param    {Object}   params       Parameters
-	 * @param    {Number}   params.state ICO's state (1=preICO, 2=ICO, 3=ICO ended)
+	 * @param    {Number}   params.state ICO's state (1=avnt preICO, 2=preICO - 1 minute, 2=preICO, 3=preICO ended)
 	 * @callback {Function} cb           Callback function
  	 * @param    {Error}    err          Error information
 	 */
@@ -459,7 +459,9 @@ module.exports = function(ICO) {
 		var e2 = new Error(g.f('Invalid Param'));
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
-		if (!isInteger(params.state) || (params.state < 1 || params.state > 3))	{ logger.info('ICO.setState() bad state: ' + params.state); return cb(e2, null); }
+		if (!isInteger(params.state) || (params.state < 1 || params.state > 4))							{ logger.info('ICO.setState() bad state: ' + params.state); return cb(e2, null); }
+		if (params.wallet)			{ if (!isString(params.wallet) || !isETHAddress(params.wallet))		{ logger.info('ICO.setParams() bad wallet: ' + params.wallet); return cb(e2, null); } }
+		if (params.contractAddress)	{ if (!isString(params.contractAddress)) 							{ logger.info('ICO.setParams() bad contractAddress: ' + params.contractAddress); return cb(e2, null); } }
 		checkToken(tokenId, function(err, granted) {
 			if (err) {
 				logger.debug('ICO.setState() checkToken() err:' + err);
@@ -475,10 +477,12 @@ module.exports = function(ICO) {
 					return cb(err, null);
 				}
 				ico.updateAttributes({
-					state: params.state
+					state:				params.state,
+					wallet: 			(params.state === 2 || params.state === 3) ? config.wallet : '',
+					contractAddress:	params.contractAddress	? params.contractAddress	: ico.contractAddress
 				}, function(err, instance) {
 					if (err) {
-						logger.debug('ICO.setState() updateAttributes() failed. err:'+err);
+						logger.debug('ICO.setState() updateAttributes() failed. err:' + err);
 						return cb(err, null);
 					}
 					return cb(null);
@@ -507,7 +511,7 @@ module.exports = function(ICO) {
 		e2.status = e2.statusCode = 401;
 		e2.code = 'INVALID_PARAM';
 		if (params.ethReceived)		{ if (!isNumber(params.ethReceived) || params.ethReceived < 0)						{ logger.info('ICO.setReceivedEth() bad ethReceived: ' + params.ethReceived); return cb(e2, null); } }
-		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 3))			{ logger.info('ICO.setReceivedEth() bad state: ' + params.state); return cb(e2, null); } }
+		if (params.state)			{ if (!isInteger(params.state) || (params.state < 1 || params.state > 4))			{ logger.info('ICO.setReceivedEth() bad state: ' + params.state); return cb(e2, null); } }
 		if (params.tokenPriceUSD)	{ if (!isNumber(params.tokenPriceUSD) || params.tokenPriceUSD < 0)					{ logger.info('ICO.setReceivedEth() bad tokenPriceUSD: ' + params.tokenPriceUSD); return cb(e2, null); } }
 		if (params.tokenPriceETH)	{ if (!isNumber(params.tokenPriceETH) || params.tokenPriceETH < 0)					{ logger.info('ICO.setReceivedEth() bad tokenPriceETH: ' + params.tokenPriceETH); return cb(e2, null); } }
 		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)							{ logger.info('ICO.setReceivedEth() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
