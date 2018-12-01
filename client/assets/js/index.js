@@ -87,7 +87,7 @@
 					$.notify({
 						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 23) + 1) + '.png',
 						title:		$.i18n('notify.purchase.title'),
-						message:	$.i18n('notify.purchase.message', (ethReceiveds[i].ethReceived).toFixed(8), discount, (+ethReceiveds[i].tokensSend).toFixed(3))
+						message:	$.i18n('notify.purchase.message', (+ethReceiveds[i].ethReceived).toFixed(8), discount, (+ethReceiveds[i].tokensSend).toFixed(3))
 					}, {
 						type:		'minimalist',
 						placement:	{from: 'bottom', align: 'left'},

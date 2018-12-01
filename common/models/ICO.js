@@ -604,7 +604,7 @@ module.exports = function(ICO) {
 		referrals = referrals.map(function(el) { return el.split('=').pop(); });
 		referrals = referrals.filter(function(address) { return address !== ''; });
 
-		if (!isETHAddress(referrer)) { 
+		if (!isETHAddress(referrer)) {
 			logger.info('ICO.register() not ETH address: ' + ser);
 			return cb(e, null);
 		}
