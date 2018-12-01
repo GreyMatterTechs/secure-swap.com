@@ -12,9 +12,8 @@
 // Preloader
 $(window).on('load', function() {
 
-	// setTimeout(function() {
-	$('body').addClass('loaded');
-	// }, 1);
+	console.log('theme-onload-start');
+
 
 	// Vertical Nav with social icons + telegram
 	$('nav.vertical-social').midnight();
@@ -45,21 +44,26 @@ $(window).on('load', function() {
 	}
 
 	setTimeout(function() {
+		console.log('theme-onload-svg-start');
 		$('.cic-logo').addClass('cic-logo-animation');
 		$('.svg-elements-1').addClass('svg-elements-1-animation');
 		$('.svg-elements-2').addClass('svg-elements-2-animation');
+		console.log('theme-onload-svg-end');
 	}, 3000);
 
+	console.log('theme-onload-end');
 
 });
 
 
 (function(window, document, $) {
+	console.log('theme-start');
+
 	var $html = $('html');
 	var $body = $('body');
 
 	// Using scrollSpy for the navigation
-	$($body).scrollspy({target: '#navigation'});
+	$body.scrollspy({target: '#navigation'});
 	// Init Navbar slideline function
 	navbarSlideLine();
 	// Update the slideline position on scroll/click
@@ -86,9 +90,9 @@ $(window).on('load', function() {
 
 	// Navbar absolute position on small screen
 	navbarAbsolute();
-	$(window).resize(function() { // Invoke on window resize
-		navbarAbsolute();
-	});
+	// $(window).resize(function() { // Invoke on window resize
+	// 	navbarAbsolute();
+	// });
 
 	// Menu navbar toggler animation
 	$('.main-menu .navbar-toggler').click(function(event) {
@@ -120,22 +124,20 @@ $(window).on('load', function() {
 	// Video Modal Open / Close
 
 	// Gets the video src from the data-src on video button
-	var $videoSrc;
-	$('.video-btn').click(function() {
-		$videoSrc = $(this).data('src');
-	});
+	// var $videoSrc;
+	// $('.video-btn').click(function() {
+	// $videoSrc = $(this).data('src');
+	// });
 	// when the modal is opened autoplay it
-	$('#ico-modal').on('shown.bs.modal', function(e) {
-
-		// set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
-		$('#video').attr('src', $videoSrc + '"?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1');
-	});
-
+	// $('#ico-modal').on('shown.bs.modal', function(e) {
+	// set the video src to autoplay and not to show related video. Youtube related video is like a box of chocolates... you never know what you're gonna get
+	// $('#video').attr('src', $videoSrc + '"?rel=0&amp;showinfo=0&amp;modestbranding=1&amp;autoplay=1');
+	// });
 	// stop playing the youtube video when I close the modal
-	$('#ico-modal').on('hide.bs.modal', function(e) {
-		// a poor man's stop video
-		$('#video').attr('src', $videoSrc);
-	});
+	// $('#ico-modal').on('hide.bs.modal', function(e) {
+	// a poor man's stop video
+	// $('#video').attr('src', $videoSrc);
+	// });
 
 	// Initialize Swiper
 	var swiperICO = new Swiper('.swiper-containerICO', {
@@ -179,15 +181,17 @@ $(window).on('load', function() {
 		}
 	});
 
-//	if ($(window).width() < 992) {
-		swiperICO.slideTo(8, 1000, false);
-//	}
+	// if ($(window).width() < 992) {
+	swiperICO.slideTo(8, 1000, false);
+	// }
 
 	$(window).resize(function() {
-	//	if ($(window).width() < 992) {
-			swiperICO.slideTo(8, 1000, false);
-	//	}
+	// if ($(window).width() < 992) {
+		swiperICO.slideTo(8, 1000, false);
+	// }
 	});
+	console.log('theme-end');
+
 })(window, document, jQuery);
 
 
@@ -195,13 +199,13 @@ $(window).on('load', function() {
 
 function navbarAbsolute() {
 	$('.main-menu').addClass('fixed-top');
-	if (window.matchMedia('(min-width: 992px)').matches) {
-		// $('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
-		// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
-	} else {
-		// $('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
-		// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
-	}
+	// if (window.matchMedia('(min-width: 992px)').matches) {
+	// $('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
+	// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
+	// } else {
+	// $('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
+	// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
+	// }
 }
 
 

@@ -1239,6 +1239,7 @@
 		return {
 
 			init: function(_roles, _ajaxDelay, _cmcURI, _grecKeyPub) {
+				console.log('indexjs-start');
 
 				if (_roles) {
 					roles = JSON.parse(_roles);
@@ -1254,84 +1255,104 @@
 				// Starts i18n, and run all scripts that requires localisation
 				//--------------------------------------------------------------------------------------------------------------
 
+				console.log('indexjs-i18n');
 				i18n.init();
 				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
 
+				$(window).on('load', function() {
 
-				//--------------------------------------------------------------------------------------------------------------
-				// Immediate needed actions
-				//--------------------------------------------------------------------------------------------------------------
+					console.log('indexjs-closeLoader');
+					// setTimeout(function() {
+					$('body').addClass('loaded');
+					// }, 1);
 
-				setTimeout(function() {
-					setCall2ActionBtns();
-					initFlipClock();
-					setPurchaseModal();
-					setCopyButton();
-				}, 200);
+					//--------------------------------------------------------------------------------------------------------------
+					// Immediate needed actions
+					//--------------------------------------------------------------------------------------------------------------
 
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Later GUI effects
-				//--------------------------------------------------------------------------------------------------------------
-
-				setTimeout(function() {
-					setPopupsPlacement();
-					setAboutAdvantageEffect();
-					initYieldSimulator();
-					setTeamEffect();
-				}, 500);
+					setTimeout(function() {
+						console.log('indexjs-immediate-start');
+						setCall2ActionBtns();
+						initFlipClock();
+						setPurchaseModal();
+						setCopyButton();
+						console.log('indexjs-immediate-end');
+					}, 300);
 
 
-				//--------------------------------------------------------------------------------------------------------------
-				// reCaptcha and Forms
-				//--------------------------------------------------------------------------------------------------------------
+					//--------------------------------------------------------------------------------------------------------------
+					// Later GUI effects
+					//--------------------------------------------------------------------------------------------------------------
 
-				setTimeout(function() {
-					initReCaptcha();
-					setBootstrapFormValidity();
-					setShorters();
-					initContactForms();
-					initReferralForm();
-				}, 1000);
+					setTimeout(function() {
+						console.log('indexjs-gui-start');
+						setPopupsPlacement();
+						setAboutAdvantageEffect();
+						initYieldSimulator();
+						setTeamEffect();
+						console.log('indexjs-gui-end');
+					}, 600);
 
 
-				//--------------------------------------------------------------------------------------------------------------
-				// Ajax polling
-				//--------------------------------------------------------------------------------------------------------------
+					//--------------------------------------------------------------------------------------------------------------
+					// reCaptcha and Forms
+					//--------------------------------------------------------------------------------------------------------------
 
-				setTimeout(function() {
-					updateICOTimer();
-					updateETHTimer();
-				}, 1500);
-				icoState = 1;
-				setStatePreICO({
-					state:				1,
-					wallet:				"",
-					contractAddress:	"",
-					tokenName:			"SSW",
-					tokenPriceUSD:		0.45,
-					tokenPriceETH:		0.15414,
-					softCap:			10000000,
-					hardCap:			80000000,
-					tokensTotal:		100000000,
-					tokensSold:			0,
-					ethReceived:		[],
-					ethTotal:			0,
-					dateStart:			"2018-09-30T22:00:00.000Z",
-					dateEnd:			"2019-01-30T23:00:00.000Z",
-					purchaseSoldPercent:0,
-					contractAddress:	$.i18n('tokensale-area.balance.address')
+					setTimeout(function() {
+						console.log('indexjs-forms-start');
+						initReCaptcha();
+						setBootstrapFormValidity();
+						setShorters();
+						initContactForms();
+						initReferralForm();
+						console.log('indexjs-forms-end');
+					}, 1000);
+
+
+					//--------------------------------------------------------------------------------------------------------------
+					// Ajax polling
+					//--------------------------------------------------------------------------------------------------------------
+
+					setTimeout(function() {
+						console.log('indexjs-ajax-start');
+						updateICOTimer();
+						updateETHTimer();
+						console.log('indexjs-ajax-end');
+					}, 1500);
+					console.log('indexjs-icoinit');
+					icoState = 1;
+					setStatePreICO({
+						state:				1,
+						wallet:				"",
+						contractAddress:	"",
+						tokenName:			"SSW",
+						tokenPriceUSD:		0.45,
+						tokenPriceETH:		0.15414,
+						softCap:			10000000,
+						hardCap:			80000000,
+						tokensTotal:		100000000,
+						tokensSold:			0,
+						ethReceived:		[],
+						ethTotal:			0,
+						dateStart:			"2018-09-30T22:00:00.000Z",
+						dateEnd:			"2019-01-30T23:00:00.000Z",
+						purchaseSoldPercent:0,
+						contractAddress:	$.i18n('tokensale-area.balance.address')
+					});
+
+
+					//--------------------------------------------------------------------------------------------------------------
+					// Final cosmetics
+					//--------------------------------------------------------------------------------------------------------------
+
+					setTimeout(function() {
+						console.log('indexjs-final-start');
+						initScroll2Top();
+						notifyJoin();
+						console.log('indexjs-final-end');
+					}, 2000);
+
 				});
-
-
-				//--------------------------------------------------------------------------------------------------------------
-				// Final cosmetics
-				//--------------------------------------------------------------------------------------------------------------
-
-				setTimeout(function() {
-					initScroll2Top();
-					notifyJoin();
-				}, 2000);
 
 			} // end of init:function
 
