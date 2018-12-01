@@ -1255,13 +1255,21 @@
 			});
 		}
 
+		function gettime() {
+			var tm = new Date().getTime();
+			var seconds = (tm / 1000) % 60;
+			seconds = seconds.toString().match(/^-?\d+(?:\.\d{0,-1})?/)[0];
+			var miliseconds = ('00' + tm).slice(-3);
+			return seconds + ':' + miliseconds;
+		}
 
+		
 		// --- public methods
 
 		return {
 
 			init: function(_roles, _ajaxDelay, _cmcURI, _grecKeyPub) {
-				console.log('indexjs-start');
+				console.log('indexjs-start: ' + gettime());
 
 				if (_roles) {
 					roles = JSON.parse(_roles);
@@ -1271,29 +1279,44 @@
 				grecKeyPub = _grecKeyPub;
 				updateICOIntervalDefault = ajaxDelay;
 
-				console.log('indexjs-i18n-instance');
+				console.log('indexjs-i18n-instance: ' + gettime());
 				i18n = window.ssw.I18n.getInstance();
 						
-				$(window).on('load', function() {
-					console.log('indexjs-onload');
+				//$(window).on('load', function() {
+				//	console.log('indexjs-onload');
+
 
 
 					//--------------------------------------------------------------------------------------------------------------
 					// Starts i18n, and run all scripts that requires localisation
 					//--------------------------------------------------------------------------------------------------------------
 
+						
+					console.log('indexjs-i18n-init: ' + gettime());
+					i18n.init();
+					console.log('indexjs-i18n-buildgui: ' + gettime());
+					i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
+	
+											
+						setTimeout(function() {
+							console.log('indexjs-closeLoader: ' + gettime());
+							$('body').addClass('loaded');
+						}, 400);
+
+							
 
 					//--------------------------------------------------------------------------------------------------------------
 					// Immediate needed actions
 					//--------------------------------------------------------------------------------------------------------------
 
 					setTimeout(function() {
-						console.log('indexjs-immediate-start');
+						console.log('indexjs-immediate-start: ' + gettime());
 						setCall2ActionBtns();
 						initFlipClock();
 						setPurchaseModal();
 						setCopyButton();
-						console.log('indexjs-immediate-end');
+						console.log('indexjs-immediate-end: ' + gettime());
+
 					}, 300);
 
 
@@ -1302,12 +1325,16 @@
 					//--------------------------------------------------------------------------------------------------------------
 
 					setTimeout(function() {
-						console.log('indexjs-gui-start');
+						console.log('indexjs-gui-start: ' + gettime());
 						setPopupsPlacement();
 						setAboutAdvantageEffect();
-						initYieldSimulator();
+			
 						setTeamEffect();
-						console.log('indexjs-gui-end');
+						console.log('indexjs-gui-end: ' + gettime());
+
+
+						initYieldSimulator();
+
 					}, 600);
 
 
@@ -1316,21 +1343,13 @@
 					//--------------------------------------------------------------------------------------------------------------
 
 					setTimeout(function() {
-						console.log('indexjs-forms-start');
+						console.log('indexjs-forms-start: ' + gettime());
 						initReCaptcha();
 						setBootstrapFormValidity();
 						setShorters();
 						initContactForms();
 						initReferralForm();
-						console.log('indexjs-forms-end');
-
-						
-				console.log('indexjs-i18n-init');
-				i18n.init();
-				console.log('indexjs-i18n-buildgui');
-				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
-
-				
+						console.log('indexjs-forms-end: ' + gettime());
 					}, 1000);
 
 
@@ -1339,12 +1358,12 @@
 					//--------------------------------------------------------------------------------------------------------------
 
 					setTimeout(function() {
-						console.log('indexjs-ajax-start');
+						console.log('indexjs-ajax-start: ' +gettime());
 						updateICOTimer();
 						updateETHTimer();
-						console.log('indexjs-ajax-end');
+						console.log('indexjs-ajax-end: ' + gettime());
 					}, 1500);
-					console.log('indexjs-icoinit');
+					console.log('indexjs-icoinit: ' + gettime());
 					icoState = 1;
 					setStatePreICO({
 						state:				1,
@@ -1371,14 +1390,15 @@
 					//--------------------------------------------------------------------------------------------------------------
 
 					setTimeout(function() {
-						console.log('indexjs-final-start');
+						console.log('indexjs-final-start: ' + gettime());
 						initScroll2Top();
 						notifyJoin();
-						console.log('indexjs-final-end');
+						console.log('indexjs-final-end: ' + gettime());
 					}, 2000);
 
-				});
+			//	});
 
+			console.log('indexjs-end: ' + gettime());
 			} // end of init:function
 
 		}; // end of return

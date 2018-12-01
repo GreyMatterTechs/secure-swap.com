@@ -9,15 +9,20 @@
  **/
 'use strict';
 
+function gettime() {
+	var tm = new Date().getTime();
+	var seconds = (tm / 1000) % 60;
+	seconds = seconds.toString().match(/^-?\d+(?:\.\d{0,-1})?/)[0];
+	var miliseconds = ('00' + tm).slice(-3);
+	return seconds + ':' + miliseconds;
+}
+
+
 // Preloader
 $(window).on('load', function() {
 
-	console.log('theme-onload-start');
 
-					// setTimeout(function() {
-						console.log('indexjs-closeLoader');
-						$('body').addClass('loaded');
-						// }, 1);
+	console.log('theme-onload-start: ' + gettime());
 
 	// Vertical Nav with social icons + telegram
 	$('nav.vertical-social').midnight();
@@ -48,20 +53,20 @@ $(window).on('load', function() {
 	}
 
 	setTimeout(function() {
-		console.log('theme-onload-svg-start');
+		console.log('theme-onload-svg-start: ' + gettime());
 		$('.cic-logo').addClass('cic-logo-animation');
 		$('.svg-elements-1').addClass('svg-elements-1-animation');
 		$('.svg-elements-2').addClass('svg-elements-2-animation');
-		console.log('theme-onload-svg-end');
+		console.log('theme-onload-svg-end: ' + gettime());
 	}, 3000);
 
-	console.log('theme-onload-end');
+	console.log('theme-onload-end: ' + gettime());
 
 });
 
 
 (function(window, document, $) {
-	console.log('theme-start');
+	console.log('theme-start: ' + gettime());
 
 	var $html = $('html');
 	var $body = $('body');
@@ -194,7 +199,7 @@ $(window).on('load', function() {
 		swiperICO.slideTo(8, 1000, false);
 	// }
 	});
-	console.log('theme-end');
+	console.log('theme-end: ' + gettime());
 
 })(window, document, jQuery);
 
