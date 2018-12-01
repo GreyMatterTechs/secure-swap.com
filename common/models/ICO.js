@@ -138,11 +138,9 @@ function isString(val) {
  * @return {Boolean} True if the val is a Date
  */
 function isDate(val) { // 2018-07-08T20:37:22.102Z or Timestamp
-	logger.info('ICO.isDate() val: ' + val);
+	// logger.info('ICO.isDate() val: ' + val);
 
-	if (!moment(val).isValid()) {
-		logger.info('ICO.isDate() invalid at: ' + moment(val).invalidAt());
-	}
+	// logger.info('ICO.isDate() invalid at: ' + moment(val).invalidAt());
 
 	return moment(val).isValid();
 }
@@ -406,8 +404,8 @@ module.exports = function(ICO) {
 		if (params.tokensTotal)		{ if (!isInteger(params.tokensTotal) || params.tokensTotal < 0)						{ logger.info('ICO.setParams() bad tokensTotal: ' + params.tokensTotal); return cb(e2, null); } }
 		if (params.ethTotal)		{ if (!isNumber(params.ethTotal) || params.ethTotal < 0)							{ logger.info('ICO.setParams() bad ethTotal: ' + params.ethTotal); return cb(e2, null); } }
 		if (params.tokensSold)		{ if (!isNumber(params.tokensSold) || params.tokensSold < 0)						{ logger.info('ICO.setParams() bad tokensSold: ' + params.tokensSold); return cb(e2, null); } }
-		if (params.dateStart)		{ if (!isNumber(params.dateStart) || !isDate(params.dateStart))						{ logger.info('ICO.setParams() bad dateStart: ' + params.dateStart); return cb(e2, null); } }
-		if (params.dateEnd)			{ if (!isNumber(params.dateEnd) || !isDate(params.dateEnd))							{ logger.info('ICO.setParams() bad dateEnd: ' + params.dateEnd); return cb(e2, null); } }
+		if (params.dateStart)		{ if (!isString(params.dateStart) || !isDate(params.dateStart))						{ logger.info('ICO.setParams() bad dateStart: ' + params.dateStart); return cb(e2, null); } }
+		if (params.dateEnd)			{ if (!isString(params.dateEnd) || !isDate(params.dateEnd))							{ logger.info('ICO.setParams() bad dateEnd: ' + params.dateEnd); return cb(e2, null); } }
 		if (params.contractAddress)	{ if (!isString(params.contractAddress))											{ logger.info('ICO.setParams() bad contractAddress: ' + params.contractAddress); return cb(e2, null); } }
 		if (params.dateStart && params.dateEnd) {
 			var start = moment(params.dateStart);
