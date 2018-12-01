@@ -157,19 +157,13 @@
 			if ($box.length === 1) {
 				switch (icoState) {
 				case 1:
+				case 2:
 					$('#purchase-modal-state-preico').removeClass('d-none');
 					$('#purchase-modal-state-ico').addClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
 					$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
 					$('#walletAddress').val('');
 					$('#qrcode').attr('src', '');
-					break;
-				case 2:
-					$('#purchase-modal-state-preico').addClass('d-none');
-					$('#purchase-modal-state-ico').addClass('d-none');
-					$('#purchase-modal-state-postico').addClass('d-none');
-					$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
-					$('#walletAddress').val(wallet);
 					break;
 				case 3:
 					$('#purchase-modal-state-preico').addClass('d-none');

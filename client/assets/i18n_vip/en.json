@@ -644,6 +644,9 @@
 	"purchasebox.ico.address.p5":		"• Set the Gas limit to 300,000, Gwei 60",
 	"purchasebox.ico.address.p6":		"• <a target=\"_blank\" href=\"https://etherscan.io/address/0xc23CD20c3C60A4e416A5DC573d348cc774E5fE6e\">Click to see the smart-contract of crowd sale</a>",
 	"purchasebox.ico.address.conv.title":"$1 - ETH converter",
+	"purchasebox.postico.title":		"Pre-ICO is now ended.",
+	"purchasebox.postico.intro":		"",
+	"purchasebox.postico.footer":		"",
 
 	"-------------- REFERRAL BOX --------------":"",
 	"referralbox.title":				"$1 - Referral Campaign",
