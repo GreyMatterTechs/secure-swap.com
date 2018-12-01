@@ -138,6 +138,7 @@ function isString(val) {
  * @return {Boolean} True if the val is a Date
  */
 function isDate(val) { // 2018-07-08T20:37:22.102Z or Timestamp
+	logger.info('ICO.isDate() val: ' + val);
 	return moment(val).isValid();
 }
 

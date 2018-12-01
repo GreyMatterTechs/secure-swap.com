@@ -1271,22 +1271,22 @@
 				grecKeyPub = _grecKeyPub;
 				updateICOIntervalDefault = ajaxDelay;
 
+				console.log('indexjs-i18n-instance');
 				i18n = window.ssw.I18n.getInstance();
 
-				console.log('indexjs-i18n');
-
 				$(window).on('load', function() {
-
-					console.log('indexjs-closeLoader');
 
 					//--------------------------------------------------------------------------------------------------------------
 					// Starts i18n, and run all scripts that requires localisation
 					//--------------------------------------------------------------------------------------------------------------
 
+					console.log('indexjs-i18n-init');
 					i18n.init();
+					console.log('indexjs-i18n-buildgui');
 					i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
 
 					// setTimeout(function() {
+					console.log('indexjs-closeLoader');
 					$('body').addClass('loaded');
 					// }, 1);
 
