@@ -434,7 +434,7 @@ module.exports = function(ICO) {
 					tokensSold: 		params.tokensSold		? params.tokensSold			: ico.tokensSold,
 					dateStart: 			params.dateStart		? params.dateStart			: ico.dateStart,
 					dateEnd:			params.dateEnd			? params.dateEnd			: ico.dateEnd,
-					contractAddress:	params.contractAddress	? params.contractAddress	: ico.contractAddress
+					contractAddress:	params.contractAddress
 				}, function(err) {
 					if (err) return cb(err, null);
 					return cb(null);
@@ -483,7 +483,7 @@ module.exports = function(ICO) {
 				ico.updateAttributes({
 					state:				params.state,
 					wallet: 			(params.state === 2 || params.state === 3) ? config.wallet : '',
-					contractAddress:	params.contractAddress	? params.contractAddress	: ico.contractAddress
+					contractAddress:	params.contractAddress
 				}, function(err, instance) {
 					if (err) {
 						logger.debug('ICO.setState() updateAttributes() failed. err:' + err);

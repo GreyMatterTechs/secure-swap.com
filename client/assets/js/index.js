@@ -1273,22 +1273,15 @@
 
 				console.log('indexjs-i18n-instance');
 				i18n = window.ssw.I18n.getInstance();
-
+						
 				$(window).on('load', function() {
+					console.log('indexjs-onload');
 
-					// setTimeout(function() {
-					console.log('indexjs-closeLoader');
-					$('body').addClass('loaded');
-					// }, 1);
 
 					//--------------------------------------------------------------------------------------------------------------
 					// Starts i18n, and run all scripts that requires localisation
 					//--------------------------------------------------------------------------------------------------------------
 
-					console.log('indexjs-i18n-init');
-					i18n.init();
-					console.log('indexjs-i18n-buildgui');
-					i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
 
 					//--------------------------------------------------------------------------------------------------------------
 					// Immediate needed actions
@@ -1330,6 +1323,14 @@
 						initContactForms();
 						initReferralForm();
 						console.log('indexjs-forms-end');
+
+						
+				console.log('indexjs-i18n-init');
+				i18n.init();
+				console.log('indexjs-i18n-buildgui');
+				i18n.buildGUI(i18nInitCallback, i18nUpdateCallback, roles);
+
+				
 					}, 1000);
 
 

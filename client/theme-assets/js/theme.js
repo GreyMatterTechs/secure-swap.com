@@ -14,6 +14,10 @@ $(window).on('load', function() {
 
 	console.log('theme-onload-start');
 
+					// setTimeout(function() {
+						console.log('indexjs-closeLoader');
+						$('body').addClass('loaded');
+						// }, 1);
 
 	// Vertical Nav with social icons + telegram
 	$('nav.vertical-social').midnight();
