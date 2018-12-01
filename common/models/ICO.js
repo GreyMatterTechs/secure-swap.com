@@ -618,6 +618,7 @@ module.exports = function(ICO) {
 		request
 			.post(config.icoURI + '/api/Referrers/register')
 			.send({wallets: {referrer: referrer, referrals: referrals}})
+			.timeout(5000)
 			.end((err, res) => {
 				if (err) return cb(err);
 				return cb(null, '');
