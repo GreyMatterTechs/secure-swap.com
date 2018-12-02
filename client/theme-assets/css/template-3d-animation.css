@@ -1976,6 +1976,18 @@ header .navbar.navbar-shadow {
 .svg-wrapper {
   background-image: linear-gradient(70deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
 
+.svg-wrapper1 {
+  background-image: linear-gradient(65.8deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
+
+.svg-wrapper2 {
+  background-image: linear-gradient(-70deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
+
+.svg-wrapper3 {
+  background-image: linear-gradient(74deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
+
+.svg-wrapper4 {
+  background-image: linear-gradient(-71deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
+
 #svg-animation .cic-logo-animation {
   -webkit-animation: updown_logo 4s ease infinite;
   animation: updown_logo 4s ease infinite; }

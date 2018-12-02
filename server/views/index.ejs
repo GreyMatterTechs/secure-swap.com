@@ -21,7 +21,7 @@
 	<script src="https://www.google.com/recaptcha/api.js?render=<%- grecKeyPub %>"></script>
 </head>
 
-<body id="top" class=" 1-column undefined  page-animated svg-wrapper nojs loaded" data-menu-open="hover" data-menu="">
+<body id="top" class=" 1-column undefined  page-animated nojs loaded" data-menu-open="hover" data-menu="">
 	
 	<%- include('partials/noscript'); %>
 	<%- include('partials/loader'); %>
@@ -126,6 +126,7 @@
 	<div class="content-wrapper">
 		<div class="content-body">
 			<main>
+			<div class="svg-wrapper1">
 				<!-- Header: 3D Animation -->
 				<section class="head-area" id="head-area">
 					<div id="particles-js"></div>
@@ -1062,6 +1063,8 @@
 					</div>
 				</section>
 				<!--/ Tokens Sale -->
+			</div>
+			<div class="svg-wrapper2">
 				<!-- Referral -->
 				<section id="referral" class="referral section-padding">
 					<div class="container">
@@ -1419,6 +1422,8 @@
 					</div>
 				</section>
 				<!--/ Market research -->
+			</div>
+			<div class="svg-wrapper3">
 				<!--Use cases -->
 				<section id="use-cases" class="use-cases section-padding ">
 					<div class="container">
@@ -1779,6 +1784,8 @@
 					</div>
 				</section>
 				<!--/ Crypto ico App -->
+			</div>
+			<div class="svg-wrapper4">
 				<!-- Team -->
 				<section id="team" class="team section-padding ">
 					<div class="container">
@@ -3225,13 +3232,17 @@
 				<a id="scrollUp" >
 					<span class="icon"></span>					
 				</a>
+
+				<%- include('partials/footer'); %>
+
+			</div>
 			</main>
 		</div>
 	</div>
 	<!-- //////////////////////////////////// END CONTAINER ////////////////////////////////////-->
 
 	<!-- //////////////////////////////////// FOOTER ////////////////////////////////////-->
-	<%- include('partials/footer'); %>
+
 	<!-- //////////////////////////////////// END FOOTER ////////////////////////////////////-->
 
 	<!-- BEGIN VENDOR JS-->

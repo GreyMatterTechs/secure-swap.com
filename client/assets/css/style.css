@@ -389,40 +389,42 @@ header .navbar .dropdown .dropdown-menu a:before {
 #referral .referral-img img {
   max-height: 15rem; }
 
-.referral.section-padding {
-  padding-top: 0rem; }
-  .referral.section-padding .referral-languages a:hover {
-    text-decoration: none; }
-  .referral.section-padding .referral-languages img {
-    border: 8px solid white;
-    border-radius: 50%;
-    -webkit-box-shadow: 0px 0 20px 0px rgba(103, 103, 103, 0.5);
-    box-shadow: 0px 0 20px 0px rgba(103, 103, 103, 0.5); }
-  .referral.section-padding .referral-languages .lang-text {
-    margin-top: 1rem; }
-    .referral.section-padding .referral-languages .lang-text .icon {
-      color: #9e48cd; }
-    .referral.section-padding .referral-languages .lang-text .language {
-      font-size: 0.875rem;
+.referral.section-padding .referral-languages a:hover {
+  text-decoration: none; }
+
+.referral.section-padding .referral-languages img {
+  border: 8px solid white;
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0 20px 0px rgba(103, 103, 103, 0.5);
+  box-shadow: 0px 0 20px 0px rgba(103, 103, 103, 0.5); }
+
+.referral.section-padding .referral-languages .lang-text {
+  margin-top: 1rem; }
+  .referral.section-padding .referral-languages .lang-text .icon {
+    color: #9e48cd; }
+  .referral.section-padding .referral-languages .lang-text .language {
+    font-size: 0.875rem;
+    color: #fff; }
+
+.referral.section-padding ul.referral-steps {
+  font-size: .875rem;
+  padding-left: 8px; }
+  .referral.section-padding ul.referral-steps li {
+    color: #c7b8ff;
+    padding: 0.1rem 0; }
+    .referral.section-padding ul.referral-steps li:before {
+      font-family: 'Font Awesome 5 Free';
+      content: '\f105';
+      font-weight: 900;
+      font-size: 1.125rem;
+      position: absolute;
+      left: -3px;
+      margin-top: -4px;
+      margin-right: 10px;
       color: #fff; }
-  .referral.section-padding ul.referral-steps {
-    font-size: .875rem;
-    padding-left: 8px; }
-    .referral.section-padding ul.referral-steps li {
-      color: #c7b8ff;
-      padding: 0.1rem 0; }
-      .referral.section-padding ul.referral-steps li:before {
-        font-family: 'Font Awesome 5 Free';
-        content: '\f105';
-        font-weight: 900;
-        font-size: 1.125rem;
-        position: absolute;
-        left: -3px;
-        margin-top: -4px;
-        margin-right: 10px;
-        color: #fff; }
-  .referral.section-padding .note {
-    font-size: .75rem; }
+
+.referral.section-padding .note {
+  font-size: .75rem; }
 
 /* -- token sale ------------------------------------------------------------------- */
 .flip-clock-wrapper ul {
