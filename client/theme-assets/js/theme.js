@@ -214,17 +214,10 @@ $(window).on('load', function() {
 			nextEl: '.next-slideICO',
 			prevEl: '.prev-slideICO'
 		},
-		// Responsive breakpoints
 		breakpoints: {
-			576: {
-				slidesPerView: 1
-			},
-			767: {
-				slidesPerView: 2
-			},
-			992: {
-				slidesPerView: 3
-			}
+			576: {slidesPerView: 1},
+			767: {slidesPerView: 2},
+			992: {slidesPerView: 3}
 		}
 	});
 	var swiperSSW = new Swiper('.swiper-containerSSW', {
@@ -234,29 +227,48 @@ $(window).on('load', function() {
 			nextEl: '.next-slideSSW',
 			prevEl: '.prev-slideSSW'
 		},
-		// Responsive breakpoints
 		breakpoints: {
-			576: {
-				slidesPerView: 1
-			},
-			767: {
-				slidesPerView: 2
-			},
-			992: {
-				slidesPerView: 3
-			}
+			576: {slidesPerView: 1},
+			767: {slidesPerView: 2},
+			992: {slidesPerView: 3}
 		}
 	});
 
 	// if ($(window).width() < 992) {
-	swiperICO.slideTo(8, 1000, false);
+	var roadmapmonths = {'11-2017': 0, '12-2017': 0, '1-2018': 0,
+						 '2-2018': 1,
+						 '3-2018': 2,
+						 '4-2018': 3, '5-2018': 3, '6-2018': 3,
+						 '7-2018': 4,
+						 '8-2018': 5,
+						 '9-2018': 6, '10-2018': 6,
+						 '11-2018': 7, '12-2018': 7,
+						 '1-2019': 8, '2-2019': 8,
+						 '3-2019': 9, '4-2019': 9, '5-2019': 9};
+	var now = moment().month() + '-' + moment().year();
+	var idx = roadmapmonths[now];
+	swiperICO.slideTo(idx, 1000, false);
 	// }
-
 	$(window).resize(function() {
 	// if ($(window).width() < 992) {
-		swiperICO.slideTo(8, 1000, false);
+		swiperICO.slideTo(idx, 1000, false);
 	// }
 	});
+
+	var slidescont = $('.swiper-containerICO');
+	var slidewrapp = slidescont.find('.swiper-wrapper');
+	var slides = slidewrapp.find('.swiper-slide');
+	slides.removeClass('active');
+	var slide = slidewrapp.find('.swiper-slide:nth-child(' + (idx + 1) + ')');
+	slide.addClass('active');
+	slides.each(function(index, element) {
+		if (index < idx) {
+			element.find('timestamp').removeClass('remaining').addClass('completed');
+		} else {
+			element.find('timestamp').addClass('remaining').removeClass('completed');
+		}
+	});
+
 })(window, document, jQuery);
 
 
