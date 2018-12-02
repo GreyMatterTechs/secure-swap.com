@@ -175,6 +175,8 @@ header .navbar.navbar-fixed {
 
 header .navbar.open {
   background: #194089; }
+  header .navbar.open #main-menu-container {
+    margin-top: 0.6rem; }
 
 header .navbar .navbar-brand .brand-text {
   font-family: "Open Sans Condensed", "Roboto", "Helvetica Neue", Arial, sans-serif; }
