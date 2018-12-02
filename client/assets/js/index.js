@@ -202,30 +202,29 @@
 		function updateTokenSalesArea() {
 			switch (icoState) {
 			case 1:
-				iconame = $.i18n('tokensale-area.preico');
-				$('#tokensale-title').html($.i18n('tokensale-area.info.start', iconame));
-				break;
 			case 2:
 				iconame = $.i18n('tokensale-area.preico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.start', iconame));
+				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
 				break;
 			case 3:
-				iconame = $.i18n('tokensale-area.ico');
+				iconame = $.i18n('tokensale-area.preico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.ends', iconame));
+				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
 				break;
 			case 4:
-				iconame = $.i18n('tokensale-area.ico');
+				iconame = $.i18n('tokensale-area.preico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.ended'));
+				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (0).toLocaleString(undefined, {style: 'decimal'})));
 				break;
 			}
 			$('#tokensale-percent').html($.i18n('tokensale-area.info.percent', purchaseSoldPercent + (purchaseSoldPercent * 0.25)));
 			$('#token-sale div.progress > div').css('width', purchaseSoldPercent + '%');
 			refreshTokenPrices();
-			$('#tokensale-li2').html($.i18n('tokensale-area.li2', iconame));
-			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment(dateEnd).format('LL')));
-			$('#tokensale-li3').html($.i18n('tokensale-area.li3', iconame));
-			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment(dateStart).format('LL')));
-			$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
+			$('#tokensale-li2').html($.i18n('tokensale-area.li2.state' + icoState, iconame));
+			$('#tokensale-li2-val').text($.i18n('tokensale-area.li2.value', moment.utc(dateEnd).format('LLL')));
+			$('#tokensale-li3').html($.i18n('tokensale-area.li3.state' + icoState, iconame));
+			$('#tokensale-li3-val').text($.i18n('tokensale-area.li3.value', moment.utc(dateStart).format('LLL')));
 			$('#contractAddress').text(contractAddress);
 		}
 
@@ -243,16 +242,6 @@
 
 		function setStatePreICO(ico) {
 			// set timer to remaining time before ICO starts
-			setTimerClock(ico.dateStart);
-			$('.clock-counter').show();
-			$('.ico-ended').hide();
-			updateTokenSalesArea();
-			updatePurchaseBoxContent(ico.state);
-			$('#btn-purchase-sale').show();
-			$('.loading-bar').show();
-		}
-		function setState1mnICO(ico) {
-			// set timer to remaining time until ICO ends
 			setTimerClock(ico.dateStart);
 			$('.clock-counter').show();
 			$('.ico-ended').hide();
@@ -302,8 +291,8 @@
 						icoState			= ico.state;
 						contractAddress		= ico.contractAddress ? ico.contractAddress : $.i18n('tokensale-area.balance.address');
 						switch (ico.state) {
-						case 1:	setStatePreICO(ico);	break;
-						case 2:	setState1mnICO(ico);	break;
+						case 1:
+						case 2:	setStatePreICO(ico);	break;
 						case 3:	setStateICO(ico);		break;
 						case 4:	setStateEndICO(ico);	break;
 						}

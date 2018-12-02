@@ -707,6 +707,7 @@ module.exports = function(server) {
 		}
 		request
 			.get(url)
+			.timeout(5000)
 			.end((err, resp) => {
 				if (err) return res.send(err);
 				if (!resp.body.success) {

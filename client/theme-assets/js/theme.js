@@ -151,20 +151,9 @@ $(window).on('load', function() {
 
 	// Add shadow and color to fixed top navbar
 	$(window).scroll(function() {
-		var scroll = $(window).scrollTop();
-		if (scroll >= 50) {
-		//	if ($(window).width() > 992) {
-			$('.navbar').addClass('navbar-fixed navbar-shadow');
-			$('.navbar #slide-line').removeClass('d-none');
-			inverseNavbar(true); // For inverse navbar
-		//	}
-		} else {
-			$('.navbar').removeClass('navbar-fixed navbar-shadow');
-			$('.navbar #slide-line').addClass('d-none');
-			inverseNavbar(false);
-		}
+		fixedTopNavbar();
 	});
-
+	fixedTopNavbar();
 
 	// Navbar absolute position on small screen
 	navbarAbsolute();
@@ -193,7 +182,7 @@ $(window).on('load', function() {
 					if ($target.is(':focus')) { return false; } else {
 						$target.attr('tabindex', '-1');
 						$target.focus();
-					};
+					}
 				});
 			}
 		}
@@ -284,6 +273,20 @@ function navbarAbsolute() {
 	// }
 }
 
+function fixedTopNavbar() {
+	var scroll = $(window).scrollTop();
+	if (scroll >= 50) {
+	//	if ($(window).width() > 992) {
+		$('.navbar').addClass('navbar-fixed navbar-shadow');
+		$('.navbar #slide-line').removeClass('d-none');
+		inverseNavbar(true); // For inverse navbar
+	//	}
+	} else {
+		$('.navbar').removeClass('navbar-fixed navbar-shadow');
+		$('.navbar #slide-line').addClass('d-none');
+		inverseNavbar(false);
+	}
+}
 
 function inverseNavbar(isFixed) {
 	if ($('body').hasClass('template-intro-video')) {
