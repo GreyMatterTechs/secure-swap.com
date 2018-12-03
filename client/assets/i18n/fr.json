@@ -287,7 +287,7 @@
 
 	"-------------- SECTION MARKET --------------":"",
 	"market-area.subhead":				"Concurrents",
-	"market-area.head":					"Market",
+	"market-area.head":					"Marché",
 	"market-area.desc1":				"Principales caractéristiques des échangeurs centralisés et décentralisés",
 	"market-area.desc2":				"",
 	"market-area.CEX.title":			"Echangeurs Centralisés",
@@ -389,8 +389,8 @@
 	"token-area.p9":					"Le bon fonctionnement des node de trading sur marge, ainsi que le suivi de position, sont sous la surveillance des nodes passerelles du réseau $1. Cela permet au réseau $1 de calculer la part qui revient au trader quand il ferme une position, et de vérifier que le node de trading sur marge se comporte de manière conforme. Si ce n’est pas le cas, ou si un node se déconnecte purement et simplement du réseau, alors les jetons $2 mis en garantie (et gérés par un «&nbsp;smart contract&nbsp;»), seront utilisés pour rembourser les traders (qui autrement auraient été lésés). Ce processus se déroule de façon transparente pour les traders, le réseau $1 effectue les conversions nécessaires pour que les traders reçoivent les crypto-monnaies qu’ils attendent. A la fin de ces opérations de remboursement, le solde restant de jetons $2 mis en garantie est renvoyé au wallet de l’opérateur du node fautif. Ce qui assure que ni le trader, ni l’opérateur d’un tel node ne peuvent léser l’autre partie.",
 
 	"-------------- SECTION TOKEN DISTRIBUTION--------------": "",
-	"token-dist-area.subhead":			"Token Stats",
-	"token-dist-area.head":				"Token Distribution",
+	"token-dist-area.subhead":			"Tokenomics",
+	"token-dist-area.head":				"Répartition des Jetons",
 	"token-dist-area.desc1":			"En plus d'être un instrument de spéculation, ",
 	"token-dist-area.desc2":			"le jeton $1 est le moyen de renforcer l'aspect communautaire de $2.",
 	"token-dist-area.title1":			"Répartition des Jetons",
