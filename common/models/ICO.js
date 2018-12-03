@@ -529,7 +529,7 @@ module.exports = function(ICO) {
 				if (err) return cb(err, null);
 
 //				// ico.ethReceived conserve un array des transactions reçues depuis 10 secondes (le temps pour le client web de les récupérer)
-				var now = (new Date).getTime();
+				var now = new Date().getTime();
 //				var past = now - 10000;
 //				logger.info('ICO.setReceivedEth() previous ethReceiveds: ' + JSON.stringify(ico.ethReceived));
 //				// on supprime les vielles transactions
