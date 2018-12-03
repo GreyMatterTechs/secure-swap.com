@@ -360,7 +360,7 @@ module.exports = function(ICO) {
 			*/
 
 			// ico.ethReceived conserve un array des transactions reçues depuis 10 secondes (le temps pour le client web de les récupérer)
-			var past = (new Date).getTime() - 10000;
+			var past = new Date().getTime() - 10000;
 			// logger.info('ICO.getICOData() previous ethReceiveds: ' + JSON.stringify(ico.ethReceived));
 			// on supprime les vielles transactions
 			var ethReceived = ico.ethReceived.filter(function(ethReceived) { return ethReceived.timestamp > past; });
