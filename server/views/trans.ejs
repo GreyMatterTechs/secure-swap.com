@@ -138,6 +138,7 @@
         </div>
       </div>
     </nav>
+	<%- include('partials/banner'); %>
 
     <!-- ////////////////////////////////////////////////////////////////////////////-->
 
@@ -220,6 +221,9 @@
 								<p>Server is DOWN!</p>
 							</div>
 						</div>
+						<% if (env !== 'production') { %>
+							<h6 class="card-title text-center">Red light is OK, only Prod receives server's pings</h6>
+						<% } %>
 					</div>
 				</section>
 

@@ -1368,6 +1368,14 @@
 				setTimeout(function() {
 					initScroll2Top();
 					notifyJoin();
+
+					/*
+					var offset = $('.subscButton').offset();
+					jQuery('<div/>', {
+						class: 'subscPopup slide-in-fwd-left'
+					}).offset(offset).appendTo('body');
+					*/
+					
 				}, 5000);
 
 				// console.log('indexjs-end: ' + gettime());

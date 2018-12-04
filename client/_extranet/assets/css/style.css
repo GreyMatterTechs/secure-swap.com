@@ -111,7 +111,7 @@ input.noscript-closing-trick {
   transform: rotate(-45deg);
   -webkit-transform: rotate(-45deg);
   font-size: 14px;
-  z-index: 9999; }
+  z-index: 999999; }
   .corner-ribbon.sticky {
     position: fixed; }
   .corner-ribbon.shadow {
