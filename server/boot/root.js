@@ -521,6 +521,54 @@ module.exports = function(server) {
 		}
 	});
 
+
+	router.post('/trans', function(req, res) {
+		logger.info('route POST \"/trans\" from: ' + req.clientIP + geo2str(req.geo));
+		if (!req.body)
+			return res.sendStatus(403);
+		if (req.body.access_token) {								// logged user, accessToken granted
+			checkToken(req.body.access_token, ['teammember'], function(err, user) {
+				if (err) {
+					if (user) mAdmin.setOnlineStatusById(user.id, 'offline');
+					if (req.accessToken) mAdmin.logout(req.accessToken.id);
+					return res.render('login', {					// accessToken invalid, render the login page, empty form
+						appName: config.appName,
+						action: '/trans',
+						err: null
+					});
+				} else {
+					mAdmin.setOnlineStatusById(user.id, 'online');
+					logger.info('route POST \"/trans\" from: ' + req.clientIP + geo2str(req.geo) + ' [' + user.username + ']');
+					return res.render('trans', {							// render extranet page
+						appName: config.appName,
+						ajaxDelay: config.ajaxDelay,
+						avatar: user.username.toLowerCase(),
+						user: user,
+						accessToken: req.body.access_token,
+						action: '/trans',	// pour résoudre un bug: lorsque token est timeout, si F5 sur Chrome, il essaie de r'afficher la page Login à partir de sa cache, et il lui manque cette variable
+						err: null
+					});
+				}
+			});
+		} else {													// not logged user, login form credentials filled
+			login(['teammember'], req, (err, tokenId, roles) => {
+				if (err) {
+					return res.sendStatus(err);
+				} else {
+					return res.send({								// login granted. Send accessToken back to Login Form, that will post "/extranet" again
+						appName: config.appName,
+						accessToken: tokenId,
+						roles: roles,
+						ajaxDelay: config.ajaxDelay,
+						action: '/trans',
+						err: null
+					});
+				}
+			});
+		}
+	});
+
+
 	router.post('/login', function(req, res) {
 		logger.info('route POST \"/login\" from: ' + req.clientIP + geo2str(req.geo));
 		login(null, req, (err, tokenId) => {

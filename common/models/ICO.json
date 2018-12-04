@@ -118,7 +118,38 @@
       },
       "documented": false
     },
-    "setReceivedEth": {
+    "pingAlive": {
+		"accepts": [
+		  {
+			"arg": "tokenId",
+			"type": "String",
+			"root": true
+		  },
+		  {
+			"arg": "params",
+			"type": "Object",
+			"root": true
+		  }
+		],
+		"returns": [],
+		"http": {
+		  "verb": "post"
+		},
+		"documented": false
+	  },
+	"isAlive": {
+		"accepts": [],
+		"returns": {
+		  "arg": "alive",
+		  "type": "Boolean",
+		  "root": true
+		},
+		"http": {
+		  "verb": "get"
+		},
+		"documented": false
+	  },  
+  "setReceivedEth": {
       "accepts": [
         {
           "arg": "tokenId",
@@ -168,6 +199,22 @@
         "verb": "post"
       },
       "documented": false
-    }
+	},
+	"getReferrals": {
+		"accepts": {
+		  "arg": "ser",
+		  "type": "String",
+		  "root": true
+		},
+		"returns": {
+		  "arg": "code",
+		  "type": "Number",
+		  "root": true
+		},
+		"http": {
+		  "verb": "post"
+		},
+		"documented": false
+	  }
   }
 }

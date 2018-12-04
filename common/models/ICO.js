@@ -29,10 +29,29 @@ const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 // Local Vars
 // ------------------------------------------------------------------------------------------------------
 
+var icoServerIsAlive = false;
+var icoServerIsAliveTs = moment();
+var aliveIntervalDefault = 60000;
+var aliveInterval = aliveIntervalDefault;
+var aliveIntervalId = null;
 
 // ------------------------------------------------------------------------------------------------------
 // Private Methods
 // ------------------------------------------------------------------------------------------------------
+
+
+function updateAlive() {
+	var now = moment();
+	if (now.isAfter(icoServerIsAliveTs.clone().add(10, 'minute'))) {
+		icoServerIsAlive = false;
+	}
+}
+function updateAliveTimer() {
+	if (aliveIntervalId) clearInterval(aliveIntervalId);
+	updateAlive();
+	aliveIntervalId = setInterval(updateAliveTimer, aliveInterval);
+}
+
 
 /**
  * Checks if the given string is an ETH address
@@ -328,6 +347,9 @@ module.exports = function(ICO) {
 	});
 
 
+	updateAliveTimer();
+
+
 	/**
 	 * Get all ICO params from database
 	 * Usually called by SecureSwap website
@@ -497,6 +519,49 @@ module.exports = function(ICO) {
 
 
 	/**
+	 * Is ICO server alive?
+	 * Usually called by secureswap node
+	 *
+	 * @method pingAlive
+	 * @public
+	 * @param    {String}   tokenId The token ID got from call to /login
+	 * @param    {Object}   params  Dummy data
+	 * @callback {Function} cb      Callback function
+ 	 * @param    {Error}    err     Error information
+	 */
+	ICO.pingAlive = function(tokenId, params, cb) {
+		var e = new Error(g.f('Invalid Access Token'));
+		e.status = e.statusCode = 401;
+		e.code = 'INVALID_TOKEN';
+		var e2 = new Error(g.f('Invalid Param'));
+		e2.status = e2.statusCode = 401;
+		e2.code = 'INVALID_PARAM';
+		checkToken(tokenId, function(err, granted) {
+			if (err) return cb(err, null);
+			if (!granted) return cb(e, null);
+			// Server is alive
+			icoServerIsAlive = true;
+			icoServerIsAliveTs = moment();
+			return cb(null);
+		});
+	};
+
+
+	/**
+	 * Check if the ICO server is alive
+	 * Usually called by secureswap website
+	 *
+	 * @method isAlive
+	 * @public
+	 * @callback {Function} cb      Callback function
+ 	 * @param    {Error}    err     Error information
+	 */
+	ICO.isAlive = function(cb) {
+		return cb(null, icoServerIsAlive);
+	};
+
+
+	/**
 	 * Register a new purchase
 	 * Usually called by secureswap node
 	 *
@@ -575,6 +640,51 @@ module.exports = function(ICO) {
 		} else {
 			return cb(e, false);
 		}
+	};
+
+
+
+	/**
+	 * Get Referrals list
+	 * Usually called by website
+	 *
+	 * @method getReferrals
+	 * @public
+	 * @param    {String}   ser      Referrer Form data
+	 * @callback {Function} cb       Callback function
+ 	 * @param    {Error}    err      Error information
+	 */
+	ICO.getReferrals = function(ser, cb) {
+		var e = new Error(g.f('Invalid Param'));
+		e.status = e.statusCode = 401;
+		e.code = '0x1000';
+
+		if (!isString(ser)) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		var list = ser.split('&'); // All referrer data ({wallet: {String}referrer wallet address, email: {String[]}referrer email address})
+		if (list.length < 2) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+
+		var wallet = list.filter(function(address) { return address.startsWith('wallet'); });
+		var email = list.filter(function(address) { return address.startsWith('email'); });
+		if (wallet.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		if (email.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		wallet = wallet.map(function(el) { return el.split('=').pop(); });
+		wallet = wallet[0];
+		email = email.map(function(el) { return el.split('=').pop(); });
+		email = email[0];
+		if (!isETHAddress(wallet)) {
+			logger.info('ICO.getReferrals() not ETH address: ' + ser);
+			return cb(e, null);
+		}
+		request
+			.post(config.icoURI + '/api/Referrers/getReferrals')
+			.send(wallet)
+			.timeout(5000)
+			.end((err, res) => {
+				if (err) return cb(err);
+				// res contient {referrer: referrer, referrals: referrals}
+				return cb(null, '');
+			});
+
 	};
 
 

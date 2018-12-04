@@ -151,7 +151,10 @@
 				<form id="navlink-extranet" action="/extranet" method="post"><input type="hidden" name="access_token" value="<%= accessToken %>"/></form>
 				<li class=" nav-item"><a href="#" onclick='document.getElementById("navlink-extranet").submit()'><i class="icon-grid"></i><span class="menu-title" data-i18n="">Dashboard</span></a></li>
 				<li class=" nav-item disabled "><a href="/ico"><i class="icon-layers"></i><span class="menu-title" data-i18n="">ICO</span></a></li>
-				<li class=" nav-item disabled "><a href="/transactions"><i class="icon-shuffle"></i><span class="menu-title condensed" data-i18n="">Transactions</span></a></li>
+
+				<form id="navlink-trans" action="/trans" method="post"><input type="hidden" name="access_token" value="<%= accessToken %>"/></form>
+				<li class=" nav-item"><a href="#" onclick='document.getElementById("navlink-trans").submit()'><i class="icon-shuffle"></i><span class="menu-title condensed" data-i18n="">Transactions</span></a></li>
+
 				<form id="navlink-kb" action="/kb" method="post"><input type="hidden" name="access_token" value="<%= accessToken %>"/></form>
 				<li class="active"><a href="#" onclick='document.getElementById("navlink-kb").submit()'><i class="icon-graduation"></i><span class="menu-title condensed" data-i18n="">Knowledge Base</span></a></li>
 				<li class=" nav-item disabled "><a href="/faq"><i class="icon-support"></i><span class="menu-title" data-i18n="">FAQ</span></a></li>
