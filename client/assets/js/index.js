@@ -205,12 +205,12 @@
 			case 2:
 				iconame = $.i18n('tokensale-area.preico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.start', iconame));
-				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
+				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (/*tokensTotal * 0.8*/80000000).toLocaleString(undefined, {style: 'decimal'})));
 				break;
 			case 3:
 				iconame = $.i18n('tokensale-area.preico');
 				$('#tokensale-title').html($.i18n('tokensale-area.info.ends', iconame));
-				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (tokensTotal * 0.8).toLocaleString(undefined, {style: 'decimal'})));
+				$('#tokensale-li6-val').text($.i18n('tokensale-area.li6.value', (/*tokensTotal * 0.8*/80000000).toLocaleString(undefined, {style: 'decimal'})));
 				break;
 			case 4:
 				iconame = $.i18n('tokensale-area.preico');
@@ -1375,7 +1375,7 @@
 						class: 'subscPopup slide-in-fwd-left'
 					}).offset(offset).appendTo('body');
 					*/
-					
+
 				}, 5000);
 
 				// console.log('indexjs-end: ' + gettime());

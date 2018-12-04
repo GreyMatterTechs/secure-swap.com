@@ -663,21 +663,21 @@ module.exports = function(ICO) {
 		var list = ser.split('&'); // All referrer data ({wallet: {String}referrer wallet address, email: {String[]}referrer email address})
 		if (list.length < 2) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
 
-		var wallet = list.filter(function(address) { return address.startsWith('wallet'); });
+		var walletad = list.filter(function(address) { return address.startsWith('wallet'); });
 		var email = list.filter(function(address) { return address.startsWith('email'); });
-		if (wallet.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		if (walletad.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
 		if (email.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
-		wallet = wallet.map(function(el) { return el.split('=').pop(); });
-		wallet = wallet[0];
+		walletad = walletad.map(function(el) { return el.split('=').pop(); });
+		walletad = walletad[0];
 		email = email.map(function(el) { return el.split('=').pop(); });
 		email = email[0];
-		if (!isETHAddress(wallet)) {
+		if (!isETHAddress(walletad)) {
 			logger.info('ICO.getReferrals() not ETH address: ' + ser);
 			return cb(e, null);
 		}
 		request
 			.post(config.icoURI + '/api/Referrers/getReferrals')
-			.send(wallet)
+			.send({wallet: walletad})
 			.timeout(5000)
 			.end((err, res) => {
 				if (err) return cb(err);
