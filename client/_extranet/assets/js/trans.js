@@ -172,7 +172,7 @@
 					var ser = $('#referralbox-form').serialize();
 					$.ajax({
 						type: 'POST',
-						url: 'api/ICOs/getReferrals',
+						url: '/api/ICOs/getReferrals',
 						data: {ser: ser},
 						success: function(result) {
 							if (result.err) {
