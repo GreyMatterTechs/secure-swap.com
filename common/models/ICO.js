@@ -659,20 +659,22 @@ module.exports = function(ICO) {
 		e.status = e.statusCode = 401;
 		e.code = '0x1000';
 
-		if (!isString(ser)) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		if (!isString(ser)) { logger.info('ICO.getReferrals() bad ser: ' + ser); e.code = '0x1001'; return cb(e, null); }
 		var list = ser.split('&'); // All referrer data ({wallet: {String}referrer wallet address, email: {String[]}referrer email address})
-		if (list.length < 2) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		if (list.length < 2) { logger.info('ICO.getReferrals() bad ser: ' + ser); e.code = '0x1002'; return cb(e, null); }
 
 		var walletad = list.filter(function(address) { return address.startsWith('wallet'); });
 		var email = list.filter(function(address) { return address.startsWith('email'); });
-		if (walletad.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
-		if (email.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); return cb(e, null); }
+		if (walletad.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); e.code = '0x1003'; return cb(e, null); }
+		if (email.length !== 1) { logger.info('ICO.getReferrals() bad ser: ' + ser); e.code = '0x1004'; return cb(e, null); }
 		walletad = walletad.map(function(el) { return el.split('=').pop(); });
 		walletad = walletad[0];
 		email = email.map(function(el) { return el.split('=').pop(); });
 		email = email[0];
+		email = decodeURIComponent(email);
 		if (!isETHAddress(walletad)) {
 			logger.info('ICO.getReferrals() not ETH address: ' + ser);
+			e.code = '0x1005';
 			return cb(e, null);
 		}
 		request
@@ -680,9 +682,44 @@ module.exports = function(ICO) {
 			.send({wallet: walletad})
 			.timeout(5000)
 			.end((err, res) => {
-				if (err) return cb(err);
-				// res contient {referrer: referrer, referrals: referrals}
-				return cb(null, '');
+				if (err) {
+					return cb(err);
+				}
+				// res.body contient {referrer: referrer, referrals: [referrals, referrals, referrals]}
+				if (res.body.referrer !== walletad) {
+					logger.info('ICO.getReferrals() Wrong referrer.');
+					e.code = '0x1006';
+					return cb(e, null);
+				}
+				for (var i = 0; i < res.body.referrals.length; i++) {
+					if (!isETHAddress(res.body.referrals[i])) {
+						logger.info('ICO.getReferrals() not ETH address: ' + res.body.referrals[i]);
+						e.code = '0x1007';
+						return cb(e, null);
+					}
+				}
+				// send mail
+				res.body.email = email;
+
+				var mContact = app.models.Contact;
+				mContact.referrals(res.body, function(err, res) {
+					if (err) return cb(err);
+						
+						
+					return cb(null, '');
+				});
+				/*
+				request
+					.post('/api/Contacts/referrals')
+					.send(res.body)
+					.timeout(5000)
+					.end((err, res) => {
+						if (err) return cb(err);
+						
+						
+						return cb(null, '');
+					});
+					*/
 			});
 
 	};
