@@ -750,7 +750,7 @@ module.exports = function(ICO) {
 				return cb(e, null);
 			}
 		}
-
+		logger.info('post(' + config.icoURI + '/api/Referrers/register)');
 		request
 			.post(config.icoURI + '/api/Referrers/register')
 			.send({wallets: {referrer: referrer, referrals: referrals}})
