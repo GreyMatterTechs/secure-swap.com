@@ -670,6 +670,9 @@ module.exports = function(ICO) {
 			e.code = '0x1005';
 			return cb(e, null);
 		}
+		
+		logger.info('post(' + config.icoURI + '/api/Referrers/getReferrals)');
+
 		request
 			.post(config.icoURI + '/api/Referrers/getReferrals')
 			.send({wallet: walletad})
@@ -750,7 +753,6 @@ module.exports = function(ICO) {
 				return cb(e, null);
 			}
 		}
-		logger.info('post(' + config.icoURI + '/api/Referrers/register)');
 		request
 			.post(config.icoURI + '/api/Referrers/register')
 			.send({wallets: {referrer: referrer, referrals: referrals}})
