@@ -1200,7 +1200,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .footer .footer-wrapper .title {
     margin-bottom: 25px; }
   .footer .footer-wrapper .DNT-btn {
-    margin-top: 1rem !important; } }
+    margin-top: 0rem !important; } }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   .token-distribution .token-img {
@@ -1275,7 +1275,7 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .simulator-container .form-group .col-form-label[for="token-slider-volume"] {
     top: 2rem; }
   .footer .footer-wrapper .DNT-btn {
-    margin-top: 3rem !important; } }
+    margin-top: 0rem !important; } }
 
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .flip-clock-dot {

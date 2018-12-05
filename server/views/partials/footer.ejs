@@ -2,12 +2,12 @@
 		<div class="container">
 			<div class="footer-wrapper social-margin">
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="about">
-							<div class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s">
+							<a class="title navbar-brand animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" href="https://secure-swap.com">
 								<img src="assets/images/logo.png" alt="Logo">
 								<span class="logo-text" data-i18n="footer-area.title1, <%= appName %>"><%= appName %> ICO</span>
-							</div>
+							</a>
 							<div class="about-text animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s">
 								<p class="grey-accent2" data-i18n="footer-area.desc, <%= appName %>"><%= appName %> is a distributed and decentralized platform that allows users to trade crypto-currencies, in a very secure ecosystem.</p>
 							</div>
@@ -42,10 +42,10 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-md-6">
 						<div class="links">
 							<h5 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="footer-area.title2">Useful Links</h5>
-							<ul class="useful-links">
+							<!--ul class="useful-links">
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s">
 									<a href="#" data-i18n="footer.about, <%= appName %>">What is <%= appName %></a>
 								</li>
@@ -55,8 +55,8 @@
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.20s">
 									<a href="#" data-i18n="footer.whitepaper" >Whitepaper </a>
 								</li>
-							</ul>
-							<ul class="useful-links">
+							</ul-->
+							<ul class="pt-3 useful-links">
 								<li class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.25s">
 									<a href="/privacy" data-i18n="footer.privatcy" >Privacy Policy</a>
 								</li>
@@ -67,9 +67,21 @@
 									<a href="#">If you are already subscribed, you can also unsubscribe from our mailing list easily.</a>
 								</li-->
 							</ul>
+
+							<ul class="useful-links">
+								<% if (dntSupport === 'true') { %>
+									<div class="DNT-btn">
+										<a href="/do-not-track" class="btn btn-sm animated pl-0" data-animation="fadeInLeftShorter" data-animation-delay="0.20s" >
+											<i class="fas fa-eye-slash" aria-hidden="true"></i>&nbsp;
+											<span data-i18n="footer-area.button.dnt">You're not being tracked</span>
+										</a>
+									</div>
+								<% } %>
+							<ul class="useful-links">
+
 						</div>
 					</div>
-					<div class="col-md-4">
+					<!--div class="col-md-4">
 						<div class="feed">
 							<h5 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" data-i18n="footer-area.title3">Twitter Feed</h5>
 							<div class="tweets">
@@ -79,13 +91,13 @@
 						</div>
 						<% if (dntSupport === 'true') { %>
 							<div class="DNT-btn">
-								<a href="/do-not-track" class="btn btn-sm animated" data-animation="fadeInLeftShorter" data-animation-delay="0.20s" >
+								<a href="/do-not-track" class="btn btn-sm animated pl-0" data-animation="fadeInLeftShorter" data-animation-delay="0.20s" >
 									<i class="fas fa-eye-slash" aria-hidden="true"></i>&nbsp;
 									<span data-i18n="footer-area.button.dnt">You're not being tracked</span>
 								</a>
 							</div>
 						<% } %>
-					</div>
+					</div-->
 				</div>
 				<div class="row mt-2" >
 					<div class="col-12 copy-right mx-auto text-center animated fadeInUp" data-animate="fadeInUp" data-delay="0.0s" >
