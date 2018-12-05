@@ -72,6 +72,7 @@
 		var tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
 		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
 		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
+		var prevDateEnd, prevDateStart;
 		var purchaseboxLegal = false;
 		var iconame;
 		var shorters;
@@ -232,10 +233,10 @@
 			// set timer to remaining time before ICO starts
 			var date = new Date(icoDate);
 			var now = new Date();
-			var dif = Math.max(0, (date.getTime() - now.getTime()) / 1000);
+			var dif = Math.max(0, date.getTime() / 1000 - now.getTime() / 1000);
 			if (clock) {
 				clock.stop();
-				clock.setTime(dif);
+				clock.setTime(Math.ceil(dif));
 				clock.start();
 			}
 		}
@@ -283,6 +284,10 @@
 					if (ico) {
 						tokenPriceUSD		= ico.tokenPriceUSD;
 						purchaseSoldPercent	= Math.round(ico.tokensSold * 100 / ico.tokensTotal);
+
+						prevDateEnd			= dateEnd;
+						prevDateStart		= dateStart;
+
 						dateEnd				= ico.dateEnd;
 						dateStart			= ico.dateStart;
 						tokensTotal			= ico.tokensTotal;

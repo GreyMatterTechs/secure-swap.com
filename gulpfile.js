@@ -161,10 +161,20 @@ gulp.task('scripts-vendor-assets', function() {
 		.pipe(notify({message: 'Vendors Assets Scripts task complete'}));
 });
 gulp.task('scripts-vendor-theme-assets', function() {
-	return gulp.src(['**/*.min.js'], {cwd: config.theme_assets_source.vendor})
+	// return gulp.src(['**/*.min.js'], {cwd: config.theme_assets_source.vendor})
+		// .pipe(concat('vendors.min.js'))
+		// .pipe(gulp.dest(config.theme_assets_dest.vendor))
+		// .pipe(notify({message: 'Vendors Theme-Assets Scripts task complete'}));
+	return gulp.src(['**/*.js', '!**/*.min.js'], {cwd: config.theme_assets_source.vendor})
+		.pipe(concat('vendors.js'))
+		.pipe(gulp.dest(config.theme_assets_dest.vendor))
+		.pipe(rename({suffix: '.min'}))
+		//  only uglify if gulp is ran with '--type production'
+		// .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+		.pipe(uglify())
 		.pipe(concat('vendors.min.js'))
 		.pipe(gulp.dest(config.theme_assets_dest.vendor))
-		.pipe(notify({message: 'Vendors Theme-Assets Scripts task complete'}));
+		.pipe(notify({message: 'Vendors Extranet Assets Scripts task complete'}));
 });
 gulp.task('scripts-vendor-extranet-assets', function() {
 	return gulp.src(['**/*.js', '!**/*.min.js'], {cwd: config.extranet_assets_source.vendor})
