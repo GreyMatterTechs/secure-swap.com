@@ -170,9 +170,10 @@
 				$('#referralbox-submit').text('Sending...');
 				if (RFValidate()) {
 					var ser = $('#referralbox-form').serialize();
+					var url = 'http://' + 'localhost' + ':' + '3000' + '/api/ICOs/getReferrals';
 					$.ajax({
 						type: 'POST',
-						url: '/api/ICOs/getReferrals',
+						url: url,
 						data: {ser: ser},
 						success: function(result) {
 							if (result.err) {

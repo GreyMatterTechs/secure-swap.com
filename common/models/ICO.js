@@ -499,7 +499,7 @@ module.exports = function(ICO) {
 			}
 			getICO(1, function(err, ico) {
 				if (err) {
-					logger.debug('ICO.setState() getICO() failed. err:'+err);
+					logger.debug('ICO.setState() getICO() failed. err:' + err);
 					return cb(err, null);
 				}
 				ico.updateAttributes({
@@ -593,16 +593,10 @@ module.exports = function(ICO) {
 			getICO(1, function(err, ico) {
 				if (err) return cb(err, null);
 
-//				// ico.ethReceived conserve un array des transactions reçues depuis 10 secondes (le temps pour le client web de les récupérer)
+				// ico.ethReceived conserve un array des transactions reçues depuis 10 secondes (le temps pour le client web de les récupérer)
 				var now = new Date().getTime();
-//				var past = now - 10000;
-//				logger.info('ICO.setReceivedEth() previous ethReceiveds: ' + JSON.stringify(ico.ethReceived));
-//				// on supprime les vielles transactions
-//				var ethReceived = ico.ethReceived.filter(function(ethReceived) { return ethReceived.timestamp < past; });
-//				logger.info('ICO.setReceivedEth() cleaned ethReceiveds: ' + JSON.stringify(ethReceived));
 				if (params.ethReceived) // on ajoute la courante
 					ico.ethReceived.push({ethReceived: params.ethReceived, tokensSend: params.tokensSend, discount: params.discount, timestamp: now});
-				// logger.info('ICO.setReceivedEth() updated ethReceiveds: ' + JSON.stringify(ico.ethReceived));
 
 				ico.updateAttributes({
 					state:			params.state			? params.state			: ico.state,
@@ -641,7 +635,6 @@ module.exports = function(ICO) {
 			return cb(e, false);
 		}
 	};
-
 
 
 	/**
@@ -704,22 +697,8 @@ module.exports = function(ICO) {
 				var mContact = app.models.Contact;
 				mContact.referrals(res.body, function(err, res) {
 					if (err) return cb(err);
-						
-						
 					return cb(null, '');
 				});
-				/*
-				request
-					.post('/api/Contacts/referrals')
-					.send(res.body)
-					.timeout(5000)
-					.end((err, res) => {
-						if (err) return cb(err);
-						
-						
-						return cb(null, '');
-					});
-					*/
 			});
 
 	};
