@@ -49,10 +49,10 @@ function makeOptions(data, subject, to, cc, bcc, replyTo) {
 										: (data.fname ? (data.fname) 
 													  : (data.lname ? (data.lname) 
 													  				: ('')));
-	options.to = to || config.mailRecipient.to;
-	options.cc = cc || config.mailRecipient.cc;
-	options.bcc = bcc || config.mailRecipient.cci;
-	options.replyTo = replyTo || data.mail ? data.mail : null;
+	options.to = to;
+	options.cc = cc;
+	options.bcc = bcc;
+	options.replyTo = replyTo;
 	options.subject = name ? ('[Secure-Swap] ' + subject + ' from ' + name) : (data.mail ? '[Secure-Swap] ' + subject + ' from <' + data.mail + '>' : '[Secure-Swap] ' + subject + ' from anonymous visitor');
 	options.type = 'email';
 	options.protocol = 'http';
@@ -80,7 +80,7 @@ function createTemplatedEmailBody(options, cb) {
 }
 
 function sendMessage(data, mEmail, cb) {
-	var options = makeOptions(data, 'Contact');
+	var options = makeOptions(data, 'Contact', config.mailRecipient.to, null, config.mailRecipient.cci, data.mail);
 	options.ejs = data.message ? 'contactMessage.ejs' : 'contactEmail.ejs';
 	options.maildata.message = data.message ? data.message : null;
 	createTemplatedEmailBody(options, function(err, html) {
@@ -103,7 +103,7 @@ function sendMessage(data, mEmail, cb) {
 
 
 function sendReferrals(data, mEmail, cb) {
-	var options = makeOptions(data, 'Referrals', data.mail, '', config.mailRecipient.to, config.mailRecipient.to);
+	var options = makeOptions(data, 'Referrals', data.mail, null, config.mailRecipient.cci, config.mailRecipient.to);
 	options.ejs = 'referralsMessage.ejs';
 	options.maildata.referrer = data.referrer;
 	options.maildata.referrals = data.referrals;
@@ -437,7 +437,7 @@ module.exports = function(Contact) {
 				//                 errNumSub = 11: Email sending failed
 				return cb(err);
 			}
-			logger.info('Referrals Form: Sent referrals from ' + (postData.mail ? postData.mail : 'anonymous sender'));
+			logger.info('Referrals Form: Sent referrals to ' + postData.mail + ' Referrer wallet: ' + postData.referrer);
 			return cb(null, {errNum: 0});
 		});
 	};
