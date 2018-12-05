@@ -676,18 +676,20 @@ module.exports = function(ICO) {
 			.timeout(5000)
 			.end((err, res) => {
 				if (err) {
-					return cb(err);
+					logger.info('ICO.getReferrals() error from ICO server.');
+					e.code = '0x1006 (' + err.message + ')';
+					return cb(e, null);
 				}
 				// res.body contient {referrer: referrer, referrals: [referrals, referrals, referrals]}
 				if (res.body.referrer !== walletad) {
 					logger.info('ICO.getReferrals() Wrong referrer.');
-					e.code = '0x1006 (res.body.referrer=' + res.body.referrer + ', walletad=' + walletad + '))';
+					e.code = '0x1007 (res.body.referrer=' + res.body.referrer + ', walletad=' + walletad + '))';
 					return cb(e, null);
 				}
 				for (var i = 0; i < res.body.referrals.length; i++) {
 					if (!isETHAddress(res.body.referrals[i])) {
 						logger.info('ICO.getReferrals() not ETH address: ' + res.body.referrals[i]);
-						e.code = '0x1007';
+						e.code = '0x1008';
 						return cb(e, null);
 					}
 				}
