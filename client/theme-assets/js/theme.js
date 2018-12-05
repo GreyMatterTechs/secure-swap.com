@@ -125,11 +125,9 @@ $(window).on('load', function() {
 	}
 
 	setTimeout(function() {
-		console.log('theme-onload-svg-start: ' + gettime());
 		$('.cic-logo').addClass('cic-logo-animation');
 		$('.svg-elements-1').addClass('svg-elements-1-animation');
 		$('.svg-elements-2').addClass('svg-elements-2-animation');
-		console.log('theme-onload-svg-end: ' + gettime());
 	}, 3000);
 
 	// console.log('theme-onload-end: ' + gettime());
@@ -263,9 +261,9 @@ $(window).on('load', function() {
 	slide.addClass('active');
 	slides.each(function(index, element) {
 		if (index < idx) {
-			element.find('timestamp').removeClass('remaining').addClass('completed');
+			$(element).find('timestamp').removeClass('remaining').addClass('completed');
 		} else {
-			element.find('timestamp').addClass('remaining').removeClass('completed');
+			$(element).find('timestamp').addClass('remaining').removeClass('completed');
 		}
 	});
 
