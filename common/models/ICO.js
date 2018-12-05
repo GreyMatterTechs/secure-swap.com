@@ -597,8 +597,8 @@ module.exports = function(ICO) {
 				var now = new Date().getTime();
 				if (params.ethReceived) // on ajoute la courante
 					ico.ethReceived.push({ethReceived: params.ethReceived, tokensSend: params.tokensSend, discount: params.discount, timestamp: now});
-
 				ico.updateAttributes({
+
 					state:			params.state			? params.state			: ico.state,
 					tokenPriceUSD: 	params.tokenPriceUSD	? params.tokenPriceUSD	: ico.tokenPriceUSD,
 					tokenPriceETH:	params.tokenPriceETH	? params.tokenPriceETH	: ico.tokenPriceETH,
@@ -681,7 +681,7 @@ module.exports = function(ICO) {
 				// res.body contient {referrer: referrer, referrals: [referrals, referrals, referrals]}
 				if (res.body.referrer !== walletad) {
 					logger.info('ICO.getReferrals() Wrong referrer.');
-					e.code = '0x1006';
+					e.code = '0x1006 (res.body.referrer=' + res.body.referrer + ', walletad=' + walletad + '))';
 					return cb(e, null);
 				}
 				for (var i = 0; i < res.body.referrals.length; i++) {

@@ -189,7 +189,7 @@
 							$('#referralbox-submit').text('Send');
 						},
 						error: function(err) {
-							$('#referralbox-error-alert').text((err.responseJSON.error.message ? err.responseJSON.error.message : '0x1001'));
+							$('#referralbox-error-alert').text('Internal error. code: ' + (err.responseJSON.error.code ? err.responseJSON.error.code : '0x1001'));
 							$('#referralbox-error-alert').fadeIn('slow');
 							$('#referralbox-error-alert').delay(10000).fadeOut('slow');
 							$('#referralbox-submit').text('Send');
