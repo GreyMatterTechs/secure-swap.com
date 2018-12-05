@@ -118,11 +118,7 @@ $(window).on('load', function() {
 		$('body').addClass('loaded');
 	}, 1);
 
-	if (!isMobile().any) {
-		if ($('.page-animated').length > 0) {
-			InitWaypointAnimations();
-		}
-	}
+	InitWaypointAnimations();
 
 	setTimeout(function() {
 		$('.cic-logo').addClass('cic-logo-animation');
@@ -357,6 +353,14 @@ var InitWaypointAnimations = function() {
 	} */
 
 	return function(defaults) {
+
+		if (isMobile().any) {
+			return;
+		}
+		if ($('.page-animated').length === 0) {
+			return;
+		}
+
 		defaults = defaults || {};
 		var params = {
 			offset:				defaults.offset || '95%',
