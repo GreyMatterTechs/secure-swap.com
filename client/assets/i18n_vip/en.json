@@ -162,13 +162,13 @@
 	"tokensale-area.info.icoended.p2":	"Thank you to all our supporters and participants!",
 	"tokensale-area.info.icoended.li1":	"Over $1 USD Raised",
 	"tokensale-area.info.icoended.li2":	"$1 tokens sold",
-	"tokensale-area.info.icoended.p3":	"Connect with us via Telegram or our Social Media Channels to keep up to date with the latest announcements!",
+	"tokensale-area.info.icoended.p3":	"Connect with us via our Social Media Channels to keep up to date with the latest announcements!",
 	"tokensale-area.info.softcap":		"Soft Cap",
 	"tokensale-area.info.hardcap":		"Hard Cap",
 	"tokensale-area.info.percent":		"$1 % target raised",
 	"tokensale-area.info.eth":			"$1 or $2 or $3 ETH",
 	"tokensale-area.info.desc":			"We will post our Wallet address 1 minute before the sale begins. It will be posted on all our websites, Twitter, Facebook, etc. Please check at least 2-3 of these sites to make sure the address is exactly the same, before sending your Ethers to this address.", 
-	"tokensale-area.note1":				"Please note that we will not personally send you our address by Telegram or any other platform, so be careful and beware of any scam!",
+	"tokensale-area.note1":				"Please note that we will not personally send you our address, nor by any social platform, so be careful and beware of any scam!",
 	"tokensale-area.note2":				"Note that our Wallet address will only be published automatically 1 minute before the start of the sale, so any other person or website providing a wallet address and claiming to represent $1 are scam attempts! If you discover such an attempt, please report it to us so that we can remedy it immediately,",
 	"tokensale-area.li1":				"$1 begins on: ",
 	"tokensale-area.li1.value":			"$1",
@@ -227,7 +227,6 @@
 	"referral-area.li6end":				"button",
 	"referral-area.p5":					"In order to reduce the possibility of manipulation, you must provide the addresses of the ETH wallets of the investors <b>before they have actually done the transaction</b>.",
 	"referral-area.p6":					"In case the transaction is done before the addresses of the wallets of the investors are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address, only early address provided participant will be rewarded!",
-	"referral-area.p7":					"Good luck and let the game begin!",
 	"referral-area.but.register":		"Register investors",
 
 	"-------------- SECTION PROBLEMS & SOLUTIONS --------------": "",
@@ -465,7 +464,7 @@
 	"team-area.rafael.bio":				"Fully passionate in everything related to Cloud, automation and optimisation. Happy and curious geek on every science you can imagine.",
 	"team-area.pierre.role":			"Infrastructure Engineer",
 	"team-area.pierre.bio":				"&nbsp;",
-	"team-area.kevin.role":				"Social animator Blockchain enthusiast",
+	"team-area.kevin.role":				"Social animator",
 	"team-area.kevin.bio":				"Digital content producer since 2013, I inform myself and I participate at my scale in the emancipation of the blockchain.",
 	"team-area.sonia.role":				"Social animator",
 	"team-area.sonia.bio":				"What a chance to participate in this ambitious and necessary project: to offer a reliable and ergonomic platform to finally trade crypto-currencies with confidence and at a lower cost. <br />I answer all your questions. <br />See you soon on social networks!",
@@ -697,6 +696,9 @@
 	"notify.join.title":				"Join the $1 community",
 	"notify.join.message":				"Many of you may have already joined our social networking discussion groups.<br />For those who don't know us, we encourage you to get involved in the Secure Swap ecosystem. Leave us your details to receive our next announcements.",
 	"notify.join.button":				"Join our community",
+
+	"-------------- Social LINKS --------------":"",
+	"sociallinks.facebook":				"https://www.facebook.com/Secure-Swap-English-190713738543816/",
 
 	"last": ""
 }
