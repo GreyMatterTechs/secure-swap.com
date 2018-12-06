@@ -1127,6 +1127,7 @@
 			mailchimpLanguage = _mailchimpLanguage;
 			// once the locale file is loaded , we can start other inits that needs i18n ready
 			$('input[placeholder]').i18n();
+			$('.socialfb').attr('href', $.i18n('sociallinks.facebook'));
 			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
 			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
 			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
@@ -1141,6 +1142,7 @@
 			mailchimpLanguage = _mailchimpLanguage;
 			// once the locale is changed, we can update each module that needs i18n strings
 			$('input[placeholder]').i18n();
+			$('.socialfb').attr('href', $.i18n('sociallinks.facebook'));
 			updateTokenSalesArea();
 			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
 			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
