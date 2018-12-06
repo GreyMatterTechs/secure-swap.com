@@ -726,21 +726,7 @@
 
 
 		function setPopupsPlacement() {
-			$('.play-video').each(function() {
-				$(this).tooltip({html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-			});
-			$('.vertical-social li.wip').each(function() {
-				$(this).tooltip({placement: 'right', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-			});
-			$('.contact .contact-info > li:nth-child(2)').each(function() {
-				$(this).tooltip({placement: 'left', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-			});
-			$('.footer .about a').each(function() {
-				$(this).tooltip({placement: 'top', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-			});
-			$('.footer .tweets a').each(function() {
-				$(this).tooltip({placement: 'left', html: true, title: '<b>work in progress</b>', boundary: 'window', container: 'body', animation: true});
-			});
+		
 		}
 
 
