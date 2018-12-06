@@ -697,5 +697,8 @@
 	"notify.join.message":				"Many of you may have already joined our social networking discussion groups.<br />For those who don't know us, we encourage you to get involved in the Secure Swap ecosystem. Leave us your details to receive our next announcements.",
 	"notify.join.button":				"Join our community",
 
+	"-------------- Social LINKS --------------":"",
+	"sociallinks.facebook":				"https://www.facebook.com/Secure-Swap-English-190713738543816/",
+
 	"last": ""
 }

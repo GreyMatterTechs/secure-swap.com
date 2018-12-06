@@ -698,5 +698,9 @@
 	"notify.join.message":				"Beaucoup d'entre vous ont peut-être déjà rejoint nos groupes de discussion sur les réseaux sociaux.<br />Pour ceux qui ne nous connaissent pas, nous vous encourageons à vous impliquer dans l'écosystème Secure Swap. Laissez nous vos coordonnées pour recevoir nos prochaines annonces.",
 	"notify.join.button":				"Rejoindre notre communauté",
 
+	"-------------- Social LINKS --------------":"",
+	"sociallinks.facebook":				"https://www.facebook.com/Secure-Swap-French-244470126145846/",
+
+
 	"last": ""
 }
