@@ -227,7 +227,6 @@
 	"referral-area.li6end":				"button",
 	"referral-area.p5":					"In order to reduce the possibility of manipulation, you must provide the addresses of the ETH wallets of the investors <b>before they have actually done the transaction</b>.",
 	"referral-area.p6":					"In case the transaction is done before the addresses of the wallets of the investors are registered, the free tokens will be lost.<br />In case there are participants who have provided the same ETH wallet address, only early address provided participant will be rewarded!",
-	"referral-area.p7":					"Good luck and let the game begin!",
 	"referral-area.but.register":		"Register investors",
 
 	"-------------- SECTION PROBLEMS & SOLUTIONS --------------": "",
@@ -465,7 +464,7 @@
 	"team-area.rafael.bio":				"Fully passionate in everything related to Cloud, automation and optimisation. Happy and curious geek on every science you can imagine.",
 	"team-area.pierre.role":			"Infrastructure Engineer",
 	"team-area.pierre.bio":				"&nbsp;",
-	"team-area.kevin.role":				"Social animator Blockchain enthusiast",
+	"team-area.kevin.role":				"Social animator",
 	"team-area.kevin.bio":				"Digital content producer since 2013, I inform myself and I participate at my scale in the emancipation of the blockchain.",
 	"team-area.sonia.role":				"Social animator",
 	"team-area.sonia.bio":				"What a chance to participate in this ambitious and necessary project: to offer a reliable and ergonomic platform to finally trade crypto-currencies with confidence and at a lower cost. <br />I answer all your questions. <br />See you soon on social networks!",

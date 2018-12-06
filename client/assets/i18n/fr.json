@@ -230,7 +230,6 @@
 	"referral-area.li6end":				"&nbsp;",
 	"referral-area.p5":					"Afin de réduire les possibilités de manipulation, vous devez fournir les adresses de portefeuille ETH des investisseurs <b>avant qu'ils n'aient réellement effectué la transaction</b>.",
 	"referral-area.p6":					"Si la transaction est effectuée avant l'enregistrement des adresses de portefeuille des investisseurs, les jetons gratuits seront perdus. <br />Si plusieurs participants ont fourni la même adresse de portefeuille ETH, seule la première adresse fournie sera récompensée&nbsp;!",
-	"referral-area.p7":					"Bonne chance et que le jeu commence&nbsp;!",
 	"referral-area.but.register":		"Enregistrer des investisseurs",
 
 	"-------------- SECTION PROBLEMS & SOLUTIONS --------------": "",
@@ -468,7 +467,7 @@
 	"team-area.pierre.bio":				"&nbsp;",
 	"team-area.sonia.role":				"Social animator",
 	"team-area.sonia.bio":				"Quelle chance de participer à ce projet ambitieux et nécessaire : offrir une plateforme fiable et ergonomique pour enfin trader en toute confiance et à moindre coût les crypto-monnaies.<br />Je réponds à toutes vos questions.<br />À très vite sur les réseaux sociaux&nbsp;!",
-	"team-area.kevin.role":				"Social animator Blockchain enthusiast",
+	"team-area.kevin.role":				"Social animator",
 	"team-area.kevin.bio":				"Producteur de contenu digital depuis 2013, je m'informe et je participe à mon échelle à l'émancipation de la blockchain.",
 	"team-area.henry.role":				"Social animator",
 	"team-area.henry.bio":				"Coach en développement personnel, je suis aussi curieux de tout ce qui touche aux technologies. Intéressé par les crypto-monnaies, ma participation à ce projet est l’occasion d’avoir un rôle actif dans ce domaine.",
