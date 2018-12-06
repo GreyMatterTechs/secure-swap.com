@@ -648,7 +648,7 @@
 									<!--div class="argument0 crypto-video text-center" >
 										<img src="assets/images/video-banner.png" class="video-img img-fluid" alt="What is <%= appName %>">
 										<div class="play-video text-center">
-											<% if (typeof roles === 'undefined' || (roles.indexOf('vip') < 0)) { %> 
+											<% if (roles && (typeof roles === 'undefined' || (roles.indexOf('vip') < 0))) { %> 
 												<a href="#" class="play rounded-circle btn-gradient-orange video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/UXAJu3zS4bU" data-target="#ico-modal">
 													<i class="fas fa-play"></i>
 												</a>

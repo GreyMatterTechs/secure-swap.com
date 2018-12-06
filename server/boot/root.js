@@ -341,9 +341,11 @@ module.exports = function(server) {
 				});
 			}
 		} else {
+			logger.info('route GET \"/\" from: ' + req.clientIP + geo2str(req.geo));
 			res.render('index', {									// not logged user, no login form data, but ok, website is public
 				appName: config.appName,
 				tokenName: config.tokenName,
+				roles: null,
 				ajaxDelay: config.ajaxDelay,
 				cmcURI: config.cmcURI,
 				err: null
