@@ -28,18 +28,18 @@
 	
 	<nav class="vertical-social">
 		<ul>
-			<li class="wip" ><a href="#" target="_blank" ><img src="assets/images/bct.png" aria-hidden="true" /></a></li>
+			<li class="wip" ><a href="https://bitcointalk.org" target="_blank" ><img src="assets/images/bct.png" aria-hidden="true" /></a></li>
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-discord" aria-hidden="true"></i></a></li-->
 			<li class="wip" ><a href="https://www.facebook.com/Secure-Swap-English-190713738543816/" target="_blank" class="socialfb"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-github" aria-hidden="true"></i></a></li-->
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li-->
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-hubspot" aria-hidden="true"></i></a></li-->
-			<li class="wip" ><a href="#" target="_blank" ><i class="fab fa-linkedin-in" ></i></a></li>
+			<li class="wip" ><a href="https://www.linkedin.com/company/secureswap" target="_blank" ><i class="fab fa-linkedin-in" ></i></a></li>
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-medium-m" aria-hidden="true"></i></a></li-->
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-reddit-alien" aria-hidden="true"></i></a></li-->
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-slack-hash" aria-hidden="true"></i></a></li-->
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-telegram-plane" aria-hidden="true"></i></a></li-->
-			<li class="wip" ><a href="#" target="_blank" ><i class="fab fa-slideshare" aria-hidden="true"></i></a></li>
+			<li class="wip" ><a href="https://www.slideshare.net/SecureSwap" target="_blank" ><i class="fab fa-slideshare" aria-hidden="true"></i></a></li>
 			<!--li class="wip" ><a href="#" target="_blank" ><i class="fab fa-pinterest-p" aria-hidden="true"></i></a></li-->
 			<li class="wip" ><a href="https://www.instagram.com/secureswap/" target="_blank" ><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
 			<li class="wip" ><a href="https://twitter.com/SecureSwap" target="_blank" ><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
@@ -648,7 +648,7 @@
 									<!--div class="argument0 crypto-video text-center" >
 										<img src="assets/images/video-banner.png" class="video-img img-fluid" alt="What is <%= appName %>">
 										<div class="play-video text-center">
-											<% if (typeof roles === 'undefined' || (roles.indexOf('vip') < 0)) { %> 
+											<% if (roles && (typeof roles === 'undefined' || (roles.indexOf('vip') < 0))) { %> 
 												<a href="#" class="play rounded-circle btn-gradient-orange video-btn" data-toggle="modal" data-src="https://www.youtube.com/embed/UXAJu3zS4bU" data-target="#ico-modal">
 													<i class="fas fa-play"></i>
 												</a>
@@ -2100,7 +2100,7 @@
 										</div>
 										<div class="profile align-self-center">
 											<div class="name">Kevin Vanstean</div>
-											<div class="role condensed" data-i18n="team-area.kevin.role" >Social animator</div>
+											<div class="role" data-i18n="team-area.kevin.role" >Social animator</div>
 											<div class="social-profile mt-3">
 												<!--a href="#" title="Linkedin" class="font-medium grey-accent2 mr-2">
 													<i class="fab fa-linkedin-in"></i>

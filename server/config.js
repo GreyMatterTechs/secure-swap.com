@@ -28,7 +28,7 @@ module.exports = {
 	appName: 'Secure Swap',
 	tokenName: 'SSW',
 	loginTTL: 'hour',
-	private: true,
+	private: false,
 	icoURI: process.env.ICO_URI,
 	cmcURI: process.env.CMC_URI,
 	trackIP: true,
