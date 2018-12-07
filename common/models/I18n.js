@@ -26,7 +26,7 @@ const logger	= reqlocal(path.join('server', 'boot', 'winston.js')).logger;
 
 function geo2str(geo) {
 	if (geo) return ' (' + geo.city + ',' + geo.region + ',' + geo.country + ')';
-	return ' (localhost)';
+	return '';
 }
 
 
@@ -66,7 +66,7 @@ module.exports = function(I18n) {
 	}
 
 	I18n.beforeRemote('**', function(ctx, modelInstance, next) {
-		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + ' from: ' + ctx.req.clientIP + geo2str(ctx.req.geo));
+		logger.info('model ' + ctx.req.method + ' \"' + ctx.req.baseUrl + ctx.req.path + '\"' + (ctx.req.clientIP ? ' from: ' + ctx.req.clientIP : '') + geo2str(ctx.req.geo));
 		next();
 	});
 
