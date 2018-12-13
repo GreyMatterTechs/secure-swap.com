@@ -673,7 +673,7 @@
 						break;
 					case 6 :
 						shorter.$input.val('');
-						shorter.$submit.text($.i18n(shorter.i18nSubmit));
+						shorter.$submit.html($.i18n(shorter.i18nSubmit));
 						$('#unjoin-modal').modal('hide');
 						window.location.href = result.url;
 						break;
@@ -687,7 +687,7 @@
 						showError(result, shorter);
 						break;
 					}
-					shorter.$submit.text($.i18n(shorter.i18nSubmit));
+					shorter.$submit.html($.i18n(shorter.i18nSubmit));
 				},
 				error: function(err) {
 					showError(err, shorter);
