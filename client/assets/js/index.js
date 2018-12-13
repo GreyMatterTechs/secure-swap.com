@@ -693,7 +693,7 @@
 				error: function(err) {
 					console.log('sendForm: err=' + JSON.stringify(err));
 					showError(err, shorter);
-					shorter.$submit.text($.i18n(shorter.i18nSubmit));
+					shorter.$submit.html($.i18n(shorter.i18nSubmit));
 				}
 			});
 		}
@@ -706,11 +706,11 @@
 			shorter.$submit.unbind('click').bind('click', function(e) {
 				e.preventDefault();
 				shorter.$debugAlert.hide();
-				shorter.$submit.text($.i18n(shorter.i18nSending));
+				shorter.$submit.html($.i18n(shorter.i18nSending));
 				if (fnValidate()) {
 					checkCaptcha(action, shorter, function(err) {
 						if (err) {
-							shorter.$submit.text($.i18n(shorter.i18nSubmit));
+							shorter.$submit.html($.i18n(shorter.i18nSubmit));
 							shorter.$errorAlert.html($.i18n(shorter.i18nCaptcha)).fadeIn('slow').delay(5000).fadeOut('slow');
 						} else {
 							var ser = shorter.$form.serialize();
@@ -721,14 +721,14 @@
 						}
 					});
 				} else {
-					shorter.$submit.text($.i18n(shorter.i18nSubmit));
+					shorter.$submit.html($.i18n(shorter.i18nSubmit));
 				}
 			});
 		}
 
 
 		function setPopupsPlacement() {
-		
+
 		}
 
 
