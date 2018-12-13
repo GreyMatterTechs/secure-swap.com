@@ -684,12 +684,14 @@
 						});
 						break;
 					default:
+						console.log('sendForm: err=' + JSON.stringify(result));
 						showError(result, shorter);
 						break;
 					}
 					shorter.$submit.html($.i18n(shorter.i18nSubmit));
 				},
 				error: function(err) {
+					console.log('sendForm: err=' + JSON.stringify(err));
 					showError(err, shorter);
 					shorter.$submit.text($.i18n(shorter.i18nSubmit));
 				}
