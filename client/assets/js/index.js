@@ -609,7 +609,6 @@
 						url: '/captcha',
 						data: {token: token},
 						success: function(result) {
-							console.log('/captcha:' + JSON.stringify(result));
 							if (result.valid) {
 								cb(null);
 							} else {
@@ -617,7 +616,6 @@
 							}
 						},
 						error: function(e) {
-							console.log('/captcha:' + JSON.stringify(e));
 							cb(true);
 						}
 					});
@@ -684,14 +682,12 @@
 						});
 						break;
 					default:
-						console.log('sendForm: err=' + JSON.stringify(result));
 						showError(result, shorter);
 						break;
 					}
 					shorter.$submit.html($.i18n(shorter.i18nSubmit));
 				},
 				error: function(err) {
-					console.log('sendForm: err=' + JSON.stringify(err));
 					showError(err, shorter);
 					shorter.$submit.html($.i18n(shorter.i18nSubmit));
 				}
@@ -840,8 +836,8 @@
 						});
 				});
 				clipboard.on('error', function(e) {
-					console.error('Action:', e.action);
-					console.error('Trigger:', e.trigger);
+				//	console.error('Action:', e.action);
+				//	console.error('Trigger:', e.trigger);
 				});
 			} else {
 				$('#btn-wallet-copy').hide();
@@ -1024,10 +1020,10 @@
 						url: '/captcha',
 						data: {token: token},
 						success: function(result) {
-							console.log('/captcha:' + JSON.stringify(result));
+						//	console.log('/captcha:' + JSON.stringify(result));
 						},
 						error: function(e) {
-							console.log('/captcha:' + JSON.stringify(e));
+						//	console.log('/captcha:' + JSON.stringify(e));
 						}
 					});
 				});
