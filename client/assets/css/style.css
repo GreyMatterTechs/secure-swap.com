@@ -355,6 +355,12 @@ header .navbar .dropdown .dropdown-menu a:before {
   padding: 10px 10px 10px 15px; }
 
 /* -- problems & solutions ------------------------------------------------------------------- */
+.problem-solution .decoico {
+  font-size: 12rem;
+  opacity: 0.15;
+  color: white;
+  margin-bottom: 1rem; }
+
 .problem-solution .problems img.problems-img-inline {
   display: none; }
 
@@ -1225,6 +1231,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .head-area .head-content .banner-content div a {
     width: 12rem; }
   /* -- problems & solutions ---------------------------- */
+  .problem-solution .decoico {
+    font-size: 15rem; }
   p.solution-align1,
   p.solution-align2 {
     margin-left: 17rem; }
@@ -1300,6 +1308,8 @@ input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
   .alert-minimalist {
     max-width: 30rem; }
   /* -- problems & solutions ---------------------------- */
+  .problem-solution .decoico {
+    font-size: 18rem; }
   p.solution-align1,
   p.solution-align2 {
     margin-left: 17rem; }

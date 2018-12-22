@@ -192,7 +192,7 @@
 				tokenPriceUSD.toLocaleString(undefined, {style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2, maximumFractionDigits: 2}),
 				tokenPriceEUR.toLocaleString(undefined, {style: 'currency', currency: 'EUR', currencyDisplay: 'symbol', minimumFractionDigits: 3, maximumFractionDigits: 3}),
 				tokenPriceETH.toLocaleString(undefined, {style: 'decimal', minimumFractionDigits: 8, maximumFractionDigits: 8})));
-			$('#token-distribution-data').text($.i18n('token-dist-area.data3.text',
+			$('#token-distribution-data').text($.i18n('token-dist-area.data4.text',
 				tokenPriceUSD.toLocaleString(undefined, {style: 'currency', currency: 'USD', currencyDisplay: 'symbol', minimumFractionDigits: 2, maximumFractionDigits: 2}),
 				tokenPriceEUR.toLocaleString(undefined, {style: 'currency', currency: 'EUR', currencyDisplay: 'symbol', minimumFractionDigits: 3, maximumFractionDigits: 3}),
 				tokenPriceETH.toLocaleString(undefined, {style: 'decimal', minimumFractionDigits: 8, maximumFractionDigits: 8})));
