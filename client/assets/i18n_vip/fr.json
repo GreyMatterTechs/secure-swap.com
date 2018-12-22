@@ -40,6 +40,7 @@
 	"head-area.graph.upperlevel2":		"Trade",
 	"head-area.graph.midlevel":			"Nodes passerelles",
 	"head-area.graph.lowerlevel":		"Blockchains",
+	"head-area.graph.exchanges":		"Echangeurs",
 	"head-area.placeholder.mail":		"Votre Email",
 	"head-area.button.submit":			"Rejoindre&nbsp;!",
 	"head-area.button.sending":			"Envoi en cours...",
