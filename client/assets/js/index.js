@@ -1302,9 +1302,9 @@
 
 				setTimeout(function() {
 					setPopupsPlacement();
-					setAboutAdvantageEffect();
+					// setAboutAdvantageEffect();
 					setTeamEffect();
-					initYieldSimulator();
+					// initYieldSimulator();
 				}, 100);
 
 
