@@ -1977,7 +1977,7 @@ header .navbar.navbar-shadow {
   background-image: linear-gradient(70deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
 
 .svg-wrapper1 {
-  background-image: linear-gradient(72deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
+  background-image: linear-gradient(67deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
 
 .svg-wrapper2 {
   background-image: linear-gradient(-76deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
@@ -1990,13 +1990,13 @@ header .navbar.navbar-shadow {
 
 @media (min-width: 768px) {
   .svg-wrapper1 {
-    background-image: linear-gradient(64deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
+    background-image: linear-gradient(61deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
   .svg-wrapper2 {
     background-image: linear-gradient(-71deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
   .svg-wrapper3 {
     background-image: linear-gradient(64deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); }
   .svg-wrapper4 {
-    background-image: linear-gradient(-69deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); } }
+    background-image: linear-gradient(-67deg, #140e38 0%, #140e38 25%, #14387b 35%, #14387b 65%, #140e38 75%, #140e38 100%); } }
 
 @media (min-width: 992px) {
   .svg-wrapper1 {
