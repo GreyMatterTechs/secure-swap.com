@@ -1085,33 +1085,35 @@
 											<span data-i18n="solution-area.problems">Problems</span>
 										</h4>
 									</div>
-									<!--img src="assets/images/problems.jpg" class="pull-right problems-img problems-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" alt="problems-graphic"-->
-									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.1s" >
-										<span data-i18n="solution-area.problems.p1" >The press regularly reports acts of piracy on centralized exchange platforms, to the tune of millions of dollars. The victims are above all the users themselves, since it is the exchanger that holds the private keys of the traders' wallets. Lack of confidence in the security of centralized platforms prompts users to remove their cryptocurrencies from these platforms:</span>
-										<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s">
-											<li data-i18n="solution-area.problems.p1.li1">which results in transaction costs and additional delays.</li>
-											<li data-i18n="solution-area.problems.p1.li2">which prevents the use of classic orders such as stop-loss, trigger range orders, OCO orders (order cancels order), thus becoming useless.</li>
-										</ul>
-									</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="solution-area.problems.p2" >Current platforms suffer from a lack of ergonomics compared to stock market trading tools. Some are puzzles to use, even for a trader at ease with the computer tool.</p>
-									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="solution-area.problems.p3" >Finally, existing trading platforms have load problems, even interrupting their services during periods of heavy activity, a critical time when users need them most (market panic).</p>
-									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.2s" data-i18n="solution-area.problems.p4" >Decentralized exchangers also have their own problems:</p>
+									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.1s" data-i18n="solution-area.problems.p">Both centralized and decentralized Exchanges suffer from significant disadvantages:</p>
 									<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s">
-										<li data-i18n="solution-area.problems.p4.li1">The execution of orders is slowed down by their distributed architecture model. Their order books and matching systems are executed by smart contracts (On-Chain), which adds network costs (gas on Ethereum) even if the orders are not executed. Worse, the cancellation and modification of orders also adds costs.</li>
-										<li data-i18n="solution-area.problems.p4.li2">Low counterparties (insufficient liquidity), which slows down order execution and creates a high risk of price slippage.</li>
-										<li data-i18n="solution-area.problems.p4.li3">Most have a choice of crypto-currencies limited to exchanges within the Ethereum network (Ether and Tokens).</li>
+										<li><span data-i18n="solution-area.problems.cex">Centralized Exchanges:</span>
+											<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.2s">
+												<li data-i18n="solution-area.problems.cex.li1">Transfer of ownership of digital assets to these Exchanges, which serve as trusted third parties.</li>
+												<li data-i18n="solution-area.problems.cex.li2">This centralization of assets is very attractive for hackers.</li>
+												<li data-i18n="solution-area.problems.cex.li3">Risk of sudden closure, making the assets deposited there inaccessible.</li>
+												<li data-i18n="solution-area.problems.cex.li4">Frequent unavailability of services during periods of market panic.</li>
+											</ul>
+										</li>
+										<li><span data-i18n="solution-area.problems.dex">Decentralized Exchanges:</span>
+											<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s">
+												<li data-i18n="solution-area.problems.dex.li1">Insufficient liquidity. This further slows down the execution of orders.</li>
+												<li data-i18n="solution-area.problems.dex.li2">Their order books and matching systems are executed by smart contracts (On-Chain). This slows down order execution and adds network costs.</li>
+												<li data-i18n="solution-area.problems.dex.li3">Choice of crypto-currencies limited to the Ethereum network (Ether and Tokens).</li>
+											</ul>
+										</li>
+										<li><span data-i18n="solution-area.problems.all">And overall:</span>
+											<ul class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s">
+												<li data-i18n="solution-area.problems.all.li1">Lack of ergonomics, some of which are puzzles to use, even for an experienced trader.</li>
+												<li data-i18n="solution-area.problems.all.li2">No margin-trading.</li>
+											</ul>
+										</li>
 									</ul>
 								</div>
-								<!--div class="col-md-12 text-center problems-img-row">
-									<img src="assets/images/problems.jpg" class="problems-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.3s" alt="problems-graphic">
-								</div-->
 							</div>
 						</div>
 						<div class="solutions social-margin mt-5">
 							<div class="row">
-								<!--div class="col-md-12 text-center solutions-img-row">
-									<img src="assets/images/solutions.gif" class="solutions-img animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" alt="solutions-graphic">
-								</div-->
 								<div class="col-md-12 move-first">
 									<div class="heading mb-4">
 										<h4 class="title animated" data-animation="fadeInUpShorter" data-animation-delay="0.0s" >
@@ -1122,7 +1124,6 @@
 											<span data-i18n="solution-area.solutions" >Solutions</span>
 										</h4>
 									</div>
-									<!--img src="assets/images/solutions.gif" class="pull-left solutions-img solutions-img-inline animated" data-animation="fadeInUpShorter" data-animation-delay="0.4s" alt="solutions-graphic"-->
 									<p class="animated" data-animation="fadeInUpShorter" data-animation-delay="0.1s" data-i18n="solution-area.solutions.p1, <%= appName %>" ><%= appName %> is a cryptocurrency exchange ecosystem, built around a decentralized service (P2P), a client application for trading, and optional micro services to take advantage of the new options offered by this new network.</p>
 									<p class="animated mb-0" data-animation="fadeInUpShorter" data-animation-delay="0.2s" >
 										<span data-i18n="solution-area.solutions.p2, <%= appName %>" ><%= appName %> provides both the advantages of centralized and decentralized exchanges:</span>
