@@ -1115,7 +1115,9 @@
 			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
 			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
 			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
-			$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
+			$('#qrcode').attr('src', 'assets/images/qr/en.png');
+			if (_locale === 'fr' || _locale.startsWith('fr_')) $('#qrcode').attr('src', 'assets/images/qr/fr.png');
+			if (_locale === 'es' || _locale.startsWith('es_')) $('#qrcode').attr('src', 'assets/images/es/fr.png');
 			var copied = $.i18n('purchasebox.ico.address.copied');
 			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 		};
@@ -1131,7 +1133,9 @@
 			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
 			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
 			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
-			$('#qrcode').attr('src', 'assets/images/qr/' + _locale + '.png');
+			$('#qrcode').attr('src', 'assets/images/qr/en.png');
+			if (_locale === 'fr' || _locale.startsWith('fr_')) $('#qrcode').attr('src', 'assets/images/qr/fr.png');
+			if (_locale === 'es' || _locale.startsWith('es_')) $('#qrcode').attr('src', 'assets/images/es/fr.png');
 			var copied = $.i18n('purchasebox.ico.address.copied');
 			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 			if ($('.page-animated').length > 0) {
