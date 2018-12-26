@@ -358,7 +358,7 @@
 	"token-dist-area.data3.text":		"Utility",
 	"token-dist-area.data4.label":		"Initial Value:",
 	"token-dist-area.data4.text":		"$1 or $2 or $3 ETH",
-	"token-dist-area.data5.label":		"Type:",
+	"token-dist-area.data5.label":		"Token:",
 	"token-dist-area.data5.text":		"ERC20",
 	"token-dist-area.data6.label":		"Quantity:",
 	"token-dist-area.data6.text":		"100 millions tokens",
