@@ -290,7 +290,7 @@
 						dateStart			= ico.dateStart;
 						tokensTotal			= ico.tokensTotal;
 						tokensSold			= ico.tokensSold;
-						wallet				= '0x0e9629be0710e0bf5bf22cd6f1ecae8b9656731a'; //  ico.wallet;
+						wallet				= ico.wallet;
 						icoState			= ico.state;
 						contractAddress		= ico.contractAddress ? ico.contractAddress : $.i18n('tokensale-area.balance.address');
 						switch (ico.state) {
