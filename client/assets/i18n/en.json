@@ -173,7 +173,7 @@
 	"tokensale-area.balance.warning3":	"Do NOT send your Ether here.",
 	"tokensale-area.balance.warning4":	"To buy the $1 tokens, use the address provided by clicking on the \"Purchase tokens\" button above.",
 	"tokensale-area.note1":				"Please note that we will not personally send you our address, nor by any social platform, so be careful and beware of any scam!",
-	"tokensale-area.note2":				"Note that our Wallet address will only be published automatically 1 minute before the start of the sale, so any other person or website providing a wallet address and claiming to represent $1 are scam attempts! If you discover such an attempt, please report it to us so that we can remedy it immediately,",
+	"tokensale-area.note2":				"Note that any other person or website providing a wallet address and claiming to represent $1 are scam attempts! If you discover such an attempt, please report it to us so that we can remedy it immediately,",
 
 	"-------------- SECTION REFERRAL --------------":"",
 	"referral-area.subhead":			"Referral Campaign",

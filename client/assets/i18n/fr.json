@@ -173,7 +173,7 @@
 	"tokensale-area.balance.warning3":	"N'envoyez PAS vos Ether ici.",
 	"tokensale-area.balance.warning4":	"Pour acheter les jetons $1, utilisez l'adresse indiquée en cliquant sur le bouton «&nbsp;Acheter des jetons&nbsp;» ci-dessus.",
 	"tokensale-area.note1":				"Notez que nous ne vous enverrons pas personnellement notre adresse, ni par aucun media social, alors soyez vigilants et méfiez-vous des escroqueries&nbsp;!",
-	"tokensale-area.note2":				"Notez que notre adresse portefeuille ne sera publiée automatiquement qu'1 minute avant le début de la vente, de sorte que toute autre personne ou site Internet fournissant une adresse wallet et prétendant représenter $1 sont des tentatives d'escroquerie&nbsp;! Si vous découvrez une tentative de ce genre, signalez-la nous afin que nous puissions y remédier immédiatement.",
+	"tokensale-area.note2":				"Notez que toute autre personne ou site Internet fournissant une adresse wallet et prétendant représenter $1 sont des tentatives d'escroquerie&nbsp;! Si vous découvrez une tentative de ce genre, signalez-la nous afin que nous puissions y remédier immédiatement.",
 
 	"-------------- SECTION REFERRAL --------------":"",
 	"referral-area.subhead":			"Parrainage",
