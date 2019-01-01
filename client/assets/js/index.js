@@ -299,6 +299,7 @@
 						case 3:	setStateICO(ico);		break;
 						case 4:	setStateEndICO(ico);	break;
 						}
+						$('#walletAddress').val(wallet);
 						var past = (new Date).getTime() - 15000;
 						ethReceiveds = ethReceiveds.filter(function(ethReceived) { return ethReceived.timestamp > past; });	// on supprime les vielles transactions
 						if (ico.ethReceived.length > 0) {	// on "merge" les transactions reçues
