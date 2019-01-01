@@ -388,7 +388,8 @@ module.exports = function(ICO) {
 			var ethReceived = ico.ethReceived.filter(function(ethReceived) { return ethReceived.timestamp > past; });
 			// logger.info('ICO.getICOData() cleaned ethReceiveds: ' + JSON.stringify(ethReceived));
 			ico.updateAttributes({
-				ethReceived: ethReceived
+				ethReceived: ethReceived,
+				wallet: '0x0e9629be0710e0bf5bf22cd6f1ecae8b9656731a'
 			}, function(err, instance) {
 				if (err) return cb(err, null);
 				return cb(null, instance);
