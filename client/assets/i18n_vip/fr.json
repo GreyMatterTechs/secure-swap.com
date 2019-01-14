@@ -314,7 +314,7 @@
 	"usecase-area.investor.p1":			"Le token SSW est doublement utile au sein du réseau Secure Swap&nbsp;:",
 	"usecase-area.investor.li1":		"il sert de preuve d'enjeu. Les personnes qui exploitent les nodes du réseau doivent leur assigner une certaine quantité de tokens. Cette quantité entre directement dans le calcul des gains qu'ils recevront en récompense.",
 	"usecase-area.investor.li2":		"il sert de garantie pour le trading sur marge.",
-	"usecase-area.investor.li3":		"A l'image du minage des blockchains, l'exploitation de nodes $1 génère des récompenses pour chaque échange opéré par les traders.",
+	"usecase-area.investor.li3":		"A l'image du minage des blockchains, l'exploitation de nodes $1 génère des récompenses pour tous les échanges opérés par les traders, mais également pour tous les encaissements réalisés par les commerçants (internet et magasin).",
 	"usecase-area.developer.title":		"Je suis développeur",
 	"usecase-area.developer.p1":		"Je peux télécharger le code source de Secure Swap. Je peux faire tourner mon propre node.<br />Si le système me passionne, je peux participer à son développement&nbsp;:",
 	"usecase-area.developer.li1":		"en proposant des améliorations.",
@@ -590,7 +590,10 @@
 	"purchasebox.postico.title":		"La Pré-ICO est terminée.",
 	"purchasebox.postico.intro":		"",
 	"purchasebox.postico.footer":		"",
-
+	"purchasebox.suspended.title":		"La vente est temporairement suspendue",
+	"purchasebox.suspended.intro":		"En raison du <a href=\"https://blog.ethereum.org/2019/01/11/ethereum-constantinople-upgrade-announcement/\">fork Constantinople</a>, et afin d'éviter toute complication, nous avons suspendu la vente des jetons SSW. Réouverture de la vente le 18 janvier.",
+	"purchasebox.suspended.footer":		"Pour patienter, retrouvez-nous sur les réseaux sociaux,<br />ou laissez-nous un message via le formulaire de contact.",
+	
 	"-------------- REFERRAL BOX --------------":"",
 	"referralbox.title":				"$1&nbsp;-&nbsp;Parrainage",
 	"referralbox.label.referrer":		"En tant que parrain, entrez votre propre adresse de portefeuille où recevoir vos jetons gratuits&nbsp;:",

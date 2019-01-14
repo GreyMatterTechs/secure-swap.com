@@ -315,7 +315,7 @@
 	"usecase-area.investor.p1":			"El SSW Token es doblemente útil dentro de la red Secure Swap&nbsp;:",
 	"usecase-area.investor.li1":		"Sirve como prueba de participación. Las personas que operan los nodos de la red deben asignarles una cierta cantidad de tokens. Esta cantidad se utiliza directamente para calcular las ganancias que recibirán como recompensa.",
 	"usecase-area.investor.li2":		"Sirve como garantía para el Trading de margen.",
-	"usecase-area.investor.li3":		"Al igual que la minería de cadena de bloques, la explotación de nodos de $1 genera recompensas por cada intercambio realizado por los traders.",
+	"usecase-area.investor.li3":		"Al igual que la minería de blockchain, la explotación de nodos de $1 genera recompensas para todas las intercambios realizadas por los traders, pero también para todos los pagos recibidos por los comerciantes (Internet y tienda).",
 	"usecase-area.developer.title":		"Soy un desarrollador",
 	"usecase-area.developer.p1":		"Puedo descargar el código fuente de Secure Swap. Puedo hacer funcionar mi propio nodo.<br />Si me apasiona el sistema, puedo participar en su desarrollo&nbsp;:",
 	"usecase-area.developer.li1":		"proponiendo mejoras.",
@@ -591,7 +591,10 @@
 	"purchasebox.postico.title":		"La Pre-ICO ha terminado.",
 	"purchasebox.postico.intro":		"",
 	"purchasebox.postico.footer":		"",
-
+	"purchasebox.suspended.title":		"La venta se suspende temporalmente",
+	"purchasebox.suspended.intro":		"Debido al <a href=\"https://blog.ethereum.org/2019/01/11/ethereum-constantinople-upgrade-announcement/\">fork de Constantinople</a>, y para evitar complicaciones, hemos suspendido la venta de tokens SSW. Reapertura de la venta el 18 de enero.",
+	"purchasebox.suspended.footer":		"Mientras tanto, encuéntranos en nuestras redes sociales,<br />o déjanos un mensaje utilizando el formulario de contacto.",
+	
 	"-------------- REFERRAL BOX --------------":"",
 	"referralbox.title":				"$1&nbsp;-&nbsp;Programa de Recomendación",
 	"referralbox.label.referrer":		"Como recomendador, ingresa tu dirección de wallet para recibir tus tokens gratuitos&nbsp;:",

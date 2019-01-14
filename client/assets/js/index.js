@@ -41,50 +41,50 @@
 
 	// membres private static
 
-	var instance = null;
+	let instance = null;
 
 	// Constructeur private static
-	var Landpage = function() {
+	const Landpage = function() {
 
 		// --- private members
 
-		var i18n = null;
-		var locale;
-		var clock = null;
-		var updateICOIntervalDefault;
-		var updateICOInterval = updateICOIntervalDefault;
-		var updateICOIntervalId = null;
-		var ethIntervalDefault = 60000;
-		var ethInterval = ethIntervalDefault;
-		var ethIntervalId = null;
-		var momentLocale = window.navigator.language;
-		var mailchimpLanguage = '';
-		var roles = null;
-		var ajaxDelay;
-		var cmcURI;
-		var grecKeyPub;
-		var ethReceiveds = [];
+		let i18n = null;
+		let locale;
+		let clock = null;
+		let updateICOIntervalDefault;
+		let updateICOInterval = updateICOIntervalDefault;
+		let updateICOIntervalId = null;
+		const ethIntervalDefault = 60000;
+		let ethInterval = ethIntervalDefault;
+		let ethIntervalId = null;
+		const momentLocale = window.navigator.language;
+		let mailchimpLanguage = '';
+		let roles = null;
+		let ajaxDelay;
+		let cmcURI;
+		let grecKeyPub;
+		let ethReceiveds = [];
 
-		var icoState = 0;
-		var tokenPriceUSD = 0.45;
-		var coinMarketCapEUR = 409;
-		var	coinMarketCapUSD = 477;
-		var tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
-		var tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
-		var purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
-		var prevDateEnd, prevDateStart;
-		var purchaseboxLegal = false;
-		var iconame;
-		var shorters;
-
+		let icoState = 0;
+		let tokenPriceUSD = 0.45;
+		let coinMarketCapEUR = 409;
+		let	coinMarketCapUSD = 477;
+		let tokenPriceEUR = tokenPriceUSD * (coinMarketCapEUR / coinMarketCapUSD);
+		let tokenPriceETH = tokenPriceUSD / coinMarketCapUSD;
+		let purchaseSoldPercent, dateEnd, dateStart, tokensTotal, wallet, tokensSold, contractAddress;
+		let prevDateEnd, prevDateStart;
+		let purchaseboxLegal = false;
+		let iconame;
+		let shorters;
+		let constantinople = false;
 
 		// --- private methods
 
 		function notifyEthReceiveds() {
-			var i = ethReceiveds.length;
+			let i = ethReceiveds.length;
 			while (i--) {
 				if (!ethReceiveds[i].displayed) {
-					var discount = ethReceiveds[i].discount < 1.0 ? $.i18n('notify.purchase.discount', (100 - (ethReceiveds[i].discount * 100)) + '%') : '';
+					const discount = ethReceiveds[i].discount < 1.0 ? $.i18n('notify.purchase.discount', (100 - (ethReceiveds[i].discount * 100)) + '%') : '';
 					$.notify({
 						icon:		'assets/images/unknown_users/' + (Math.floor(Math.random() * 23) + 1) + '.png',
 						title:		$.i18n('notify.purchase.title'),
@@ -112,15 +112,15 @@
 		}
 
 		function notifyJoin() {
-			var nbBlink = 6;
-			var blinkIntervalId = setInterval(function() {
+			const nbBlink = 6;
+			let blinkIntervalId = setInterval(function() {
 				$('.blink').css('visibility', nbBlink % 2 === 0 ? 'hidden' : 'visible');
 				if (nbBlink-- < 0) {
 					clearInterval(blinkIntervalId);
 				}
 			}, 500);
 
-			var notify = $.notify({
+			let notify = $.notify({
 				icon:		'assets/images/join.png',
 				title:		$.i18n('notify.join.title', 'Secure Swap'),
 				message:	$.i18n('notify.join.message')
@@ -155,23 +155,33 @@
 		function updatePurchaseBoxContent() {
 			var $box = $('#purchase-modal');
 			if ($box.length === 1) {
-				switch (icoState) {
-				case 1:
-				case 2:
-					$('#purchase-modal-state-preico').removeClass('d-none');
+				if (constantinople) {
+					$('#purchase-modal-state-preico').addClass('d-none');
 					$('#purchase-modal-state-ico').addClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
-					$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
+					$('#purchase-modal-state-suspended').removeClass('d-none');
 					$('#walletAddress').val('');
 					$('#qrcode').attr('src', '');
-					break;
-				case 3:
-					$('#purchase-modal-state-preico').addClass('d-none');
-					$('#purchase-modal-state-ico').removeClass('d-none');
-					$('#purchase-modal-state-postico').addClass('d-none');
-					$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
-					$('#walletAddress').val(wallet);
-					break;
+				} else {
+					$('#purchase-modal-state-suspended').addClass('d-none');
+					switch (icoState) {
+						case 1:
+						case 2:
+							$('#purchase-modal-state-preico').removeClass('d-none');
+							$('#purchase-modal-state-ico').addClass('d-none');
+							$('#purchase-modal-state-postico').addClass('d-none');
+							$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
+							$('#walletAddress').val('');
+							$('#qrcode').attr('src', '');
+							break;
+						case 3:
+							$('#purchase-modal-state-preico').addClass('d-none');
+							$('#purchase-modal-state-ico').removeClass('d-none');
+							$('#purchase-modal-state-postico').addClass('d-none');
+							$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
+							$('#walletAddress').val(wallet);
+							break;
+					}
 				}
 			}
 		}
@@ -1245,7 +1255,7 @@
 
 		return {
 
-			init: function(_roles, _ajaxDelay, _cmcURI, _grecKeyPub) {
+			init: function(_roles, _ajaxDelay, _cmcURI, _grecKeyPub, _constantinople) {
 				// console.log('indexjs-start: ' + gettime());
 
 				if (_roles) {
@@ -1255,6 +1265,7 @@
 				cmcURI = _cmcURI || 'https://api.coinmarketcap.com/v2';
 				grecKeyPub = _grecKeyPub;
 				updateICOIntervalDefault = ajaxDelay;
+				constantinople = _constantinople;
 
 				i18n = window.ssw.I18n.getInstance();
 

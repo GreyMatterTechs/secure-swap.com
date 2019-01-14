@@ -314,7 +314,7 @@
 	"usecase-area.investor.p1":			"The SSW token is doubly useful within the Secure Swap network:",
 	"usecase-area.investor.li1":		"it serves as proof of stake. The people who operate the nodes of the network must assign a certain amount of tokens to them. This quantity is directly included in the calculation of the earnings they will receive as a reward.",
 	"usecase-area.investor.li2":		"it serves as a garantee for margin trading.",
-	"usecase-area.investor.li3":		"Like blockchain mining, the exploitation of $1 nodes generates rewards for each exchange made by traders.",
+	"usecase-area.investor.li3":		"Like blockchain mining, the exploitation of $1 nodes generates rewards for all exchanges made by traders, but also for all receipts made by merchants (clicks and mortars).",
 	"usecase-area.developer.title":		"I'm a developer",
 	"usecase-area.developer.p1":		"I can download the Secure Swap source code. I can run my own node. <br />If I am passionate about the system, I can participate in its development:",
 	"usecase-area.developer.li1":		"by suggesting improvements.",
@@ -590,6 +590,9 @@
 	"purchasebox.postico.title":		"Pre-ICO is now ended.",
 	"purchasebox.postico.intro":		"",
 	"purchasebox.postico.footer":		"",
+	"purchasebox.suspended.title":		"The sale is temporarily suspended",
+	"purchasebox.suspended.intro":		"Due to the <a href=\"https://blog.ethereum.org/2019/01/11/ethereum-constantinople-upgrade-announcement/\">Constantinople fork</a>, and in order to avoid any complications, we have suspended the sale of SSW tokens. Reopening of the sale on January 18.",
+	"purchasebox.suspended.footer":		"To be patient, find us on social networks,<br /> or leave us a message via the contact form.",
 
 	"-------------- REFERRAL BOX --------------":"",
 	"referralbox.title":				"$1 - Referral Campaign",

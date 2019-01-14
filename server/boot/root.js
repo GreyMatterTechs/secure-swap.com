@@ -259,11 +259,12 @@ module.exports = function(server) {
 	server.locals.dntTrack		= config.dntTrack;
 	server.locals.GA_KEY		= config.GA_KEY;
 	server.locals.grecKeyPub	= config.grecKeyPub;
+	server.locals.constantinople = config.constantinople;
 
 	mAdmin						= server.models.Admin;
 	mContact					= server.models.Contact;
 	mAccessToken				= server.models.AccessToken;
-	var router					= server.loopback.Router();
+	const router				= server.loopback.Router();
 
 	// ------------------------------------------------
 	// Add Expires header to /images and /stylesheets directories

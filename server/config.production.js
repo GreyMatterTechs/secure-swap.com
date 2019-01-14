@@ -48,5 +48,6 @@ module.exports = {
 	mcApiKey: process.env.MC_API_KEY,
 	mcAccountId: process.env.MC_ACCOUNT_ID,
 	mcListId: process.env.MC_LIST_ID,
-	mcUnsubscribUrl: process.env.MC_UNSUBSCRIB_URL
+	mcUnsubscribUrl: process.env.MC_UNSUBSCRIB_URL,
+	constantinople: process.env.CONSTANTINOPLE
 };

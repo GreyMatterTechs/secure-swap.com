@@ -2863,6 +2863,11 @@
 									<p class="" data-i18n="purchasebox.postico.intro" >Pre-ICO opening on: $1. Get Ready For the Pre-ICO opening.</p>
 									<p class="" data-i18n="purchasebox.postico.footer" >To be patient, find us on social networks,<br /> or leave us a message via the contact form.</p>
 								</div>
+								<div id="purchase-modal-state-suspended" class="d-none text-center" >
+									<h4 class="title" data-i18n="purchasebox.suspended.title" >Sales are temporarily suspended</h4>
+									<p class="" data-i18n="purchasebox.suspended.intro" >Due to the Constantinople fork, and in order to avoid any complications, we have suspended the sale of SSW tokens. Reopening of the sale on January 18.</p>
+									<p class="" data-i18n="purchasebox.suspended.footer" >To be patient, find us on social networks,<br /> or leave us a message via the contact form.</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -3065,7 +3070,7 @@
 	<script src="assets/js/i18n.min.js"></script>
 	<script src="assets/js/index.js"></script>
 	<script type="text/javascript">
-		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Landpage.getInstance().init('<%- JSON.stringify(roles) %>', '<%- ajaxDelay %>', '<%- cmcURI %>', '<%- grecKeyPub %>'), false );
+		window.ssw.Tools.getInstance().addEventHandler( document, "DOMContentLoaded", window.ssw.Landpage.getInstance().init('<%- JSON.stringify(roles) %>', '<%- ajaxDelay %>', '<%- cmcURI %>', '<%- grecKeyPub %>', '<%- constantinople %>'), false );
 	</script>
 	<!-- END Custom JS-->
 </body>
