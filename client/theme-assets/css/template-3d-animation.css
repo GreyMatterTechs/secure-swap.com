@@ -1772,7 +1772,7 @@ header .navbar.navbar-shadow {
 
 .team .profile img {
   height: 40px;
-  left: -10px;
+  /* left: -10px; */
   position: relative; }
 
 .team .profile .social-profile a {
