@@ -110,104 +110,6 @@ function gettime() {
 }
 
 
-
-// Absolute navbar below 992(md) screen
-
-function navbarAbsolute() {
-	$('.main-menu').addClass('fixed-top');
-	// if (window.matchMedia('(min-width: 992px)').matches) {
-	// $('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
-	// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
-	// } else {
-	// $('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
-	// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
-	// }
-}
-
-function fixedTopNavbar() {
-	var scroll = $(window).scrollTop();
-	if (scroll >= 50) {
-	//	if ($(window).width() > 992) {
-		$('.navbar').addClass('navbar-fixed navbar-shadow');
-		$('.navbar #slide-line').removeClass('d-none');
-		inverseNavbar(true); // For inverse navbar
-	//	}
-	} else {
-		$('.navbar').removeClass('navbar-fixed navbar-shadow');
-		$('.navbar #slide-line').addClass('d-none');
-		inverseNavbar(false);
-	}
-}
-
-function inverseNavbar(isFixed) {
-	if ($('body').hasClass('template-intro-video')) {
-		if (isFixed) {
-			$('.navbar-brand-logo-dark').removeClass('d-none');
-			$('.navbar-brand-logo').addClass('d-none');
-			$('.btn-sign-in').removeClass('btn-light').addClass('btn-gradient-blue');
-		} else {
-			$('.navbar-brand-logo-dark').addClass('d-none');
-			$('.navbar-brand-logo').removeClass('d-none');
-			$('.btn-sign-in').addClass('btn-light').removeClass('btn-gradient-blue');
-		}
-	}
-}
-
-// Set the slideline width for active menu
-
-function navbarSlideLine() {
-	var $nav = $('#navigation');
-	var $slideLine = $nav.find('#slide-line');
-	var $currentItem = $nav.find('.active');
-	// Menu has active item
-	if ($currentItem[0]) {
-		$slideLine.css({
-			'width': $currentItem.width() + 16,
-			'left': ($currentItem.parent().position().left + ($currentItem.parent().width() - $currentItem.width()) / 2 - 8)
-		});
-	}
-}
-
-
-// Init waypoints
-function InitWaypointAnimations() {
-
-	function setWayPoints(elements, params) {
-		elements.each(function() {
-			var element = $(this);
-			var anim = element.attr('data-animation');
-			var delay = element.attr('data-animation-delay') || params.delay;
-			var offset = element.attr('data-animation-offset') || params.offset;
-			element.css({'-webkit-animation-delay': delay, '-moz-animation-delay': delay, 'animation-delay': delay, opacity: 0});
-			var l = element;
-			l.waypoint(function() {
-				element.addClass('animated').addClass(anim).css({opacity: 1});
-			}, {
-				triggerOnce:	!0,
-				offset:			offset
-			});
-		});
-	}
-
-	if (isMobile().any) {
-		return;
-	}
-	if ($('.page-animated').length === 0) {
-		return;
-	}
-
-	var defaults = defaults || {};
-	var params = {
-		offset:				defaults.offset || '95%',
-		delay:				defaults.delay || '0s'
-	};
-	$('.animated').each(function(index, element) {
-		setWayPoints($(element), params);
-	});
-	// slowIterate($('.animated'), params);
-
-}
-
 // Preloader
 $(window).on('load', function() {
 	// console.log('theme-onload-start: ' + gettime());
@@ -335,8 +237,8 @@ $(window).on('load', function() {
 						 '8-2018': 5,
 						 '9-2018': 6, '10-2018': 6,
 						 '11-2018': 7, '12-2018': 7,
-						 '0-2019': 8, '1-2019': 8,
-						 '2-2019': 9, '3-2019': 9, '4-2019': 9};
+						 '1-2019': 8, '2-2019': 8,
+						 '3-2019': 9, '4-2019': 9, '5-2019': 9};
 	var now = moment().month() + '-' + moment().year();
 	var idx = roadmapmonths[now];
 	swiperICO.slideTo(idx, 1000, false);
@@ -363,4 +265,96 @@ $(window).on('load', function() {
 
 })(window, document, jQuery);
 
+
+// Absolute navbar below 992(md) screen
+
+function navbarAbsolute() {
+	$('.main-menu').addClass('fixed-top');
+	// if (window.matchMedia('(min-width: 992px)').matches) {
+	// $('.main-menu').removeClass('fixed-top').addClass('navbar-absolute');
+	// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').removeClass('animated');
+	// } else {
+	// $('.main-menu').addClass('fixed-top').removeClass('navbar-absolute');
+	// $('.main-menu .nav-item, .main-menu .dropdown, .main-menu .btn-sign-in').addClass('animated');
+	// }
+}
+
+function fixedTopNavbar() {
+	var scroll = $(window).scrollTop();
+	if (scroll >= 50) {
+	//	if ($(window).width() > 992) {
+		$('.navbar').addClass('navbar-fixed navbar-shadow');
+		$('.navbar #slide-line').removeClass('d-none');
+	//	}
+	} else {
+		$('.navbar').removeClass('navbar-fixed navbar-shadow');
+		$('.navbar #slide-line').addClass('d-none');
+	}
+}
+
+// Set the slideline width for active menu
+
+function navbarSlideLine() {
+	var $nav = $('#navigation');
+	var $slideLine = $nav.find('#slide-line');
+	var $currentItem = $nav.find('.active');
+	// Menu has active item
+	if ($currentItem[0]) {
+		$slideLine.css({
+			'width': $currentItem.width() + 16,
+			'left': ($currentItem.parent().position().left + ($currentItem.parent().width() - $currentItem.width()) / 2 - 8)
+		});
+	}
+}
+
+
+// Init waypoints
+var InitWaypointAnimations = function() {
+
+	function setWayPoints(elements, params) {
+		elements.each(function() {
+			var element = $(this);
+			var anim = element.attr('data-animation');
+			var delay = element.attr('data-animation-delay') || params.delay;
+			var offset = element.attr('data-animation-offset') || params.offset;
+			element.css({'-webkit-animation-delay': delay, '-moz-animation-delay': delay, 'animation-delay': delay, opacity: 0});
+			var l = element;
+			l.waypoint(function() {
+				element.addClass('animated').addClass(anim).css({opacity: 1});
+			}, {
+				triggerOnce:	!0,
+				offset:			offset
+			});
+		});
+	}
+
+	/* function slowIterate(arr, params) {
+		if (arr.length === 0) return;
+		setWayPoints($(arr[0]), params);
+		setTimeout(function() {
+		  slowIterate(arr.slice(1), params);
+		}, 1);
+	} */
+
+	return function(defaults) {
+
+		if (isMobile().any) {
+			return;
+		}
+		if ($('.page-animated').length === 0) {
+			return;
+		}
+
+		defaults = defaults || {};
+		var params = {
+			offset:				defaults.offset || '95%',
+			delay:				defaults.delay || '0s'
+		};
+		$('.animated').each(function(index, element) {
+			setWayPoints($(element), params);
+		});
+		// slowIterate($('.animated'), params);
+	};
+
+}();
 

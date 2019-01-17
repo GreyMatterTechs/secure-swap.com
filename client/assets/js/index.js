@@ -112,7 +112,7 @@
 		}
 
 		function notifyJoin() {
-			const nbBlink = 6;
+			let nbBlink = 6;
 			let blinkIntervalId = setInterval(function() {
 				$('.blink').css('visibility', nbBlink % 2 === 0 ? 'hidden' : 'visible');
 				if (nbBlink-- < 0) {
@@ -126,7 +126,7 @@
 				message:	$.i18n('notify.join.message')
 			}, {
 				type:		'minimalist',
-				placement:	{from: 'top', align: 'right'},
+				placement:	{ from: 'bottom', align: 'left'},
 				delay:		5000,
 				animate:	{enter: 'animated fadeInRightBig', exit: 'animated fadeOutRightBig'},
 				mouse_over:	'pause',
@@ -793,18 +793,20 @@
 
 
 		function initScroll2Top() {
-			$(window).scroll(function() {
-				if ($(this).scrollTop() > 200) {
+			function checkScroll() {
+				if ($(window).scrollTop() > 200) {
 					$('#scrollUp').css('right', '44px');
 				} else {
 					$('#scrollUp').removeAttr('style');
 				}
-			});
+			}
+			$(window).scroll(checkScroll);
 			$('#scrollUp').click(function(event) {
 				event.preventDefault();
 				$('html, body').animate({scrollTop: 0}, 300);
 				return false;
 			});
+			checkScroll();
 		}
 
 
@@ -1372,14 +1374,6 @@
 				setTimeout(function() {
 					initScroll2Top();
 					notifyJoin();
-
-					/*
-					var offset = $('.subscButton').offset();
-					jQuery('<div/>', {
-						class: 'subscPopup slide-in-fwd-left'
-					}).offset(offset).appendTo('body');
-					*/
-
 				}, 5000);
 
 				// console.log('indexjs-end: ' + gettime());
