@@ -9,7 +9,7 @@
  **/
 'use strict';
 
-var apple_phone = /iPhone/i,
+const apple_phone = /iPhone/i,
 	apple_ipod = /iPod/i,
 	apple_tablet = /iPad/i,
 	android_phone = /\bAndroid(?:.+)Mobile\b/i, // Match 'Android' AND 'Mobile'
@@ -30,10 +30,10 @@ function match(regex, userAgent) {
 
 
 function isMobile(userAgent) {
-	var ua = userAgent || (typeof navigator !== 'undefined' ? navigator.userAgent : '');
+	let ua = userAgent || (typeof navigator !== 'undefined' ? navigator.userAgent : '');
 
 	// Facebook mobile app's integrated browser adds a bunch of strings that match everything. Strip it out if it exists.
-	var tmp = ua.split('[FBAN');
+	let tmp = ua.split('[FBAN');
 	if (typeof tmp[1] !== 'undefined') {
 		ua = tmp[0];
 	}
@@ -45,7 +45,7 @@ function isMobile(userAgent) {
 		ua = tmp[0];
 	}
 
-	var result = {
+	const result = {
 		apple: {	phone:		match(apple_phone, ua) && !match(windows_phone, ua),
 					ipod:		match(apple_ipod, ua),
 					tablet:		!match(apple_phone, ua) &&
@@ -102,10 +102,10 @@ function isMobile(userAgent) {
 }
 
 function gettime() {
-	var tm = new Date().getTime();
-	var seconds = (tm / 1000) % 60;
+	const tm = new Date().getTime();
+	let seconds = (tm / 1000) % 60;
 	seconds = seconds.toString().match(/^-?\d+(?:\.\d{0,-1})?/)[0];
-	var miliseconds = ('00' + tm).slice(-3);
+	const miliseconds = ('00' + tm).slice(-3);
 	return seconds + ':' + miliseconds;
 }
 
@@ -131,8 +131,8 @@ $(window).on('load', function() {
 
 
 (function(window, document, $) {
-	var $html = $('html');
-	var $body = $('body');
+	const $html = $('html');
+	const $body = $('body');
 
 	// Using scrollSpy for the navigation
 	$body.scrollspy({target: '#navigation'});
@@ -163,7 +163,7 @@ $(window).on('load', function() {
 	// On menu click, Smooth Scrolling
 	$('.main-menu a[href*="#"]').not('[href="#"]').not('[href="#0"]').click(function(event) {
 		if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-			var target = $(this.hash);
+			let target = $(this.hash);
 			target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
 			if (target.length) {
 				event.preventDefault();
@@ -171,7 +171,7 @@ $(window).on('load', function() {
 				$('html, body').animate({
 					scrollTop: target.offset().top
 				}, 500, function() {
-					var $target = $(target);
+					const $target = $(target);
 					$target.focus();
 					if ($target.is(':focus')) { return false; } else {
 						$target.attr('tabindex', '-1');
@@ -201,7 +201,7 @@ $(window).on('load', function() {
 	// });
 
 	// Initialize Swiper
-	var swiperICO = new Swiper('.swiper-containerICO', {
+	const swiperICO = new Swiper('.swiper-containerICO', {
 		slidesPerView: 4,
 		grabCursor: true,
 		navigation: {
@@ -214,7 +214,7 @@ $(window).on('load', function() {
 			992: {slidesPerView: 3}
 		}
 	});
-	var swiperSSW = new Swiper('.swiper-containerSSW', {
+	const swiperSSW = new Swiper('.swiper-containerSSW', {
 		slidesPerView: 4,
 		grabCursor: true,
 		navigation: {
@@ -229,7 +229,7 @@ $(window).on('load', function() {
 	});
 
 	// if ($(window).width() < 992) {
-	var roadmapmonths = {'11-2017': 0, '12-2017': 0, '1-2018': 0,
+	const roadmapmonths = {'11-2017': 0, '12-2017': 0, '1-2018': 0,
 						 '2-2018': 1,
 						 '3-2018': 2,
 						 '4-2018': 3, '5-2018': 3, '6-2018': 3,
@@ -239,8 +239,12 @@ $(window).on('load', function() {
 						 '11-2018': 7, '12-2018': 7,
 						 '1-2019': 8, '2-2019': 8,
 						 '3-2019': 9, '4-2019': 9, '5-2019': 9};
-	var now = moment().month() + '-' + moment().year();
-	var idx = roadmapmonths[now];
+	let now = moment().month() + '-' + moment().year();
+	let idx = roadmapmonths[now];
+	if (idx === undefined) {
+		now = (moment().month() + 1) + '-' + moment().year();
+		idx = roadmapmonths[now];
+	}
 	swiperICO.slideTo(idx, 1000, false);
 	// }
 	$(window).resize(function() {
@@ -249,11 +253,11 @@ $(window).on('load', function() {
 	// }
 	});
 
-	var slidescont = $('.swiper-containerICO');
-	var slidewrapp = slidescont.find('.swiper-wrapper');
-	var slides = slidewrapp.find('.swiper-slide');
+	const slidescont = $('.swiper-containerICO');
+	const slidewrapp = slidescont.find('.swiper-wrapper');
+	const slides = slidewrapp.find('.swiper-slide');
 	slides.removeClass('active');
-	var slide = slidewrapp.find('.swiper-slide:nth-child(' + (idx + 1) + ')');
+	const slide = slidewrapp.find('.swiper-slide:nth-child(' + (idx + 1) + ')');
 	slide.addClass('active');
 	slides.each(function(index, element) {
 		if (index < idx) {
@@ -280,7 +284,7 @@ function navbarAbsolute() {
 }
 
 function fixedTopNavbar() {
-	var scroll = $(window).scrollTop();
+	const scroll = $(window).scrollTop();
 	if (scroll >= 50) {
 	//	if ($(window).width() > 992) {
 		$('.navbar').addClass('navbar-fixed navbar-shadow');
@@ -295,9 +299,9 @@ function fixedTopNavbar() {
 // Set the slideline width for active menu
 
 function navbarSlideLine() {
-	var $nav = $('#navigation');
-	var $slideLine = $nav.find('#slide-line');
-	var $currentItem = $nav.find('.active');
+	const $nav = $('#navigation');
+	const $slideLine = $nav.find('#slide-line');
+	const $currentItem = $nav.find('.active');
 	// Menu has active item
 	if ($currentItem[0]) {
 		$slideLine.css({
@@ -309,16 +313,16 @@ function navbarSlideLine() {
 
 
 // Init waypoints
-var InitWaypointAnimations = function() {
+const InitWaypointAnimations = function() {
 
 	function setWayPoints(elements, params) {
 		elements.each(function() {
-			var element = $(this);
-			var anim = element.attr('data-animation');
-			var delay = element.attr('data-animation-delay') || params.delay;
-			var offset = element.attr('data-animation-offset') || params.offset;
+			const element = $(this);
+			const anim = element.attr('data-animation');
+			const delay = element.attr('data-animation-delay') || params.delay;
+			const offset = element.attr('data-animation-offset') || params.offset;
 			element.css({'-webkit-animation-delay': delay, '-moz-animation-delay': delay, 'animation-delay': delay, opacity: 0});
-			var l = element;
+			const l = element;
 			l.waypoint(function() {
 				element.addClass('animated').addClass(anim).css({opacity: 1});
 			}, {
@@ -346,7 +350,7 @@ var InitWaypointAnimations = function() {
 		}
 
 		defaults = defaults || {};
-		var params = {
+		const params = {
 			offset:				defaults.offset || '95%',
 			delay:				defaults.delay || '0s'
 		};

@@ -113,14 +113,14 @@
 
 		function notifyJoin() {
 			let nbBlink = 6;
-			let blinkIntervalId = setInterval(function() {
+			const blinkIntervalId = setInterval(function() {
 				$('.blink').css('visibility', nbBlink % 2 === 0 ? 'hidden' : 'visible');
 				if (nbBlink-- < 0) {
 					clearInterval(blinkIntervalId);
 				}
 			}, 500);
 
-			let notify = $.notify({
+			const notify = $.notify({
 				icon:		'assets/images/join.png',
 				title:		$.i18n('notify.join.title', 'Secure Swap'),
 				message:	$.i18n('notify.join.message')
@@ -153,9 +153,9 @@
 		}
 
 		function updatePurchaseBoxContent() {
-			var $box = $('#purchase-modal');
+			const $box = $('#purchase-modal');
 			if ($box.length === 1) {
-				if (constantinople) {
+				if (constantinople === true || constantinople === 'true') {
 					$('#purchase-modal-state-preico').addClass('d-none');
 					$('#purchase-modal-state-ico').addClass('d-none');
 					$('#purchase-modal-state-postico').addClass('d-none');
@@ -165,29 +165,29 @@
 				} else {
 					$('#purchase-modal-state-suspended').addClass('d-none');
 					switch (icoState) {
-						case 1:
-						case 2:
-							$('#purchase-modal-state-preico').removeClass('d-none');
-							$('#purchase-modal-state-ico').addClass('d-none');
-							$('#purchase-modal-state-postico').addClass('d-none');
-							$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
-							$('#walletAddress').val('');
-							$('#qrcode').attr('src', '');
-							break;
-						case 3:
-							$('#purchase-modal-state-preico').addClass('d-none');
-							$('#purchase-modal-state-ico').removeClass('d-none');
-							$('#purchase-modal-state-postico').addClass('d-none');
-							$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
-							$('#walletAddress').val(wallet);
-							break;
+					case 1:
+					case 2:
+						$('#purchase-modal-state-preico').removeClass('d-none');
+						$('#purchase-modal-state-ico').addClass('d-none');
+						$('#purchase-modal-state-postico').addClass('d-none');
+						$('p[data-i18n="purchasebox.preico.intro"]').html($.i18n('purchasebox.preico.intro', moment(dateStart).format('LL')));
+						$('#walletAddress').val('');
+						$('#qrcode').attr('src', '');
+						break;
+					case 3:
+						$('#purchase-modal-state-preico').addClass('d-none');
+						$('#purchase-modal-state-ico').removeClass('d-none');
+						$('#purchase-modal-state-postico').addClass('d-none');
+						$('#qrcode').attr('src', 'assets/images/qr/' + locale + '.png');
+						$('#walletAddress').val(wallet);
+						break;
 					}
 				}
 			}
 		}
 
 		function closePurchaseBox() {
-			var $box = $('#purchase-modal');
+			const $box = $('#purchase-modal');
 			if ($box.length === 1) {
 			//	$box.find('.modal-body').html('');
 				$box.modal('hide');
@@ -239,9 +239,9 @@
 
 		function setTimerClock(icoDate) {
 			// set timer to remaining time before ICO starts
-			var date = new Date(icoDate);
-			var now = new Date();
-			var dif = Math.max(0, date.getTime() / 1000 - now.getTime() / 1000);
+			const date = new Date(icoDate);
+			const now = new Date();
+			const dif = Math.max(0, date.getTime() / 1000 - now.getTime() / 1000);
 			if (clock) {
 				clock.stop();
 				clock.setTime(Math.ceil(dif));
@@ -278,8 +278,8 @@
 			closePurchaseBox();
 			$('#btn-purchase-sale').hide();
 			$('.loading-bar').hide();
-			var usd = numeral(tokensSold * tokenPriceUSD).format('($ 0.00a)');
-			var tok = numeral(tokensSold).format('0a');
+			const usd = numeral(tokensSold * tokenPriceUSD).format('($ 0.00a)');
+			const tok = numeral(tokensSold).format('0a');
 			$('#tokensale-icoended-usd').text($.i18n('tokensale-area.info.icoended.li1', usd));
 			$('#tokensale-icoended-token').text($.i18n('tokensale-area.info.icoended.li2', tok));
 		}
@@ -309,11 +309,11 @@
 						case 3:	setStateICO(ico);		break;
 						case 4:	setStateEndICO(ico);	break;
 						}
-						var past = (new Date).getTime() - 15000;
+						const past = (new Date).getTime() - 15000;
 						ethReceiveds = ethReceiveds.filter(function(ethReceived) { return ethReceived.timestamp > past; });	// on supprime les vielles transactions
 						if (ico.ethReceived.length > 0) {	// on "merge" les transactions reçues
 							ico.ethReceived.forEach(function(thisObj) {
-								var exists = false;
+								let exists = false;
 								ethReceiveds.forEach(function(globalObj) {
 									if (globalObj.timestamp === thisObj.timestamp) exists = true;
 								});
@@ -337,11 +337,11 @@
 		 * Get crypto CoinMarketCap id
 		 */
 		function getCoinMarketCapId(cryptoName, cb) {
-			var url = cmcURI + '/listings/';
+			const url = cmcURI + '/listings/';
 			$.get(url)
 				.done(function(list) {
 					if (list) {
-						var id = -1;
+						let id = -1;
 						list.data.some(function(element) {
 							if (element.name === cryptoName) {
 								id = Number(element.id);
@@ -361,7 +361,7 @@
 		 * Get crypto quote on CoinMarketCap, in USD and in EUR
 		 */
 		function getCotation(cryptoId, cb) {
-			var url = cmcURI + '/ticker/' + cryptoId + '/?convert=EUR';
+			const url = cmcURI + '/ticker/' + cryptoId + '/?convert=EUR';
 			$.get(url)
 				.done(function(cotation) {
 					if (cotation) return cb(null, cotation);
@@ -394,7 +394,7 @@
 		}
 
 		function CFValidate() {
-			var valid = true;
+			let valid = true;
 			$('#contact-form input[type=text]').each(function(index) {
 				if (index == 0) { // optional
 					// if ($(this).val() == null || $(this).val() == '') {
@@ -433,7 +433,7 @@
 		}
 
 		function JBFValidate() {
-			var valid = true;
+			let valid = true;
 			$('#joinbox-form input[type=text]').each(function(index) {
 				if (index == 0) { // optional
 					// if ($(this).val() == null || $(this).val() == '') {
@@ -463,7 +463,7 @@
 		}
 
 		function UJBFValidate() {
-			var valid = true;
+			let valid = true;
 			$('#unjoinbox-form input[type=text]').each(function(index) {
 				if (index == 0) {
 					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
@@ -479,7 +479,7 @@
 
 
 		function HFValidate() {
-			var valid = true;
+			let valid = true;
 			$('#head-form input[type=text]').each(function(index) {
 				if (index == 0) {
 					if (!(/(.+)@(.+){2,}\.(.+){2,}/.test($(this).val()))) {
@@ -540,9 +540,9 @@
 		}
 
 		function RFValidate(cb) {
-			var $inputs = $('#referralbox-form input[type=text]');
+			const $inputs = $('#referralbox-form input[type=text]');
 			async.eachOf($inputs, function($input, index, callback) {
-				var val = $($input).val();
+				const val = $($input).val();
 				if (index == 0) {
 					if (val == null || val == '') {
 						$('#referralbox-form').find('input:eq(' + index + ')').addClass('required-error');
@@ -592,7 +592,7 @@
 		 * @return {Boolean} True if duplicates found
 		 */
 		function sameAddresses(addresses) {
-			var same = false;
+			let same = false;
 			addresses.some(function(row1, index1) {
 				addresses.some(function(row2, index2) {
 					if (index1 !== index2) {
@@ -655,7 +655,7 @@
 		//                 errNumSub = 11: Email sending failed
 		//              2: invalid email
 		function showError(err, shorter) {
-			var errTxt = err.errNum == 1
+			const errTxt = err.errNum == 1
 				? $.i18n(shorter.i18nError + err.errNum, '0x10' + pad((err.errNumSub | '0'), 2))
 				: $.i18n(shorter.i18nError + err.errNum);
 			shorter.$errorAlert.html(errTxt).fadeIn('slow').delay(5000).fadeOut('slow');
@@ -719,7 +719,7 @@
 							shorter.$submit.html($.i18n(shorter.i18nSubmit));
 							shorter.$errorAlert.html($.i18n(shorter.i18nCaptcha)).fadeIn('slow').delay(5000).fadeOut('slow');
 						} else {
-							var ser = shorter.$form.serialize();
+							let ser = shorter.$form.serialize();
 							if (mailchimpLanguage !== '') {
 								ser += '&lang=' + mailchimpLanguage;
 							}
@@ -742,14 +742,14 @@
 			/* On button click, Smooth Scrolling */
 			$('.head-content a[href*="#"]').not('[href="#"]').not('[href="#0"]').unbind('click').bind('click', function(event) {
 				if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-					var target = $(this.hash);
+					let target = $(this.hash);
 					target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
 					if (target.length) {
 						event.preventDefault();
 						$('html, body').animate({
 							scrollTop: target.offset().top
 						}, 1000, function() {
-							var $target = $(target);
+							const $target = $(target);
 							$target.focus();
 							if ($target.is(':focus')) {
 								return false;
@@ -774,9 +774,9 @@
 
 		function setBootstrapFormValidity() {
 			// Fetch all the forms we want to apply custom Bootstrap validation styles to
-			var forms = document.getElementsByClassName('legal-form');
+			const forms = document.getElementsByClassName('legal-form');
 			// Loop over them and prevent submission
-			var validation = Array.prototype.filter.call(forms, function(form) {
+			const validation = Array.prototype.filter.call(forms, function(form) {
 				form.addEventListener('submit', function(event) {
 					if (form.checkValidity() === false) {
 						event.preventDefault();
@@ -813,7 +813,7 @@
 		function setCopyButton() {
 			function myFunctionCopy() {
 				/* Get the text field */
-				var copyText = document.getElementById('SSW');
+				const copyText = document.getElementById('SSW');
 				/* Select the text field */
 				copyText.select();
 				/* Copy the text inside the text field */
@@ -822,21 +822,21 @@
 				alert('Copied the text: ' + copyText.value);
 			}
 
-			var currencyFrom = $('.currencyValueFrom');
-			var currencyTo = $('.currencyValueTo');
+			const currencyFrom = $('.currencyValueFrom');
+			const currencyTo = $('.currencyValueTo');
 			currencyFrom.on('input', function() {
-				var amount = $(this).val();
+				const amount = $(this).val();
 				currencyTo.val(amount * coinMarketCapUSD / tokenPriceUSD);
 			});
 			currencyTo.on('input', function() {
-				var amount = $(this).val();
+				const amount = $(this).val();
 				currencyFrom.val(amount * tokenPriceUSD / coinMarketCapUSD);
 			});
 
 			// Clipboard
 
 			if (ClipboardJS.isSupported()) {
-				var clipboard = new ClipboardJS('#btn-wallet-copy', {
+				const clipboard = new ClipboardJS('#btn-wallet-copy', {
 					container: document.getElementById('purchase-modal')
 				});
 				clipboard.on('success', function(e) {
@@ -859,7 +859,7 @@
 		function setAboutAdvantageEffect() {
 			$('.about .advantages').hover(function() {
 				$('.argument0').hide();
-				var show = $(this).data('show');
+				const show = $(this).data('show');
 				$('.' + show).show();
 			}, function() {
 				$('.arguments').children().hide();
@@ -880,7 +880,7 @@
 				'minutes': '<span data-i18n="tokensale-area.flipclock.minutes"></span>',
 				'seconds': '<span data-i18n="tokensale-area.flipclock.seconds"></span>'
 			};
-			var countdown = 100 * 24 * 60 * 60;
+			const countdown = 100 * 24 * 60 * 60;
 			clock = $('.clock').FlipClock(countdown, {
 				clockFace: 'DailyCounter',
 				countdown: true,
@@ -907,15 +907,15 @@
 				return value === 0.45 ? 1 : 0;
 			}
 			function clickOnPip(e) {
-				var noUiSlider = this.noUiSlider;
-				var value = Number(this.getAttribute('data-value'));
+				const noUiSlider = this.noUiSlider;
+				const value = Number(this.getAttribute('data-value'));
 				noUiSlider.set(value);
 			}
-			var VEindex = 0;
-			var FTAPindex = 1;
-			var PXindex = 2;
-			var sliders = document.getElementsByClassName('token-slider');
-			var slidersData = [{
+			const VEindex = 0;
+			const FTAPindex = 1;
+			const PXindex = 2;
+			const sliders = document.getElementsByClassName('token-slider');
+			const slidersData = [{
 				value: 10000000,
 				config: {
 					start: [10000000],
@@ -992,12 +992,12 @@
 				noUiSlider.create(slider, slidersData[index].config);
 				slider.noUiSlider.on('update', function() {
 					slidersData[index].value = slider.noUiSlider.get();
-					var result = ((((365 * slidersData[VEindex].value) * 0.0015) / (100000000 * (slidersData[FTAPindex].value / 100))) / slidersData[PXindex].value) * 100;
+					const result = ((((365 * slidersData[VEindex].value) * 0.0015) / (100000000 * (slidersData[FTAPindex].value / 100))) / slidersData[PXindex].value) * 100;
 					$('.token-simu-percent').text(result.toFixed(0) + '%');
 				});
 				if (index === VEindex || index === PXindex) {
-					var pips = sliders[index].querySelectorAll('.noUi-value');
-					for (var i = 0; i < pips.length; i++) {
+					const pips = sliders[index].querySelectorAll('.noUi-value');
+					for (let i = 0; i < pips.length; i++) {
 						pips[i].style.cursor = 'pointer';
 						pips[i].noUiSlider = sliders[index].noUiSlider;
 						pips[i].addEventListener('click', clickOnPip);
@@ -1011,7 +1011,7 @@
 			$('.team-member').hover(function() {
 				$(this).next('.team-description').show();
 				$(this).parent().addClass('team-hover');
-				var $p;
+				let $p;
 				// TODO: récupérer les valeurs de width à partir de la config bootstrap...
 				$p = $(this).parent().next();
 				if (window.matchMedia('(min-width: 768px)').matches) { $p = $p.next(); }
@@ -1052,9 +1052,9 @@
 				$('[id^=referr]').removeClass('required-error');
 				RFValidate(function(valid) {
 					if (valid) {
-						var ser = $('#referralbox-form').serialize();
-						var list = ser.split('&');
-						var addresses = list.map(function(el) { return el.split('=').pop(); });
+						const ser = $('#referralbox-form').serialize();
+						const list = ser.split('&');
+						const addresses = list.map(function(el) { return el.split('=').pop(); });
 						if (!sameAddresses(addresses)) {
 							$('#referralbox-debug-alert').hide();
 							$('#referralbox-submit').text($.i18n('referralbox.button.sending'));
@@ -1089,7 +1089,7 @@
 			$('[id^=referr]').on('input change', function(e) {
 				$('[id^=referr]').removeClass('required-error');
 			});
-			var nbReferrals = 1;
+			let nbReferrals = 1;
 			$('#referralbox-form').off('click.referraladd').on('click.referraladd', '#referralbox-add', function(e) {
 				e.preventDefault();
 				// supprimer ce bouton
@@ -1117,7 +1117,7 @@
 		// i18n callbacks
 		//--------------------------------------------------------------------------------------------------------------
 
-		var i18nInitCallback = function(_locale, _mailchimpLanguage) {
+		const i18nInitCallback = function(_locale, _mailchimpLanguage) {
 			locale = _locale;
 			moment.locale(_locale);
 			mailchimpLanguage = _mailchimpLanguage;
@@ -1130,11 +1130,11 @@
 			$('#qrcode').attr('src', 'assets/images/qr/en.png');
 			if (_locale === 'fr' || _locale.startsWith('fr_')) $('#qrcode').attr('src', 'assets/images/qr/fr.png');
 			if (_locale === 'es' || _locale.startsWith('es_')) $('#qrcode').attr('src', 'assets/images/es/fr.png');
-			var copied = $.i18n('purchasebox.ico.address.copied');
+			const copied = $.i18n('purchasebox.ico.address.copied');
 			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 		};
 
-		var i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
+		const i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
 			locale = _locale;
 			moment.locale(_locale);
 			mailchimpLanguage = _mailchimpLanguage;
@@ -1148,7 +1148,7 @@
 			$('#qrcode').attr('src', 'assets/images/qr/en.png');
 			if (_locale === 'fr' || _locale.startsWith('fr_')) $('#qrcode').attr('src', 'assets/images/qr/fr.png');
 			if (_locale === 'es' || _locale.startsWith('es_')) $('#qrcode').attr('src', 'assets/images/es/fr.png');
-			var copied = $.i18n('purchasebox.ico.address.copied');
+			const copied = $.i18n('purchasebox.ico.address.copied');
 			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 			if ($('.page-animated').length > 0) {
 				InitWaypointAnimations();	// from theme.js
@@ -1287,20 +1287,20 @@
 
 					// Navbar dropdown on hover
 					$('.navbar .dropdown').on('mouseover', function() {
-						var $this = $(this).find('.dropdown-menu');
+						const $this = $(this).find('.dropdown-menu');
 						if ($this.hasClass('show')) {
 							return false;
 						}
 						$('.dropdown-toggle', this).dropdown('toggle');
 					});
 					$('.navbar .dropdown').on('mouseout', function() {
-						var $this = $(this).find('.dropdown-menu');
+						const $this = $(this).find('.dropdown-menu');
 						if ($this.hasClass('show')) {
 							$('.dropdown-toggle', this).dropdown('toggle');
 						}
 					});
 					$('.navbar .dropdown').on('click', function() {
-						var $this = $(this);
+						const $this = $(this);
 						if ($this.hasClass('show')) {
 							return false;
 						}
