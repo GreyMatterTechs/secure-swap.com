@@ -51,7 +51,7 @@ gulp.task('styles-assets', function() {
 		}))
 		.pipe(gulp.dest(config.assets_dest.css))
 		.pipe(rename({suffix: '.min'}))
-		.pipe(cssnano({autoprefixer: {browsers: supported, add: true}}))
+		.pipe(cssnano({zindex: false, autoprefixer: {browsers: supported, add: true}}))
 		.pipe(gulp.dest(config.assets_dest.css))
 		.pipe(notify({message: 'Assets Styles task complete'}));
 });
@@ -64,7 +64,7 @@ gulp.task('styles-theme-assets', function() {
 		}))
 		.pipe(gulp.dest(config.theme_assets_dest.css))
 		.pipe(rename({suffix: '.min'}))
-		.pipe(cssnano({autoprefixer: {browsers: supported, add: true}}))
+		.pipe(cssnano({zindex: false, autoprefixer: {browsers: supported, add: true}}))
 		.pipe(gulp.dest(config.theme_assets_dest.css))
 		.pipe(notify({message: 'Theme-Assets Styles task complete'}));
 });
@@ -77,7 +77,7 @@ gulp.task('styles-extranet-assets', function() {
 		}))
 		.pipe(gulp.dest(config.extranet_assets_dest.css))
 		.pipe(rename({suffix: '.min'}))
-		.pipe(cssnano({autoprefixer: {browsers: supported, add: true}}))
+		.pipe(cssnano({zindex: false, autoprefixer: {browsers: supported, add: true}}))
 		.pipe(gulp.dest(config.extranet_assets_dest.css))
 		.pipe(notify({message: 'Extranet Assets Styles task complete'}));
 });
@@ -147,7 +147,7 @@ gulp.task('styles-vendor-extranet-assets', function() {
 		.pipe(concat('vendors.css'))
 		.pipe(gulp.dest(config.extranet_assets_dest.vendor))
 		.pipe(rename({suffix: '.min'}))
-		.pipe(cssnano({autoprefixer: {browsers: supported, add: true}}))
+		.pipe(cssnano({ zindex: false, autoprefixer: {browsers: supported, add: true}}))
 		.pipe(gulp.dest(config.extranet_assets_source.vendor))
 		.pipe(concat('vendors.min.css'))
 		.pipe(gulp.dest(config.extranet_assets_dest.vendor))
