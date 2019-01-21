@@ -169,6 +169,21 @@ function unsubscribe(user, cb) {
 }
 
 
+/**
+ * Check if val is a String
+ *
+ * @method isString
+ * @private
+ * @param {String} val The value to check
+ *
+ * @return {Boolean} True if the val is a String
+ */
+function isString(val) {
+	return Object.prototype.toString.call(val) === '[object String]';
+	// return typeof val === 'string' || ((!!val && typeof val === 'object') && Object.prototype.toString.call(val) === '[object String]');
+}
+
+
 function subscribe(user, cb) {
 	mailchimp.subscribe(user)
 		.then(function(response) { // mailchimp.subscribe()
@@ -205,9 +220,13 @@ function subscribe(user, cb) {
 				user.oldStatus = response.status;
 				return mailchimp.resubscribe(user);
 			default:
-				// unknown error
-				logger.info('CheckStatus Form: status: ' + response.status + ' - ' + user.email);
-				return cb({errNum: 1, errNumSub: 8}, null);
+				if (isString(response.status)) {
+					// unknown error
+					logger.info('CheckStatus Form: status: ' + response.status + ' - ' + user.email);
+					return cb({errNum: 1, errNumSub: 8}, null);
+				} else {
+					// Not an error.
+				}
 			}
 		})
 		.then(function(response) { //  mailchimp.resubscribe()
