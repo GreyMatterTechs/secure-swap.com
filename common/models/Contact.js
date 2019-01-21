@@ -182,6 +182,7 @@ function subscribe(user, cb) {
 				return mailchimp.checkStatus(user);
 			default:
 				// unknown error
+				logger.info('Subscribe Form: errNum: ' + response.errNum + ' - ' + user.email);
 				return cb({errNum: 1, errNumSub: 7}, null);
 			}
 		})
@@ -193,15 +194,19 @@ function subscribe(user, cb) {
 				// 2. tell him he has a pending subscription
 				// but we don't know if he received the confirmation email,
 				// so we will use option 1.
+				logger.info('CheckStatus Form: case "pending": ' + user.email);
 				user.oldStatus = response.status;
 				return mailchimp.resubscribe(user); // and then subscribe() again
 			case 'subscribed':		// already registered
+				logger.info('CheckStatus Form: case "subscribed": ' + user.email);
 				return cb(null, {errNum: 3});
 			case 'unsubscribed':	// resubscribe
+				logger.info('CheckStatus Form: case "unsubscribed": ' + user.email);
 				user.oldStatus = response.status;
 				return mailchimp.resubscribe(user);
 			default:
 				// unknown error
+				logger.info('CheckStatus Form: status: ' + response.status + ' - ' + user.email);
 				return cb({errNum: 1, errNumSub: 8}, null);
 			}
 		})
@@ -210,13 +215,18 @@ function subscribe(user, cb) {
 				switch (response.errNum) {
 				case 4: // come from resubscribe()
 				case 5: // come from resubscribe()
-					logger.info('Subscribe Form: Successfully Add pending: ' + user.email);
+					logger.info('ReSubscribe Form: Successfully Add pending: errNum: ' + response.errNum + ' - ' + user.email);
 					return cb(null, {errNum: response.errNum}); // 4: user was unsubcribed
 																// 5: subscription was pending.
 				default:
 					// unknown error
+					logger.info('ReSubscribe Form: errNum: ' + response.errNum + ' - ' + user.email);
 					return cb({errNum: 1, errNumSub: 9}, null);
 				}
+			} else {
+				// unknown error
+				logger.info('ReSubscribe Form: errNum: ' + response.errNum + ' - ' + user.email);
+				return cb({errNum: 1, errNumSub: 9}, null);
 			}
 		})
 		.catch(function(err) {
@@ -227,6 +237,7 @@ function subscribe(user, cb) {
 			//                 errNumSub = 4: Delete user failed
 			//                 errNumSub = 5: Resubscribe user failed
 			//              2: invalid email
+			logger.info('Subscribe Form: Catch err.errNum: ' + err.errNum + ' err.errNumSub: ' + err.errNumSub + ' - ' + user.email);
 			return cb({errNum: err.errNum, errNumSub: err.errNumSub | null}, null);
 		});
 }
@@ -354,8 +365,10 @@ module.exports = function(Contact) {
 			user.firstName = user.firstName === '' ? null : user.firstName;
 			user.lastName = user.lastName === '' ? null : user.lastName;
 			user.language = user.language === '' ? null : user.language;
+			logger.info('Contact#join() subscribe()');
 			return subscribe(user, cb);
 		} else {
+			logger.info('Contact#join() bad email');
 			return cb({errNum: 2}, null); // invalid email
 		}
 	};
@@ -378,8 +391,10 @@ module.exports = function(Contact) {
 		if (validator.isEmail(user.email)) {
 			user.email = validator.normalizeEmail(user.email);
 			user.language = user.language === '' ? null : user.language;
+			logger.info('Contact#unjoin() subscribe()');
 			return unsubscribe(user, cb);
 		} else {
+			logger.info('Contact#unjoin() bad email');
 			return cb({errNum: 2}, null); // invalid email
 		}
 	};
