@@ -1374,9 +1374,9 @@
 				setTimeout(function() {
 					initScroll2Top();
 					notifyJoin();
-				//	if (constantinople === true || constantinople === 'true') {
+					if (constantinople === true || constantinople === 'true') {
 						$('.announces-container').show('slow');
-				//	}
+					}
 					$('body').off('click.announce').on('click.announce', '.announces-container', function(e) {
 						e.preventDefault();
 						$('.announces-container').hide('slow');
