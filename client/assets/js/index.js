@@ -257,7 +257,13 @@
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
 			$('#btn-purchase-sale').show();
-			$('.loading-bar').show();
+			if (purchaseSoldPercent === undefined || purchaseSoldPercent < 10.0) {
+				$('.loading-bar').addClass('lowPercent');
+				$('.token-details').height(280);
+			} else {
+				$('.loading-bar').removeClass('lowPercent');
+				$('.token-details').height(336);
+			}
 		}
 		function setStateICO(ico) {
 			// set timer to remaining time until ICO ends
@@ -267,7 +273,13 @@
 			updateTokenSalesArea();
 			updatePurchaseBoxContent(ico.state);
 			$('#btn-purchase-sale').show();
-			$('.loading-bar').show();
+			if (purchaseSoldPercent === undefined || purchaseSoldPercent < 10.0) {
+				$('.loading-bar').addClass('lowPercent');
+				$('.token-details').height(280);
+			} else {
+				$('.loading-bar').removeClass('lowPercent');
+				$('.token-details').height(336);
+			}
 		}
 		function setStateEndICO(ico) {
 			// remove flipclock

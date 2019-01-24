@@ -528,7 +528,11 @@ header .navbar .dropdown .dropdown-menu a:before {
   left: 1.4rem; }
 
 .token-details .progress-top li.bonus {
-  right: 4rem; }
+  right: -21rem;
+  /* 4rem; */ }
+
+.token-details .loading-bar.lowPercent {
+  display: none; }
 
 #btn-purchase-sale.disabled {
   cursor: not-allowed;
@@ -570,6 +574,10 @@ header .navbar .dropdown .dropdown-menu a:before {
   font-family: 'Font Awesome 5 Free';
   content: '\f105';
   font-weight: 900; }
+
+.token-sale .nosoftcap ul li {
+  color: #c7b8ff;
+  list-style: circle; }
 
 .ico-ended {
   display: none; }
