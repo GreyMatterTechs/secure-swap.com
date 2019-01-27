@@ -1129,39 +1129,32 @@
 		// i18n callbacks
 		//--------------------------------------------------------------------------------------------------------------
 
-		const i18nInitCallback = function(_locale, _mailchimpLanguage) {
-			locale = _locale;
-			moment.locale(_locale);
-			mailchimpLanguage = _mailchimpLanguage;
-			// once the locale file is loaded , we can start other inits that needs i18n ready
+		function i18nUpdate(_locale) {
+			locale = _locale.replace(/_/g, '-').replace(/^"(.*)"$/, '$1').toLowerCase();
+			moment.locale(locale);
+			const parentLocale = locale.split('-')[0];
 			$('input[placeholder]').i18n();
 			$('.socialfb').attr('href', $.i18n('sociallinks.facebook'));
-			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
-			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
-			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
+			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + parentLocale + '.png');
+			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + parentLocale + '.png');
+			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + parentLocale + '.png');
 			$('#qrcode').attr('src', 'assets/images/qr/en.png');
-			if (_locale === 'fr' || _locale.startsWith('fr_')) $('#qrcode').attr('src', 'assets/images/qr/fr.png');
-			if (_locale === 'es' || _locale.startsWith('es_')) $('#qrcode').attr('src', 'assets/images/es/fr.png');
+			if (parentLocale === 'fr')	$('#qrcode').attr('src', 'assets/images/qr/fr.png');
+			if (parentLocale === 'es') $('#qrcode').attr('src', 'assets/images/qr/es.png');
+			if (parentLocale === 'id') $('#qrcode').attr('src', 'assets/images/qr/id.png');
 			const copied = $.i18n('purchasebox.ico.address.copied');
 			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
+		}
+
+		const i18nInitCallback = function(_locale, _mailchimpLanguage) {
+			mailchimpLanguage = _mailchimpLanguage;
+			i18nUpdate(_locale);
 		};
 
 		const i18nUpdateCallback = function(_locale, _mailchimpLanguage) {
-			locale = _locale;
-			moment.locale(_locale);
 			mailchimpLanguage = _mailchimpLanguage;
-			// once the locale is changed, we can update each module that needs i18n strings
-			$('input[placeholder]').i18n();
-			$('.socialfb').attr('href', $.i18n('sociallinks.facebook'));
+			i18nUpdate(_locale);
 			updateTokenSalesArea();
-			$('#token-distribution-img-sales').attr('src', 'assets/images/piecharts/sales-' + _locale + '.png');
-			$('#token-distribution-img-softcap').attr('src', 'assets/images/piecharts/softcap-' + _locale + '.png');
-			$('#token-distribution-img-hardcap').attr('src', 'assets/images/piecharts/hardcap-' + _locale + '.png');
-			$('#qrcode').attr('src', 'assets/images/qr/en.png');
-			if (_locale === 'fr' || _locale.startsWith('fr_')) $('#qrcode').attr('src', 'assets/images/qr/fr.png');
-			if (_locale === 'es' || _locale.startsWith('es_')) $('#qrcode').attr('src', 'assets/images/es/fr.png');
-			const copied = $.i18n('purchasebox.ico.address.copied');
-			$('#btn-wallet-copied-label').data('label', copied).attr('data-label', copied);
 			if ($('.page-animated').length > 0) {
 				InitWaypointAnimations();	// from theme.js
 			}

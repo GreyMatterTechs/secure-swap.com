@@ -8,15 +8,15 @@
 		"path": "client-src/assets",
 		"js": "client-src/assets/js",
 		"sass": "client-src/assets/scss",
-		"vendor": "client-src/assets/vendors"
+		"vendor": "client-src/assets/vendors",
+		"i18n": "client-src/assets/i18n"
 	},
 	"assets_dest": {
 		"path": "client/assets/**",
 		"css": "client/assets/css",
 		"js": "client/assets/js",
 		"vendor": "client/assets/vendors",
-		"i18n": "client/assets/i18n",
-		"vip": "client/assets/i18n_vip"
+		"i18n": "client/assets/i18n"
 	},
 	"theme_assets_source": {
 		"path": "client-src/theme-assets",

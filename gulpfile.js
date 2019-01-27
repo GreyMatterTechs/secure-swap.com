@@ -25,6 +25,7 @@ const gulp			= require('gulp'),
 	  notify		= require('gulp-notify'),
 	  cache			= require('gulp-cache'),
 	  livereload	= require('gulp-livereload'),
+	  jsonminify	= require('gulp-jsonminify'),
 	  del			= require('del'),
 	  config		= require('./gulpconfig.json');
 
@@ -194,10 +195,11 @@ gulp.task('scripts-vendor-extranet-assets', function() {
 // VIP Task.
 // ------------------------------------------
 
-gulp.task('vip-assets', function() {
-	return gulp.src(['en.json', 'fr.json', 'es.json'], {cwd: config.assets_dest.i18n})
-		.pipe(gulp.dest(config.assets_dest.vip))
-		.pipe(notify({message: 'VIP Assets task complete'}));
+gulp.task('i18n-assets', function() {
+	return gulp.src(['*.json'], {cwd: config.assets_source.i18n})
+		.pipe(jsonminify())
+		.pipe(gulp.dest(config.assets_dest.i18n))
+		.pipe(notify({message: 'i18n Assets task complete'}));
 });
 
 // ------------------------------------------
@@ -238,7 +240,7 @@ gulp.task('watch', function() {
 	gulp.watch(config.theme_assets_source.vendor + '/**/*.*', ['styles-vendor-theme-assets', 'scripts-vendor-theme-assets']);
 	gulp.watch(config.extranet_assets_source.vendor + '/**/*.*', ['styles-vendor-extranet-assets', 'scripts-vendor-extranet-assets']);
 	// Watch VIP files
-	gulp.watch(config.assets_dest.i18n + '/**/*.*', ['vip-assets']);
+	gulp.watch(config.assets_source.i18n + '/**/*.*', ['i18n-assets']);
 
 	// Create LiveReload server
 	livereload.listen();
